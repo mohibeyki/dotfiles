@@ -1,0 +1,55 @@
+!! Gotham Theme
+*.foreground:   #98d1ce
+*.background:   #0a0f14
+*.cursorColor:  #98d1ce
+
+*.color0:       #0a0f14
+*.color8:       #10151b
+
+*.color1:       #c33027
+*.color9:       #d26939
+
+*.color2:       #26a98b
+*.color10:      #081f2d
+
+*.color3:       #edb54b
+*.color11:      #245361
+
+*.color4:       #195465
+*.color12:      #093748
+
+*.color5:       #4e5165
+*.color13:      #888ba5
+
+*.color6:       #33859d
+*.color14:      #599caa
+
+*.color7:       #98d1ce
+*.color15:      #d3ebe9
+
+URxvt.intensityStyles:	false
+URxvt.background:       [90]#0a0f14
+URxvt.depth:			32
+URxvt.font: 			xft:Hack:regular:pixelsize=16:antialias=true:hinting=true
+URxvt.scrollBar:		false
+URxvt.cursorColor:		white
+URxvt.perl-ext-common:	default,matcher,resize-font,selection-to-clipboard
+URxvt.perl-lib:			$HOME/.config/Scripts
+URxvt.url-launcher:		/usr/bin/xdg-open
+URxvt.matcher.button:	1
+URxvt.resize-font.smaller:	C-Down
+URxvt.resize-font.bigger:	C-Up
+
+URxvt.colorUL:		#4682B4
+rofi.color-enabled:	true
+rofi.color-window:	#000, #000, #000
+rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
+rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
+rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+
+rofi.fake-transparency:	true
+rofi.lines:		3
+rofi.bw:		0
+rofi.opacity:		"10"
+rofi.hide-scrollbar:	true
+rofi.width:		30

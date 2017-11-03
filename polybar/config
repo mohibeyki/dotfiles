@@ -1,173 +1,157 @@
-;=====================================================
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;
-;=====================================================
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-
-[module/wired-network]
-type = internal/network
-interface = enp30s0
-
-[bar/traybar]
-monitor = ${env:MONITOR:DP-1}
+[bar/top]
+monitor = DP-0
 width = 100%
-height = 25
-bottom = true
+height = 36
 
-background = #00000000
-foreground = #00000000
+background = #e60a0f14
+foreground = #fff
 
-modules-left =
-modules-center = 
-modules-right =
-
-tray-position = right
-tray-padding = 5
-tray-transparent = true
-
-override-redirect = true
-wm-restack = i3
-
-[bar/topbar1]
-monitor = ${env:MONITOR:DP-1}
-width = 100%
-height = 25
-offset-x = 0
-offset-y = 5
+spacing = 2
 padding-right = 5
-padding-left = 5
+padding-left = 0
+module-margin = 4
 
-background = #00000000
-foreground = #07322B
+font-0 = Noto Sans:size=10;1
+font-1 = Unifont:size=8;0
+font-2 = FontAwesome:size=10;2
 
-font-0 = Noto Sans:pixelsize=12;1
-font-1 = unifont:size=6:heavy:fontformat=truetype;-2
-font-2 = siji:pixelsize=10;0
-font-3 = FontAwesome:pixelsize=14;0
-
-modules-left = i3 title
+modules-left = i3
+modules-right = cpu memory wired-network volume custom-power
 modules-center = date
-modules-right = wired-network cpu memory volume
 
-override-redirect = true
-wm-restack = i3
+border-left-size = 15
+border-left-color = #00000000
+border-right-size = 15
+border-right-color = #00000000
+border-top-size = 15
+border-top-color = #00000000
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
 
-[bar/topbar2]
-monitor = ${env:MONITOR:HDMI-0}
-width = 100%
-height = 25
-offset-x = 0
-offset-y = 5
-padding-right = 5
-padding-left = 5
+[module/custom-power]
+type = custom/menu
 
-background = #00000000
-foreground = #07322B
+label-open = 
+label-separator = |
+label-separator-margin = 1
 
-font-0 = Source Sans Pro:pixelsize=12;1
-font-1 = unifont:size=6:heavy:fontformat=truetype;-2
-font-2 = siji:pixelsize=10;0
-font-3 = FontAwesome:pixelsize=14;0
-
-modules-left = i3 title
-modules-center = date
-modules-right = wired-network temperature cpu memory volume
-
-override-redirect = true
-wm-restack = i3
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+format = <label-toggle> <menu>
+format-padding = 1
+menu-0-0 =   shutdown
+menu-0-0-exec = sudo poweroff
+menu-0-1 =   restart
+menu-0-1-exec = sudo reboot
+menu-0-2 =   cancel
 
 [module/i3]
 type = internal/i3
-format = <label-state> <label-mode>
 index-sort = true
-wrapping-scroll = true
-strip-wsnumbers = true
-pin-workspaces = true
 
-label-mode-padding = 5
+format = <label-state> <label-mode>
+format-spacing = 0
 
-label-unfocused-foreground = #07322B
-label-unfocused-padding = 1
-label-visible-foregroud = #07322B
-label-visible-padding = 1
-label-focused-foreground = #475544
-label-focused-padding = 1
-label-urgent-padding = 1
+label-focused = %name%
+label-focused-padding = 4
+label-focused-margin = 0
+label-focused-font = 0
+label-focused-foreground = #fff
+label-focused-background = #1abc9c
 
-[module/date]
-type = internal/date
-interval = 5
+label-unfocused = %name%
+label-unfocused-padding = 4
+label-unfocused-margin = 0
+label-unfocused-background = #eeeeee
+label-unfocused-foreground = #dd222222
+label-unfocused-font = 0
 
-date = "%d/%m/%y"
-date-alt = " %d"
+label-urgent = %index%
+label-urgent-padding = 4
+label-urgent-margin = 0
+label-urgent-font = 0
 
-time = " %H:%M"
-time-alt =  %H:%M
-
-label = %date% %time%
-
-[module/volume]
-type = internal/volume
-
-format-volume = <label-volume> <bar-volume>
-label-volume = ""
-label-volume-foreground = ${root.foreground}
-label-muted = muted
-
-bar-volume-width = 10
-bar-volume-gradient = true
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-
-[module/memory]
-type = internal/memory
-label = %gb_used%/%gb_free%
-label-padding = 10
+label-visible = %index%
+label-visible-padding = 4
+label-visible-margin = 0
+label-visible-font = 0
 
 [module/cpu]
 type = internal/cpu
-format = <label>
-label = CPU %percentage%
-
-[module/temperature]
-type = internal/temperature
 interval = 0.5
-thermal-zone = 0
-warn-temperature = 60
-label = TEMP %temperature%
-label-padding = 10
+format = <label> <ramp-coreload>
+label = CPU
 
-[module/title]
-type = internal/xwindow
-label-maxlen = 50
-format-padding = 5
-format-foregroud = #4F5B47
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
 
-[module/wireless-network]
+[module/date]
+type = internal/date
+date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = RAM
+
+bar-used-width = 30
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+[module/wired-network]
 type = internal/network
-interface = enp0s20f0u1
+interface = enp0s31f6
+interval = 2.0
 
-format-connected = <label-connected>
-format-disconnected = <label-disconnected>
-format-packetloss = <animation-packetloss> <label-connected>
+label-connected =  %local_ip%
+label-disconnected = Ethernet disconnected
+label-disconnected-foreground = #66
 
-label-connected = %essid% %downspeed:9%
+[module/volume]
+type = internal/volume
+master-mixer = Master
 
-label-disconnected = not connected
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = volume %percentage%%
+label-volume-foreground = #ff
+
+label-muted = sound muted
+label-muted-foreground = #ff
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-foreground = #ff
+
+; vim:ft=dosini

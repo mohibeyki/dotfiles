@@ -12,6 +12,7 @@
 set $mod Mod4
 gaps inner 15
 gaps outer 0
+smart_gaps on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -49,8 +50,8 @@ set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 
 # media controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +1%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -1%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +1%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -1%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
@@ -123,8 +124,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 set $workspace-1 "1: Code "
-set $workspace-2 "2: Terminal "
-set $workspace-3 "3: Chrome "
+set $workspace-2 "2: Chrome "
+set $workspace-3 "3: Terminals "
 set $workspace-4 "4: "
 set $workspace-5 "5: "
 set $workspace-6 "6: "
@@ -157,29 +158,7 @@ bindsym $mod+Shift+8 move container to workspace $workspace-8
 bindsym $mod+Shift+9 move container to workspace $workspace-9
 bindsym $mod+Shift+0 move container to workspace $workspace-10
 
-# workspace to monitor assignment
-workspace $workspace-1  output DP-0
-workspace $workspace-2  output DP-0
-
-workspace $workspace-3  output DP-0
-workspace $workspace-4  output DP-0
-
-workspace $workspace-5  output DP-0
-workspace $workspace-6  output DP-0
-
-workspace $workspace-7  output DP-0
-workspace $workspace-8  output DP-0
-
-workspace $workspace-9  output DP-0
-workspace $workspace-10 output DP-0
-
-
 # application configurations
-
-assign [class="Code"] $workspace-1
-assign [class="TelegramDesktop"] $workspace-9
-assign [class="Chromium"] $workspace-3
-for_window [class="Spotify"] move to $workspace-10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -227,7 +206,7 @@ for_window [class="^.*"] border pixel 0
 # Lock i3
 bindsym $mod+shift+x exec i3lock
 
-exec_always feh --bg-fill ~/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
 exec --no-startup-id compton --config ~/.config/compton/config -b
 exec --no-startup-id albert
 exec_always --no-startup-id ~/.config/polybar/run.sh

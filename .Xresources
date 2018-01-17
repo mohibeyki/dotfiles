@@ -1,42 +1,49 @@
-!! Gotham Theme
 *.foreground:   #98d1ce
 *.background:   #0a0f14
 *.cursorColor:  #98d1ce
 
-*.color0:       #0a0f14
-*.color8:       #10151b
+! Black + DarkGrey
+*.color0:       #2c3e50
+*.color8:       #34495e
 
-*.color1:       #c33027
-*.color9:       #d26939
+! DarkRed + Red
+*.color1:       #c0392b
+*.color9:       #e74c3c
 
-*.color2:       #26a98b
-*.color10:      #081f2d
+! DarkGreen + Green
+*.color2:       #27ae60
+*.color10:      #2ecc71
 
-*.color3:       #edb54b
-*.color11:      #245361
+! DarkYellow + Yellow
+*.color3:       #f39c12
+*.color11:      #f1c40f
 
-*.color4:       #195465
-*.color12:      #093748
+! DarkBlue + Blue
+*.color4:       #2980b9
+*.color12:      #3498db
 
-*.color5:       #4e5165
-*.color13:      #888ba5
+! DarkMagenta + Magenta
+*.color5:       #8e44ad
+*.color13:      #9b59b6
 
-*.color6:       #33859d
-*.color14:      #599caa
+! DarkCyan + Cyan
+*.color6:       #16a085
+*.color14:      #1abc9c
 
-*.color7:       #98d1ce
-*.color15:      #d3ebe9
+! LightGrey + White
+*.color7:       #bdc3c7
+*.color15:      #ecf0f1
 
-URxvt.intensityStyles:	false
-URxvt.background:       [90]#0a0f14
-URxvt.depth:			32
-URxvt.font: 			xft:Hack:regular:pixelsize=16:antialias=true:hinting=true
-URxvt.scrollBar:		false
-URxvt.cursorColor:		white
-URxvt.perl-ext-common:	default,matcher,resize-font,selection-to-clipboard
-URxvt.perl-lib:			$HOME/.config/Scripts
-URxvt.url-launcher:		/usr/bin/xdg-open
-URxvt.matcher.button:	1
+URxvt.intensityStyles:		false
+URxvt.background:       	[90]#0a0f14
+URxvt.depth:				32
+URxvt.font: 				xft:Hack:regular:pixelsize=16:antialias=true:hinting=true
+URxvt.scrollBar:			false
+URxvt.cursorColor:			white
+URxvt.perl-ext-common:		default,matcher,resize-font,selection-to-clipboard
+URxvt.perl-lib:				$HOME/.config/Scripts
+URxvt.url-launcher:			/usr/bin/xdg-open
+URxvt.matcher.button:		1
 URxvt.resize-font.smaller:	C-Down
 URxvt.resize-font.bigger:	C-Up
-URxvt.colorUL:		#4682B4
+URxvt.colorUL:				#4682B4

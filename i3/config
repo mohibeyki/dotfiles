@@ -12,7 +12,6 @@
 set $mod Mod4
 gaps inner 15
 gaps outer 0
-smart_gaps on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -53,14 +52,14 @@ set $urgent-bg-color     #E53935
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +1%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -1%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # start dmenu (a program launcher)
 bindsym $mod+shift+d exec rofi -show run -lines 3 -width 80 -font "Noto Sans 16"
-bindsym $mod+d exec albert toggle
+bindsym $mod+d exec --no-startup-id albert toggle
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 
@@ -207,8 +206,8 @@ for_window [class="^.*"] border pixel 0
 bindsym $mod+shift+x exec i3lock
 
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
-exec --no-startup-id compton --config ~/.config/compton/config -b
-exec --no-startup-id albert
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec_always --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id compton --config ~/.config/compton/config -b
+exec --no-startup-id albert
 

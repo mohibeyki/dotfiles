@@ -1,11 +1,42 @@
 [bar/top]
 width = 100%
 height = 36
+monitor = DP-1
 
 background = #e60a0f14
 foreground = #ffffffff
 
 spacing = 2
+padding-right = 5
+padding-left = 5
+module-margin = 4
+
+font-0 = Noto Sans:size=10;1
+font-1 = Unifont:size=8;0
+font-2 = FontAwesome:size=10;2
+
+modules-left = cpu memory
+modules-right = wired-network volume custom-power
+modules-center = date
+
+border-left-size = 15
+border-left-color = #00000000
+
+border-right-size = 15
+border-right-color = #00000000
+
+border-top-size = 15
+border-top-color = #00000000
+
+[bar/bottom]
+width = 100%
+height = 36
+monitor = HDMI-0
+
+background = #e60a0f14
+foreground = #ffffffff
+
+spacing = 0
 padding-right = 5
 padding-left = 0
 module-margin = 4
@@ -15,8 +46,17 @@ font-1 = Unifont:size=8;0
 font-2 = FontAwesome:size=10;2
 
 modules-left = i3
-modules-right = cpu memory wired-network volume custom-power
-modules-center = date
+modules-right = filesystem
+modules-center = 
+
+border-left-size = 15
+border-left-color = #00000000
+
+border-right-size = 15
+border-right-color = #00000000
+
+border-top-size = 15
+border-top-color = #00000000
 
 [module/custom-power]
 type = custom/menu
@@ -30,7 +70,7 @@ format-padding = 1
 menu-0-0 =   shutdown
 menu-0-0-exec = shutdown -P now
 menu-0-1 =   restart
-menu-0-1-exec = shutdown -r
+menu-0-1-exec = shutdown -r now
 menu-0-2 =   cancel
 
 [module/i3]
@@ -66,7 +106,7 @@ label-visible-font = 0
 
 [module/cpu]
 type = internal/cpu
-interval = 0.5
+interval = 1
 format = <label> <ramp-coreload>
 label = CPU
 
@@ -100,12 +140,23 @@ type = internal/date
 date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
 date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 30
+
+format-mounted = <label-mounted>
+label-mounted =   %mountpoint%: %free%
+
+format-unmounted = <label-unmounted>
+label-unmounted =   %mountpoint%: not mounted
+
 [module/memory]
 type = internal/memory
 format = <label> <bar-used>
 label = RAM
 
-bar-used-width = 30
+bar-used-width = 20
 bar-used-foreground-0 = #26a98b
 bar-used-foreground-1 = #26a98b
 bar-used-foreground-2 = #d26939

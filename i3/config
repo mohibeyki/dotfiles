@@ -10,8 +10,9 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-gaps inner 15
+gaps inner 10
 gaps outer 0
+# smart_gaps on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -122,16 +123,16 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace-1 "1: Code "
-set $workspace-2 "2: Chrome "
-set $workspace-3 "3: Terminals "
-set $workspace-4 "4: "
-set $workspace-5 "5: "
-set $workspace-6 "6: "
-set $workspace-7 "7: "
-set $workspace-8 "8: "
-set $workspace-9 "9: Telegram "
-set $workspace-10 "10: Spotify "
+set $workspace-1 "1"
+set $workspace-2 "2"
+set $workspace-3 "3"
+set $workspace-4 "4"
+set $workspace-5 "5"
+set $workspace-6 "6"
+set $workspace-7 "7"
+set $workspace-8 "8"
+set $workspace-9 "9"
+set $workspace-10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace-1

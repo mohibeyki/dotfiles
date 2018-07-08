@@ -9,9 +9,9 @@ background-alt = ${xrdb:color10}
 foreground = ${xrdb:color15}
 
 [res/borders]
-border-size = 10
+border-size = 00
 border-color = #00000000
-border-radius = 6.0
+border-radius = 0.0
 
 [bar/base]
 background = ${res/colors.background}
@@ -44,13 +44,23 @@ modules-center = date
 [bar/bar-b]
 width = 100%
 height = 36
-monitor = HDMI-0
+monitor = HDMI-1
 inherit = bar/base
 padding-left = 0
 
 tray-position = right
 modules-left = i3
 modules-right = filesystem
+modules-center = title
+
+[module/title]
+type = internal/xwindow
+format-background = ${res/colors.background}
+format-foreground = ${res/colors.foreground}
+format-padding = 4
+
+label = %title%
+label-maxlen = 50
 
 [module/custom-power]
 type = custom/menu
@@ -165,7 +175,7 @@ bar-used-empty-foreground = #444444
 
 [module/wired-network]
 type = internal/network
-interface = enp30s0
+interface = enp33s0
 interval = 2.0
 
 label-connected =  %local_ip%
@@ -173,20 +183,38 @@ label-disconnected = Ethernet disconnected
 label-disconnected-foreground = #66
 
 [module/volume]
-type = internal/alsa
+type = internal/volume
+
+; Soundcard to be used
+; Usually in the format hw:#
+; You can find the different card numbers in `/proc/asound/cards`
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+; Name of the master mixer
+; Default: Master
 master-mixer = Master
 
-format-volume = <ramp-volume> <label-volume>
+; Optionally define speaker and headphone mixers
+; Use the following command to list available mixer controls:
+; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
+; If speaker or headphone-soundcard isn't the default, 
+; use `amixer -c #` where # is the number of the speaker or headphone soundcard
+; Default: none
+speaker-mixer = Speaker
+; Default: none
+headphone-mixer = Headphone
 
-label-volume = volume %percentage%%
-label-volume-foreground = #ff
+; NOTE: This is required if headphone_mixer is defined
+; Use the following command to list available device controls
+; $ amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e" | sort
+; You may also need to use `amixer -c #` as above for the mixer names
+; Default: none
+headphone-id = 9
 
-label-muted = sound muted
-label-muted-foreground = #ff
-
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-foreground = #ff
+; Use volume mapping (similar to amixer -M and alsamixer), where the increase in volume is linear to the ear
+; Default: false
+mapped = true
 
 ; vim:ft=dosini

@@ -59,8 +59,8 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # start dmenu (a program launcher)
-bindsym $mod+shift+d exec rofi -show run -lines 3 -width 80 -font "Noto Sans 16"
-bindsym $mod+d exec --no-startup-id albert toggle
+bindsym $mod+d exec rofi -show run -lines 3 -width 80 -font "Noto Sans 16"
+#bindsym $mod+shift+d exec --no-startup-id ulauncher
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 
@@ -209,6 +209,7 @@ bindsym $mod+shift+x exec i3lock
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec_always --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id compton --config ~/.config/compton/config -b
 exec --no-startup-id albert
 

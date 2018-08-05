@@ -12,7 +12,7 @@
 set $mod Mod4
 gaps inner 10
 gaps outer 0
-# smart_gaps on
+smart_gaps on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -60,7 +60,8 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run -lines 3 -width 80 -font "Noto Sans 16"
-#bindsym $mod+shift+d exec --no-startup-id ulauncher
+#bindsym $mod+shift+d exec nes 3 -width 80 -font "Noto Sans 16"
+#bindsym $mod+shift+d exec --no-startup-id albert
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 
@@ -207,9 +208,9 @@ for_window [class="^.*"] border pixel 0
 bindsym $mod+shift+x exec i3lock
 
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
+exec --no-startup-id compton --config ~/.config/compton/config -b
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec_always --no-startup-id xrdb ~/.Xresources
-exec_always --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id compton --config ~/.config/compton/config -b
-exec --no-startup-id albert
+exec_always --no-startup-id xmodmap .xmodmaprc
+exec_always --no-startup-id ~/.screenlayout/default.sh
 

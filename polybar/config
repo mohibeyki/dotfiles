@@ -1,220 +1,449 @@
-[res/colors]
-primary = ${xrdb:color4}
-secondary = ${xrdb:color12}
-alert = ${xrdb:color3}
-# background = ${xrdb:background}
-# background = #00000000
-background = #e60a0f14
-background-alt = ${xrdb:color10}
-foreground = ${xrdb:color15}
+[colors]
+transparent = #00000000
+background = #ee263238
+foreground = #eceff1
+red = #f44336
+blue = #2196f3
+green = #4caf50
+yellow = #ffeb3b
+orange = #ff9800
 
-[res/borders]
-border-size = 00
-border-color = #00000000
-border-radius = 0.0
+[general]
+border_size = 10
+radius = 0
 
-[bar/base]
-background = ${res/colors.background}
-foreground = ${res/colors.foreground}
+[spacing]
+# spacing.left is the spacing from text to icon
+left = 2
+# spacing.right is the spacing to the next module
+right = 10
+# indicator is, f.e. the spacing between the "|" in the powermenu
+indicator = 3
 
-border-top-size = ${res/borders.border-size}
-border-left-size = ${res/borders.border-size}
-border-right-size = ${res/borders.border-size}
-border-color = ${res/borders.border-color}
+uniform-padding = 4
 
-radius = ${res/borders.border-radius}
-spacing = 0
-module-margin = 4
-padding = 4
+[bar/main]
+; Use either of the following command to list available outputs:
+; If unspecified, the application will pick the first one it finds.
+; $ polybar -m | cut -d ':' -f 1
+; $ xrandr -q | grep " connected" | cut -d ' ' -f1
+; monitor = HDMI-0
 
-font-0 = Noto Sans:size=10;1
-font-1 = Unifont:size=8;0
-font-2 = FontAwesome:size=10;2
+; Use the specified monitor as a fallback if the main one is not found.
+; monitor-fallback =
 
-[bar/bar-a]
-width = 100%
+; Require the monitor to be in connected state
+; XRandR sometimes reports my monitor as being disconnected (when in use)
+; monitor-strict = false
+
+; Tell the Window Manager not to configure the window.
+; Use this to detach the bar if your WM is locking its size/position.
+; Note: With this most WMs will no longer reserve space for
+; the bar and it will overlap other windows. You need to configure
+; your WM to add a gap where the bar will be placed.
+; override-redirect = true
+
+; Put the bar at the bottom of the screen
+; bottom = true
+
+; Prefer fixed center position for the `modules-center` block
+; When false, the center position will be based on the size of the other blocks.
+fixed-center = true
+
+; Dimension defined as pixel value (e.g. 35) or percentage (e.g. 50%),
+; the percentage can optionally be extended with a pixel offset like so:
+; 50%:-10, this will result in a width or height of 50% minus 10 pixels
+; width = 93.25%
 height = 36
-monitor = DP-1
-inherit = bar/base
 
-modules-left = cpu memory
-modules-right = wired-network volume custom-power
-modules-center = date
+; Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
+; the percentage can optionally be extended with a pixel offset like so:
+; 50%:-10, this will result in an offset in the x or y direction
+; of 50% minus 10 pixels
+; offset-x = 3.4%
+;offset-y = 12
 
-[bar/bar-b]
-width = 100%
-height = 36
-monitor = HDMI-1
-inherit = bar/base
-padding-left = 0
+; Background ARGB color (e.g. #f00, #ff992a, #ddff1023)
+; background = #CC263238
+background = ${colors.transparent}
 
-tray-position = right
+; Foreground ARGB color (e.g. #f00, #ff992a, #ddff1023)
+foreground = ${colors.foreground}
+
+; Background gradient (vertical steps)
+;   background-[0-9]+ = #aarrggbb
+; background-0 =
+
+; Value used for drawing rounded corners
+; Note: This shouldn't be used together with border-size because the border
+; doesn't get rounded. For this to work you may also need to enable
+; pseudo-transparency or use a compositor like compton.
+; Individual top/bottom values can be defined using:
+;   radius-{top,bottom}
+radius = ${general.radius}
+
+; Under-/overline pixel size and argb color
+; Individual values can be defined using:
+;   {overline,underline}-size
+;   {overline,underline}-color
+line-size = 0
+line-color = ${colors.transparent}
+
+; Values applied to all borders
+; Individual side values can be defined using:
+;   border-{left,top,right,bottom}-size
+;   border-{left,top,right,bottom}-color
+; The top and bottom borders are added to the bar height, so the effective
+; window height is:
+;   height + border-top-size + border-bottom-size
+; Meanwhile the effective window width is defined entirely by the width key and
+; the border is placed withing this area. So you effectively only have the
+; following horizontal space on the bar:
+;   width - border-right-size - border-left-size
+
+
+; Number of spaces to add at the beginning/end of the bar
+; Individual side values can be defined using:
+;   padding-{left,right}
+padding-right = 0
+padding-left  = 0
+
+border-left-size = ${general.border_size}
+border-top-size = ${general.border_size}
+border-right-size = ${general.border_size}
+border-color = ${colors.transparent}
+
+; Number of spaces to add before/after each module
+; Individual side values can be defined using:
+;   module-margin-{left,right}
+module-margin = 0
+
+; Fonts are defined using <font-name>;<vertical-offset>
+; Font names are specified using a fontconfig pattern.
+;   font-0 = NotoSans-Regular:size=8;2
+;   font-1 = MaterialIcons:size=10
+;   font-2 = Termsynu:size=8;-1
+;   font-3 = FontAwesome:size=10
+; See the Fonts wiki page for more details
+font-0 = Inconsolata:bold:size=10;1.5
+font-1 = FontAwesome5Free:style=Solid:size=10;2
+font-2 = Material Icons:style=Regular;2
+
+; Modules are added to one of the available blocks
+;   modules-left = cpu ram
+;   modules-center = xwindow xbacklight
+;   modules-right = ipc clock
 modules-left = i3
-modules-right = filesystem
-modules-center = title
+modules-center = date
+modules-right = network network-speed temperature memory cpu powermenu
 
-[module/title]
-type = internal/xwindow
-format-background = ${res/colors.background}
-format-foreground = ${res/colors.foreground}
-format-padding = 4
+; The separator will be inserted between the output of each module
+separator =
 
-label = %title%
-label-maxlen = 50
+; This value is used to add extra spacing between elements
+; @deprecated: This parameter will be removed in an upcoming version
+spacing = 0
 
-[module/custom-power]
-type = custom/menu
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
 
-label-open = 
-label-separator = |
-label-separator-margin = 1
+; Value to be used to set the WM_NAME atom
+; If the value is empty or undefined, the atom value
+; will be created from the following template: polybar-[BAR]_[MONITOR]
+; NOTE: The placeholders are not available for custom values
+wm-name = i3
 
-format = <label-toggle> <menu>
-format-padding = 1
-menu-0-0 =   shutdown
-menu-0-0-exec = shutdown -P now
-menu-0-1 =   restart
-menu-0-1-exec = shutdown -r now
-menu-0-2 =   cancel
 
+; Position of the system tray window
+; If empty or undefined, tray support will be disabled
+; NOTE: A center aligned tray will cover center aligned modules
+;
+; Available positions:
+;   left
+;   center
+;   right
+;   none
+tray-position = right
+
+; If true, the bar will not shift its
+; contents when the tray changes
+tray-detached = false
+
+; Tray icon max size
+tray-maxsize = 16
+
+; DEPRECATED! Since 3.3.0 the tray always uses pseudo-transparency
+; Enable pseudo transparency
+; Will automatically be enabled if a fully transparent
+; background color is defined using `tray-background`
+tray-transparent = false
+
+; Background color for the tray container
+; ARGB color (e.g. #f00, #ff992a, #ddff1023)
+; By default the tray container will use the bar
+; background color.
+tray-background = ${colors.background}
+
+; Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
+tray-offset-x = 0
+tray-offset-y = 0
+
+; Pad the sides of each tray icon
+tray-padding =
+
+; Scale factor for tray clients
+tray-scale = 1.0
+
+; Restack the bar window and put it above the
+; selected window manager's root
+;
+; Fixes the issue where the bar is being drawn
+; on top of fullscreen window's
+;
+; Currently 333399supported WM's:
+;   bspwm
+;   i3 (requires: `override-redirect = true`)
+; wm-restack =
+
+; Set a DPI values used when rendering text
+; This only affects scalable fonts
+; Set this to 0 to let polybar calculate the dpi from the screen size.
+; dpi =
+dpi-x = 96
+dpi-y = 96
+
+; Enable support for inter-process messaging
+; See the Messaging wiki page for more details.
+enable-ipc = false
+
+; Fallback click handlers that will be called if
+; there's no matching module handler found.
 [module/i3]
 type = internal/i3
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = true
+
+; This will split the workspace name on ':'
+; Default: false
+strip-wsnumbers = true
+
+; Sort the workspaces by index instead of the default
+; sorting that groups the workspaces by output
+; Default: false
 index-sort = true
 
-format = <label-state> <label-mode>
+; Create click handler used to focus workspace
+; Default: true
+enable-click = true
 
-label-focused = %name%
-label-focused-padding = 4
-label-focused-margin = 0
-label-focused-font = 0
-label-focused-foreground = #fff
-label-focused-background = #1abc9c
+; Create scroll handlers used to cycle workspaces
+; Default: true
+enable-scroll = false
 
-label-unfocused = %name%
-label-unfocused-padding = 4
-label-unfocused-margin = 0
-label-unfocused-background = #eeeeee
-label-unfocused-foreground = #dd222222
-label-unfocused-font = 0
+; Wrap around when reaching the first/last workspace
+; Default: true
+wrapping-scroll = false
 
-label-urgent = %name%
-label-urgent-padding = 4
-label-urgent-margin = 0
-label-urgent-font = 0
+; Set the scroll cycle direction
+; Default: true
+reverse-scroll = false
 
-label-visible = %name%
-label-visible-padding = 4
-label-visible-margin = 0
-label-visible-font = 0
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
 
-[module/cpu]
-type = internal/cpu
-interval = 0.5
-format = <label> <ramp-coreload>
-label = CPU
+label-unfocused = %index%
+label-unfocused-foreground = #b0bec5
+label-unfocused-background = #263238
+label-unfocused-padding = 2
 
-ramp-coreload-0 = ▁
-ramp-coreload-0-font = 2
-ramp-coreload-0-foreground = #26a98b
-ramp-coreload-1 = ▂
-ramp-coreload-1-font = 2
-ramp-coreload-1-foreground = #26a98b
-ramp-coreload-2 = ▃
-ramp-coreload-2-font = 2
-ramp-coreload-2-foreground = #26a98b
-ramp-coreload-3 = ▄
-ramp-coreload-3-font = 2
-ramp-coreload-3-foreground = #26a98b
-ramp-coreload-4 = ▅
-ramp-coreload-4-font = 2
-ramp-coreload-4-foreground = #d26939
-ramp-coreload-5 = ▆
-ramp-coreload-5-font = 2
-ramp-coreload-5-foreground = #d26939
-ramp-coreload-6 = ▇
-ramp-coreload-6-font = 2
-ramp-coreload-6-foreground = #c33027
-ramp-coreload-7 = █
-ramp-coreload-7-font = 2
-ramp-coreload-7-foreground = #c33027
+label-focused = %index%
+label-focused-foreground = #eceff1
+label-focused-background = #455a64
+label-focused-padding = 2
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = ${spacing.indicator}
+
+label-open =  
+label-open-foreground = ${colors.red}
+label-open-background = ${colors.background}
+label-open-padding = 2
+
+label-close = 
+label-close-foreground = ${colors.red}
+label-close-background = ${colors.background}
+
+label-close-padding = 2
+
+menu-0-0 = Reboot
+menu-0-0-background = ${colors.background}
+menu-0-0-padding = 2
+menu-0-0-exec = reboot
+menu-0-1 = Shutdown
+menu-0-1-background = ${colors.background}
+menu-0-1-padding = 2
+menu-0-1-exec = poweroff
 
 [module/date]
 type = internal/date
-date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
-date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
-[module/filesystem]
-type = internal/fs
-mount-0 = /
-interval = 30
+; Seconds to sleep between updates
+interval = 1.0
 
-format-mounted = <label-mounted>
-label-mounted =   %mountpoint%: %free%
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %A, %B %d %Y
 
-format-unmounted = <label-unmounted>
-label-unmounted =   %mountpoint%: not mounted
+; Optional time format
+time = %H:%M:%S
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %m-%d-%Y
+time-alt = %H:%M
+
+label = %date% %time%
+label-font = 0
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding = 2
+
+[module/network-speed]
+type = internal/network
+interface = eno1
+
+;format-connected = <ramp-signal>
+label-connected =  %downspeed:8% 
+label-connected-foreground = #ff9800
+label-connected-background = ${colors.background}
+label-connected-padding = 2
+
+;format-disconnected = <label-disconnected>
+label-disconnected = Not connected
+label-disconnected-foreground = ${colors.orange}
+label-disconnected-background = ${colors.background}
+label-disconnected-padding = 2
+
+[module/network]
+type = internal/network
+interface = eno1
+
+;format-connected = <ramp-signal>
+label-connected =  %local_ip% 
+label-connected-foreground = ${colors.green}
+label-connected-background = ${colors.background}
+label-connected-padding = 2
+
+;format-disconnected = <label-disconnected>
+label-disconnected = Not connected
+label-disconnected-foreground = #ff5722
+label-disconnected-background = ${colors.background}
+label-disconnected-padding = 2
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+label-foreground = #5ab414
+format-prefix-foreground = #5ab414
+exec = python ~/.config/spotify_status.py -f '{artist} - {song}'
+
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+
+label =  %percentage:2%%
+
+label-foreground = ${colors.blue}
+label-background = ${colors.background}
+label-padding = 2
 
 [module/memory]
 type = internal/memory
-format = <label> <bar-used>
-label = RAM
 
-bar-used-width = 20
-bar-used-foreground-0 = #26a98b
-bar-used-foreground-1 = #26a98b
-bar-used-foreground-2 = #d26939
-bar-used-foreground-3 = #c33027
-bar-used-indicator = |
-bar-used-indicator-font = 6
-bar-used-indicator-foreground = #ff
-bar-used-fill = ─
-bar-used-fill-font = 6
-bar-used-empty = ─
-bar-used-empty-font = 6
-bar-used-empty-foreground = #444444
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+format = <label>
 
-[module/wired-network]
-type = internal/network
-interface = enp33s0
-interval = 2.0
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
 
-label-connected =  %local_ip%
-label-disconnected = Ethernet disconnected
-label-disconnected-foreground = #66
+label =  %gb_used%
 
-[module/volume]
-type = internal/volume
+label-foreground = ${colors.red}
+label-background = ${colors.background}
+label-padding = 2
 
-; Soundcard to be used
-; Usually in the format hw:#
-; You can find the different card numbers in `/proc/asound/cards`
-master-soundcard = default
-speaker-soundcard = default
-headphone-soundcard = default
+[module/temperature]
+type = internal/temperature
 
-; Name of the master mixer
-; Default: Master
-master-mixer = Master
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
 
-; Optionally define speaker and headphone mixers
-; Use the following command to list available mixer controls:
-; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
-; If speaker or headphone-soundcard isn't the default, 
-; use `amixer -c #` where # is the number of the speaker or headphone soundcard
-; Default: none
-speaker-mixer = Speaker
-; Default: none
-headphone-mixer = Headphone
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
 
-; NOTE: This is required if headphone_mixer is defined
-; Use the following command to list available device controls
-; $ amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e" | sort
-; You may also need to use `amixer -c #` as above for the mixer names
-; Default: none
-headphone-id = 9
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
 
-; Use volume mapping (similar to amixer -M and alsamixer), where the increase in volume is linear to the ear
-; Default: false
-mapped = true
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 60
 
-; vim:ft=dosini
+format = <label>
+
+; Available tags:
+;   <label-warn> (default)
+;   <ramp>
+
+; Available tokens:
+;   %temperature% (deprecated)
+;   %temperature-c%   (default, temperature in °C)
+;   %temperature-f%   (temperature in °F)
+label =  %temperature-c%
+
+label-foreground = ${colors.yellow}
+label-background = ${colors.background}
+label-padding = 2

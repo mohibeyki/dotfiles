@@ -9,10 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 gaps inner 10
 gaps outer 0
-smart_gaps on
+#smart_gaps off
+border_radius 0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -33,7 +34,7 @@ font pango:Noto Sans 12
 floating_modifier $mod
 
 # some variables
-set $term urxvt
+set $term alacritty
 
 # start a terminal
 bindsym $mod+Return exec $term
@@ -59,7 +60,7 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run -lines 3 -width 80 -font "Noto Sans 16"
+bindsym $mod+d exec rofi -show drun -theme slate
 #bindsym $mod+shift+d exec nes 3 -width 80 -font "Noto Sans 16"
 #bindsym $mod+shift+d exec --no-startup-id albert
 
@@ -208,9 +209,9 @@ for_window [class="^.*"] border pixel 0
 bindsym $mod+shift+x exec i3lock
 
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
-exec --no-startup-id compton --config ~/.config/compton/config -b
+exec --no-startup-id picom --config ~/.config/picom.conf -b
+exec --no-startup-id ~/.config/i3/mouse-speed.sh
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec_always --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id xmodmap .xmodmaprc
-exec_always --no-startup-id ~/.screenlayout/default.sh
 

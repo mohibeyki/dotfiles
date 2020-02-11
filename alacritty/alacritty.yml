@@ -1,0 +1,45 @@
+window:
+  padding:
+    x: 8
+    y: 8
+
+colors:
+  # Default colors
+  primary:
+    background: '0x263238'
+    foreground: '0xeceff1'
+
+  # Normal colors
+  normal:
+    black: '0x212121'
+    red: '0xf44336'
+    green: '0x4caf50'
+    yellow: '0xffeb3b'
+    blue: '0x2196f3'
+    magenta: '0xe91e63'
+    cyan: '0x00bcd4'
+    white: '0xC7C7C7'
+
+  # Bright colors
+  bright:
+    black: '0x686868'
+    red: '0xff7961'
+    green: '0x80e27e'
+    yellow: '0xffff72'
+    blue: '0x6ec6ff'
+    magenta: '0xff6090'
+    cyan: '0x62efff'
+    white: '0xFFFFFF'
+font:
+  # Normal (roman) font face
+  normal:
+    # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux) monospace
+    #   - (Windows) Consolas
+    family: 'Hack'
+
+    # The `style` can be specified to pick a specific face.
+    style: Regular

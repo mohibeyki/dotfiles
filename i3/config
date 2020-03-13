@@ -9,11 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 gaps inner 10
 gaps outer 0
 #smart_gaps off
-border_radius 0
+#border_radius 0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -209,9 +209,9 @@ for_window [class="^.*"] border pixel 0
 bindsym $mod+shift+x exec i3lock
 
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
-exec --no-startup-id picom --config ~/.config/picom.conf -b
+exec_always --no-startup-id picom --config ~/.config/picom.conf -b
 exec --no-startup-id ~/.config/i3/mouse-speed.sh
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec_always --no-startup-id xrdb ~/.Xresources
-exec_always --no-startup-id xmodmap .xmodmaprc
+#exec_always --no-startup-id xmodmap .xmodmaprc
 

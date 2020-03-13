@@ -7,7 +7,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
 syntax on

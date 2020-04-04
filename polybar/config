@@ -1,8 +1,8 @@
 [colors]
 transparent = #00000000
-background = #cc263238
-light_background = #ff455a64
-foreground = #eceff1
+background = #263238
+light_background = #546e7a
+foreground = #cfd8dc
 red = #F44336
 
 [general]

@@ -206,11 +206,11 @@ for_window [class="^.*"] border pixel 0
 #}
 
 # Lock i3
-bindsym $mod+shift+x exec i3lock
+bindsym $mod+shift+x exec betterlockscreen -l blur
 
-exec_always --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
+exec_always --no-startup-id betterlockscreen -w
 exec_always --no-startup-id picom --config ~/.config/picom.conf -b
 exec --no-startup-id ~/.config/i3/mouse-speed.sh
 exec_always --no-startup-id ~/.config/polybar/run.sh
 exec --no-startup-id xrdb ~/.Xresources
-exec --no-startup-id xmodmap .xmodmaprc
+exec --no-startup-id xmodmap .Xmodmap

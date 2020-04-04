@@ -25,6 +25,7 @@ SINK_BLACKLIST=(
 # Maps PulseAudio sink names to human-readable names
 declare -A SINK_NICKNAMES
 SINK_NICKNAMES["alsa_output.pci-0000_0d_00.4.analog-stereo"]="Headphones"
+SINK_NICKNAMES["alsa_output.pci-0000_0d_00.4.iec958-stereo"]="Headphones"
 SINK_NICKNAMES["alsa_output.pci-0000_0b_00.1.hdmi-stereo-extra2"]="Monitor"
 
 

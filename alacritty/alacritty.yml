@@ -6,7 +6,7 @@ window:
 colors:
   # Default colors
   primary:
-    background: '0x263238'
+    background: '0x26323888'
     foreground: '0xeceff1'
 
   # Normal colors

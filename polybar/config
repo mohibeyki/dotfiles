@@ -1,7 +1,8 @@
 [colors]
 transparent = #00000000
-background = #455A64
-foreground = #CFD8DC
+background = #cc263238
+light_background = #ff455a64
+foreground = #eceff1
 red = #F44336
 
 [general]
@@ -259,13 +260,13 @@ reverse-scroll = false
 fuzzy-match = true
 
 label-unfocused = %index%
-label-unfocused-foreground = #b0bec5
-label-unfocused-background = #263238
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-background = ${colors.background}
 label-unfocused-padding = 2
 
 label-focused = %index%
-label-focused-foreground = #eceff1
-label-focused-background = #455a64
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.light_background}
 label-focused-padding = 2
 
 [module/pulseaudio-control]
@@ -285,7 +286,7 @@ label-background = ${colors.background}
 label-padding = 2
 
 [module/pulseaudio]
-type = internal/pulseaudio#ff9800
+type = internal/pulseaudio
 
 ; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
 ; If not, uses default sink

@@ -1,12 +1,8 @@
 [colors]
 transparent = #00000000
-background = #ee263238
-foreground = #eceff1
-red = #f44336
-blue = #2196f3
-green = #4caf50
-yellow = #ffeb3b
-orange = #ff9800
+background = #455A64
+foreground = #CFD8DC
+red = #F44336
 
 [general]
 border_size = 10
@@ -125,9 +121,10 @@ module-margin = 0
 ;   font-2 = Termsynu:size=8;-1
 ;   font-3 = FontAwesome:size=10
 ; See the Fonts wiki page for more details
-font-0 = Inconsolata:bold:size=10;1.5
-font-1 = FontAwesome5Free:style=Solid:size=10;2
-font-2 = Material Icons:style=Regular;2
+font-0 = "Inconsolata:bold:size=10;2"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
+font-2 = "Font Awesome 5 Brands:style=Solid:pixelsize=12;2"
+; font-2 = Material Icons:style=Regular;0
 
 ; Modules are added to one of the available blocks
 ;   modules-left = cpu ram
@@ -135,7 +132,7 @@ font-2 = Material Icons:style=Regular;2
 ;   modules-right = ipc clock
 modules-left = i3
 modules-center = date
-modules-right = network network-speed temperature memory cpu powermenu
+modules-right = spotify memory temperature cpu gpu pulseaudio-control powermenu
 
 ; The separator will be inserted between the output of each module
 separator =
@@ -271,6 +268,72 @@ label-focused-foreground = #eceff1
 label-focused-background = #455a64
 label-focused-padding = 2
 
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+label=%output%
+format-underline = ${colors.foreground}
+
+exec = ~/.config/polybar/scripts/pulseaudio-control.bash listen
+click-right = exec pavucontrol &
+click-left = ~/.config/polybar/scripts/pulseaudio-control.bash togmute
+click-middle = ~/.config/polybar/scripts/pulseaudio-control.bash next-sink
+scroll-up = ~/.config/polybar/scripts/pulseaudio-control.bash up
+scroll-down = ~/.config/polybar/scripts/pulseaudio-control.bash down
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding = 2
+
+[module/pulseaudio]
+type = internal/pulseaudio#ff9800
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+; sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+format-volume-foreground = ${colors.foreground}
+format-volume-background = ${colors.background}
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels% (unreleased)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels% (unreleased)
+label-muted = 🔇 muted
+label-muted-foreground = #666
+label-muted-background = ${colors.background}
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+; Right and Middle click (unreleased)
+click-right = exec pavucontrol &
+; click-middle = 
+
 [module/powermenu]
 type = custom/menu
 
@@ -286,7 +349,6 @@ label-open-padding = 2
 label-close = 
 label-close-foreground = ${colors.red}
 label-close-background = ${colors.background}
-
 label-close-padding = 2
 
 menu-0-0 = Reboot
@@ -327,14 +389,14 @@ type = internal/network
 interface = eno1
 
 ;format-connected = <ramp-signal>
-label-connected =  %downspeed:8% 
-label-connected-foreground = #ff9800
+label-connected =  %downspeed:8% 
+label-connected-foreground = ${colors.foreground}
 label-connected-background = ${colors.background}
 label-connected-padding = 2
 
 ;format-disconnected = <label-disconnected>
 label-disconnected = Not connected
-label-disconnected-foreground = ${colors.orange}
+label-disconnected-foreground = ${colors.foreground}
 label-disconnected-background = ${colors.background}
 label-disconnected-padding = 2
 
@@ -344,7 +406,7 @@ interface = eno1
 
 ;format-connected = <ramp-signal>
 label-connected =  %local_ip% 
-label-connected-foreground = ${colors.green}
+label-connected-foreground = ${colors.foreground}
 label-connected-background = ${colors.background}
 label-connected-padding = 2
 
@@ -357,22 +419,25 @@ label-disconnected-padding = 2
 [module/spotify]
 type = custom/script
 interval = 1
-format-prefix = " "
+format-prefix = "  "
 format = <label>
-label-foreground = #5ab414
-format-prefix-foreground = #5ab414
-exec = python ~/.config/spotify_status.py -f '{artist} - {song}'
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+format-prefix-foreground = ${colors.foreground}
+format-prefix-background = ${colors.background}
+exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
+label-padding = 2
 
 [module/cpu]
 type = internal/cpu
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 0.5
+interval = 1
 
-label =  %percentage:2%%
+label =  %percentage:3%%
 
-label-foreground = ${colors.blue}
+label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 label-padding = 2
 
@@ -381,7 +446,7 @@ type = internal/memory
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 0.5
+interval = 1
 format = <label>
 
 ; Available tokens:
@@ -402,9 +467,9 @@ format = <label>
 ;   %gb_swap_free%
 ;   %gb_swap_used%
 
-label =  %gb_used%
+label =  %gb_used%/%gb_total%
 
-label-foreground = ${colors.red}
+label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 label-padding = 2
 
@@ -413,7 +478,7 @@ type = internal/temperature
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 0.5
+interval = 1
 
 ; Thermal zone to use
 ; To list all the zone types, run
@@ -426,11 +491,11 @@ thermal-zone = 0
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
 
 ; Threshold temperature to display warning label (in degrees celsius)
 ; Default: 80
-warn-temperature = 60
+warn-temperature = 80
 
 format = <label>
 
@@ -444,6 +509,16 @@ format = <label>
 ;   %temperature-f%   (temperature in °F)
 label =  %temperature-c%
 
-label-foreground = ${colors.yellow}
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding = 2
+
+[module/gpu]
+type = custom/script
+; format-prefix = "  "
+; format-prefix-background = ${colors.background}
+exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
+interval = 1
+label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 label-padding = 2

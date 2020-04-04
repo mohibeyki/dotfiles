@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 killall -q polybar
-polybar main
+polybar -r main
 

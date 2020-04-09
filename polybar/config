@@ -419,7 +419,7 @@ label-disconnected-padding = 2
 
 [module/spotify]
 type = custom/script
-interval = 1
+interval = 2
 format-prefix = "  "
 format = <label>
 label-foreground = ${colors.foreground}
@@ -434,7 +434,7 @@ type = internal/cpu
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 1
+interval = 2
 
 label =  %percentage:3%%
 
@@ -447,7 +447,7 @@ type = internal/memory
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 1
+interval = 2
 format = <label>
 
 ; Available tokens:
@@ -479,7 +479,7 @@ type = internal/temperature
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 1
+interval = 2
 
 ; Thermal zone to use
 ; To list all the zone types, run
@@ -519,7 +519,7 @@ type = custom/script
 ; format-prefix = "  "
 ; format-prefix-background = ${colors.background}
 exec = ~/.config/polybar/scripts/system-nvidia-smi.sh
-interval = 1
+interval = 2
 label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 label-padding = 2

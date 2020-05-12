@@ -131,7 +131,7 @@ font-2 = "Font Awesome 5 Brands:style=Solid:pixelsize=12;2"
 ;   modules-left = cpu ram
 ;   modules-center = xwindow xbacklight
 ;   modules-right = ipc clock
-modules-left = i3
+modules-left = i3 title
 modules-center = date
 modules-right = spotify memory temperature cpu gpu pulseaudio-control powermenu
 
@@ -523,3 +523,10 @@ interval = 2
 label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 label-padding = 2
+
+[module/title]
+type = internal/xwindow
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding = 2
+label-margin-left = 4

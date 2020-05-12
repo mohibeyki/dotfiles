@@ -220,4 +220,4 @@ exec --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id xmodmap .Xmodmap
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id /usr/bin/dunst
-
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

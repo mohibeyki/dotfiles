@@ -60,9 +60,7 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show drun -theme slate
-#bindsym $mod+shift+d exec nes 3 -width 80 -font "Noto Sans 16"
-#bindsym $mod+shift+d exec --no-startup-id albert
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme slate
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 
@@ -167,7 +165,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -212,10 +210,10 @@ bindsym $mod+shift+x exec betterlockscreen -l blur
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
 bindsym Control+Print exec gnome-screenshot -i
 
-exec_always --no-startup-id betterlockscreen -w
-exec_always --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
+exec --no-startup-id betterlockscreen -w
+exec --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
+exec --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.config/i3/mouse-speed.sh
-exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id xmodmap .Xmodmap
 exec --no-startup-id gnome-settings-daemon

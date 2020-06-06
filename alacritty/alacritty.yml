@@ -32,15 +32,8 @@ colors:
     cyan: '0x62efff'
     white: '0xFFFFFF'
 font:
-  # Normal (roman) font face
+  size: 10.0
   normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux) monospace
-    #   - (Windows) Consolas
     family: 'FiraCode Nerd Font'
-
-    # The `style` can be specified to pick a specific face.
     style: Regular
+

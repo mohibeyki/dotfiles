@@ -210,13 +210,12 @@ bindsym $mod+shift+x exec betterlockscreen -l blur
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
 bindsym Control+Print exec gnome-screenshot -i
 
-exec --no-startup-id betterlockscreen -w
+exec_always --no-startup-id betterlockscreen -w
 exec --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
-exec --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id ~/.config/i3/mouse-speed.sh
-exec --no-startup-id xrdb ~/.Xresources
-exec --no-startup-id xmodmap .Xmodmap
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/i3/mouse-speed.sh
+exec_always --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id xmodmap .Xmodmap
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-

@@ -30,8 +30,8 @@ colors:
     white: '0xFFFFFF'
 
 font:
-  size: 11.0
+  size: 10.0
   normal:
-    family: 'FiraCode Nerd Font'
+    family: FiraCode Nerd Font
     style: Regular
 

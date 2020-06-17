@@ -37,7 +37,7 @@ floating_modifier $mod
 set $term alacritty
 
 # start a terminal
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec --no-startup-id $term
 
 # kill focused window
 bindsym $mod+q kill

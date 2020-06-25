@@ -204,7 +204,7 @@ for_window [class="^.*"] border pixel 0
 #}
 
 # Lock i3
-bindsym $mod+shift+x exec betterlockscreen -l blur
+bindsym $mod+shift+x exec betterlockscreen -l blur --off 20 -t "Don't you dare!"
 
 # Screenshot
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'

@@ -12,6 +12,7 @@
 set $mod Mod4
 gaps inner 10
 gaps outer 0
+smart_gaps true
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -209,7 +210,7 @@ bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures
 bindsym Control+Print exec gnome-screenshot -i
 
 exec_always --no-startup-id betterlockscreen -w
-exec --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
+exec_always --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.config/i3/mouse-speed.sh
 exec_always --no-startup-id xrdb ~/.Xresources

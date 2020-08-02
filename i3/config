@@ -50,8 +50,8 @@ set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 
 # media controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +1%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -1%
+bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/bin/pulseaudio-ctl up 1%
+bindsym XF86AudioLowerVolume exec --no-startup-id /usr/bin/pulseaudio-ctl down 1%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl play-pause

@@ -12,7 +12,7 @@
 set $mod Mod4
 gaps inner 10
 gaps outer 0
-smart_gaps true
+# smart_gaps true
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

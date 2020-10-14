@@ -1,13 +1,13 @@
 [global]
 monitor = 0
 follow = mouse
-geometry = "300x60-20+48"
+geometry = "480x60-20+48"
 indicate_hidden = yes
 shrink = no
 separator_height = 2
 padding = 16
 horizontal_padding = 16
-frame_width = 2
+frame_width = 0
 sort = no
 idle_threshold = 120
 font = Inconsolata 12
@@ -21,13 +21,14 @@ ignore_newline = no
 stack_duplicates = false
 hide_duplicate_count = yes
 show_indicators = no
-icon_position = off
 sticky_history = yes
 history_length = 20
-browser = /usr/bin/google-chrome-stable
+browser = /usr/bin/brave
 always_run_script = true
 title = Dunst
 class = Dunst
+icon_position = left
+max_icon_size = 128
 
 [shortcuts]
 close = ctrl+space

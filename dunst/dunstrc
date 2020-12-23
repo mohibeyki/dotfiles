@@ -23,7 +23,7 @@ hide_duplicate_count = yes
 show_indicators = no
 sticky_history = yes
 history_length = 20
-browser = /usr/bin/brave
+browser = /usr/bin/chromium
 always_run_script = true
 title = Dunst
 class = Dunst
@@ -37,19 +37,19 @@ history = ctrl+grave
 context = ctrl+shift+period
 
 [urgency_low]
-timeout = 4
+timeout = 5
 background = "#263238"
-foreground = "#cfd8dc"
-frame_color = "#62efff"
+foreground = "#eceff1"
+frame_color = "#263238"
 
 [urgency_normal]
-timeout = 8
+timeout = 10
 background = "#263238"
-foreground = "#cfd8dc"
-frame_color = "#546e7a"
+foreground = "#eceff1"
+frame_color = "#263238"
 
 [urgency_critical]
-timeout = 0
-background = "#263238"
-foreground = "#cfd8dc"
-frame_color = "#F44336"
+timeout = 30
+background = "#e53935"
+foreground = "#eceff1"
+frame_color = "#e53935"

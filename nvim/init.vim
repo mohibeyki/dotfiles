@@ -10,10 +10,12 @@ Plug 'scrooloose/nerdtree'
 call plug#end()
 
 syntax on
-set number
-set tabstop=4
+set tabstop=8
+set softtabstop=0
+set expandtab
 set shiftwidth=4
-set noexpandtab
+set smarttab
+set number
 set hlsearch
 set showmatch
 set backspace=indent,eol,start

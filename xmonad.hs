@@ -1,6 +1,22 @@
--- Mohi Beyki XMonad config file
--- Key bindings are close to i3
---
+-- Copyright (c) 2021 Mohi Beyki <mohibeyki@gmail.com>
+
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+
+-- The above copyright notice and this permission notice shall be included in all
+-- copies or substantial portions of the Software.
+
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-- SOFTWARE.
 
 import XMonad
 import Data.Monoid
@@ -10,10 +26,14 @@ import XMonad.Layout.Spacing
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
+import Graphics.X11.ExtraTypes.XF86
+
 import qualified XMonad.StackSet as W
+import qualified XMonad.Layout.Fullscreen as FS
 import qualified Data.Map        as M
 
 -- The preferred terminal program, which is used in a binding below and by
@@ -51,7 +71,7 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = map show [1..9]
+myWorkspaces    = map show [1..10]
 
 -- Colors
 --
@@ -96,10 +116,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_d     ), spawn "rofi -show drun -theme slate")
+    , ((modm,               xK_p     ), spawn "rofi -modi drun -show drun -theme normal")
 
     -- launch gmrun
-    , ((modm .|. shiftMask, xK_d     ), spawn "dmenu_run")
+    , ((modm .|. shiftMask, xK_p     ), spawn "dmenu_run")
 
     -- close focused window
     , ((modm,               xK_q     ), kill)
@@ -159,13 +179,24 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Restart xmonad
     , ((modm .|. shiftMask, xK_r     ), spawn "xmonad --recompile; xmonad --restart")
+
+    -- Media Keys
+    , ((0, xF86XK_AudioRaiseVolume   ), spawn "pulseaudio-ctl up 1%")
+    , ((0, xF86XK_AudioLowerVolume   ), spawn "pulseaudio-ctl down 1%")
+    , ((0, xF86XK_AudioMute          ), spawn "pulseaudio-ctl mute")
+    , ((0, xF86XK_AudioPlay          ), spawn "playerctl play-pause")
+    , ((0, xF86XK_AudioPause         ), spawn "playerctl play-pause")
+    , ((0, xF86XK_AudioStop          ), spawn "playerctl stop")
+    , ((0, xF86XK_AudioNext          ), spawn "playerctl next")
+    , ((0, xF86XK_AudioPrev          ), spawn "playerctl previous")
+    -- , ((modm              , xK_0     ), W.greedyView 10)
     ]
     ++
 
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+    [ ((m .|. modm, k), windows $ f i)
+        | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------
@@ -197,10 +228,13 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout  = spacingRaw False
-                (Border 5 5 5 5) True
-                (Border 5 5 5 5) True
-                    $ (tiled ||| Mirror tiled ||| Full)
+
+-- Gapped Layout
+--
+myLayout =  avoidStruts
+            $ spacingRaw False (Border 5 5 5 5) True (Border 5 5 5 5) True
+            $ tiled ||| Mirror tiled ||| Full
+ 
     where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -209,7 +243,7 @@ myLayout  = spacingRaw False
     nmaster = 1
 
     -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
+    ratio   = 0.6
 
     -- Percent of screen to increment by when resizing panes
     delta   = 4/100
@@ -232,9 +266,12 @@ myLayout  = spacingRaw False
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , resource  =? "polybar"        --> doIgnore
+    , resource  =? "Polybar"        --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+    , isFullscreen                  --> doFullFloat
+    , FS.fullscreenManageHook
+    ]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -245,7 +282,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = ewmhDesktopsEventHook
+myEventHook = fullscreenEventHook <+> ewmhDesktopsEventHook
 
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
@@ -261,9 +298,9 @@ myLogHook = return ()
 --
 myStartupHook = do
     spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
-    spawn "feh --bg-scale ~/Pictures/wallpaper.png &"
-    spawn "picom -b --experimental-backends &"
-    spawn "~/.config/i3/mouse-speed.sh &"
+    spawnOnce "betterlockscreen -w &"
+    spawnOnce "picom -b --experimental-backends &"
+    spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -274,10 +311,8 @@ myStartupHook = do
 
 -- main :: IO ()
 main = do
-    xmproc <- spawnPipe "~/.config/polybar/launch.sh xmonad"
-    xmonad 
-        $ ewmh
-        $ docks defaults
+    xmproc <- spawnPipe "~/.config/scripts/polybar/launch.sh"
+    xmonad $ ewmh $ docks defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -301,7 +336,7 @@ defaults = def {
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
-    layoutHook         = avoidStruts $ myLayout,
+    layoutHook         = myLayout,
     manageHook         = myManageHook,
     handleEventHook    = myEventHook,
     logHook            = myLogHook,

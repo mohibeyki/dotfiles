@@ -16,7 +16,7 @@ gaps outer 0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Noto Sans 12
+font pango:FiraCode Nerd Font 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -122,16 +122,16 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace-1 "1"
-set $workspace-2 "2"
-set $workspace-3 "3"
-set $workspace-4 "4"
-set $workspace-5 "5"
-set $workspace-6 "6"
-set $workspace-7 "7"
-set $workspace-8 "8"
-set $workspace-9 "9"
-set $workspace-10 "10"
+set $workspace-1 "1:Chrome"
+set $workspace-2 "2:Code"
+set $workspace-3 "3:Terminal"
+set $workspace-4 "4:"
+set $workspace-5 "5:"
+set $workspace-6 "6:"
+set $workspace-7 "7:"
+set $workspace-8 "8:"
+set $workspace-9 "9:"
+set $workspace-10 "10:Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace-1

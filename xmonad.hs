@@ -100,7 +100,7 @@ bluegray  = "#546e7a"
 
 -- Font
 --
-myFont = "xft:Fira Code Nerd Font:fontformat=truetype:size=10:antialias=true"
+myFont = "xft:FiraCode Nerd Font:fontformat=truetype:size=10:antialias=true"
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -189,7 +189,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0, xF86XK_AudioStop          ), spawn "playerctl stop")
     , ((0, xF86XK_AudioNext          ), spawn "playerctl next")
     , ((0, xF86XK_AudioPrev          ), spawn "playerctl previous")
-    -- , ((modm              , xK_0     ), W.greedyView 10)
     ]
     ++
 
@@ -298,9 +297,10 @@ myLogHook = return ()
 --
 myStartupHook = do
     spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
-    spawnOnce "betterlockscreen -w &"
-    spawnOnce "picom -b --experimental-backends &"
+    spawnOnce "/usr/bin/betterlockscreen -w &"
+    spawnOnce "/usr/bin/picom -b --experimental-backends &"
     spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
+    spawnOnce "/usr/bin/numlockx on"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

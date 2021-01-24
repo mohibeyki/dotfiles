@@ -301,6 +301,7 @@ myStartupHook = do
     spawnOnce "/usr/bin/picom -b --experimental-backends &"
     spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
     spawnOnce "/usr/bin/numlockx on"
+    spawnOnce "xsetroot -cursor_name left_ptr"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

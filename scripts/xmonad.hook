@@ -1,0 +1,12 @@
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Type=Package
+Target=xmonad*
+Target=haskell*
+
+[Action]
+Description=Rebuild xmonad
+When=PostTransaction
+Exec=/usr/bin/runuser -u mohi -- /usr/bin/xmonad --recompile
+

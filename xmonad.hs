@@ -299,6 +299,8 @@ myStartupHook = do
     spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
     spawnOnce "/usr/bin/betterlockscreen -w &"
     spawnOnce "/usr/bin/picom -b --experimental-backends &"
+    spawnOnce "/usr/bin/dunst &"
+    spawnOnce "/usr/bin/xmodmap ~/.Xmodmap &"
     spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
     spawnOnce "/usr/bin/numlockx on"
     spawnOnce "xsetroot -cursor_name left_ptr"

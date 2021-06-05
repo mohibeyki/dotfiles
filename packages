@@ -1,0 +1,16 @@
+xmonad
+xmonad-contrib
+gnome
+gnome-extra
+dunst
+polybar
+picom-git
+rofi
+pulseaudio-ctl
+playerctl
+betterlockscreen
+xorg-xmodmap
+xorg-xsetroot
+xorg-xinput
+numlockx
+

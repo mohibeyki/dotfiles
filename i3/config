@@ -123,7 +123,7 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace-1 "1:Chrome"
+set $workspace-1 "1:Browser"
 set $workspace-2 "2:Code"
 set $workspace-3 "3:Terminal"
 set $workspace-4 "4:"
@@ -210,13 +210,12 @@ bindsym $mod+shift+x exec betterlockscreen -l blur --off 20 -t "Don't you dare!"
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
 bindsym Control+Print exec gnome-screenshot -i
 
+exec_always --no-startup-id picom -b --experimental-backends
 exec_always --no-startup-id betterlockscreen -w
-exec_always --no-startup-id picom --config ~/.config/picom.conf -b --experimental-backends
 exec_always --no-startup-id ~/.config/scripts/polybar/launch.sh i3
 exec_always --no-startup-id ~/.config/scripts/mouse/mouse-speed.sh
 exec_always --no-startup-id xrdb ~/.Xresources
-exec_always --no-startup-id xmodmap .Xmodmap
-exec --no-startup-id gnome-settings-daemon
+exec_always --no-startup-id xmodmap ~/.Xmodmap
+exec_always --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-

@@ -1,5 +1,3 @@
-xmonad
-xmonad-contrib
 gnome
 gnome-extra
 dunst
@@ -13,4 +11,4 @@ xorg-xmodmap
 xorg-xsetroot
 xorg-xinput
 numlockx
-
+i3-gaps

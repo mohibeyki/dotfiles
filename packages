@@ -10,3 +10,7 @@ xorg-xsetroot
 xorg-xinput
 numlockx
 i3-gaps
+neovim
+alacritty
+nerd-fonts-fira-code
+code

@@ -203,7 +203,8 @@ for_window [class="^.*"] border pixel 0
 #}
 
 # Lock i3
-bindsym $mod+shift+x exec betterlockscreen -l blur --off 20 -t "Don't you dare!"
+# bindsym $mod+shift+x exec betterlockscreen -l blur --off 20 -t "Don't you dare!"
+bindsym $mod+shift+x exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
 # Screenshot
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
@@ -218,3 +219,7 @@ exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
+exec --no-startup-id /usr/bin/gnome-screensaver
+

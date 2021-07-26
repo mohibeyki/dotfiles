@@ -296,13 +296,14 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 myStartupHook = do
-    spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
-    spawnOnce "/usr/bin/betterlockscreen -w &"
     spawnOnce "/usr/bin/picom -b --experimental-backends &"
-    spawnOnce "/usr/bin/dunst &"
-    spawnOnce "/usr/bin/xmodmap ~/.Xmodmap &"
+    spawnOnce "/usr/bin/betterlockscreen -w &"
     spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
+    spawnOnce "/usr/bin/xrdb ~/.Xresources &"
+    spawnOnce "/usr/bin/xmodmap ~/.Xmodmap &"
     spawnOnce "/usr/bin/numlockx on"
+    spawnOnce "/usr/bin/dunst &"
+    spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
     spawnOnce "xsetroot -cursor_name left_ptr"
 
 ------------------------------------------------------------------------
@@ -314,7 +315,7 @@ myStartupHook = do
 
 -- main :: IO ()
 main = do
-    xmproc <- spawnPipe "~/.config/scripts/polybar/launch.sh"
+    xmproc <- spawnPipe "~/.config/scripts/polybar/launch.sh ewmh"
     xmonad $ ewmh $ docks defaults
 
 -- A structure containing your configuration settings, overriding
@@ -345,4 +346,3 @@ defaults = def {
     logHook            = myLogHook,
     startupHook        = myStartupHook
 }
-

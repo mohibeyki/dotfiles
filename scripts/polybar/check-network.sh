@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 count=0
-disconnected="睊"
-wireless_connected="直"
-ethernet_connected="泌"
+disconnected=""
+wireless_connected=""
+ethernet_connected=""
 
 ID="$(ip link | awk '/state UP/ {print $2}')"
 

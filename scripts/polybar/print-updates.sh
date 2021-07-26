@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-BAR_ICON=""
+BAR_ICON=""
 NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/system-software-update.svg
 
 get_total_updates() { UPDATES=$(~/.config/scripts/polybar/check-updates.sh 2>/dev/null | wc -l); }

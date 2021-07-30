@@ -43,7 +43,7 @@ while true; do
     # every 10 minutes another check for updates is done
     while (( UPDATES > 0 )); do
         if (( UPDATES >= 1 )); then
-            echo " $UPDATES"
+            echo "$BAR_ICON $UPDATES"
         else
             echo $BAR_ICON
         fi

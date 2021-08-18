@@ -31,13 +31,10 @@ while true; do
     if (( UPDATES > 50 )); then
         notify-send -u critical -i $NOTIFY_ICON \
             "You really need to update!" "$UPDATES New packages"
-    elif (( UPDATES > 25 )); then
+    elif (( UPDATES > 0 )); then
         notify-send -u normal -i $NOTIFY_ICON \
             "You should update soon!" "$UPDATES New packages"
-    elif (( UPDATES > 2 )); then
-        notify-send -u low -i $NOTIFY_ICON \
-            "$UPDATES New packages"
-    fi
+   fi
 
     # when there are updates available
     # every 10 minutes another check for updates is done

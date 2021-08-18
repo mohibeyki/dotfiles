@@ -115,11 +115,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
 
-    -- launch dmenu
-    , ((modm,               xK_p     ), spawn "rofi -modi drun -show drun -theme normal")
+    -- launch albert
+    , ((modm,               xK_p     ), spawn "albert toggle")
 
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "dmenu_run")
+    -- launch rofi
+    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -modi drun -show drun -theme normal")
 
     -- close focused window
     , ((modm,               xK_q     ), kill)
@@ -300,11 +300,12 @@ myStartupHook = do
     spawnOnce "/usr/bin/betterlockscreen -w &"
     spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
     spawnOnce "/usr/bin/xrdb ~/.Xresources &"
-    spawnOnce "/usr/bin/xmodmap ~/.Xmodmap &"
+    spawnOnce "/usr/bin/xmodmap ~/.config/.Xmodmap &"
     spawnOnce "/usr/bin/numlockx on"
     spawnOnce "/usr/bin/dunst &"
     spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
     spawnOnce "xsetroot -cursor_name left_ptr"
+    spawnOnce "/usr/bin/albert"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

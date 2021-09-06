@@ -5,8 +5,6 @@ configuration {
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
-    fullscreen:                     false;
-	hide-scrollbar: 				true;
 	sidebar-mode: 					false;
 }
 
@@ -88,15 +86,20 @@ element {
 }
 
 element-icon {
-    size:                           64px;
+    background-color:               @background-alt;
+    size:                           80px;
     border:                         0px;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
 }
 
 element-text {
+    background-color:               @background-alt;
+    text-color:                     @foreground;
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    margin:                         0 8px;
+    margin:                         8px 8px 0 8px;
 }
 
 element selected {

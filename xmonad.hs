@@ -116,10 +116,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch albert
-    , ((modm,               xK_p     ), spawn "albert toggle")
+    , ((modm              , xK_p     ), spawn "rofi -modi drun -show drun -theme normal")
 
     -- launch rofi
-    , ((modm .|. shiftMask, xK_p     ), spawn "rofi -modi drun -show drun -theme normal")
+    , ((modm .|. shiftMask, xK_p     ), spawn "dmenu_run")
 
     -- close focused window
     , ((modm,               xK_q     ), kill)

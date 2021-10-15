@@ -16,7 +16,15 @@ configuration {
     sidebar-mode:                   false;
 }
 
-@import "colors.rasi"
+* {
+    background:                     #000a12ff;
+    background-alt:                 #ffffff0a;
+    background-active:              #ffffff28;
+    foreground:                     #eceff1ff;
+    border:               			#00000000;
+    border-alt:               		#546e7aff;
+    transparent:                    #00000000;
+}
 
 window {
     transparency:                   "real";
@@ -28,6 +36,7 @@ window {
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
+    border-radius:                  16px;
 }
 
 prompt {
@@ -51,7 +60,7 @@ inputbar {
     text-color:                     @foreground;
     expand:                         false;
     border:                         0;
-    border-radius:                  8px;
+    border-radius:                  16px;
     border-color:                   @border;
     padding:                        16px 24px;
     position:                       center;
@@ -67,7 +76,7 @@ listview {
 }
 
 mainbox {
-    background-color:               @background;
+    background-color:               @transparent;
     children:                       [ inputbar, listview ];
     spacing:                        48px;
     padding:                        48px 48px;
@@ -77,7 +86,7 @@ element {
     background-color:               @background-alt;
     text-color:                     @foreground;
     orientation:                    horizontal;
-    border-radius:                  8px;
+    border-radius:                  16px;
 }
 
 element-text {
@@ -90,33 +99,10 @@ element-text {
     padding:                        64px;
 }
 
-element normal.urgent,
-element alternate.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-    border-radius:                  8px;
-}
-
-element normal.active,
-element alternate.active {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
-}
-
-element selected {
-    background-color:               @selected;
+element-text selected {
+    background-color:               @background-active;
     text-color:                     @foreground;
     border:                         None;
-    border-radius:                  8px;
+    border-radius:                  16px;
     border-color:                   @border;
-}
-
-element selected.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-}
-
-element selected.active {
-    background-color:               @background-alt;
-    color:                          @foreground;
 }

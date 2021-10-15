@@ -9,10 +9,10 @@ configuration {
 }
 
 * {
-    background:                     #000a1260;
+    background:                     #000a12ff;
     background-alt:              	#00000000;
-    background-bar:                 #f2f2f215;
-    foreground:                     #eceff1EE;
+    background-bar:                 #ffffff28;
+    foreground:                     #eceff1ff;
     accent:			            	#546e7a66;
 }
 
@@ -21,7 +21,7 @@ window {
     text-color:                     @foreground;
 	border:							0px;
 	border-color:					@border;
-    border-radius:                  0px;
+    border-radius:                  16px;
 	width:							40%;
     location:                       center;
     x-offset:                       0;
@@ -52,7 +52,7 @@ inputbar {
     text-color:                     @foreground;
     expand:                         false;
 	border:							0;
-    border-radius:                  8px;
+    border-radius:                  16px;
 	border-color:					@accent;
     margin:                         0% 0% 0% 0%;
     padding:                        16px;
@@ -106,6 +106,6 @@ element selected {
     background-color:               @background-bar;
     text-color:                     @foreground;
 	border:							0;
-    border-radius:                  8px;
+    border-radius:                  16px;
     border-color:                  	@accent;
 }

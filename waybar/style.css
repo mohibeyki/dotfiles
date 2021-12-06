@@ -1,0 +1,131 @@
+/*
+ ********************************************
+ *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░*
+ *░░█▀█░█░░░█░█░█▀▀░░░█░█░█░░░▀█▀░█▀▄░█▀█░░*
+ *░░█▀▀░█░░░█░█░▀▀█░░░█░█░█░░░░█░░█▀▄░█▀█░░*
+ *░░▀░░░▀▀▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░░▀░░▀░▀░▀░▀░░*
+ *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░*
+ ********************************************
+ */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FiraCode Nerd Font;
+    font-size: 13px;
+    min-height: 0;
+    transition: none;
+}
+
+window>box {
+    padding: 8px 8px 0 8px;
+}
+
+window#waybar {
+    background-color: transparent;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#custom-menu {
+    padding: 0 10px;
+    border-radius: 16px;
+    min-height: 32px;
+    background-color: #263238;
+    color: #cfd8dc;
+    transition: none;
+}
+
+#workspaces {
+    margin-left: 8px;
+    min-height: 32px;
+    border-radius: 16px;
+    background-color: #37474f;
+    color: #cfd8dc;
+    transition: none;
+}
+
+#workspaces button {
+    padding: 0 12px;
+    border-radius: 16px;
+    min-height: 32px;
+    transition: none;
+    color: #cfd8dc;
+    background-color: transparent;
+}
+
+#workspaces button.focused {
+    color: #ffffff;
+    background-color: #607d8b;
+}
+
+#workspaces button:hover {
+    color: #ffffff;
+}
+
+#custom-spotify {
+    margin-left: 8px;
+    padding: 0 12px;
+    border-radius: 16px;
+    color: #cfd8dc;
+    background-color: #455a64;
+}
+
+#window {
+    padding: 0 12px;
+    border-radius: 16px;
+    color: #cfd8dc;
+    background-color: #455a64;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+#cpu {
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #78909c;
+    border-radius: 16px 0 0 16px;
+}
+
+#memory {
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #78909c;
+}
+
+#pulseaudio {
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #607d8b;
+}
+
+#custom-pacman {
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #546e7a;
+}
+
+#network {
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #455a64;
+}
+
+#clock {
+    margin-right: 8px;
+    padding: 0 12px;
+    color: #cfd8dc;
+    background-color: #37474f;
+    border-radius: 0 16px 16px 0;
+}
+
+#custom-power {
+    padding: 0 10px;
+    color: #cfd8dc;
+    border-radius: 16px;
+    background-color: #263238;
+}

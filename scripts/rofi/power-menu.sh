@@ -44,7 +44,7 @@ case $chosen in
         ;;
     $lock)
 		if [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
+			betterlockscreen -l -- --ind-pos="x+296:y+h-72"
 		elif [[ -f /usr/bin/slock ]]; then
 			slock
 		fi

@@ -8,52 +8,60 @@
  */
 
 configuration {
-	font:							"FiraCode Nerd Font 12";
+    font:                           "FiraCode Nerd Font 12";
     show-icons:                     false;
-	icon-theme: 					"Papirus";
+    icon-theme:                     "Papirus";
     drun-display-format:            "{name}";
     disable-history:                false;
-    fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+    sidebar-mode:                   false;
 }
 
-@import "colors.rasi"
+* {
+    background:                     #000a12ff;
+    background-alt:                 #ffffff0a;
+    background-active:              #ffffff28;
+    foreground:                     #eceff1ff;
+    border:               			#00000000;
+    border-alt:               		#546e7aff;
+    transparent:                    #00000000;
+}
 
 window {
+    transparency:                   "real";
     background-color:               @background;
     text-color:                     @foreground;
     border-radius:                  0;
-    height:                         364px; /* 220 w/o padding */
-    width:                          1104px; /* 864 w/o padding */
+    height:                         368px;
+    width:                          1144px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
+    border-radius:                  16px;
 }
 
 prompt {
-    enabled: 						true;
+    enabled:                        true;
     padding:                        0;
-	background-color: 				@transparent;
-	text-color: 					@foreground;
+    background-color:               @transparent;
+    text-color:                     @foreground;
 }
 
 textbox-prompt-colon {
-	expand: 						false;
-	str: 							"System |";
-	background-color: 				@transparent;
-	text-color: 					@foreground;
+    expand:                         false;
+    str:                            "System |";
+    background-color:               @transparent;
+    text-color:                     @foreground;
     padding:                        0;
 }
 
 inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
+    children:                       [ textbox-prompt-colon, prompt ];
     background-color:               @background-alt;
     text-color:                     @foreground;
     expand:                         false;
-    border:                  		0;
-    border-radius:                  8px;
-    border-color:                  	@border;
+    border:                         0;
+    border-radius:                  16px;
+    border-color:                   @border;
     padding:                        16px 24px;
     position:                       center;
 }
@@ -68,7 +76,7 @@ listview {
 }
 
 mainbox {
-    background-color:               @background;
+    background-color:               @transparent;
     children:                       [ inputbar, listview ];
     spacing:                        48px;
     padding:                        48px 48px;
@@ -78,44 +86,23 @@ element {
     background-color:               @background-alt;
     text-color:                     @foreground;
     orientation:                    horizontal;
-    border-radius:                  8px;
+    border-radius:                  16px;
 }
 
 element-text {
-	font:							"feather 32";
+    background-color:               @background-alt;
+    text-color:                     @foreground;
+    font:                           "feather 32";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    padding:                        60px 60px 88px;
+    padding:                        64px;
 }
 
-element normal.urgent,
-element alternate.urgent {
-    background-color:               @urgent;
+element-text selected {
+    background-color:               @background-active;
     text-color:                     @foreground;
-    border-radius:                  8px;
-}
-
-element normal.active,
-element alternate.active {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
-}
-
-element selected {
-    background-color:               @selected;
-    text-color:                     @foreground;
-    border:                  		None;
-    border-radius:                  8px;
-    border-color:                  	@border;
-}
-
-element selected.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-}
-
-element selected.active {
-    background-color:               @background-alt;
-    color:                          @foreground;
+    border:                         None;
+    border-radius:                  16px;
+    border-color:                   @border;
 }

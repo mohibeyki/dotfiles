@@ -21,8 +21,8 @@ configuration {
     background-alt:                 #ffffff0a;
     background-active:              #ffffff28;
     foreground:                     #eceff1ff;
-    border:               			#00000000;
-    border-alt:               		#546e7aff;
+    border:                         #00000000;
+    border-alt:                     #546e7aff;
     transparent:                    #00000000;
 }
 
@@ -31,7 +31,7 @@ window {
     background-color:               @background;
     text-color:                     @foreground;
     border-radius:                  0;
-    height:                         368px;
+    height:                         376px;
     width:                          1144px;
     location:                       center;
     x-offset:                       0;

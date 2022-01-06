@@ -64,7 +64,7 @@
     },
     "pulseaudio": {
         "tooltip": false,
-        "scroll-step": 5,
+        "scroll-step": 1,
         "format": "{icon} {volume}%",
         "format-icons": {
             "default": [

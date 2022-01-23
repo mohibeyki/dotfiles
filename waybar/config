@@ -2,8 +2,7 @@
     "layer": "top",
     "modules-left": [
         "custom/menu",
-        "sway/workspaces",
-        "custom/spotify"
+        "sway/workspaces"
     ],
     "modules-center": [
         "sway/window"
@@ -40,13 +39,6 @@
             "3": [],
             "10": []
         }
-    },
-    "custom/spotify": {
-        "format": "{}",
-        "escape": true,
-        "max-length": 40,
-        "exec": "playerctl -p spotify metadata --format \"{{ title }} - {{ artist}}\" -F 2> /dev/null",
-        "exec-if": "pgrep spotify"
     },
     "custom/pacman": {
         "format": "{}",

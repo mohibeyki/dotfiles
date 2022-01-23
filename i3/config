@@ -212,11 +212,10 @@ bindsym Control+Print exec gnome-screenshot -i
 
 exec_always --no-startup-id picom -b --experimental-backends
 exec_always --no-startup-id betterlockscreen -w
-exec_always --no-startup-id ~/.config/scripts/polybar/launch.sh i3
+exec_always --no-startup-id ~/.config/scripts/polybar/launch.sh
 exec_always --no-startup-id ~/.config/scripts/mouse/mouse-speed.sh
 exec_always --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id xmodmap ~/.config/.Xmodmap
 exec_always --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id /usr/bin/albert

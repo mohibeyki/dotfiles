@@ -8,13 +8,16 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
 set $term alacritty
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -26,8 +29,12 @@ gaps outer 0
 
 ### Output configuration
 #
+# Adaptive Sync currently does not work on nvidia gpus
+output * adaptive_sync on
+output * max_render_time 6
+
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/735562.jpg fill
+output * bg ~/Pictures/mclaren.png fill
 #
 # Example configuration:
 #
@@ -204,6 +211,8 @@ include /etc/sway/config.d/*
 
 input type:keyboard xkb_options altwin:swap_lalt_lwin
 input type:keyboard xkb_numlock enabled
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 bar { 
     swaybar_command waybar

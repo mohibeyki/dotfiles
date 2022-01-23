@@ -5,15 +5,14 @@ neovim
 nerd-fonts-fira-code
 nerd-fonts-hack
 playerctl
+polkit-gnome
 pulseaudio-ctl
 rofi
 swaybg-git
 sway-git
-sway-git-debug
 visual-studio-code-bin
 waybar-git
 wlroots-eglstreams-git
-wlroots-git-debug
 wmctrl
 xorgproto-git
 xorg-xwayland-git

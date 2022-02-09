@@ -36,27 +36,29 @@ options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 
 chosen="$(echo -e "$options" | $cmd -p "Uptime: $uptime" -dmenu -selected-row 2)"
 case $chosen in
-    $shutdown)
-        systemctl poweroff
-        ;;
-    $reboot)
-        systemctl reboot
-        ;;
-    $lock)
+	$shutdown)
+		systemctl poweroff
+		;;
+	$reboot)
+		systemctl reboot
+		;;
+	$lock)
 		if [[ -f /usr/bin/betterlockscreen ]]; then
 			betterlockscreen -l -- --ind-pos="x+296:y+h-72"
 		elif [[ -f /usr/bin/slock ]]; then
 			slock
 		fi
-        ;;
-    $suspend)
-        systemctl suspend
-        ;;
-    $logout)
-        if [[ "$DESKTOP_SESSION" == "xmonad" ]]; then
-            ~/.config/scripts/xmonad/quit.sh
-        elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-            i3-msg exit
-        fi
-        ;;
+		;;
+	$suspend)
+		systemctl suspend
+		;;
+	$logout)
+		if [[ "$DESKTOP_SESSION" == "xmonad" ]]; then
+			~/.config/scripts/xmonad/quit.sh
+		elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
+			i3-msg exit
+		elif [[ "$DESKTOP_SESSION" == "sway" ]]; then
+			swaymsg exit
+		fi
+		;;
 esac

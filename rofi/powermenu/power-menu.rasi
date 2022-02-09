@@ -31,7 +31,7 @@ window {
     background-color:               @background;
     text-color:                     @foreground;
     border-radius:                  0;
-    height:                         376px;
+    height:                         384px;
     width:                          1144px;
     location:                       center;
     x-offset:                       0;

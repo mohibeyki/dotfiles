@@ -281,7 +281,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = fullscreenEventHook <+> ewmhDesktopsEventHook
+-- myEventHook = fullscreenEventHook <+> ewmhDesktopsEventHook
 
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
@@ -296,16 +296,14 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 myStartupHook = do
-    spawnOnce "/usr/bin/picom -b --experimental-backends &"
+    spawnOnce "/usr/bin/picom -b &"
     spawnOnce "/usr/bin/betterlockscreen -w &"
-    spawnOnce "~/.config/scripts/mouse/mouse-speed.sh &"
-    spawnOnce "/usr/bin/xrdb ~/.Xresources &"
+    spawnOnce "/usr/bin/xrdb ~/.config/.Xresources &"
     spawnOnce "/usr/bin/xmodmap ~/.config/.Xmodmap &"
     spawnOnce "/usr/bin/numlockx on"
     spawnOnce "/usr/bin/dunst &"
     spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
     spawnOnce "xsetroot -cursor_name left_ptr"
-    spawnOnce "/usr/bin/albert"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -343,7 +341,7 @@ defaults = def {
     -- hooks, layouts
     layoutHook         = myLayout,
     manageHook         = myManageHook,
-    handleEventHook    = myEventHook,
+    -- handleEventHook    = myEventHook,
     logHook            = myLogHook,
     startupHook        = myStartupHook
 }

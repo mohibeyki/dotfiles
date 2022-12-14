@@ -6,4 +6,5 @@ with import <nixpkgs> {}; [
   tree
   fish
   mc
+  zsh
 ]

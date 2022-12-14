@@ -3,6 +3,9 @@ env:
 
 window:
   dynamic_padding: true
+  dimensions:
+    columns: 120
+    lines: 40
 
 colors:
   primary:
@@ -34,4 +37,3 @@ font:
   normal:
     family: FiraCode Nerd Font
     style: Regular
-

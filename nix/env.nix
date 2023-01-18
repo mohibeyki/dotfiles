@@ -7,4 +7,5 @@ with import <nixpkgs> {}; [
   fish
   mc
   zsh
+  nodejs
 ]

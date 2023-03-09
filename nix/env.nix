@@ -8,4 +8,7 @@ with import <nixpkgs> {}; [
   mc
   zsh
   nodejs
+  yarn
+  starship
+  git
 ]

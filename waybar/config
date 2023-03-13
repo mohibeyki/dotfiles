@@ -1,11 +1,12 @@
 {
     "layer": "top",
+    "output": "DP-3",
     "modules-left": [
         "custom/menu",
-        "sway/workspaces"
+        "wlr/workspaces"
     ],
     "modules-center": [
-        "sway/window"
+        "clock"
     ],
     "modules-right": [
         "cpu",
@@ -13,17 +14,16 @@
         "pulseaudio",
         "custom/pacman",
         "network",
-        "clock",
         "custom/power"
     ],
     "custom/menu": {
         "format": "",
-        "on-click": "rofi -modi drun -show drun -theme normal"
+        "on-click": "wofi --show drun"
     },
-    "sway/workspaces": {
+    "wlr/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
         "format": "{name}: {icon}",
+        "all-outputs": true,
         "format-icons": {
             "1": "",
             "2": "",
@@ -32,12 +32,6 @@
             "urgent": "",
             "focused": "",
             "default": ""
-        },
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "10": []
         }
     },
     "custom/pacman": {
@@ -47,7 +41,7 @@
         "exec": "~/.config/scripts/bar/print-updates.sh"
     },
     "cpu": {
-        "tooltip": false,
+        "tooltip": true,
         "format": " {}%"
     },
     "memory": {
@@ -69,13 +63,13 @@
     "network": {
         "tooltip": false,
         "format-wifi": " {essid}",
-        "format-ethernet": ""
+        "format-ethernet": " {ipaddr}"
     },
     "clock": {
         "format": "{:%I:%M %A, %B %d %Y}"
     },
     "custom/power": {
         "format": "",
-        "on-click": "bash ~/.config/scripts/rofi/power-menu.sh"
+        "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
     }
 }

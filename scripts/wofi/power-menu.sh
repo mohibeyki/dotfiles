@@ -20,21 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-dir="$HOME/.config/rofi/powermenu"
-uptime=$(uptime -p | sed -e 's/up //g')
-cmd="rofi -theme $dir/power-menu.rasi"
+cmd="wofi -i --dmenu"
 
 # options
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
+shutdown=" Shutdown"
+reboot=" Reboot"
+lock=" Lock"
+suspend=" Suspend"
+logout=" Logout"
 
 # power options passed to rofi
 options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 
-chosen="$(echo -e "$options" | $cmd -p "Uptime: $uptime" -dmenu -selected-row 2)"
+chosen="$(echo -e "$options" | $cmd)"
 case $chosen in
 	$shutdown)
 		systemctl poweroff
@@ -43,7 +41,24 @@ case $chosen in
 		systemctl reboot
 		;;
 	$lock)
-		if [[ -f /usr/bin/betterlockscreen ]]; then
+		if [[ -f /usr/bin/swaylock ]]; then
+			/usr/bin/swaylock \
+				--screenshots \
+				--clock \
+				--indicator \
+				--indicator-radius 200 \
+				--indicator-thickness 8 \
+				--effect-blur 7x5 \
+				--effect-vignette 0.5:0.5 \
+				--effect-greyscale \
+				--ring-color 00ffff \
+				--ring-clear-color 00ffff \
+				--ring-ver-color ff0000 \
+				--ring-wrong-color ff0000 \
+				--separator-color 00ffff \
+				--text-color ffffff
+
+		elif [[ -f /usr/bin/betterlockscreen ]]; then
 			betterlockscreen -l -- --ind-pos="x+296:y+h-72"
 		elif [[ -f /usr/bin/slock ]]; then
 			slock
@@ -53,7 +68,9 @@ case $chosen in
 		systemctl suspend
 		;;
 	$logout)
-		if [[ "$DESKTOP_SESSION" == "xmonad" ]]; then
+		if [[ "$DESKTOP_SESSION" == "hyprland" ]]; then
+			hyprctl dispatch exit
+		elif [[ "$DESKTOP_SESSION" == "xmonad" ]]; then
 			~/.config/scripts/xmonad/quit.sh
 		elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
 			i3-msg exit

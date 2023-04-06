@@ -11,4 +11,7 @@ with import <nixpkgs> {}; [
   yarn
   starship
   git
+  go
+  rustc
+  cargo
 ]

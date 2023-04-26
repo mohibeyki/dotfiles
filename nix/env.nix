@@ -9,9 +9,6 @@ with import <nixpkgs> {}; [
   zsh
   nodejs
   yarn
-  starship
   git
   go
-  rustc
-  cargo
 ]

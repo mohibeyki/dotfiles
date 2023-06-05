@@ -3,12 +3,10 @@ with import <nixpkgs> {}; [
   python3
   ripgrep
   tmux
-  tree
   fish
   mc
   zsh
   nodejs
-  yarn
   git
   go
 ]

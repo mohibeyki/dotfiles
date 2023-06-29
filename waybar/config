@@ -1,6 +1,5 @@
 {
     "layer": "top",
-    "output": "DP-3",
     "modules-left": [
         "custom/menu",
         "wlr/workspaces"
@@ -17,7 +16,7 @@
         "custom/power"
     ],
     "custom/menu": {
-        "format": "",
+        "format": "\udb80\udf49",
         "on-click": "wofi --show drun"
     },
     "wlr/workspaces": {
@@ -25,13 +24,9 @@
         "format": "{name}: {icon}",
         "all-outputs": true,
         "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "10": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
+            "1": "\udb80\ude39",
+            "2": "\udb82\ude1e",
+            "3": "\udb81\udfb7"
         }
     },
     "custom/pacman": {
@@ -42,34 +37,34 @@
     },
     "cpu": {
         "tooltip": true,
-        "format": " {}%"
+        "format": "\udb80\udf5b  {}%"
     },
     "memory": {
         "tooltip": false,
-        "format": " {used:0.1f}GB / {total:0.1f}GB"
+        "format": "\udb80\ude9a  {used:0.2f}GB / {total:0.2f}GB"
     },
     "pulseaudio": {
         "tooltip": false,
         "scroll-step": 1,
-        "format": "{icon} {volume}%",
+        "format": "{icon}  {volume}%",
         "format-icons": {
             "default": [
-                "奄",
-                "奔",
-                "墳"
+                "\udb81\udd7f",
+                "\udb81\udd80",
+                "\udb81\udd7e"
             ]
         }
     },
     "network": {
         "tooltip": false,
-        "format-wifi": " {essid}",
-        "format-ethernet": " {ipaddr}"
+        "format-wifi": "\udb81\udda9  {essid}",
+        "format-ethernet": "\udb80\ude00  {ipaddr}"
     },
     "clock": {
         "format": "{:%I:%M %A, %B %d %Y}"
     },
     "custom/power": {
-        "format": "",
+        "format": "\udb81\udc25",
         "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
     }
 }

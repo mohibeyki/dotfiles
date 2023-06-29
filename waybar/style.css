@@ -11,8 +11,8 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: Hack Nerd Font;
-    font-size: 13px;
+    font-family: "Jetbrains Mono Nerd Font";
+    font-size: 14px;
     min-height: 0;
     transition: none;
 }

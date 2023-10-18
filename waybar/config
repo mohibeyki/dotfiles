@@ -1,12 +1,11 @@
 {
-    "output": "DP-3",
     "layer": "top",
     "modules-left": [
         "custom/menu",
-        "wlr/workspaces"
+        "hyprland/workspaces"
     ],
     "modules-center": [
-        "clock"
+        "hyprland/window"
     ],
     "modules-right": [
         "cpu",
@@ -14,21 +13,26 @@
         "pulseaudio",
         "custom/pacman",
         "network",
+        "clock",
         "custom/power"
     ],
     "custom/menu": {
         "format": "\udb80\udf49",
         "on-click": "wofi --show drun"
     },
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "format": "{name}: {icon}",
-        "all-outputs": true,
+        "all-outputs": false,
         "format-icons": {
             "1": "\udb80\ude39",
             "2": "\udb82\ude1e",
             "3": "\udb81\udfb7"
         }
+    },
+    "hyprland/window": {
+        "max-length": 200,
+        "separate-outputs": true
     },
     "custom/pacman": {
         "format": "{}",

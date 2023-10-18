@@ -1,4 +1,5 @@
 with import <nixpkgs> {}; [
+  cmake
   fish
   git
   go

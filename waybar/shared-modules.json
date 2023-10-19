@@ -1,10 +1,11 @@
 {
     "hyprland/workspaces": {
-        "disable-scroll": true,
+        "disable-scroll": false,
         "active-only": false,
         "format": "{name}",
         "all-outputs": true,
-        "sort-by": "id"
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
     "hyprland/window": {
         "max-length": 200,

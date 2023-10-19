@@ -11,7 +11,7 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetbrainsMono Nerd Font";
+    font-family: "JetbrainsMono Nerd Font Mono";
     font-size: 14px;
     min-height: 0;
     transition: none;
@@ -30,7 +30,7 @@ window#waybar.hidden {
 }
 
 #custom-menu {
-    padding: 0 12px 0 11px;
+    padding: 0 12px;
     border-radius: 16px;
     min-height: 32px;
     background-color: #161e21;
@@ -75,7 +75,7 @@ window#waybar.empty #window {
 
 #cpu {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
@@ -83,7 +83,7 @@ window#waybar.empty #window {
 
 #memory {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
@@ -91,7 +91,7 @@ window#waybar.empty #window {
 
 #pulseaudio {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
@@ -99,7 +99,7 @@ window#waybar.empty #window {
 
 #custom-pacman {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
@@ -107,7 +107,7 @@ window#waybar.empty #window {
 
 #network {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
@@ -115,14 +115,14 @@ window#waybar.empty #window {
 
 #clock {
     margin-right: 8px;
-    padding: 0 16px;
+    padding: 0 12px;
     color: #b0bec5;
     background-color: #161e21;
     border-radius: 16px;
 }
 
 #custom-power {
-    padding: 0 12px 0 11px;
+    padding: 0 12px;
     color: #b0bec5;
     border-radius: 16px;
     background-color: #161e21;

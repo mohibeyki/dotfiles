@@ -12,6 +12,7 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "tray",
         "pulseaudio",
         "custom/pacman",
         "network",

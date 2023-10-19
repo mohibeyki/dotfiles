@@ -34,7 +34,7 @@ while true; do
     elif (( UPDATES > 0 )); then
         notify-send -u normal -i $NOTIFY_ICON \
             "You should update soon!" "$UPDATES New packages"
-   fi
+    fi
 
     # when there are updates available
     # every 10 minutes another check for updates is done
@@ -42,7 +42,7 @@ while true; do
         if (( UPDATES >= 1 )); then
             echo "$BAR_ICON $UPDATES"
         else
-            echo $BAR_ICON
+            echo "$BAR_ICON"
         fi
         sleep 600
         get_total_updates

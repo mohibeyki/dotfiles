@@ -1,13 +1,12 @@
 alacritty
 dunst
 hyprland-git
-hyprpaper-git
+hyprpaper
 neovim
 playerctl
 polkit-gnome
 pulseaudio-ctl
-swaylock-effects-git
+swaylock-effects
 visual-studio-code-bin
-waybar-hyprland-git
-wev
-wmctrl
+waybar-git
+wofi

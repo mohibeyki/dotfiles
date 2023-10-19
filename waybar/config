@@ -1,5 +1,9 @@
-{
+[{
+    "output": "DP-3",
     "layer": "top",
+    "include": [
+        "~/.config/waybar/shared-modules.json"
+    ],
     "modules-left": [
         "custom/menu",
         "hyprland/workspaces"
@@ -8,27 +12,15 @@
         "hyprland/window"
     ],
     "modules-right": [
-        "cpu",
-        "memory",
         "pulseaudio",
         "custom/pacman",
         "network",
-        "clock",
-        "custom/power"
+        "clock"
     ],
     "custom/menu": {
-        "format": "\udb80\udf49",
-        "on-click": "wofi --show drun"
-    },
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "format": "{name}: {icon}",
-        "all-outputs": false,
-        "format-icons": {
-            "1": "\udb80\ude39",
-            "2": "\udb82\ude1e",
-            "3": "\udb81\udfb7"
-        }
+        "format": "󰀻",
+        "on-click": "wofi --show drun",
+        "margin-leftT": 10
     },
     "hyprland/window": {
         "max-length": 200,
@@ -40,36 +32,49 @@
         "max-length": 40,
         "exec": "~/.config/scripts/bar/print-updates.sh"
     },
-    "cpu": {
-        "tooltip": true,
-        "format": "\udb80\udf5b  {}%"
-    },
-    "memory": {
-        "tooltip": false,
-        "format": "\udb80\ude9a  {used:0.2f}GB / {total:0.2f}GB"
-    },
     "pulseaudio": {
         "tooltip": false,
         "scroll-step": 1,
         "format": "{icon}  {volume}%",
+        "format-muted": "󱃓",
         "format-icons": {
             "default": [
-                "\udb81\udd7f",
-                "\udb81\udd80",
-                "\udb81\udd7e"
+                "󰪞",
+                "󰪟",
+                "󰪠",
+                "󰪡",
+                "󰪢",
+                "󰪣",
+                "󰪤",
+                "󰪥"
             ]
         }
     },
     "network": {
         "tooltip": false,
-        "format-wifi": "\udb81\udda9  {essid}",
-        "format-ethernet": "\udb80\ude00  {ipaddr}"
+        "format-wifi": "󰖩  {essid}",
+        "format-ethernet": "󰈀  {ipaddr}"
     },
     "clock": {
         "format": "{:%I:%M %A, %B %d %Y}"
-    },
+    }
+}, {
+    "output": "DP-1",
+    "layer": "top",
+    "include": [
+        "~/.config/waybar/shared-modules.json"
+    ],
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "custom/power"
+    ],
     "custom/power": {
-        "format": "\udb81\udc25",
+        "format": "󰐥",
         "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
     }
-}
+}]

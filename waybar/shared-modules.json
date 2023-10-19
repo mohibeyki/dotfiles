@@ -1,0 +1,13 @@
+{
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "active-only": false,
+        "format": "{name}",
+        "all-outputs": true,
+        "sort-by": "id"
+    },
+    "hyprland/window": {
+        "max-length": 200,
+        "separate-outputs": true
+    }
+}

@@ -15,7 +15,8 @@
         "pulseaudio",
         "custom/pacman",
         "network",
-        "clock"
+        "clock",
+        "custom/power"
     ],
     "custom/menu": {
         "format": "󰀻",
@@ -57,6 +58,10 @@
     },
     "clock": {
         "format": "{:%I:%M %A, %B %d %Y}"
+    },
+    "custom/power": {
+        "format": "󰐥",
+        "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
     }
 }, {
     "output": "DP-1",
@@ -70,11 +75,5 @@
     "modules-center": [
         "hyprland/window"
     ],
-    "modules-right": [
-        "custom/power"
-    ],
-    "custom/power": {
-        "format": "󰐥",
-        "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
-    }
+    "modules-right": []
 }]

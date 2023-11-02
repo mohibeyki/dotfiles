@@ -68,7 +68,7 @@ case $chosen in
 		systemctl suspend
 		;;
 	$logout)
-		if [[ "$DESKTOP_SESSION" == "hyprland" ]]; then
+		if [[ "$DESKTOP_SESSION" == "hyprland" ]] || [[ "$DESKTOP_SESSION" == "hyprland-nvidia" ]]; then
 			hyprctl dispatch exit
 		elif [[ "$DESKTOP_SESSION" == "xmonad" ]]; then
 			~/.config/scripts/xmonad/quit.sh

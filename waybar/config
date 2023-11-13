@@ -21,12 +21,14 @@
     ],
     "custom/menu": {
         "format": "󰀻",
-        "on-click": "wofi --show drun",
-        "margin-leftT": 10
+        "on-click": "wofi --show drun"
     },
     "hyprland/window": {
         "max-length": 200,
         "separate-outputs": true
+    },
+    "tray": {
+        "spacing": 16
     },
     "custom/pacman": {
         "format": "{}",

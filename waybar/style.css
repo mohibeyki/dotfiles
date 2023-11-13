@@ -73,6 +73,14 @@ window#waybar.empty #window {
     background-color: transparent;
 }
 
+#tray {
+    margin-right: 8px;
+    padding: 0 16px;
+    border-radius: 16px;
+    color: #b0bec5;
+    background-color: #161e21;
+}
+
 #cpu {
     margin-right: 8px;
     padding: 0 12px;

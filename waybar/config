@@ -5,36 +5,60 @@
         "~/.config/waybar/shared-modules.json"
     ],
     "modules-left": [
-        "custom/menu",
-        "hyprland/workspaces"
+        "custom/launcher",
+        "cpu",
+        "memory",
+        "temperature",
+        "disk",
+        "custom/pacman"
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-right": [
         "tray",
         "pulseaudio",
-        "custom/pacman",
         "network",
         "clock",
         "custom/power"
     ],
-    "custom/menu": {
+    "custom/launcher": {
         "format": "󰀻",
         "on-click": "wofi --show drun"
     },
-    "hyprland/window": {
-        "max-length": 200,
-        "separate-outputs": true
+    "cpu": {
+        "interval": 2,
+        "format": "󰻠 {load:0.2f}",
+        "tooltip": false,
+        "on-click": "flatpak run io.missioncenter.MissionCenter"
     },
-    "tray": {
-        "spacing": 16
+    "memory": {
+        "interval": 2,
+        "format": "󰍛 {used:0.2f} GB",
+        "tooltip": true,
+        "tooltip-format": "󰍛 {used:0.1f} GB / {total:0.1f} GB",
+        "on-click": "flatpak run io.missioncenter.MissionCenter"
+    },
+    "temperature": {
+        "interval": 2,
+        "format": "{temperatureC}°C 󰔏",
+        "format-icons": ["󱃃", "󰔏", "󱃂"]
+    },
+    "disk": {
+        "interval": 60,
+        "format": "󰣳 {free}",
+        "format-alt": "󰣳 {percentage_used}% ({free})",
+        "tooltip": true,
+        "path": "/home"
     },
     "custom/pacman": {
         "format": "{}",
         "escape": true,
         "max-length": 40,
         "exec": "~/.config/scripts/bar/print-updates.sh"
+    },
+    "tray": {
+        "spacing": 16
     },
     "pulseaudio": {
         "tooltip": false,
@@ -56,11 +80,11 @@
     },
     "network": {
         "tooltip": false,
-        "format-wifi": "󰖩  {essid}",
-        "format-ethernet": "󰈀  {ipaddr}"
+        "format-wifi": "󰖩 {essid}",
+        "format-ethernet": "󰇧 {ipaddr}"
     },
     "clock": {
-        "format": "{:%I:%M %A, %B %d %Y}"
+        "format": "󰥔 {:%I:%M 󰃭 %A, %B %d %Y}"
     },
     "custom/power": {
         "format": "󰐥",
@@ -72,11 +96,9 @@
     "include": [
         "~/.config/waybar/shared-modules.json"
     ],
-    "modules-left": [
-        "hyprland/workspaces"
-    ],
+    "modules-left": [],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-right": []
 }]

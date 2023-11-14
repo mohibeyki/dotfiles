@@ -9,31 +9,31 @@ window:
 
 colors:
   primary:
-    background: '0x263238'
-    foreground: '0xeceff1'
+    background: '0x0f111a'
+    foreground: '0xa6accd'
 
   normal:
-    black: '0x212121'
-    red: '0xf44336'
-    green: '0x4caf50'
-    yellow: '0xffeb3b'
-    blue: '0x2196f3'
-    magenta: '0xe91e63'
-    cyan: '0x00bcd4'
-    white: '0xC7C7C7'
+    black:   '0x1a1c25'
+    red:     '0xf07178'
+    green:   '0xc3e88d'
+    yellow:  '0xffcb6b'
+    blue:    '0x82aaff'
+    magenta: '0xc792ea'
+    cyan:    '0x89ddff'
+    white:   '0xeeffff'
 
   bright:
-    black: '0x686868'
-    red: '0xff7961'
-    green: '0x80e27e'
-    yellow: '0xffff72'
-    blue: '0x6ec6ff'
-    magenta: '0xff6090'
-    cyan: '0x62efff'
-    white: '0xFFFFFF'
+    black:   '0x3b3e4c'
+    red:     '0xff8b92'
+    green:   '0xddffa7'
+    yellow:  '0xffe585'
+    blue:    '0x9cc4ff'
+    magenta: '0xe1acff'
+    cyan:    '0xa3f7ff'
+    white:   '0xffffff'
 
 font:
-  size: 12
+  size: 14
   normal:
-    family: JetBrains Mono Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Regular

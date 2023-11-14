@@ -1,137 +1,139 @@
-/*
- ********************************************
- *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░*
- *░░█▀█░█░░░█░█░█▀▀░░░█░█░█░░░▀█▀░█▀▄░█▀█░░*
- *░░█▀▀░█░░░█░█░▀▀█░░░█░█░█░░░░█░░█▀▄░█▀█░░*
- *░░▀░░░▀▀▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░░▀░░▀░▀░▀░▀░░*
- *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░*
- ********************************************
- */
+
+@define-color bg      #0f111a;
+@define-color fg      #a6accd;
+
+@define-color black   #1a1c25;
+@define-color red     #f07178;
+@define-color green   #c3e88d;
+@define-color yellow  #ffcb6b;
+@define-color blue    #82aaff;
+@define-color magenta #c792ea;
+@define-color cyan    #89ddff;
+@define-color white   #eeffff;
+
+@define-color light-black   #3b3e4c;
+@define-color light-red     #ff8b92;
+@define-color light-green   #ddffa7;
+@define-color light-yellow  #ffe585;
+@define-color light-blue    #9cc4ff;
+@define-color light-magenta #e1acff;
+@define-color light-cyan    #a3f7ff;
+@define-color light-white   #ffffff;
 
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetbrainsMono Nerd Font Mono";
-    font-size: 14px;
+    font-family: "JetbrainsMono Nerd Font";
+    font-size: 16px;
+    min-width: 0;
     min-height: 0;
     transition: none;
 }
 
-window > box {
-    padding: 4px;
-}
-
 window#waybar {
-    background-color: #000a12;
-}
-
-window#waybar.hidden {
-    opacity: 0.2;
-}
-
-#custom-menu {
-    padding: 0 12px;
-    border-radius: 16px;
-    min-height: 32px;
-    background-color: #161e21;
-    color: #b0bec5;
-    transition: none;
-}
-
-#workspaces {
-    margin-left: 8px;
-    min-height: 32px;
-}
-
-#workspaces button {
-    padding: 0 8px;
-    border-radius: 16px;
-    min-height: 32px;
-    margin: 0 4px;
-    color: #b0bec5;
-    background-color: #161e21;
-}
-
-#workspaces button.active {
-    padding: 0 16px;
-    color: #eceff1;
-    background-color: #37474f;
-}
-
-#workspaces button:hover {
-    color: #eceff1;
-}
-
-#window {
-    padding: 0 16px;
-    border-radius: 16px;
-    color: #b0bec5;
-    background-color: #161e21;
-}
-
-window#waybar.empty #window {
     background-color: transparent;
 }
 
-#tray {
+#custom-launcher,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#custom-pacman,
+#workspaces,
+#tray,
+#pulseaudio,
+#network,
+#clock,
+#custom-power {
+    margin-top: 8px;
+    padding: 8px;
+    background-color: @bg;
+    color: @fg;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+#custom-launcher,
+#custom-pacman,
+#custom-power {
+    margin-left: 8px;
     margin-right: 8px;
-    padding: 0 16px;
-    border-radius: 16px;
-    color: #b0bec5;
-    background-color: #161e21;
+    border-radius: 20px;
+}
+
+#cpu,
+#pulseaudio {
+    padding-left: 16px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#disk,
+#clock {
+    padding-right: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#workspaces {
+    border-radius: 20px;
+    padding: 0 4px;
+}
+
+#workspaces * {
+    font-size: 0;
+}
+
+#workspaces button {
+    padding: 0;
+    margin: 12px 8px;
+    border-radius: 8px;
+    min-width: 16px;
+    min-height: 16px;
+    background-color: @light-black;
+}
+
+#workspaces button.active {
+    background-color: @light-blue;
+}
+
+#custom-launcher {
+    color: @light-cyan;
 }
 
 #cpu {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+    color: @light-green;
 }
 
 #memory {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+    color: @light-yellow;
 }
 
-#pulseaudio {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+#temperature {
+    color: @light-red;
+}
+
+#disk {
+    color: @light-magenta;
 }
 
 #custom-pacman {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+    color: @light-blue;
+}
+
+#pulseaudio {
+    color: @light-yellow;
 }
 
 #network {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+    color: @light-magenta;
 }
 
 #clock {
-    margin-right: 8px;
-    padding: 0 12px;
-    color: #b0bec5;
-    background-color: #161e21;
-    border-radius: 16px;
+    color: @light-cyan;
 }
 
 #custom-power {
-    padding: 0 12px;
-    color: #b0bec5;
-    border-radius: 16px;
-    background-color: #161e21;
+    color: @red;
 }

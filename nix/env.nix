@@ -1,5 +1,4 @@
 with import <nixpkgs> {}; [
-  cmake
   fish
   git
   go
@@ -9,4 +8,5 @@ with import <nixpkgs> {}; [
   ripgrep
   tmux
   zsh
+  btop
 ]

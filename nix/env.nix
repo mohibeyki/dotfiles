@@ -9,4 +9,6 @@ with import <nixpkgs> {}; [
   tmux
   zsh
   btop
+  fd
+  wget
 ]

@@ -19,9 +19,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure plugins ]]
-require('lazy').setup({
-  { import = 'mohi.plugins' },
-}, {})
+require('lazy').setup('plugins')
 
 -- [[ Setting options ]]
 -- See `:help vim.o`

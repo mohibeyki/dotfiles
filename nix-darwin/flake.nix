@@ -25,6 +25,8 @@
           pkgs.fd
           pkgs.wget
           pkgs.nodejs
+          pkgs.rustc
+          pkgs.cargo
         ];
 
       # Auto upgrade nix package and the daemon service.

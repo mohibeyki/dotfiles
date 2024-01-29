@@ -1,5 +1,5 @@
 --
--- Mohi's nvim.kickstart config
+-- Mohi's nvim config, using kickstart.nvim
 --
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
@@ -303,7 +303,7 @@ require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 local servers = {
-clangd = {},
+ast_grep = {},
 gopls = {},
 rust_analyzer = {},
 

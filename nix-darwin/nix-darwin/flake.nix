@@ -26,6 +26,7 @@
           pkgs.wget
           pkgs.nodejs
           pkgs.rustup
+          pkgs.gnused
         ];
 
       # Auto upgrade nix package and the daemon service.

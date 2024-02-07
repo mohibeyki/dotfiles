@@ -27,6 +27,7 @@
           pkgs.nodejs
           pkgs.rustup
           pkgs.gnused
+          pkgs.helix
         ];
 
       # Auto upgrade nix package and the daemon service.

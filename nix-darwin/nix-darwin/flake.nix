@@ -12,23 +12,28 @@
     configuration = { pkgs, ... }: {
       environment.systemPackages =
         [ 
+          pkgs.btop
+          pkgs.dockerfile-language-server-nodejs
+          pkgs.fd
           pkgs.fish
           pkgs.git
+          pkgs.gnused
           pkgs.go
+          pkgs.gopls
+          pkgs.helix
+          pkgs.lldb
           pkgs.mc
           pkgs.neovim
+          pkgs.nil
+          pkgs.nodejs
           pkgs.python3
           pkgs.ripgrep
-          pkgs.tmux
-          pkgs.zsh
-          pkgs.btop
-          pkgs.fd
-          pkgs.wget
-          pkgs.nodejs
           pkgs.rustup
-          pkgs.gnused
-          pkgs.helix
-        ];
+          pkgs.taplo
+          pkgs.tmux
+          pkgs.wget
+          pkgs.zsh
+       ];
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;

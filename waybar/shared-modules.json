@@ -1,16 +1,21 @@
 {
-    "hyprland/workspaces": {
-        "all-outputs": true,
-        "disable-scroll": false,
-        "on-scroll-up": "hyprctl dispatch workspace -1",
-        "on-scroll-down": "hyprctl dispatch workspace +1",
-        "format": "{name}",
-        "on-click": "activate",
-        "format-icons": {
-          "urgent": "󰗖",
-          "active": "󰝥",
-          "default": "󰝦"
-        },
-        "sort-by-number": true
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "all-outputs": true,
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "urgent": "",
+      "active": "",
+      "default": ""
     }
+  }
 }

@@ -7,10 +7,10 @@
         ],
         "modules-left": [
             "custom/launcher",
-            "hyprland/workspaces",
-            "hyprland/window",
+            "hyprland/workspaces"
         ],
         "modules-center": [
+            "hyprland/window"
         ],
         "modules-right": [
             "tray",
@@ -105,9 +105,11 @@
         "include": [
             "~/.config/waybar/shared-modules.json"
         ],
-        "modules-left": [],
-        "modules-center": [
+        "modules-left": [
             "hyprland/workspaces"
+        ],
+        "modules-center": [
+            "hyprland/window"
         ],
         "modules-right": []
     }

@@ -17,5 +17,8 @@
       "active": "",
       "default": ""
     }
+  },
+  "hyprland/window": {
+    "separate-outputs": true
   }
 }

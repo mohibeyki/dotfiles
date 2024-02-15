@@ -100,6 +100,14 @@ window#waybar {
   color: @fg;
 }
 
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+window#waybar.empty .modules-center {
+  background-color: transparent;
+}
+
 #custom-pacman {
   color: @blue;
 }

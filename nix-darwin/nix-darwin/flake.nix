@@ -22,16 +22,21 @@
           pkgs.gopls
           pkgs.helix
           pkgs.lldb
+          pkgs.lsix
+          pkgs.macchina
           pkgs.mc
           pkgs.neovim
           pkgs.nil
           pkgs.nodejs
           pkgs.python3
+          pkgs.ranger
           pkgs.ripgrep
           pkgs.rustup
           pkgs.taplo
           pkgs.tmux
           pkgs.wget
+          pkgs.zellij
+          pkgs.zoxide
           pkgs.zsh
        ];
 

@@ -1,5 +1,4 @@
 return {
-
   -- Add C/C++ to treesitter
   {
     "nvim-treesitter/nvim-treesitter",

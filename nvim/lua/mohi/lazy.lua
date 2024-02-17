@@ -14,7 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     { import = "mohi.plugins" },
-    { import = "mohi.plugins.extras.coding.copilot" },
+    { import = "mohi.plugins.extras.coding" },
+    { import = "mohi.plugins.extras.lang" },
   },
   {
     checker = {

@@ -1,5 +1,4 @@
 return {
-
   -- copilot
   {
     "zbirenbaum/copilot.lua",
@@ -52,7 +51,6 @@ return {
       })
     end,
   },
-
   -- copilot cmp source
   {
     "nvim-cmp",

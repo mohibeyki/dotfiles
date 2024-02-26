@@ -24,6 +24,15 @@ return {
     },
   },
 
+  -- Bookmarks files and lines and lets you quickly navigate between them.
+  {
+    "otavioschwanck/arrow.nvim",
+    opts = {
+      show_icons = true,
+      leader_key = ";", -- Recommended to be a single key
+    },
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
 }

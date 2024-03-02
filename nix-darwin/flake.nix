@@ -11,22 +11,34 @@
   let
     configuration = { pkgs, ... }: {
       environment.systemPackages =
-        [ 
+        [
+          pkgs.btop
+          pkgs.dockerfile-language-server-nodejs
+          pkgs.fd
           pkgs.fish
           pkgs.git
+          pkgs.gnused
           pkgs.go
+          pkgs.gopls
+          pkgs.helix
+          pkgs.lldb
+          pkgs.lsix
+          pkgs.lazygit
           pkgs.mc
           pkgs.neovim
-          pkgs.python3
-          pkgs.ripgrep
-          pkgs.tmux
-          pkgs.zsh
-          pkgs.btop
-          pkgs.fd
-          pkgs.wget
+          pkgs.nil
           pkgs.nodejs
+          pkgs.python3
+          pkgs.ranger
+          pkgs.ripgrep
           pkgs.rustup
-        ];
+          pkgs.taplo
+          pkgs.tmux
+          pkgs.wget
+          pkgs.yarn
+          pkgs.zoxide
+          pkgs.zsh
+       ];
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
@@ -38,6 +50,13 @@
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;
       programs.fish.enable = true;
+      programs.fish.shellInit = ''
+        for p in /run/current-system/sw/bin
+          if not contains $p $fish_user_paths
+            set -g fish_user_paths $p $fish_user_paths
+          end
+        end
+      '';
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;

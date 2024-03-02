@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-config.color_scheme = "catppuccin-mocha"
+config.color_scheme = "Tokyo Night"
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 16.0
 
@@ -13,11 +13,11 @@ config.native_macos_fullscreen_mode = true
 config.hide_tab_bar_if_only_one_tab = true
 
 config.keys = {
-	{
-		key = "Enter",
-		mods = "CMD",
-		action = wezterm.action.ToggleFullScreen,
-	},
+  {
+    key = "Enter",
+    mods = "CMD",
+    action = wezterm.action.ToggleFullScreen,
+  },
 }
 
 return config

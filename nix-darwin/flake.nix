@@ -5,40 +5,42 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
   let
     configuration = { pkgs, ... }: {
+      nixpkgs.overlays = overlays;
       environment.systemPackages =
-        [
-          pkgs.btop
-          pkgs.dockerfile-language-server-nodejs
-          pkgs.fd
-          pkgs.fish
-          pkgs.git
-          pkgs.gnused
-          pkgs.go
-          pkgs.gopls
-          pkgs.helix
-          pkgs.lldb
-          pkgs.lsix
-          pkgs.lazygit
-          pkgs.mc
-          pkgs.neovim
-          pkgs.nil
-          pkgs.nodejs
-          pkgs.python3
-          pkgs.ranger
-          pkgs.ripgrep
-          pkgs.rustup
-          pkgs.taplo
-          pkgs.tmux
-          pkgs.wget
-          pkgs.yarn
-          pkgs.zoxide
-          pkgs.zsh
-       ];
+      [
+        pkgs.btop
+        pkgs.dockerfile-language-server-nodejs
+        pkgs.fd
+        pkgs.fish
+        pkgs.git
+        pkgs.gnused
+        pkgs.go
+        pkgs.gopls
+        pkgs.helix
+        pkgs.lldb
+        pkgs.lsix
+        pkgs.lazygit
+        pkgs.mc
+        pkgs.neovim-nightly
+        pkgs.nil
+        pkgs.nodejs
+        pkgs.python3
+        pkgs.ranger
+        pkgs.ripgrep
+        pkgs.rustup
+        pkgs.taplo
+        pkgs.tmux
+        pkgs.wget
+        pkgs.yarn
+        pkgs.zoxide
+        pkgs.zsh
+      ];
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
@@ -68,6 +70,9 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
     };
+    overlays = [
+      inputs.neovim-nightly-overlay.overlay
+    ];
   in
   {
     darwinConfigurations."Legolas" = nix-darwin.lib.darwinSystem {

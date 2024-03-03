@@ -16,7 +16,7 @@ require("lazy").setup({
   },
   defaults = {
     lazy = false,
-    version = "*", -- try installing the latest stable version for plugins that support semver
+    version = false, -- master branch
   },
   install = { colorscheme = { "tokyonight", } },
   checker = { enabled = false }, -- automatically check for plugin updates

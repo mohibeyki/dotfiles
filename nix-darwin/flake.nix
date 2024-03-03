@@ -24,11 +24,9 @@
         pkgs.gopls
         pkgs.helix
         pkgs.lldb
-        pkgs.lsix
         pkgs.lazygit
         pkgs.mc
         pkgs.neovim-nightly
-        pkgs.nil
         pkgs.nodejs
         pkgs.python3
         pkgs.ranger

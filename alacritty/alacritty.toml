@@ -1,26 +1,4 @@
-[colors.bright]
-black = "0x3b3e4c"
-blue = "0x9cc4ff"
-cyan = "0xa3f7ff"
-green = "0xddffa7"
-magenta = "0xe1acff"
-red = "0xff8b92"
-white = "0xffffff"
-yellow = "0xffe585"
-
-[colors.normal]
-black = "0x1a1c25"
-blue = "0x82aaff"
-cyan = "0x89ddff"
-green = "0xc3e88d"
-magenta = "0xc792ea"
-red = "0xf07178"
-white = "0xeeffff"
-yellow = "0xffcb6b"
-
-[colors.primary]
-background = "0x0f111a"
-foreground = "0xa6accd"
+import = ["./catppuccin-mocha.toml"]
 
 [env]
 TERM = "xterm-256color"
@@ -29,7 +7,7 @@ TERM = "xterm-256color"
 size = 14
 
 [font.normal]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [window]
@@ -38,3 +16,6 @@ dynamic_padding = true
 [window.dimensions]
 columns = 120
 lines = 40
+
+[keyboard]
+bindings = [{ key = "Enter", mods = "Command", action = "ToggleFullScreen" }]

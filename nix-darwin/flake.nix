@@ -26,6 +26,7 @@
         pkgs.lldb
         pkgs.lazygit
         pkgs.mc
+        pkgs.neofetch
         pkgs.neovim-nightly
         pkgs.nodejs
         pkgs.python3

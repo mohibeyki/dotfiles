@@ -497,4 +497,5 @@ return {
       { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Todo/Fix/Fixme" },
     },
   },
+  { "christoomey/vim-tmux-navigator" },
 }

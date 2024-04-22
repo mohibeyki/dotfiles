@@ -1,4 +1,4 @@
-theme = "catppuccin_mocha"
+theme = "onedark"
 
 [editor]
 line-number = "relative"
@@ -6,7 +6,7 @@ bufferline = "multiple"
 cursorline = true
 color-modes = true
 lsp.display-inlay-hints = true
-rulers = [120]
+rulers = [160]
 shell = ["fish", "-c"]
 auto-format = true
 

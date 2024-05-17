@@ -1,12 +1,16 @@
 return {
+  -- setting colorscheme
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight-night",
+    },
+  },
   -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "bash",
-        "c",
-        "cpp",
         "html",
         "json",
         "lua",
@@ -15,6 +19,7 @@ return {
         "python",
         "query",
         "regex",
+        "rust",
         "vim",
         "yaml",
       },
@@ -25,8 +30,6 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "clang-format",
-        "flake8",
         "gopls",
         "rust-analyzer",
         "stylua",

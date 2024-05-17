@@ -13,7 +13,6 @@
       environment.systemPackages =
       [
         pkgs.btop
-        pkgs.dockerfile-language-server-nodejs
         pkgs.fd
         pkgs.fish
         pkgs.git
@@ -24,11 +23,9 @@
         pkgs.lldb
         pkgs.lazygit
         pkgs.mc
-        pkgs.neofetch
         pkgs.neovim
         pkgs.nodejs
         pkgs.python3
-        pkgs.ranger
         pkgs.ripgrep
         pkgs.rustup
         pkgs.taplo

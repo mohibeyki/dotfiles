@@ -31,7 +31,6 @@ return {
     opts = {
       ensure_installed = {
         "gopls",
-        "rust-analyzer",
         "stylua",
       },
     },

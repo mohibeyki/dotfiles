@@ -5,11 +5,13 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
   let
     configuration = { pkgs, ... }: {
+      nixpkgs.overlays = overlays;
       environment.systemPackages =
       [
         pkgs.btop
@@ -20,14 +22,18 @@
         pkgs.go
         pkgs.gopls
         pkgs.helix
-        pkgs.lldb
         pkgs.lazygit
+        pkgs.lldb
+        pkgs.lua-language-server
         pkgs.mc
+        pkgs.neofetch
         pkgs.neovim
         pkgs.nodejs
         pkgs.python3
+        pkgs.ranger
         pkgs.ripgrep
         pkgs.rustup
+        pkgs.selene
         pkgs.taplo
         pkgs.tmux
         pkgs.wget
@@ -64,6 +70,9 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
     };
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
   in
   {
     darwinConfigurations."Legolas" = nix-darwin.lib.darwinSystem {

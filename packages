@@ -1,9 +1,9 @@
 alacritty
 dunst
-hyprland-nvidia-git
+hyprland
 hyprpaper
 hyprpicker
-neovim
+neovim-git
 nwg-look-bin
 playerctl
 polkit-gnome
@@ -11,5 +11,6 @@ pulseaudio-ctl
 swaylock-effects
 upd72020x-fw
 visual-studio-code-bin
-waybar-git
+waybar
 wofi
+

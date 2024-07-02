@@ -1,1 +1,3 @@
 nvim/lazy-lock.json
+nix-darwin/flake.lock
+

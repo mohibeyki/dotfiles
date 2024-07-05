@@ -18,10 +18,14 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require("mini.surround").setup()
 
+      -- Session management
+      require("mini.sessions").setup()
+
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require("mini.statusline")
+
       -- set use_icons to true if you have a Nerd Font
       statusline.setup({ use_icons = true })
 

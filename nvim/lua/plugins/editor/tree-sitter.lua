@@ -10,7 +10,23 @@ return {
       require("nvim-treesitter.query_predicates")
     end,
     opts = {
-      ensure_installed = { "bash", "c", "diff", "go", "gomod", "gosum", "gowork", "html", "lua", "luadoc", "markdown", "rust", "vim", "vimdoc" },
+      ensure_installed = {
+        "bash",
+        "c",
+        "diff",
+        "go",
+        "gomod",
+        "gosum",
+        "gowork",
+        "html",
+        "lua",
+        "luadoc",
+        "markdown",
+        "regex",
+        "rust",
+        "vim",
+        "vimdoc",
+      },
       auto_install = true,
       highlight = {
         enable = true,

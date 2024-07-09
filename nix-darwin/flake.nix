@@ -14,7 +14,6 @@
         nixpkgs.overlays = overlays;
         environment.systemPackages =
           [
-            pkgs.awscli2
             pkgs.btop
             pkgs.fd
             pkgs.fish
@@ -23,6 +22,8 @@
             pkgs.go
             pkgs.gopls
             pkgs.helix
+            pkgs.kubectl
+            pkgs.kubernetes-helm
             pkgs.lazygit
             pkgs.lldb
             pkgs.lua-language-server

@@ -19,7 +19,7 @@ return {
     config = function()
       vim.cmd([[colorscheme onedark]])
     end,
-    -- enabled = false,
+    enabled = false,
   },
 
   -- draclua theme
@@ -30,5 +30,22 @@ return {
       vim.cmd([[colorscheme dracula]])
     end,
     enabled = false,
+  },
+
+  -- rose pine theme
+  {
+    "rose-pine/neovim",
+    priority = 1000,
+    config = function()
+      require("rose-pine").setup({
+        variant = "moon",
+        dark_variant = "moon",
+        styles = {
+          italic = false,
+        },
+      })
+      vim.cmd([[colorscheme rose-pine-moon]])
+    end,
+    -- enabled = false,
   },
 }

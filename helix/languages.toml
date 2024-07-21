@@ -1,4 +1,28 @@
 [[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["format", "-"] }
+auto-format = true
+
+[[language]]
+name = "lua"
+language-servers = [
+  { name = "lua-language-server", except-features = ["format"] },
+  { name = "efm", only-features = ["diagnostics", "code-action"] }, # for selene
+]
+formatter = { command = "stylua", args = ["-"] }
+auto-format = true
+
+[language-server.lua-language-server.config.Lua]
+format.enable = false
+runtime.version = "LuaJIT"
+diagnostics.globals = ["vim"]
+workspace.library = [
+  "/usr/share/nvim/runtime/lua",
+  "/usr/share/nvim/runtime/lua/vim",
+  "/usr/share/nvim/runtime/lua/vim/lsp",
+]
+
+[[language]]
 name = "rust"
 auto-format = false
 

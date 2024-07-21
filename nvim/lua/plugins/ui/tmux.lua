@@ -1,4 +1,5 @@
 return {
+
   -- enables seamless navigation between vim and tmux panels
   "christoomey/vim-tmux-navigator",
   cmd = {

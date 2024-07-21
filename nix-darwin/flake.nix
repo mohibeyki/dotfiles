@@ -6,9 +6,10 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    helix.url = "github:helix-editor/helix";
   };
 
-  outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
+  outputs = { self, nix-darwin, nixpkgs, helix, ... }@inputs:
     let
       configuration = { pkgs, ... }: {
         nixpkgs.overlays = overlays;
@@ -37,7 +38,6 @@
             pkgs.rustup
             pkgs.selene
             pkgs.taplo
-            pkgs.terraform
             pkgs.tmux
             pkgs.wget
             pkgs.yarn
@@ -76,6 +76,7 @@
       };
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
+        inputs.helix.overlays.default
       ];
     in
       {

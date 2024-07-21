@@ -1,4 +1,5 @@
 return {
+
   -- Better Notifications
   {
     "rcarriga/nvim-notify",

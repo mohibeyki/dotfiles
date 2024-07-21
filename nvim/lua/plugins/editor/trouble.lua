@@ -1,4 +1,6 @@
 return {
+
+  -- Trouble is a plugin that provides a quick and easy way to access and manage diagnostics and other information in Neovim.
   {
     "folke/trouble.nvim",
     cmd = { "Trouble" },

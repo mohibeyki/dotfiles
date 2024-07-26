@@ -19,7 +19,7 @@ return {
     config = function()
       vim.cmd([[colorscheme onedark]])
     end,
-    enabled = false,
+    -- enabled = false,
   },
 
   -- draclua theme
@@ -46,6 +46,6 @@ return {
       })
       vim.cmd([[colorscheme rose-pine-moon]])
     end,
-    -- enabled = false,
+    enabled = false,
   },
 }

@@ -1,50 +1,18 @@
-theme = "rose_pine_moon"
+theme = "monokai_pro_spectrum"
 
 [editor]
-scrolloff = 8
-line-number = "relative"
-bufferline = "always"
-cursorline = true
-color-modes = true
-rulers = [160]
-shell = ["fish", "-c"]
-auto-format = true
 auto-completion = true
-insert-final-newline = true
+auto-format = true
+bufferline = "always"
+color-modes = true
+cursorline = true
 end-of-line-diagnostics = "hint"
-
-[editor.statusline]
-left = [
-  "mode",
-  "version-control",
-  "file-modification-indicator",
-  "read-only-indicator",
-]
-center = ["file-name"]
-right = [
-  "spinner",
-  "diagnostics",
-  "workspace-diagnostics",
-  "position",
-  "register",
-  "selections",
-  "file-encoding",
-  "file-line-ending",
-  "file-type",
-]
-separator = "│"
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
-
-[editor.lsp]
-enable = true
-auto-signature-help = true
-display-inlay-hints = true
-snippets = true
-
-[keys.normal]
-esc = ["collapse_selection", "keep_primary_selection"]
+insert-final-newline = true
+line-number = "relative"
+mouse = false
+rulers = [160]
+scrolloff = 8
+shell = ["-c", "fish"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -54,48 +22,98 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
-[editor.search]
-smart-case = true
-wrap-around = true
-
-[editor.whitespace.render]
-space = "none"
-tab = "all"
-nbsp = "all"
-nnbsp = "all"
-newline = "none"
-
-[editor.whitespace.characters]
-space = "·"
-nbsp = "⍽"
-nnbsp = "␣"
-tab = "→"
-newline = "⏎"
-tabpad = "·"
-
-[editor.indent-guides]
-render = true
-character = "┊" # "▏" "┊", "┆"
-skip-levels = 1
-
 [editor.gutters]
-layout = ["diff", "line-numbers", "diagnostics"]
+layout = ["diagnostics", "diff", "line-numbers"]
 
 [editor.gutters.line-numbers]
 min-width = 1
 
-[editor.soft-wrap]
+[editor.indent-guides]
+character = "▏" # "▏" "┊", "┆"
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+max-diagnostics = 20
+max-wrap = 80
+other-lines = "info"
+
+[editor.lsp]
+auto-signature-help = true
+display-inlay-hints = true
+display-messages = true
 enable = true
-max-wrap = 30
-max-indent-retain = 0
-wrap-at-text-width = true
+snippets = true
+
+[editor.search]
+smart-case = true
+wrap-around = true
 
 [editor.smart-tab]
 enable = true
 supersede-menu = true
 
-[editor.inline-diagnostics]
-cursor-line = "warning"
-other-lines = "info"
-max-wrap = 40
-max-diagnostics = 20
+[editor.soft-wrap]
+enable = true
+max-indent-retain = 0
+max-wrap = 80
+wrap-at-text-width = true
+
+[editor.statusline]
+center = ["file-name"]
+left = [
+  "file-modification-indicator",
+  "mode",
+  "read-only-indicator",
+  "version-control",
+]
+right = [
+  "diagnostics",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+  "position",
+  "register",
+  "selections",
+  "spinner",
+  "workspace-diagnostics",
+]
+separator = "│"
+mode.insert = "INSERT"
+mode.normal = "NORMAL"
+mode.select = "SELECT"
+
+[editor.whitespace.characters]
+nbsp = "⍽"
+newline = "⏎"
+nnbsp = "␣"
+space = "·"
+tab = "→"
+tabpad = "·"
+
+[editor.whitespace.render]
+nbsp = "all"
+newline = "none"
+nnbsp = "all"
+space = "none"
+tab = "all"
+
+[keys.insert]
+A-h = "move_char_left"
+A-j = "move_line_down"
+A-k = "move_line_up"
+A-l = "move_char_right"
+
+[keys.normal]
+"C-[" = ":bp"
+"C-]" = ":bn"
+C-d = "half_page_down"
+C-u = "half_page_up"
+C-l = ":fmt"
+C-n = ["move_line_down", "scroll_down"]
+C-p = ["move_line_up", "scroll_up"]
+C-q = ":buffer-close"
+esc = ["collapse_selection", "keep_primary_selection"]
+H = "goto_line_start"
+L = "goto_line_end"

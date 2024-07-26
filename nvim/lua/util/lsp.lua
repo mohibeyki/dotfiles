@@ -1,5 +1,6 @@
 local M = {}
 
+-- LSP on attach utility function, taken from lazyvim
 function M.on_attach(on_attach, name)
   return vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)

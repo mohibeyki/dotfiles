@@ -36,7 +36,7 @@ return {
     },
   },
 
-  -- Delete buffer utility
+  -- Delete buffer utility, makes it so that deleting a buffer does not mess with your workspace!
   {
     "ojroques/nvim-bufdel",
     event = "VeryLazy",

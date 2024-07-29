@@ -6,10 +6,9 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    helix.url = "github:helix-editor/helix";
   };
 
-  outputs = { self, nix-darwin, nixpkgs, helix, ... }@inputs:
+  outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
     let
       configuration = { pkgs, ... }: {
         nixpkgs.overlays = overlays;
@@ -22,9 +21,7 @@
             pkgs.gnused
             pkgs.go
             pkgs.gopls
-            pkgs.helix
             pkgs.kubectl
-            pkgs.kubernetes-helm
             pkgs.lazygit
             pkgs.lldb
             pkgs.lua-language-server
@@ -33,7 +30,6 @@
             pkgs.neovim
             pkgs.nodejs
             pkgs.python3
-            pkgs.ranger
             pkgs.ripgrep
             pkgs.rustup
             pkgs.selene
@@ -76,7 +72,6 @@
       };
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
-        inputs.helix.overlays.default
       ];
     in
       {

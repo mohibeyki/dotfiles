@@ -11,56 +11,35 @@ return {
   { "folke/tokyonight.nvim", enabled = false },
   { "catppuccin/nvim", enabled = false },
 
-  -- add lazyvim language extras
-  { import = "lazyvim.plugins.extras.lang.go" },
-  { import = "lazyvim.plugins.extras.lang.nix" },
-  { import = "lazyvim.plugins.extras.lang.rust" },
-
-  -- enable extra plugins
-  { import = "lazyvim.plugins.extras.coding.copilot" },
-  { import = "lazyvim.plugins.extras.editor.illuminate" },
-  { import = "lazyvim.plugins.extras.editor.navic" },
-  { import = "lazyvim.plugins.extras.editor.outline" },
-  { import = "lazyvim.plugins.extras.ui.treesitter-context" },
-
-  -- add more treesitter parsers
+  -- disable rust-analyzer to use system's rust-analyzer
   {
-    "nvim-treesitter/nvim-treesitter",
+    "neovim/nvim-lspconfig",
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "go",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "rust",
-        "vim",
-        "yaml",
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
       },
     },
   },
 
-  -- add any tools you want to have installed below
+  -- some neotree settings
   {
-    "williamboman/mason.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
     opts = {
-      ensure_installed = {
-        "clangd",
-        "delve",
-        "flake8",
-        "gofumpt",
-        "golangci-lint",
-        "golangci-lint-langserver",
-        "gopls",
-        "rust-analyzer",
-        "shellcheck",
-        "shfmt",
-        "stylua",
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          show_hidden_count = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_by_name = {
+            ".git",
+            ".DS_Store",
+            "thumbs.db",
+          },
+          never_show = {},
+        },
       },
     },
   },

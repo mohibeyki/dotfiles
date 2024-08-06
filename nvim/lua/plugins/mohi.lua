@@ -8,7 +8,6 @@ return {
 
   -- disable stuff I don't need!
   { "echasnovski/mini.pairs", enabled = false },
-  { "folke/tokyonight.nvim", enabled = false },
   { "catppuccin/nvim", enabled = false },
 
   -- disable rust-analyzer to use system's rust-analyzer

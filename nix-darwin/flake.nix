@@ -21,6 +21,7 @@
             pkgs.gnused
             pkgs.go
             pkgs.gopls
+            pkgs.jq
             pkgs.kubectl
             pkgs.lazygit
             pkgs.lldb

@@ -1,8 +1,7 @@
 return {
 
-  -- one dark pro colorscheme
   {
-    "olimorris/onedarkpro.nvim",
+    "folke/tokyonight.nvim",
     priority = 1000, -- Ensure it loads first
   },
 
@@ -10,7 +9,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "onedark",
+      colorscheme = "tokyonight",
     },
   },
 }

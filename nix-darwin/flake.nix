@@ -14,6 +14,7 @@
         nixpkgs.overlays = overlays;
         environment.systemPackages =
           [
+            pkgs.bc
             pkgs.btop
             pkgs.fd
             pkgs.fish

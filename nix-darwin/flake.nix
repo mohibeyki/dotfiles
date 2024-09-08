@@ -27,6 +27,7 @@
             pkgs.lazygit
             pkgs.lldb
             pkgs.lua-language-server
+            pkgs.markdownlint-cli2
             pkgs.mc
             pkgs.neofetch
             pkgs.neovim

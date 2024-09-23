@@ -38,6 +38,7 @@
             pkgs.selene
             pkgs.taplo
             pkgs.tmux
+            pkgs.tree-sitter
             pkgs.wget
             pkgs.yarn
             pkgs.zellij

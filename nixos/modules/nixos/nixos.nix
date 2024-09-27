@@ -1,10 +1,10 @@
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     alacritty
     brave
     discord
-	  vimix-cursors
+    vimix-cursors
     wezterm
   ];
 }

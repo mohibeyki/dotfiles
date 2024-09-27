@@ -4,6 +4,7 @@
     alacritty
     brave
     discord
+    gparted
     vimix-cursors
     wezterm
   ];

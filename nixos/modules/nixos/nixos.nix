@@ -5,6 +5,7 @@
     brave
     discord
 	  vimix-cursors
+    wezterm
   ];
 }
 

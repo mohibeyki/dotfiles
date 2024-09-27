@@ -1,29 +1,28 @@
 {
-  description = "Nixos config flake";
+  description = "Mohi's NixOS / nix-darwin config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixpkgs-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
-  let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in
+  outputs = { self, nixpkgs, nix-darwin, ... } @ inputs:
   {
     nixosConfigurations = {
       sauron = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/sauron/configuration.nix
-          home-manager.nixosModules.default
+          ./modules/common/common.nix
+          ./modules/nixos/nixos.nix
         ];
       };
     };
   };
 }
+

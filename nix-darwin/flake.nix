@@ -12,38 +12,31 @@
     let
       configuration = { pkgs, ... }: {
         nixpkgs.overlays = overlays;
-        environment.systemPackages =
+        environment.systemPackages = with pkgs;
           [
-            pkgs.bc
-            pkgs.btop
-            pkgs.fd
-            pkgs.fish
-            pkgs.git
-            pkgs.gnused
-            pkgs.go
-            pkgs.gopls
-            pkgs.jq
-            pkgs.kubectl
-            pkgs.lazygit
-            pkgs.lldb
-            pkgs.lua-language-server
-            pkgs.markdownlint-cli2
-            pkgs.mc
-            pkgs.neofetch
-            pkgs.neovim
-            pkgs.nodejs
-            pkgs.python3
-            pkgs.ripgrep
-            pkgs.rustup
-            pkgs.selene
-            pkgs.taplo
-            pkgs.tmux
-            pkgs.tree-sitter
-            pkgs.wget
-            pkgs.yarn
-            pkgs.zellij
-            pkgs.zoxide
-            pkgs.zsh
+            bc
+            btop
+            fd
+            fish
+            git
+            gnused
+            go
+            jq
+            kubectl
+            lazygit
+            mc
+            neofetch
+            neovim
+            nodejs
+            python3
+            ripgrep
+            rustup
+            tmux
+            tree-sitter
+            wget
+            yarn
+            zoxide
+            zsh
           ];
 
         # Auto upgrade nix package and the daemon service.

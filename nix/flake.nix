@@ -1,61 +1,78 @@
 {
-  description = "Mohi's Darwin system flake";
+  description = "Mohi's system flake!";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+
+    nix-darwin = {
+      url = github:LnL7/nix-darwin;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
+  outputs = inputs @ { self, nixpkgs, nix-darwin, ... }:
     let
       configuration = { pkgs, ... }: {
-        nixpkgs.overlays = overlays;
+        nixpkgs.overlays = [
+          inputs.neovim-nightly-overlay.overlays.default
+        ];
         environment.systemPackages = with pkgs;
           [
             bc
             btop
             fd
-            fish
             git
             gnused
             go
+            gofumpt
+            golangci-lint
+            gopls
             jq
             kubectl
             lazygit
+            lua-language-server
             mc
             neofetch
             neovim
+            nil
             nodejs
             python3
             ripgrep
-            rustup
+            selene
+            stylua
             tmux
+            nixpkgs-fmt
             tree-sitter
             wget
             yarn
             zoxide
-            zsh
           ];
 
         # Auto upgrade nix package and the daemon service.
         services.nix-daemon.enable = true;
-        nix.package = pkgs.nixVersions.latest; # pkgs.nix;
 
-        # Necessary for using flakes on this system.
-        nix.settings.experimental-features = "nix-command flakes";
+        nix = {
+          package = pkgs.nixVersions.latest; # pkgs.nix;
+
+          # Necessary for using flakes on this system.
+          settings.experimental-features = [ "nix-command" "flakes" ];
+        };
+
         nixpkgs.config.allowUnfree = true;
 
         # Create /etc/zshrc that loads the nix-darwin environment.
         programs.zsh.enable = true;
+
+        # Enable fish and fix nix packages' order on the PATH
         programs.fish.enable = true;
         programs.fish.shellInit = ''
-        for p in /run/current-system/sw/bin
-          if not contains $p $fish_user_paths
-            set -g fish_user_paths $p $fish_user_paths
+          for p in /run/current-system/sw/bin
+            if not contains $p $fish_user_paths
+              set -g fish_user_paths $p $fish_user_paths
+            end
           end
-        end
         '';
 
         # Set Git commit hash for darwin-version.
@@ -68,13 +85,13 @@
         # The platform the configuration will be used on.
         nixpkgs.hostPlatform = "aarch64-darwin";
       };
-      overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
-      ];
     in
-      {
-      darwinConfigurations."Legolas" = nix-darwin.lib.darwinSystem {
-        modules = [ configuration ];
+    {
+      darwinConfigurations = {
+        Legolas = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ configuration ];
+        };
       };
 
       # Expose the package set, including overlays, for convenience.

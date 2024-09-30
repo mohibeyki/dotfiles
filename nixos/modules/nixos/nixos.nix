@@ -33,7 +33,7 @@
   nixpkgs.config.overlays = [
     (self: super: {
       brave = super.brave.override {
-        commandLineArgs = "--password-store=gnome --disable-gpu-compositing";
+        commandLineArgs = "--password-store=gnome --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing";
       };
     })
   ];

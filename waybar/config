@@ -14,7 +14,6 @@
         ],
         "modules-right": [
             "tray",
-            "custom/pacman",
             "cpu",
             "memory",
             "pulseaudio",

@@ -7,6 +7,9 @@
   nix = {
     package = pkgs.nixVersions.latest; # pkgs.nix;
 
+    # Trusted users for cachix
+    settings.trusted-users = [ "root" "mohi" ];
+
     # Necessary for using flakes on this system.
     settings.experimental-features = [ "nix-command" "flakes" ];
   };

@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     btop
-    cargo
+    cachix
     fd
     fish
     gcc
@@ -15,8 +15,6 @@
     nodejs
     python3
     ripgrep
-    rust-analyzer
-    rustc
     stylua
     tree-sitter
     unzip

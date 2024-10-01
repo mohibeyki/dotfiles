@@ -15,29 +15,6 @@
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
 
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            leftmeta = "oneshot(alt)";
-            leftalt = "oneshot(meta)";
-          };
-        };
-      };
-    };
-  };
-
-  nixpkgs.config.overlays = [
-    (self: super: {
-      brave = super.brave.override {
-        commandLineArgs = "--password-store=gnome --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu-compositing";
-      };
-    })
-  ];
-
   environment.systemPackages = with pkgs; [
     alacritty
     brave

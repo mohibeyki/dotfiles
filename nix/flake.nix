@@ -1,5 +1,5 @@
 {
-  description = "Mohi's system flake!";
+  description = "Mohi's NixOS / nix-darwin config flake";
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-unstable;
@@ -9,10 +9,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs @ { self, nix-darwin, ... }:
+  outputs = inputs @ { self, nixpkgs, nix-darwin, lanzaboote, fenix, ... }:
     {
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
@@ -22,8 +32,36 @@
 
           system = "aarch64-darwin";
           modules = [
-            ./modules/common.nix
+            ./cachix.nix
             ./hosts/legolas/configuration.nix
+            ./modules/common.nix
+            ./modules/darwin.nix
+          ];
+        };
+      };
+
+      nixosConfigurations = {
+        sauron = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit self inputs;
+          };
+          modules = [
+            ./cachix.nix
+            ./hosts/sauron/configuration.nix
+            ./modules/common/common.nix
+            ./modules/nixos/nixos.nix
+
+            # Secure boot
+            lanzaboote.nixosModules.lanzaboote
+            ({ pkgs, lib, ... }: {
+              boot.loader.systemd-boot.enable = lib.mkForce false;
+
+              boot.lanzaboote = {
+                enable = true;
+                pkiBundle = "/etc/secureboot";
+              };
+            })
           ];
         };
       };

@@ -49,8 +49,10 @@
           modules = [
             ./cachix.nix
             ./hosts/sauron/configuration.nix
-            ./modules/common/common.nix
-            ./modules/nixos/nixos.nix
+            ./modules/nvidia.nix
+            ./modules/common.nix
+            ./modules/nixos.nix
+            ./modules/steam.nix
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote

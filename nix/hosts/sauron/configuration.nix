@@ -10,9 +10,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  fileSystems = {
+    "/mnt/games" = {
+      device = "/dev/disk/by-uuid/12643f08-859b-48fa-a917-c6e4580edab1";
+      fsType = "btrfs";
+    };
+  };
+
+  swapDevices = [{
+    device = "/dev/disk/by-uuid/2569aabf-455f-44a2-bc0d-aea1c3821fe6";
+  }];
+
   networking.hostName = "sauron";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -38,11 +49,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
-
   # Disable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -53,19 +62,6 @@
   nixpkgs.config.allowUnfree = true;
 
   hardware.bluetooth.enable = true;
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
-
-    open = true;
-
-    nvidiaSettings = true;
-
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -85,12 +81,13 @@
   # services.xserver.libinput.enable = true;
 
   programs.firefox.enable = true;
+  programs.zsh.enable = true;
   programs.fish.enable = true;
 
   users.defaultUserShell = pkgs.fish;
   users.users.mohi = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     description = "Mohi Beyki";
   };
 

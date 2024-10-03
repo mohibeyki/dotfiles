@@ -1,5 +1,9 @@
 { pkgs, inputs, ... }:
 {
+  imports = [
+    ./fenix.nix
+  ];
+
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
   ];
@@ -8,10 +12,16 @@
     package = pkgs.nixVersions.latest; # pkgs.nix;
 
     # Trusted users for cachix
-    settings.trusted-users = [ "root" "mohi" ];
+    settings.trusted-users = [
+      "root"
+      "mohi"
+    ];
 
     # Necessary for using flakes on this system.
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   # Enable non-free applications
@@ -46,7 +56,7 @@
     mc
     neovim
     nil
-    nixpkgs-fmt
+    nixfmt-rfc-style
     nodejs
     python3
     ripgrep

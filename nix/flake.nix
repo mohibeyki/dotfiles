@@ -22,7 +22,15 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs @ { self, nixpkgs, nix-darwin, lanzaboote, fenix, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      lanzaboote,
+      fenix,
+      ...
+    }:
     {
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
@@ -56,14 +64,17 @@
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote
-            ({ pkgs, lib, ... }: {
-              boot.loader.systemd-boot.enable = lib.mkForce false;
+            (
+              { pkgs, lib, ... }:
+              {
+                boot.loader.systemd-boot.enable = lib.mkForce false;
 
-              boot.lanzaboote = {
-                enable = true;
-                pkiBundle = "/etc/secureboot";
-              };
-            })
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/etc/secureboot";
+                };
+              }
+            )
           ];
         };
       };

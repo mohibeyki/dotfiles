@@ -1,5 +1,4 @@
-{ config, pkgs, inputs, ... }:
-
+{ pkgs, ... }:
 {
   imports =
     [
@@ -47,24 +46,28 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services = {
+    xserver = {
+      enable = true;
 
-  # Disable the GNOME Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+      # Configure keymap in X11
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    # Enable plasma desktop.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma6.enable = true;
+
+    # Enable CUPS to print documents.
+    printing.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
 
   hardware.bluetooth.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -80,9 +83,11 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  programs.firefox.enable = true;
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
+  programs = {
+    firefox.enable = true;
+    zsh.enable = true;
+    fish.enable = true;
+  };
 
   users.defaultUserShell = pkgs.fish;
   users.users.mohi = {

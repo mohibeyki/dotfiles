@@ -27,6 +27,7 @@
     bc
     btop
     cachix
+    clang-tools
     fd
     gcc
     git
@@ -40,8 +41,9 @@
     kubectl
     lazygit
     lua-language-server
+    macchina
+    markdownlint-cli2
     mc
-    neofetch
     neovim
     nil
     nixpkgs-fmt
@@ -49,6 +51,7 @@
     python3
     ripgrep
     selene
+    statix
     stylua
     tmux
     tree-sitter

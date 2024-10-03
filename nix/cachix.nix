@@ -1,6 +1,4 @@
-
-# WARN: this file will get overwritten by $ cachix use <name>
-{ pkgs, lib, ... }:
+{ lib, ... }:
 
 let
   folder = ./cachix;

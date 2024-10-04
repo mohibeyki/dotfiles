@@ -8,13 +8,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  fileSystems = {
-    "/mnt/games" = {
-      device = "/dev/disk/by-uuid/12643f08-859b-48fa-a917-c6e4580edab1";
-      fsType = "btrfs";
-    };
-  };
-
   swapDevices = [
     {
       device = "/dev/disk/by-uuid/2569aabf-455f-44a2-bc0d-aea1c3821fe6";

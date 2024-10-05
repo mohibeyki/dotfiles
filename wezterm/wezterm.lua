@@ -14,11 +14,11 @@ config.native_macos_fullscreen_mode = true
 config.hide_tab_bar_if_only_one_tab = true
 
 config.keys = {
-	{
-		key = "Enter",
-		mods = "CMD",
-		action = wezterm.action.ToggleFullScreen,
-	},
+  {
+    key = "Enter",
+    mods = "CMD",
+    action = wezterm.action.ToggleFullScreen,
+  },
 }
 
 return config

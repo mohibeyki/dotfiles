@@ -1,8 +1,14 @@
 { pkgs, inputs, ... }:
 let
-  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  hyprlnd-pkgs-unstable =
+    inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
+  nix.settings = {
+    substituters = [ "https://wezterm.cachix.org" ];
+    trusted-public-keys = [ "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0=" ];
+  };
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -18,8 +24,8 @@ in
 
   hardware = {
     graphics = {
-      package = pkgs-unstable.mesa.drivers;
-      package32 = pkgs-unstable.pkgsi686Linux.mesa.drivers;
+      package = hyprlnd-pkgs-unstable.mesa.drivers;
+      package32 = hyprlnd-pkgs-unstable.pkgsi686Linux.mesa.drivers;
       enable32Bit = true;
     };
   };
@@ -44,7 +50,6 @@ in
     sbctl
     vimix-cursors
     waybar
-    wezterm
     wofi
     zed-editor
 

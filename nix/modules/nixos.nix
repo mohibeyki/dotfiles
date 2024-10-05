@@ -34,6 +34,7 @@ in
   environment.systemPackages = with pkgs; [
     alacritty
     bind
+    brave
     discord
     gparted
     hyprpaper

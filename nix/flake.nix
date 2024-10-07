@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +54,7 @@
 
           system = "aarch64-darwin";
           modules = [
-            ./cachix.nix
+            ./nix-community.nix
             ./hosts/legolas/configuration.nix
             ./modules/common.nix
             ./modules/darwin.nix
@@ -64,11 +69,12 @@
             inherit self inputs;
           };
           modules = [
-            ./cachix.nix
+            ./nix-community.nix
             ./hosts/sauron/configuration.nix
             ./modules/nvidia.nix
             ./modules/common.nix
             ./modules/nixos.nix
+            ./modules/hyprland.nix
             ./modules/steam.nix
             ./modules/misc.nix
 

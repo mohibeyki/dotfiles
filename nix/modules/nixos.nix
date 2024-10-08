@@ -5,7 +5,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    alacritty
     bind
     brave
     discord
@@ -14,7 +13,6 @@
     mako
     niv
     sbctl
-    wezterm
     zed-editor
   ];
 }

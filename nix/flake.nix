@@ -19,11 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +64,6 @@
             ./modules/nixos.nix
             ./modules/hyprland.nix
             ./modules/steam.nix
-            ./modules/misc.nix
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote

@@ -24,6 +24,12 @@
     ];
   };
 
+  fonts.packages = [
+    (pkgs.nerdfonts.override {
+      fonts = [ "JetBrainsMono" ];
+    })
+  ];
+
   # Enable non-free applications
   nixpkgs.config.allowUnfree = true;
 
@@ -34,6 +40,7 @@
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [
+    alacritty
     bc
     btop
     cachix
@@ -68,6 +75,7 @@
     unzip
     wget
     yarn
+    wezterm
     zip
     zoxide
   ];

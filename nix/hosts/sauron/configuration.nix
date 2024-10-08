@@ -55,11 +55,11 @@
         layout = "us";
         variant = "";
       };
-    };
 
-    # Enable gnome desktop.
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+      # Enable gnome desktop.
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
 
     # Enable CUPS to print documents.
     printing.enable = true;

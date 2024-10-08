@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,12 +26,10 @@
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     homebrew-core = {
@@ -51,6 +54,7 @@
       nixpkgs,
       nix-darwin,
       lanzaboote,
+      home-manager,
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
@@ -66,6 +70,15 @@
 
           system = "aarch64-darwin";
           modules = [
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/legolas.nix;
+              };
+            }
+
             ./nix-community.nix
             ./hosts/legolas/configuration.nix
             ./modules/common.nix

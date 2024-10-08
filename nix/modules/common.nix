@@ -58,7 +58,6 @@
     kubectl
     lazygit
     lua-language-server
-    macchina
     markdownlint-cli2
     mc
     neovim

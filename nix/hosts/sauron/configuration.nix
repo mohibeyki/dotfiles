@@ -57,9 +57,9 @@
       };
     };
 
-    # Enable plasma desktop.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
+    # Enable gnome desktop.
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
 
     # Enable CUPS to print documents.
     printing.enable = true;

@@ -23,7 +23,7 @@ in
     ];
 
     file = {
-      ".config/nvim" = "../nvim";
+      ".config/nvim".source = ../../nvim;
     };
 
     sessionVariables = {

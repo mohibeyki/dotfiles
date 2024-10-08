@@ -10,7 +10,7 @@
     brave
     discord
     gparted
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     mako
     niv
     sbctl

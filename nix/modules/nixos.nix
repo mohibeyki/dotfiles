@@ -14,6 +14,7 @@
     mako
     niv
     sbctl
+    wezterm
     zed-editor
   ];
 }

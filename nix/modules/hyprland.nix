@@ -1,13 +1,7 @@
 { pkgs, inputs, ... }:
-let
-  hyprpkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  hyprpkgs-contrib = inputs.hyprland-contrib.packages.${pkgs.stdenv.hostPlatform.system};
-in
 {
   hardware = {
     graphics = {
-      package = hyprpkgs.mesa.drivers;
-      package32 = hyprpkgs.pkgsi686Linux.mesa.drivers;
       enable32Bit = true;
     };
   };
@@ -38,8 +32,6 @@ in
     pkgs.vimix-cursors
     pkgs.waybar
     pkgs.wofi
-
-    hyprpkgs-contrib.hyprprop
 
     (pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];

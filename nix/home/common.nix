@@ -6,7 +6,9 @@ in
 {
   home = {
     username = "${user}";
-    homeDirectory = pkgs.lib.mkForce (if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}");
+    homeDirectory = pkgs.lib.mkForce (
+      if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}"
+    );
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -24,6 +26,9 @@ in
 
     file = {
       ".config/nvim".source = ../../nvim;
+      ".config/helix".source = ../../helix;
+      ".config/alacritty".source = ../../alacritty;
+      ".config/tmux/tmux.conf".source = ../../tmux/tmux.conf;
     };
 
     sessionVariables = {

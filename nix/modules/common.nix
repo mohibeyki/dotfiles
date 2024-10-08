@@ -28,11 +28,6 @@
   programs = {
     zsh.enable = true;
     fish.enable = true;
-
-    neovim = {
-      enable = true;
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -74,6 +69,7 @@
     zip
     zoxide
 
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
     inputs.wezterm.packages.${pkgs.system}.default
   ];
 }

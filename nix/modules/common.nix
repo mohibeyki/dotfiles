@@ -64,6 +64,7 @@
     ripgrep
     selene
     statix
+    stow
     stylua
     tmux
     tree-sitter

@@ -72,5 +72,7 @@
     yarn
     zip
     zoxide
+
+    inputs.wezterm.packages.${pkgs.system}.default
   ];
 }

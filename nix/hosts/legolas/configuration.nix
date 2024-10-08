@@ -8,13 +8,13 @@
   # Touch ID sudo!
   security.pam.enableSudoTouchIdAuth = true;
 
-  programs.fish.shellInit = ''
-    for p in /run/current-system/sw/bin
-      if not contains $p $fish_user_paths
-        set -g fish_user_paths $p $fish_user_paths
-      end
-    end
-  '';
+  # programs.fish.shellInit = ''
+  #   for p in /run/current-system/sw/bin
+  #     if not contains $p $fish_user_paths
+  #       set -g fish_user_paths $p $fish_user_paths
+  #     end
+  #   end
+  # '';
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;

@@ -1,6 +1,22 @@
 {
   description = "Mohi's NixOS / nix-darwin config flake";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org"
+      "https://devenv.cachix.org"
+      "https://cache.garnix.io"
+    ];
+
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nas.paulg.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -9,13 +25,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -27,25 +43,6 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
-
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-    };
-
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
   };
 
   outputs =
@@ -53,15 +50,21 @@
       self,
       nixpkgs,
       nix-darwin,
-      lanzaboote,
       home-manager,
-      nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-      homebrew-bundle,
+      lanzaboote,
       ...
     }:
+    let
+      inherit (self) outputs;
+      pkgsFor = nixpkgs.legacyPackages;
+    in
     {
+      overlays = import ./overlays { inherit inputs; };
+
+      nixosModules = import ./modules/nixos;
+      darwinModules = import ./modules/darwin;
+      homeManagerModules = import ./modules/home-manager;
+
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
           specialArgs = {
@@ -70,19 +73,8 @@
 
           system = "aarch64-darwin";
           modules = [
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mohi = import ./home/legolas.nix;
-              };
-            }
-
-            ./nix-community.nix
             ./hosts/legolas/configuration.nix
             ./modules/common.nix
-            ./modules/darwin.nix
           ];
         };
       };
@@ -93,12 +85,11 @@
           specialArgs = {
             inherit self inputs;
           };
+
           modules = [
-            ./nix-community.nix
             ./hosts/sauron/configuration.nix
             ./modules/nvidia.nix
             ./modules/common.nix
-            ./modules/nixos.nix
             ./modules/hyprland.nix
             ./modules/steam.nix
 
@@ -116,6 +107,26 @@
               }
             )
           ];
+        };
+      };
+
+      homeConfigurations = {
+        "mohi@legolas" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.aarch64-darwin;
+          modules = [ ./home/legolas.nix ];
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+        };
+      };
+
+      homeConfigurations = {
+        "mohi@sauron" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.x86_64-linux;
+          modules = [ ./home/sauron.nix ];
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
         };
       };
     };

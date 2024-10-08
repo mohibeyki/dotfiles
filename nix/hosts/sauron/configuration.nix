@@ -19,11 +19,6 @@
 
   networking.hostName = "sauron";
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -85,8 +80,6 @@
 
   programs = {
     firefox.enable = true;
-    zsh.enable = true;
-    fish.enable = true;
   };
 
   users.defaultUserShell = pkgs.fish;

@@ -1,13 +1,5 @@
 { pkgs, inputs, ... }:
 {
-  imports = [
-    ./fenix.nix
-  ];
-
-  nixpkgs.overlays = [
-    inputs.neovim-nightly-overlay.overlays.default
-  ];
-
   nix = {
     package = pkgs.nixVersions.latest; # pkgs.nix;
 
@@ -33,11 +25,10 @@
   # Enable non-free applications
   nixpkgs.config.allowUnfree = true;
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;
-
-  # Enable fish and fix nix packages' order on the PATH
-  programs.fish.enable = true;
+  programs = {
+    zsh.enable = true;
+    fish.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     alacritty
@@ -54,6 +45,8 @@
     gofumpt
     golangci-lint
     gopls
+    helix
+    home-manager
     jq
     kubectl
     lazygit

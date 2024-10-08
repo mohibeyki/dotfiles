@@ -28,6 +28,11 @@
   programs = {
     zsh.enable = true;
     fish.enable = true;
+
+    neovim = {
+      enable = true;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -46,14 +51,12 @@
     golangci-lint
     gopls
     helix
-    home-manager
     jq
     kubectl
     lazygit
     lua-language-server
     markdownlint-cli2
     mc
-    neovim
     nil
     nixfmt-rfc-style
     nodejs

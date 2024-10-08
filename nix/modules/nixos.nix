@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.udev.packages = [
-    pkgs.gnome.gnome-settings-daemon
+    pkgs.gnome-settings-daemon
   ];
 
   environment.systemPackages = with pkgs; [

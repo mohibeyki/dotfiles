@@ -75,7 +75,6 @@
     unzip
     wget
     yarn
-    wezterm
     zip
     zoxide
   ];

@@ -29,7 +29,6 @@ in
   home.packages = [ ];
 
   programs = {
-    neovim.enable = true;
     home-manager.enable = true;
 
     git = {

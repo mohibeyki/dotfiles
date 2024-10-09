@@ -1,4 +1,4 @@
-theme = "monokai_pro_spectrum"
+theme = "tokyonight_moon"
 
 [editor]
 auto-completion = true

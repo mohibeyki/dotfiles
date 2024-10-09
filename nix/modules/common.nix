@@ -72,6 +72,7 @@
     zip
     zoxide
 
-    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+    # wezterm
+    inputs.wezterm.packages.${pkgs.system}.default
   ];
 }

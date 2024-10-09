@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   username = "mohi";
+  configPath = ../../config;
 in
 {
   imports =
@@ -14,10 +15,10 @@ in
     );
 
     file = {
-      ".config/alacritty".source = ../../config/alacritty;
-      ".config/helix".source = ../../config/helix;
-      ".config/wezterm".source = ../../config/wezterm;
-      ".config/tmux/tmux.conf".source = ../../config/tmux/tmux.conf;
+      ".config/alacritty".source = configPath + /alacritty;
+      ".config/helix".source = configPath + /helix;
+      ".config/wezterm".source = configPath + /wezterm;
+      ".config/tmux/tmux.conf".source = configPath + /tmux/tmux.conf;
     };
 
     sessionVariables = {

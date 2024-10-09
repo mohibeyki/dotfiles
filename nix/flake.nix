@@ -58,6 +58,11 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    aerospace-cask = {
+      url = "github:nikitabobko/homebrew-tap";
+      flake = false;
+    };
   };
 
   outputs =
@@ -68,9 +73,6 @@
       lanzaboote,
       home-manager,
       nix-homebrew,
-      homebrew-bundle,
-      homebrew-core,
-      homebrew-cask,
       ...
     }:
     {
@@ -86,6 +88,22 @@
             ./modules/darwin.nix
             ./modules/common.nix
             ./overlays
+
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = false;
+                user = "mohi";
+                taps = {
+                  "homebrew/homebrew-core" = inputs.homebrew-core;
+                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                  "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                  "nikitabobko/homebrew-tap" = inputs.aerospace-cask;
+                };
+                mutableTaps = false;
+              };
+            }
 
             home-manager.darwinModules.home-manager
             {

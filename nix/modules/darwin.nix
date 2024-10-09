@@ -4,6 +4,26 @@
     pkgs.mkalias
   ];
 
+  homebrew = {
+    enable = true;
+    brews = [
+      "mas"
+      "cowsay"
+    ];
+    casks = [
+      "iina"
+      "raycast"
+      "aerospace"
+    ];
+    taps = [ ];
+    masApps = {
+      "1password" = 1333542190;
+      "telegram" = 747648890;
+      "whatsapp" = 310633997;
+      "unar" = 425424353;
+    };
+  };
+
   system.activationScripts.applications.text =
     let
       env = pkgs.buildEnv {

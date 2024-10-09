@@ -151,7 +151,7 @@
               }
             )
 
-            home-manager.darwinModules.home-manager
+            home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;

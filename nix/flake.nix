@@ -150,6 +150,19 @@
                 };
               }
             )
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/sauron;
+
+                extraSpecialArgs = {
+                  inherit self inputs;
+                };
+              };
+            }
           ];
         };
       };

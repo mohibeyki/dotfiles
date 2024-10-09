@@ -26,18 +26,37 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
+    };
+
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
+
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
     };
   };
 
@@ -47,6 +66,11 @@
       nixpkgs,
       nix-darwin,
       lanzaboote,
+      home-manager,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
       ...
     }:
     {
@@ -62,6 +86,19 @@
             ./modules/darwin.nix
             ./modules/common.nix
             ./overlays
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/legolas;
+
+                extraSpecialArgs = {
+                  inherit self inputs;
+                };
+              };
+            }
           ];
         };
       };

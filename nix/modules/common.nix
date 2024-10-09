@@ -3,17 +3,19 @@
   nix = {
     package = pkgs.nixVersions.latest; # pkgs.nix;
 
-    # Trusted users for cachix
-    settings.trusted-users = [
-      "root"
-      "mohi"
-    ];
+    settings = {
+      trusted-users = [
+        "root"
+        "mohi"
+      ];
 
-    # Necessary for using flakes on this system.
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+      accept-flake-config = true;
+
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
 
   fonts.packages = [
@@ -37,6 +39,7 @@
     cachix
     clang-tools
     fd
+    fishPlugins.tide
     gcc
     git
     gnumake
@@ -70,6 +73,5 @@
     zoxide
 
     inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
-    inputs.wezterm.packages.${pkgs.system}.default
   ];
 }

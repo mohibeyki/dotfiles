@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   username = "mohi";
   configPath = ../../config;
@@ -24,9 +24,9 @@ in
     sessionVariables = {
       EDITOR = "nvim";
     };
-  };
 
-  home.packages = [ ];
+    packages = [ ];
+  };
 
   programs = {
     home-manager.enable = true;
@@ -40,6 +40,7 @@ in
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
       };
+
       aliases = {
         co = "checkout";
         ci = "commit";
@@ -48,6 +49,23 @@ in
         hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
       };
     };
+
+    neovim = {
+      enable = true;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withNodeJs = true;
+
+      plugins = with pkgs.vimPlugins; [
+        lazy-nvim
+      ];
+    };
+  };
+
+  xdg.configFile."nvim" = {
+    recursive = true;
+    source = ../../config/nvim;
   };
 
   home.stateVersion = "24.05";

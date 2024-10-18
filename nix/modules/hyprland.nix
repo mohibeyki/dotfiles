@@ -29,9 +29,5 @@
     pkgs.vimix-cursors
     pkgs.waybar
     pkgs.wofi
-
-    (pkgs.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    }))
   ];
 }

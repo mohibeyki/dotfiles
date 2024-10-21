@@ -4,14 +4,10 @@
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://helix.cachix.org"
-      "https://wezterm.cachix.org"
     ];
 
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-      "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0="
     ];
   };
 
@@ -33,26 +29,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-
-    helix = {
-      url = "github:helix-editor/helix";
-    };
-
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     homebrew-bundle = {
@@ -98,7 +77,6 @@
             ./hosts/legolas
             ./modules/darwin.nix
             ./modules/common.nix
-            ./overlays
 
             nix-homebrew.darwinModules.nix-homebrew
             {
@@ -146,12 +124,15 @@
             ./modules/common.nix
             ./modules/hyprland.nix
             ./modules/steam.nix
-            ./overlays
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote
             (
-              { pkgs, lib, ... }:
+              {
+                pkgs,
+                lib,
+                ...
+              }:
               {
                 boot.loader.systemd-boot.enable = lib.mkForce false;
 

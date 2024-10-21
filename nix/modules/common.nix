@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 {
   nix = {
     package = pkgs.nixVersions.latest; # pkgs.nix;
@@ -56,6 +60,7 @@
     markdownlint-cli2
     mc
     nil
+    nixd
     nixfmt-rfc-style
     nodejs
     python3
@@ -69,10 +74,8 @@
     unzip
     wget
     yarn
+    zellij
     zip
     zoxide
-
-    # wezterm
-    inputs.wezterm.packages.${pkgs.system}.default
   ];
 }

@@ -52,7 +52,6 @@ in
 
     neovim = {
       enable = true;
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;

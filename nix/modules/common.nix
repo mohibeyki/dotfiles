@@ -59,6 +59,7 @@
     lua-language-server
     markdownlint-cli2
     mc
+    neovim
     nil
     nixd
     nixfmt-rfc-style

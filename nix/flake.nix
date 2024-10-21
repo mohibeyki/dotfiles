@@ -29,6 +29,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,6 +70,11 @@
       nix-homebrew,
       ...
     }:
+    let
+      overlays = [
+        inputs.neovim-nightly-overlay.overlays.default
+      ];
+    in
     {
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
@@ -74,6 +84,8 @@
 
           system = "aarch64-darwin";
           modules = [
+            { nixpkgs.overlays = overlays; }
+
             ./hosts/legolas
             ./modules/darwin.nix
             ./modules/common.nix

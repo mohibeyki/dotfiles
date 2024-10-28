@@ -2,12 +2,16 @@
   description = "Mohi's NixOS / nix-darwin config flake";
 
   nixConfig = {
-    extra-substituters = [
+    substituters = [
+      "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://wezterm.cachix.org"
     ];
 
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0="
     ];
   };
 
@@ -31,7 +35,6 @@
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-homebrew = {
@@ -58,6 +61,8 @@
       url = "github:nikitabobko/homebrew-tap";
       flake = false;
     };
+
+    wezterm.url = "github:wez/wezterm?dir=nix";
   };
 
   outputs =
@@ -70,11 +75,6 @@
       nix-homebrew,
       ...
     }:
-    let
-      overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
-      ];
-    in
     {
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
@@ -84,8 +84,6 @@
 
           system = "aarch64-darwin";
           modules = [
-            { nixpkgs.overlays = overlays; }
-
             ./hosts/legolas
             ./modules/darwin.nix
             ./modules/common.nix

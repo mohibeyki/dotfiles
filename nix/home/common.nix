@@ -52,6 +52,7 @@ in
 
     neovim = {
       enable = true;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
@@ -59,6 +60,11 @@ in
       plugins = with pkgs.vimPlugins; [
         lazy-nvim
       ];
+    };
+
+    wezterm = {
+      enable = true;
+      package = inputs.wezterm.packages.${pkgs.system}.default;
     };
   };
 

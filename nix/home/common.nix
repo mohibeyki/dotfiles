@@ -61,11 +61,6 @@ in
         lazy-nvim
       ];
     };
-
-    wezterm = {
-      enable = true;
-      package = inputs.wezterm.packages.${pkgs.system}.default;
-    };
   };
 
   xdg.configFile."nvim" = {

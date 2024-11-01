@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -35,6 +34,7 @@
     zsh.enable = true;
     fish.enable = true;
   };
+
 
   environment.systemPackages = with pkgs; [
     alacritty

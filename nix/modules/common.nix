@@ -50,7 +50,7 @@
     gnused
     go
     gofumpt
-    goimports
+    gotools
     golangci-lint
     gopls
     helix

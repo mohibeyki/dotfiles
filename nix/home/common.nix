@@ -63,10 +63,5 @@ in
     };
   };
 
-  xdg.configFile."nvim" = {
-    recursive = true;
-    source = ../../config/nvim;
-  };
-
   home.stateVersion = "24.05";
 }

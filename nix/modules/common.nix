@@ -35,7 +35,6 @@
     fish.enable = true;
   };
 
-
   environment.systemPackages = with pkgs; [
     alacritty
     bc
@@ -44,12 +43,14 @@
     clang-tools
     fd
     fishPlugins.tide
+    fzf
     gcc
     git
     gnumake
     gnused
     go
     gofumpt
+    goimports
     golangci-lint
     gopls
     helix
@@ -58,6 +59,7 @@
     lazygit
     lua-language-server
     markdownlint-cli2
+    marksman
     mc
     nil
     nixd

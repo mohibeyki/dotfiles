@@ -1,6 +1,6 @@
 [
     {
-        "output": "DP-3",
+        "output": "DP-1",
         "layer": "top",
         "include": [
             "~/.config/waybar/shared-modules.json"
@@ -98,18 +98,4 @@
             "on-click": "bash ~/.config/scripts/wofi/power-menu.sh"
         }
     },
-    {
-        "output": "DP-1",
-        "layer": "top",
-        "include": [
-            "~/.config/waybar/shared-modules.json"
-        ],
-        "modules-left": [
-            "hyprland/workspaces"
-        ],
-        "modules-center": [
-            "hyprland/window"
-        ],
-        "modules-right": []
-    }
 ]

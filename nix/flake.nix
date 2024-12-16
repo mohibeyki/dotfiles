@@ -73,6 +73,50 @@
     }:
     {
       darwinConfigurations = {
+        arwen = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit self inputs;
+          };
+
+          system = "aarch64-darwin";
+          modules = [
+            ./hosts/arwen
+            ./modules/darwin.nix
+            ./modules/common.nix
+
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = false;
+                user = "mohi";
+                taps = {
+                  "homebrew/homebrew-core" = inputs.homebrew-core;
+                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                  "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                  "nikitabobko/homebrew-tap" = inputs.aerospace-cask;
+                };
+                mutableTaps = false;
+              };
+            }
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/arwen;
+
+                extraSpecialArgs = {
+                  inherit self inputs;
+                };
+              };
+            }
+          ];
+        };
+      };
+
+      darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit self inputs;

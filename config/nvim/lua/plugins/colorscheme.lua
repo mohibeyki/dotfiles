@@ -1,14 +1,14 @@
 return {
   {
     "folke/tokyonight.nvim",
-    opts = function()
-      return {
-        style = "moon",
-        on_colors = function(colors)
-          colors.border = colors.orange
-        end,
-      }
-    end,
+    name = "tokyonight",
   },
   { "catppuccin/nvim", name = "catppuccin", enabled = false },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      vim.cmd("colorscheme rose-pine-moon")
+    end,
+  },
 }

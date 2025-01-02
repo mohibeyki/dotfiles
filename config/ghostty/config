@@ -3,4 +3,5 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 quit-after-last-window-closed = true
-theme = rose-pine-moon
+theme = tokyonight
+

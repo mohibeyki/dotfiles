@@ -2,13 +2,9 @@ return {
   {
     "folke/tokyonight.nvim",
     name = "tokyonight",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
   { "catppuccin/nvim", name = "catppuccin", enabled = false },
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      vim.cmd("colorscheme rose-pine-moon")
-    end,
-  },
 }

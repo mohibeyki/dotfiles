@@ -17,13 +17,17 @@
     }
   ];
 
-  networking.hostName = "sauron";
+  networking = {
+    hostName = "sauron";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    # Enable networking
+    networkmanager.enable = true;
+
+    nameservers = [ "192.168.1.10#dns.home.biook.me" ];
+  };
 
   # Set your time zone.
-  time.timeZone = "America/New_York";
+  time.timeZone = "America/Los_Angeles";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -54,6 +58,14 @@
       # Enable gnome desktop.
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
+    };
+
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      domains = [ "~." ];
+      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      dnsovertls = "true";
     };
 
     # Enable CUPS to print documents.

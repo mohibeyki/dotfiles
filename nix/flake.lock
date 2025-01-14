@@ -83,7 +83,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "neovim",
+          "neovim-nightly-overlay",
           "nixpkgs"
         ]
       },
@@ -104,7 +104,7 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
-          "neovim",
+          "neovim-nightly-overlay",
           "hercules-ci-effects",
           "nixpkgs"
         ]
@@ -145,7 +145,7 @@
         "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
         "nixpkgs": [
-          "neovim",
+          "neovim-nightly-overlay",
           "nixpkgs"
         ]
       },
@@ -166,7 +166,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "neovim",
+          "neovim-nightly-overlay",
           "git-hooks",
           "nixpkgs"
         ]
@@ -210,7 +210,7 @@
       "inputs": {
         "flake-parts": "flake-parts_2",
         "nixpkgs": [
-          "neovim",
+          "neovim-nightly-overlay",
           "nixpkgs"
         ]
       },
@@ -296,7 +296,7 @@
         "type": "github"
       }
     },
-    "neovim": {
+    "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
@@ -465,7 +465,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "neovim": "neovim",
+        "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4",
@@ -531,7 +531,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "neovim",
+          "neovim-nightly-overlay",
           "nixpkgs"
         ]
       },

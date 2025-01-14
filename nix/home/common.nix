@@ -4,9 +4,8 @@ let
   configPath = ../../config;
 in
 {
-  imports =
-    [
-    ];
+  imports = [
+  ];
 
   home = {
     username = "${username}";
@@ -49,6 +48,11 @@ in
         br = "branch";
         hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
       };
+    };
+
+    helix = {
+      enable = true;
+      package = inputs.helix.packages.${pkgs.system}.default;
     };
 
     neovim = {

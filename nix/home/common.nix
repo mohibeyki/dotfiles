@@ -13,14 +13,6 @@ in
       if pkgs.stdenv.isLinux then "/home/${username}" else "/Users/${username}"
     );
 
-    file = {
-      ".config/alacritty".source = configPath + /alacritty;
-      ".config/ghostty".source = configPath + /ghostty;
-      ".config/helix".source = configPath + /helix;
-      ".config/wezterm".source = configPath + /wezterm;
-      ".config/tmux/tmux.conf".source = configPath + /tmux/tmux.conf;
-    };
-
     sessionVariables = {
       EDITOR = "nvim";
     };

@@ -33,8 +33,9 @@
     fish.enable = true;
   };
 
+  formatter.${pkgs.system} = nixpkgs.legacyPackages.${pkgs.system}.nixfmt-rfc-style;
+
   environment.systemPackages = with pkgs; [
-    alacritty
     bc
     btop
     cachix
@@ -51,9 +52,7 @@
     gotools
     golangci-lint
     gopls
-    helix
     jq
-    kubectl
     lazygit
     lua-language-server
     markdownlint-cli2

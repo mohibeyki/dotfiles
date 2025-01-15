@@ -17,7 +17,7 @@ opt.clipboard = ""
 opt.wildmode = "full"
 
 vim.g.metaExists = false
-local file = io.open("/usr/share/fb-editor-support", "r")
+local file = io.open("/usr/share/fb-editor-support/nvim", "r")
 if file ~= nil then
   io.close(file)
   vim.g.metaExists = true

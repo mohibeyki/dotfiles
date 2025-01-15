@@ -80,7 +80,7 @@
       darwinConfigurations = {
         arwen = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit self inputs;
+            inherit self inputs nixpkgs;
           };
 
           system = "aarch64-darwin";
@@ -125,7 +125,7 @@
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit self inputs;
+            inherit self inputs nixpkgs;
           };
 
           system = "aarch64-darwin";

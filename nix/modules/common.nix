@@ -33,8 +33,6 @@
     fish.enable = true;
   };
 
-  formatter.${pkgs.system} = nixpkgs.legacyPackages.${pkgs.system}.nixfmt-rfc-style;
-
   environment.systemPackages = with pkgs; [
     bc
     btop
@@ -48,28 +46,15 @@
     gnumake
     gnused
     go
-    gofumpt
-    gotools
-    golangci-lint
-    gopls
     jq
     lazygit
-    lua-language-server
-    markdownlint-cli2
-    marksman
+    libiconv
     mc
-    nil
-    nixd
-    nixfmt-rfc-style
     nodejs
     python3
     ripgrep
-    selene
-    statix
     stow
-    stylua
     tmux
-    tree-sitter
     unzip
     wget
     yarn

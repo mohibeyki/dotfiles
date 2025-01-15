@@ -19,4 +19,16 @@ return {
     end,
   },
   { "echasnovski/mini.pairs", enabled = false },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = true,
+          hide_gitignored = true,
+        },
+      },
+    },
+  },
 }

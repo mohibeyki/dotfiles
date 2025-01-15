@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 let
   username = "mohi";
-  configPath = ../../config;
 in
 {
   imports = [
@@ -50,12 +49,27 @@ in
     neovim = {
       enable = true;
       package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
 
-      plugins = with pkgs.vimPlugins; [
-        lazy-nvim
+      extraPackages = with pkgs; [
+        gofumpt
+        golangci-lint
+        gopls
+        gotools
+        stylua
+        taplo
+        tree-sitter
+        lua-language-server
+        markdownlint-cli2
+        marksman
+        nil
+        nixd
+        nixfmt-rfc-style
+        selene
+        statix
       ];
     };
   };

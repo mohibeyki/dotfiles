@@ -3,14 +3,8 @@ return {
     dir = "/usr/share/fb-editor-support/nvim",
     name = "meta.nvim",
     import = "meta.lazyvim",
-    cond = function()
-      local f = io.open("/usr/share/fb-editor-support", "r")
-      if f ~= nil then
-        io.close(f)
-        return true
-      else
-        return false
-      end
-    end,
+    cond = vim.g.metaExists,
   },
+  { "zbirenbaum/copilot.lua", cond = not vim.g.metaExists },
+  { "blink-cmp-copilot", cond = not vim.g.metaExists },
 }

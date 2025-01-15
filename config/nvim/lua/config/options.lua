@@ -15,3 +15,12 @@ opt.clipboard = ""
 
 -- Tab complete for cmd mode should autocomplete the first result immediately.
 opt.wildmode = "full"
+
+vim.g.metaExists = false
+local file = io.open("/usr/share/fb-editor-support", "r")
+if file ~= nil then
+  io.close(file)
+  vim.g.metaExists = true
+else
+  vim.g.metaExists = false
+end

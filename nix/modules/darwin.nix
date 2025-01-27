@@ -8,7 +8,6 @@
     enable = true;
     brews = [
       "mas"
-      "cowsay"
     ];
     casks = [
       "iina"
@@ -18,10 +17,10 @@
     ];
     taps = [ ];
     masApps = {
-      "1password" = 1333542190;
-      "telegram" = 747648890;
-      "whatsapp" = 310633997;
-      "unar" = 425424353;
+      "1Password" = 1333542190;
+      "Telegram" = 747648890;
+      "WhatsApp Messenger" = 310633997;
+      "The Unarchiver" = 425424353;
     };
   };
 

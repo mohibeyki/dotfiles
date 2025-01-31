@@ -13,7 +13,6 @@
       "iina"
       "raycast"
       "aerospace"
-      "ghostty"
     ];
     taps = [ ];
     masApps = {

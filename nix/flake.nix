@@ -23,17 +23,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay = {
+    neovim = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
@@ -68,72 +72,39 @@
   };
 
   outputs =
-    inputs@{
+    {
       self,
+      fenix,
+      helix,
+      neovim,
       nixpkgs,
       nix-darwin,
       nix-homebrew,
       home-manager,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
+      aerospace-cask,
       ...
     }:
     {
-      darwinConfigurations = {
-        arwen = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit self inputs nixpkgs;
-          };
-
-          system = "aarch64-darwin";
-          modules = [
-            ./hosts/arwen
-            ./modules/darwin.nix
-            ./modules/common.nix
-            ./overlays/rust.nix
-
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = false;
-                user = "mohi";
-                taps = {
-                  "homebrew/homebrew-core" = inputs.homebrew-core;
-                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                  "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                  "nikitabobko/homebrew-tap" = inputs.aerospace-cask;
-                };
-                mutableTaps = false;
-              };
-            }
-
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mohi = import ./home/arwen;
-
-                extraSpecialArgs = {
-                  inherit self inputs;
-                };
-              };
-            }
-          ];
-        };
-      };
-
+      packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
       darwinConfigurations = {
         legolas = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit self inputs nixpkgs;
+            inherit
+              self
+              fenix
+              nixpkgs
+              ;
           };
 
           system = "aarch64-darwin";
           modules = [
-            ./hosts/legolas
             ./modules/darwin.nix
             ./modules/common.nix
-            ./overlays/rust.nix
+            ./modules/fenix.nix
+            ./hosts/legolas
 
             nix-homebrew.darwinModules.nix-homebrew
             {
@@ -142,10 +113,10 @@
                 enableRosetta = false;
                 user = "mohi";
                 taps = {
-                  "homebrew/homebrew-core" = inputs.homebrew-core;
-                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                  "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                  "nikitabobko/homebrew-tap" = inputs.aerospace-cask;
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
+                  "nikitabobko/homebrew-tap" = aerospace-cask;
                 };
                 mutableTaps = false;
               };
@@ -159,7 +130,7 @@
                 users.mohi = import ./home/legolas;
 
                 extraSpecialArgs = {
-                  inherit self inputs;
+                  inherit self helix neovim;
                 };
               };
             }

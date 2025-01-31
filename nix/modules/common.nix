@@ -34,7 +34,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bc
+    bc # calculator
     btop
     cachix
     clang-tools
@@ -46,15 +46,27 @@
     gnumake
     gnused
     go
-    jq
+    gofumpt
+    gopls
+    gotools
+    jq # json processor
     lazygit
     libiconv
+    lua-language-server
+    markdownlint-cli2 # markdown linter
+    marksman # markdown lsp
     mc
+    nixd # nix lsp
+    nixfmt-rfc-style # nix formatter
     nodejs
     python3
     ripgrep
-    stow
+    selene # lua linter
+    statix # nix linter
+    stylua # lua formatter
+    taplo # toml toolkit
     tmux
+    tree-sitter
     unzip
     wget
     yarn

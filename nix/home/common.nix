@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  helix,
+  neovim,
+  ...
+}:
 let
   username = "mohi";
 in
@@ -43,34 +48,16 @@ in
 
     helix = {
       enable = true;
-      package = inputs.helix.packages.${pkgs.system}.default;
+      package = helix.packages.${pkgs.system}.default;
     };
 
     neovim = {
       enable = true;
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      package = neovim.packages.${pkgs.system}.default;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
-
-      extraPackages = with pkgs; [
-        gofumpt
-        golangci-lint
-        gopls
-        gotools
-        stylua
-        taplo
-        tree-sitter
-        lua-language-server
-        markdownlint-cli2
-        marksman
-        nil
-        nixd
-        nixfmt-rfc-style
-        selene
-        statix
-      ];
     };
   };
 

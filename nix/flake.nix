@@ -90,6 +90,54 @@
     {
       packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
       darwinConfigurations = {
+
+        arwen = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit
+              self
+              fenix
+              nixpkgs
+              ;
+          };
+
+          system = "aarch64-darwin";
+          modules = [
+            ./modules/darwin.nix
+            ./modules/common.nix
+            ./modules/fenix.nix
+            ./hosts/arwen
+
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = false;
+                user = "mohi";
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
+                  "nikitabobko/homebrew-tap" = aerospace-cask;
+                };
+                mutableTaps = false;
+              };
+            }
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/arwen;
+
+                extraSpecialArgs = {
+                  inherit self helix neovim;
+                };
+              };
+            }
+          ];
+        };
+
         legolas = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit

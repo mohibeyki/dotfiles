@@ -90,7 +90,6 @@
     {
       packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
       darwinConfigurations = {
-
         arwen = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit

@@ -3,7 +3,7 @@
   environment.systemPackages = [ ];
 
   # Touch ID sudo!
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;

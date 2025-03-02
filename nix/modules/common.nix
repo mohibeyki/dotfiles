@@ -73,6 +73,7 @@
     tree-sitter
     unzip
     wget
+    xz
     yarn
     zellij
     zip

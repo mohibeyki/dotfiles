@@ -11,6 +11,7 @@ return {
       },
     },
   },
+  { "echasnovski/mini.pairs", version = false, enabled = false },
   {
     "stevearc/conform.nvim",
     optional = true,

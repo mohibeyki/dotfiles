@@ -1,6 +1,5 @@
 {
   pkgs,
-  helix,
   neovim,
   ...
 }:
@@ -48,7 +47,6 @@ in
 
     helix = {
       enable = true;
-      package = helix.packages.${pkgs.system}.default;
     };
 
     neovim = {

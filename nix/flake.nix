@@ -44,11 +44,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -74,7 +69,6 @@
       nix-darwin,
       nix-homebrew,
       home-manager,
-      homebrew-bundle,
       homebrew-core,
       homebrew-cask,
       aerospace-cask,
@@ -108,7 +102,6 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
                   "nikitabobko/homebrew-tap" = aerospace-cask;
                 };
                 mutableTaps = false;
@@ -155,7 +148,6 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
                   "nikitabobko/homebrew-tap" = aerospace-cask;
                 };
                 mutableTaps = false;

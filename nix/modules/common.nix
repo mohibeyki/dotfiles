@@ -3,8 +3,6 @@
   ...
 }:
 {
-  ids.gids.nixbld = 350;
-
   nix = {
     package = pkgs.nixVersions.latest; # pkgs.nix;
 

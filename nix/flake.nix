@@ -22,7 +22,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -46,6 +46,10 @@
 
     neovim = {
       url = "github:nix-community/neovim-nightly-overlay";
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
     };
 
     nix-homebrew = {
@@ -75,6 +79,8 @@
       fenix,
       neovim,
       nixpkgs,
+      ghostty,
+      hyprland,
       lanzaboote,
       nix-darwin,
       nix-homebrew,
@@ -86,6 +92,8 @@
     }:
     {
       packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
+      packages.x86_64-linux.default = fenix.packages.x86_64-linux.minimal.toolchain;
+
       darwinConfigurations = {
         arwen = nix-darwin.lib.darwinSystem {
           specialArgs = {
@@ -183,7 +191,13 @@
         sauron = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit self fenix nixpkgs;
+            inherit
+              self
+              fenix
+              ghostty
+              nixpkgs
+              hyprland
+              ;
           };
 
           modules = [
@@ -193,20 +207,27 @@
             ./modules/common.nix
             ./modules/hyprland.nix
             ./modules/steam.nix
+            ./modules/fenix.nix
+            ./modules/ghostty.nix
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote
             (
               {
+                pkgs,
                 lib,
                 ...
               }:
               {
+                environment.systemPackages = [
+                  pkgs.sbctl
+                ];
+
                 boot.loader.systemd-boot.enable = lib.mkForce false;
 
                 boot.lanzaboote = {
                   enable = true;
-                  pkiBundle = "/etc/secureboot";
+                  pkiBundle = "/var/lib/sbctl";
                 };
               }
             )

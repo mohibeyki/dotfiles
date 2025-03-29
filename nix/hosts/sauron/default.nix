@@ -40,6 +40,15 @@
 
   # Enable the X11 windowing system.
   services = {
+    # Enable plasma desktop.
+    desktopManager.plasma6.enable = true;
+
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
+
+    # Enable sound with pipewire.
+    pulseaudio.enable = false;
+
     xserver = {
       enable = true;
 
@@ -48,10 +57,6 @@
         layout = "us";
         variant = "";
       };
-
-      # Enable plasma desktop.
-      displayManager.sddm.enable = true;
-      desktopManager.plasma.enable = true;
     };
 
     resolved = {
@@ -73,8 +78,6 @@
 
   hardware.bluetooth.enable = true;
 
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -111,5 +114,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

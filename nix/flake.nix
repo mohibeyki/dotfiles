@@ -21,6 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
@@ -66,6 +75,7 @@
       fenix,
       neovim,
       nixpkgs,
+      lanzaboote,
       nix-darwin,
       nix-homebrew,
       home-manager,
@@ -160,6 +170,53 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.mohi = import ./home/legolas;
+
+                extraSpecialArgs = {
+                  inherit self neovim;
+                };
+              };
+            }
+          ];
+        };
+      };
+      nixosConfigurations = {
+        sauron = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit self fenix nixpkgs;
+          };
+
+          modules = [
+            ./hosts/sauron
+            ./modules/nixos.nix
+            ./modules/nvidia.nix
+            ./modules/common.nix
+            ./modules/hyprland.nix
+            ./modules/steam.nix
+
+            # Secure boot
+            lanzaboote.nixosModules.lanzaboote
+            (
+              {
+                lib,
+                ...
+              }:
+              {
+                boot.loader.systemd-boot.enable = lib.mkForce false;
+
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/etc/secureboot";
+                };
+              }
+            )
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.mohi = import ./home/sauron;
 
                 extraSpecialArgs = {
                   inherit self neovim;

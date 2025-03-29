@@ -49,9 +49,9 @@
         variant = "";
       };
 
-      # Enable gnome desktop.
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      # Enable plasma desktop.
+      displayManager.sddm.enable = true;
+      desktopManager.plasma.enable = true;
     };
 
     resolved = {

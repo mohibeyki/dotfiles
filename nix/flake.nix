@@ -201,14 +201,14 @@
           };
 
           modules = [
-            ./hosts/sauron
             ./modules/nixos.nix
-            ./modules/nvidia.nix
             ./modules/common.nix
+            ./modules/nvidia.nix
             ./modules/hyprland.nix
             ./modules/steam.nix
-            ./modules/fenix.nix
             ./modules/ghostty.nix
+            ./modules/fenix.nix
+            ./hosts/sauron
 
             # Secure boot
             lanzaboote.nixosModules.lanzaboote

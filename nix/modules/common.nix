@@ -42,7 +42,6 @@
     fishPlugins.tide
     fzf
     gcc
-    gcc-arm-embedded
     git
     gnumake
     gnused

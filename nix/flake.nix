@@ -49,11 +49,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-
-    aerospace-cask = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
   };
 
   outputs =
@@ -67,7 +62,6 @@
       home-manager,
       homebrew-core,
       homebrew-cask,
-      aerospace-cask,
       ...
     }:
     {
@@ -99,7 +93,6 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "nikitabobko/homebrew-tap" = aerospace-cask;
                 };
                 mutableTaps = false;
               };
@@ -145,7 +138,6 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "nikitabobko/homebrew-tap" = aerospace-cask;
                 };
                 mutableTaps = false;
               };

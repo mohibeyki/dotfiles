@@ -4,4 +4,4 @@ font-feature = -liga
 font-feature = -dlig
 quit-after-last-window-closed = true
 theme = tokyonight
-
+window-padding-balance = true

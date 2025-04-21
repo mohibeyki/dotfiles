@@ -21,19 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,10 +33,6 @@
 
     neovim = {
       url = "github:nix-community/neovim-nightly-overlay";
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
     };
 
     nix-homebrew = {
@@ -79,9 +62,6 @@
       fenix,
       neovim,
       nixpkgs,
-      ghostty,
-      hyprland,
-      lanzaboote,
       nix-darwin,
       nix-homebrew,
       home-manager,
@@ -92,7 +72,6 @@
     }:
     {
       packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
-      packages.x86_64-linux.default = fenix.packages.x86_64-linux.minimal.toolchain;
 
       darwinConfigurations = {
         arwen = nix-darwin.lib.darwinSystem {
@@ -178,66 +157,6 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.mohi = import ./home/legolas;
-
-                extraSpecialArgs = {
-                  inherit self neovim;
-                };
-              };
-            }
-          ];
-        };
-      };
-      nixosConfigurations = {
-        sauron = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit
-              self
-              fenix
-              ghostty
-              nixpkgs
-              hyprland
-              ;
-          };
-
-          modules = [
-            ./modules/nixos.nix
-            ./modules/common.nix
-            ./modules/nvidia.nix
-            ./modules/hyprland.nix
-            ./modules/steam.nix
-            ./modules/ghostty.nix
-            ./modules/fenix.nix
-            ./hosts/sauron
-
-            # Secure boot
-            lanzaboote.nixosModules.lanzaboote
-            (
-              {
-                pkgs,
-                lib,
-                ...
-              }:
-              {
-                environment.systemPackages = [
-                  pkgs.sbctl
-                ];
-
-                boot.loader.systemd-boot.enable = lib.mkForce false;
-
-                boot.lanzaboote = {
-                  enable = true;
-                  pkiBundle = "/var/lib/sbctl";
-                };
-              }
-            )
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mohi = import ./home/sauron;
 
                 extraSpecialArgs = {
                   inherit self neovim;

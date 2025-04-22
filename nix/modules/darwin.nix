@@ -3,6 +3,7 @@
   ids.gids.nixbld = 350;
 
   environment.systemPackages = [
+    pkgs.aerospace
     pkgs.mkalias
   ];
 
@@ -14,15 +15,8 @@
     casks = [
       "iina"
       "raycast"
-      "aerospace"
     ];
-    taps = [ ];
-    masApps = {
-      "1Password" = 1333542190;
-      "Telegram" = 747648890;
-      "WhatsApp Messenger" = 310633997;
-      "The Unarchiver" = 425424353;
-    };
+    masApps = { };
   };
 
   system.activationScripts.applications.text =

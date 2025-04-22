@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "aerospace-cask": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744662913,
-        "narHash": "sha256-u+Z3wdxJSsIOsPJiat5ZJqCkkJuGV8/08dmYi1a2zxo=",
-        "owner": "nikitabobko",
-        "repo": "homebrew-tap",
-        "rev": "2629feb5ffdc523b004181b66f376d76161ce87b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nikitabobko",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "brew-src": {
       "flake": false,
       "locked": {
@@ -234,11 +218,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1745291264,
-        "narHash": "sha256-Gf8woolDPwbt+CLJTgFKQyAyYjCMNj/j0ywwHRNuAJ8=",
+        "lastModified": 1745292975,
+        "narHash": "sha256-JdqFC7DpqZ7UezqQ6HGu2bCc8dJtv3MTkS0Mojm/Cfw=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "09ca41cb5866f21f80d680f0edf8d7f48cc7d46c",
+        "rev": "429b5b3b23dea3c006dcb6af28c743e442077618",
         "type": "github"
       },
       "original": {
@@ -395,7 +379,6 @@
     },
     "root": {
       "inputs": {
-        "aerospace-cask": "aerospace-cask",
         "fenix": "fenix",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",

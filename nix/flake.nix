@@ -4,11 +4,15 @@
   nixConfig = {
     substituters = [
       "https://cache.nixos.org"
+      "https://cachix.cachix.org"
+      "https://nixpkgs.cachix.org"
       "https://nix-community.cachix.org"
     ];
 
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+      "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
@@ -31,132 +35,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim = {
+    neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-    };
-
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
     };
   };
 
   outputs =
-    {
-      self,
-      fenix,
-      neovim,
-      nixpkgs,
-      nix-darwin,
-      nix-homebrew,
-      home-manager,
-      homebrew-core,
-      homebrew-cask,
-      ...
-    }:
-    {
-      packages.aarch64-darwin.default = fenix.packages.aarch64-darwin.minimal.toolchain;
-
-      darwinConfigurations = {
-        arwen = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit
-              self
-              fenix
-              nixpkgs
-              ;
-          };
-
-          system = "aarch64-darwin";
-          modules = [
-            ./modules/darwin.nix
-            ./modules/common.nix
-            ./modules/fenix.nix
-            ./hosts/arwen
-
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = false;
-                user = "mohi";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                };
-                mutableTaps = false;
-              };
-            }
-
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mohi = import ./home/arwen;
-
-                extraSpecialArgs = {
-                  inherit self neovim;
-                };
-              };
-            }
-          ];
-        };
-
-        legolas = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit
-              self
-              fenix
-              nixpkgs
-              ;
-          };
-
-          system = "aarch64-darwin";
-          modules = [
-            ./modules/darwin.nix
-            ./modules/common.nix
-            ./modules/fenix.nix
-            ./hosts/legolas
-
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = false;
-                user = "mohi";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                };
-                mutableTaps = false;
-              };
-            }
-
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.mohi = import ./home/legolas;
-
-                extraSpecialArgs = {
-                  inherit self neovim;
-                };
-              };
-            }
-          ];
-        };
-      };
-    };
+    { ... }@inputs:
+    let
+      helpers = import ./helper.nix inputs;
+      inherit (helpers) mkMerge mkDarwin;
+    in
+    mkMerge [
+      (mkDarwin "legolas" inputs.nixpkgs [ ] [ ])
+      (mkDarwin "arwen" inputs.nixpkgs [ ] [ ])
+    ];
 }

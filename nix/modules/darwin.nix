@@ -7,18 +7,6 @@
     pkgs.mkalias
   ];
 
-  homebrew = {
-    enable = true;
-    brews = [
-      "mas"
-    ];
-    casks = [
-      "iina"
-      "raycast"
-    ];
-    masApps = { };
-  };
-
   system.activationScripts.applications.text =
     let
       env = pkgs.buildEnv {

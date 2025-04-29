@@ -1,21 +1,13 @@
 {
+  inputs,
   pkgs,
-  neovim,
   ...
 }:
-let
-  username = "mohi";
-in
 {
   imports = [
   ];
 
   home = {
-    username = "${username}";
-    homeDirectory = pkgs.lib.mkForce (
-      if pkgs.stdenv.isLinux then "/home/${username}" else "/Users/${username}"
-    );
-
     sessionVariables = {
       EDITOR = "nvim";
     };
@@ -51,7 +43,7 @@ in
 
     neovim = {
       enable = true;
-      package = neovim.packages.${pkgs.system}.default;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

@@ -47,7 +47,7 @@
       inherit (helpers) mkMerge mkDarwin;
     in
     mkMerge [
-      (mkDarwin "legolas" inputs.nixpkgs [ ] [ ])
-      (mkDarwin "arwen" inputs.nixpkgs [ ] [ ])
+      (mkDarwin "legolas" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
+      (mkDarwin "arwen" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
     ];
 }

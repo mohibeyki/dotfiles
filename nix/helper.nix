@@ -32,7 +32,7 @@ in
         (inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true extraHmModules) {
           home-manager.users.mohi.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/mohi";
         })
-      ];
+      ] ++ extraModules;
     };
   };
 

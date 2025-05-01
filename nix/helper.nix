@@ -36,7 +36,7 @@ in
     };
   };
 
-  mkNixos = machineHostname: nixpkgsVersion: extraModules: {
+  mkNixos = machineHostname: nixpkgsVersion: extraHmModules: extraModules: {
     nixosConfigurations.${machineHostname} = nixpkgsVersion.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
@@ -45,8 +45,10 @@ in
       modules = [
         ./modules/nixos.nix
         ./modules/common.nix
+        ./modules/ghostty.nix
         ./hosts/nixos/${machineHostname}
-        (homeManagerCfg false [ ])
+        inputs.home-manager.nixosModules.home-manager
+        (homeManagerCfg false extraHmModules)
       ] ++ extraModules;
     };
   };

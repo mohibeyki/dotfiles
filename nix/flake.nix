@@ -38,16 +38,30 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =
     { ... }@inputs:
     let
       helpers = import ./helper.nix inputs;
-      inherit (helpers) mkMerge mkDarwin;
+      inherit (helpers) mkMerge mkDarwin mkNixos;
     in
     mkMerge [
       (mkDarwin "legolas" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
       (mkDarwin "arwen" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
+      (mkNixos "sauron" inputs.nixpkgs [ ] [ ./modules/nvidia.nix ./modules/fenix.nix ])
     ];
 }

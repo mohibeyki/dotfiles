@@ -38,6 +38,7 @@
     btop
     cachix
     clang-tools
+    fastfetch
     fd
     fishPlugins.tide
     fzf

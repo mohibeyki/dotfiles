@@ -40,17 +40,15 @@
 
   # Enable the X11 windowing system.
   services = {
-    # Enable plasma desktop.
-    desktopManager.plasma6.enable = true;
-
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
 
     # Enable sound with pipewire.
     pulseaudio.enable = false;
 
     xserver = {
       enable = true;
+
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
 
       # Configure keymap in X11
       xkb = {

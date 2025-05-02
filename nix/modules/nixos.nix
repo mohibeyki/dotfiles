@@ -1,11 +1,11 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
     bind
     brave
     discord
     gparted
-    adwaita-icon-theme
     mako
     niv
     sbctl

@@ -60,11 +60,28 @@
       inherit (helpers) mkMerge mkDarwin mkNixos;
     in
     mkMerge [
-      (mkDarwin "legolas" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
-      (mkDarwin "arwen" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
+      (mkDarwin "legolas" inputs.nixpkgs
+        [ ]
+        [
+          ./modules/fenix.nix
+        ]
+      )
+
+      (mkDarwin "arwen" inputs.nixpkgs
+        [ ]
+        [
+          ./modules/fenix.nix
+        ]
+      )
+
       (mkNixos "sauron" inputs.nixpkgs
         [ ]
-        [ ./modules/nvidia.nix ./modules/fenix.nix ./modules/steam.nix ]
+        [
+          ./modules/lanzaboote.nix
+          ./modules/nvidia.nix
+          ./modules/fenix.nix
+          ./modules/steam.nix
+        ]
       )
     ];
 }

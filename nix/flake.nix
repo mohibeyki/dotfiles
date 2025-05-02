@@ -62,6 +62,9 @@
     mkMerge [
       (mkDarwin "legolas" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
       (mkDarwin "arwen" inputs.nixpkgs [ ] [ ./modules/fenix.nix ])
-      (mkNixos "sauron" inputs.nixpkgs [ ] [ ./modules/nvidia.nix ./modules/fenix.nix ])
+      (mkNixos "sauron" inputs.nixpkgs
+        [ ]
+        [ ./modules/nvidia.nix ./modules/fenix.nix ./modules/steam.nix ]
+      )
     ];
 }

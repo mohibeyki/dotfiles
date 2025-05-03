@@ -99,7 +99,9 @@
     brave
     discord
     gparted
+    gnome-tweaks
     mako
+    papirus-icon-theme
     niv
     sbctl
     zed-editor

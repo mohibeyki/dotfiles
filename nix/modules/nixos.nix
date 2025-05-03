@@ -57,6 +57,9 @@
 
     # Disable CUPS
     printing.enable = false;
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -71,9 +74,6 @@
     pulse.enable = true;
     jack.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   programs = {
     firefox.enable = true;

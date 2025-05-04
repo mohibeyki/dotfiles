@@ -45,7 +45,7 @@ in
       modules = [
         ./modules/nixos.nix
         ./modules/common.nix
-        ./modules/ghostty.nix
+        ./programs/ghostty.nix
         ./hosts/nixos/${machineHostname}
         inputs.home-manager.nixosModules.home-manager
         (homeManagerCfg false extraHmModules)

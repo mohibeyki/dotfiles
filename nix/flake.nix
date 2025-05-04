@@ -46,6 +46,7 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ghostty = {
@@ -63,24 +64,27 @@
       (mkDarwin "legolas" inputs.nixpkgs
         [ ]
         [
-          ./modules/fenix.nix
+          ./overlays/fenix.nix
         ]
       )
 
       (mkDarwin "arwen" inputs.nixpkgs
         [ ]
         [
-          ./modules/fenix.nix
+          ./overlays/fenix.nix
         ]
       )
 
       (mkNixos "sauron" inputs.nixpkgs
-        [ ]
         [
+          ./home/modules/hyprland
+        ]
+        [
+          ./modules/hyprland.nix
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
-          ./modules/fenix.nix
-          ./modules/steam.nix
+          ./overlays/fenix.nix
+          ./programs/steam.nix
         ]
       )
     ];

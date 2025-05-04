@@ -34,7 +34,10 @@
     xserver = {
       enable = true;
 
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
       desktopManager.gnome.enable = true;
 
       # Configure keymap in X11
@@ -98,11 +101,11 @@
     bind
     brave
     discord
-    gparted
     gnome-tweaks
+    gparted
     mako
-    papirus-icon-theme
     niv
+    papirus-icon-theme
     sbctl
     zed-editor
   ];

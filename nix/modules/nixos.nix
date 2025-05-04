@@ -98,6 +98,7 @@
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    bibata-cursors
     bind
     brave
     discord
@@ -106,7 +107,9 @@
     mako
     niv
     papirus-icon-theme
+    pipewire
     sbctl
+    wireplumber
     zed-editor
   ];
 }

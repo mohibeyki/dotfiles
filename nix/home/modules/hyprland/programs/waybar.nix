@@ -112,7 +112,7 @@
         "custom/power" = {
           format = " ⏻ ";
           tooltip = false;
-          on-click = "wlogout -b 6 -c 0 -r 0 -P 0 --protocol layer-shell";
+          on-click = "wlogout -b 6 --protocol layer-shell";
         };
       }
     ];

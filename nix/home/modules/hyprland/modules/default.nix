@@ -7,5 +7,6 @@
     ./keyboard.nix
     ./layout.nix
     ./window.nix
+    ./workspaces.nix
   ];
 }

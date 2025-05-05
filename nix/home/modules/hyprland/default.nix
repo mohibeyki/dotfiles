@@ -9,11 +9,13 @@
     ];
   };
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
+  home = {
+    pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 16;
+    };
   };
 
   gtk = {
@@ -42,6 +44,7 @@
     ./programs/hyprpaper.nix
     ./programs/mako.nix
     ./programs/waybar.nix
+    ./programs/wlogout.nix
     ./programs/wofi.nix
   ];
 
@@ -56,6 +59,7 @@
         gaps_in = 4;
         gaps_out = 4;
         layout = "dwindle";
+        border_size = 0;
       };
 
       env = [

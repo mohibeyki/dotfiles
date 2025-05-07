@@ -14,15 +14,12 @@
         spacing = 4;
         modules-left = [
           "custom/launcher"
-          "hyprland/workspaces"
           "custom/media"
         ];
-        modules-center = [ "hyprland/window" ];
+        modules-center = [ "hyprland/workspaces" ];
         modules-right = [
           "tray"
           "pulseaudio"
-          "cpu"
-          "memory"
           "clock"
           "custom/power"
         ];
@@ -38,11 +35,11 @@
           on-click = "activate";
           active-only = false;
           all-outputs = true;
-          format = "{}";
+          format = "{icon}";
           format-icons = {
-            urgent = "";
-            active = "";
-            default = "";
+            "active" = "";
+            "default" = "";
+            "empty" = "";
           };
         };
 
@@ -51,20 +48,21 @@
           rewrite = {
             "(.*) - Brave" = "$1";
           };
-          separate-outputs = true;
+          separate-outputs = false;
         };
 
         "tray" = {
           spacing = 16;
+          icon-size = 14;
         };
 
         "pulseaudio" = {
           on-click = "pwvucontrol";
-          format = "{volume}% {icon} {format_source}";
+          format = "{volume}% {icon} {format_source} ";
           format-bluetooth = "{volume}% {icon} {format_source}";
           format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = " {volume}%";
+          format-muted = "  {format_source}";
+          format-source = "  {volume}%";
           format-source-muted = "";
           format-icons = {
             headphone = "";

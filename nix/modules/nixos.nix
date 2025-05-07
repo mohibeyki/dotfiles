@@ -104,6 +104,7 @@
     discord
     gnome-tweaks
     gparted
+    killall
     mako
     niv
     papirus-icon-theme

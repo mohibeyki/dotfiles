@@ -49,7 +49,6 @@
   ];
 
   wayland.windowManager.hyprland = {
-
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
@@ -96,8 +95,12 @@
       };
 
       layerrule = [
+        "blur, waybar"
+        "ignorezero, waybar"
         "blur, wofi"
         "ignorezero, wofi"
+        "blur, logout_dialog"
+        "ignorezero, logout_dialog"
         "noanim, ^(selection)$"
       ];
 

@@ -11,9 +11,9 @@
         enabled = true;
         size = 16;
         passes = 4;
-        new_optimizations = "on";
+        new_optimizations = true;
         ignore_opacity = true;
-        xray = true;
+        xray = false;
       };
 
       shadow = {

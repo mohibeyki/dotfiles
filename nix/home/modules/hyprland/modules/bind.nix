@@ -33,7 +33,7 @@
       "$mod ALT, up, swapwindow, u"
       "$mod ALT, down, swapwindow, d"
 
-      "$mod, D, exec, wofi --show drun"
+      "$mod, P, exec, wofi --show drun"
       "$mod CTRL, R, exec, hyprctl reload"
       "$mod, PRINT, exec, hyprshot"
       "$mod CTRL, Q, exec, wlogout"

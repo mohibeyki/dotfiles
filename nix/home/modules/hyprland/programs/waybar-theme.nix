@@ -17,38 +17,19 @@
       @define-color white #eeffff;
 
       * {
-        border: none;
-        border-radius: 0;
-        font-family: "JetBrainsMono Nerd Font Mono";
-        font-size: 16px;
-        min-width: 0;
-        min-height: 0;
-        transition: none;
+          all: unset;
+          font-family: "JetBrainsMono Nerd Font";
+          font-size: 16px;
       }
 
       window#waybar {
-        background-color: transparent;
       }
 
-      .modules-left {
-        margin: 4px 4px 0;
-        padding: 0px;
-        background-color: transparent;
-        border-radius: 4px;
-      }
-
-      .modules-center {
-        margin: 4px 4px 0;
-        padding: 0px;
-        background-color: transparent;
-        border-radius: 4px;
-      }
-
+      .modules-left,
+      .modules-center,
       .modules-right {
-        margin: 4px 4px 0;
-        padding: 0px;
-        background-color: transparent;
-        border-radius: 4px;
+          margin-top: 4px;
+          background-color: transparent;
       }
 
       #custom-launcher,
@@ -61,87 +42,69 @@
       #network,
       #clock,
       #custom-power {
-        padding: 0px 24px;
-        margin: 4px;
-        background-color: @bg-light;
-        color: @fg;
-        min-width: 24px;
-        min-height: 24px;
-        border-radius: 4px;
-      }
-
-      #workspaces {
-        padding: 0px;
-        margin: 0px 0px;
-        border: 0px;
-        border-radius: 0px;
-        background-color: transparent;
+          padding: 4px 24px;
+          margin: 0 4px;
+          background-color: alpha(@bg-lighter, 0.1);
+          color: @fg;
+          border-radius: 4px;
+          min-height: 32px;
       }
 
       #workspaces button {
-        background-color: @bg;
-        color: @blue;
-        border-radius: 4px;
-        border: 0px;
-        padding: 4px 16px 4px 16px;
-        margin: 4px 4px;
-        min-height: 32px;
+          margin: 0px 8px;
+          color: @fg;
       }
 
       #workspaces button:hover {
-        color: @blue;
-        background-color: @bg-light;
-        border: 0px;
+          color: @magenta;
       }
 
       #workspaces button.active {
-        color: @blue;
-        background-color: @bg-light;
-        border: 0px;
+          color: @red;
       }
 
       #custom-launcher {
-        color: @magenta;
+          color: @fg;
       }
 
       #window {
-        color: @fg;
+          color: @fg;
       }
 
       window#waybar.empty #window {
-        background-color: transparent;
+          background-color: transparent;
       }
 
       window#waybar.empty .modules-center {
-        background-color: transparent;
+          background-color: transparent;
       }
 
       #custom-pacman {
-        color: @blue;
+          color: @fg;
       }
 
       #cpu {
-        color: @red;
+          color: @fg;
       }
 
       #memory {
-        color: @yellow;
+          color: @fg;
       }
 
       #pulseaudio {
-        color: @green;
+          color: @fg;
       }
 
       #network {
-        color: @magenta;
+          color: @fg;
       }
 
       #clock {
-        color: @blue;
+          color: @fg;
       }
 
       #custom-power {
-        color: @red;
+          color: @red;
       }
     '';
   };

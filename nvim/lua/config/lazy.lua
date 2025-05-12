@@ -14,21 +14,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.meta = false
-local f = io.open("/usr/share/fb-editor-support", "r")
-if f ~= nil then
-    io.close(f)
-    vim.g.meta = true
-end
-
 require("lazy").setup({
     spec = {
         -- add LazyVim and import its plugins
-        { "LazyVim/LazyVim",           import = "lazyvim.plugins" },
+        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
         -- import/override with your plugins
         { import = "plugins" },
-        { import = "plugins.personal", cond = not vim.g.meta },
-        { import = "plugins.meta",     cond = vim.g.meta },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -43,7 +34,7 @@ require("lazy").setup({
     checker = {
         enabled = true, -- check for plugin updates periodically
         notify = false, -- notify on update
-    },              -- automatically check for plugin updates
+    },                  -- automatically check for plugin updates
     performance = {
         rtp = {
             -- disable some rtp plugins

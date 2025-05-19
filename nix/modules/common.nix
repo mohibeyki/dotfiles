@@ -40,9 +40,8 @@
     clang-tools
     fastfetch
     fd
-    fishPlugins.tide
+    fishPlugins.hydro
     fzf
-    gcc
     git
     gnumake
     gnused
@@ -61,7 +60,6 @@
     nixfmt-rfc-style # nix formatter
     nodejs
     python3
-    qmk
     ripgrep
     selene # lua linter
     statix # nix linter

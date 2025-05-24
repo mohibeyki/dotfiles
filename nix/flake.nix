@@ -16,7 +16,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -60,29 +60,29 @@
     in
     mkMerge [
       (mkDarwin "legolas" inputs.nixpkgs
-        [ ]
         [
-          ./overlays/fenix.nix
+          ./modules/dev.nix
         ]
+        [ ]
       )
 
       (mkDarwin "arwen" inputs.nixpkgs
-        [ ]
         [
-          ./overlays/fenix.nix
+          ./modules/dev.nix
         ]
+        [ ]
       )
 
       (mkNixos "sauron" inputs.nixpkgs
         [
-          ./home/modules/hyprland
-        ]
-        [
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
-          ./overlays/fenix.nix
+          ./modules/dev.nix
           ./programs/steam.nix
+        ]
+        [
+          ./home/modules/hyprland
         ]
       )
     ];

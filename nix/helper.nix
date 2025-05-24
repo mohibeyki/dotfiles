@@ -1,4 +1,4 @@
-inputs:
+{ ... }@inputs:
 let
   homeManagerCfg = userPackages: extraImports: {
     home-manager = {
@@ -18,8 +18,8 @@ let
   };
 in
 {
-  mkDarwin = machineHostname: nixpkgsVersion: extraHmModules: extraModules: {
-    packages.aarch64-darwin.default = inputs.fenix.packages.aarch64-darwin.minimal.toolchain;
+  mkDarwin = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
+    packages.aarch64-darwin.default = inputs.fenix.packages.aarch64-darwin.complete.toolchain;
     darwinConfigurations.${machineHostname} = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {
@@ -37,8 +37,7 @@ in
     };
   };
 
-  mkNixos = machineHostname: nixpkgsVersion: extraHmModules: extraModules: {
-    packages.x86_64-linux.default = inputs.fenix.packages.x86_64-linux.minimal.toolchain;
+  mkNixos = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
     nixosConfigurations.${machineHostname} = nixpkgsVersion.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {

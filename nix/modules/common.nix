@@ -37,40 +37,21 @@
     bc # calculator
     btop
     cachix
-    clang-tools
     fastfetch
     fd
-    fishPlugins.hydro
+    fishPlugins.pure
     fzf
     git
-    gnumake
     gnused
-    go
-    gofumpt
-    gopls
-    gotools
     jq # json processor
     lazygit
     libiconv
-    lua-language-server
-    markdownlint-cli2 # markdown linter
-    marksman # markdown lsp
     mc
-    nixd # nix lsp
-    nixfmt-rfc-style # nix formatter
-    nodejs
-    python3
     ripgrep
-    selene # lua linter
-    statix # nix linter
-    stylua # lua formatter
-    taplo # toml toolkit
     tmux
-    tree-sitter
     unzip
     wget
     xz
-    yarn
     zellij
     zip
     zoxide

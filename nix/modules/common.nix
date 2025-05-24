@@ -39,7 +39,7 @@
     cachix
     fastfetch
     fd
-    fishPlugins.pure
+    fishPlugins.tide
     fzf
     git
     gnused

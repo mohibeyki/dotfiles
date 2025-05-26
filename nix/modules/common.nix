@@ -43,9 +43,7 @@
     fzf
     git
     gnused
-    jq # json processor
     lazygit
-    libiconv
     mc
     ripgrep
     tmux

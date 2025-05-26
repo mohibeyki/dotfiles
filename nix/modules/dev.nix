@@ -1,39 +1,45 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    # c/c++
-    clang
-    clang-tools
-    gcc
+  environment.systemPackages =
+    with pkgs;
+    [
+      # c/c++
+      clang
+      clang-tools
+      gcc
 
-    # go
-    go
-    gofumpt
-    gopls
-    gotools
+      # go
+      go
+      gofumpt
+      gopls
+      gotools
 
-    # rust
-    cargo
-    clippy
-    rust-analyzer
-    rustc
+      # rust
+      cargo
+      clippy
+      rust-analyzer
+      rustc
 
-    # zig
-    zig
+      # zig
+      zig
 
-    # etc
-    lua-language-server
-    gnumake
-    markdownlint-cli2 # markdown linter
-    marksman # markdown lsp
-    nixd # nix lsp
-    nixfmt-rfc-style # nix formatter
-    nodejs
-    python3
-    selene # lua linter
-    statix # nix linter
-    stylua # lua formatter
-    taplo # toml toolkit
-    tree-sitter
-  ];
+      # etc
+      lua-language-server
+      jq # json processor
+      gnumake
+      markdownlint-cli2 # markdown linter
+      marksman # markdown lsp
+      nixd # nix lsp
+      nixfmt-rfc-style # nix formatter
+      nodejs
+      python3
+      selene # lua linter
+      statix # nix linter
+      stylua # lua formatter
+      taplo # toml toolkit
+      tree-sitter
+    ]
+    ++ [
+      darwin.libiconv
+    ];
 }

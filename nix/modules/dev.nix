@@ -14,6 +14,7 @@
 
     # rust
     cargo
+    clippy
     rust-analyzer
     rustc
 

@@ -24,9 +24,9 @@
       zig
 
       # etc
-      lua-language-server
-      jq # json processor
       gnumake
+      jq # json processor
+      lua-language-server
       markdownlint-cli2 # markdown linter
       marksman # markdown lsp
       nixd # nix lsp

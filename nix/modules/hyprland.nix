@@ -9,19 +9,14 @@
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
-  environment.systemPackages =
-    with pkgs;
-    [
-      hypridle
-      hyprland
-      hyprlock
-      hyprpaper
-      waybar
-      wlogout
-      wofi
-      xdg-desktop-portal-hyprland
-    ]
-    ++ [
-      kdePackages.qtwayland
-    ];
+  environment.systemPackages = with pkgs; [
+    hypridle
+    hyprland
+    hyprlock
+    hyprpaper
+    waybar
+    wlogout
+    wofi
+    xdg-desktop-portal-hyprland
+  ];
 }

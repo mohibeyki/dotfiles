@@ -26,6 +26,7 @@
       # etc
       gnumake
       jq # json processor
+      libiconv
       lua-language-server
       markdownlint-cli2 # markdown linter
       marksman # markdown lsp
@@ -38,8 +39,5 @@
       stylua # lua formatter
       taplo # toml toolkit
       tree-sitter
-    ]
-    ++ [
-      darwin.libiconv
     ];
 }

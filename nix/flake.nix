@@ -75,14 +75,14 @@
 
       (mkNixos "sauron" inputs.nixpkgs
         [
-          #./modules/hyprland.nix
-          #./modules/lanzaboote.nix
+          # ./modules/hyprand.nix
+          ./modules/lanzaboote.nix
           ./modules/nvidia.nix
           ./modules/dev.nix
           ./programs/steam.nix
         ]
         [
-          #./home/modules/hyprland
+          # ./home/modules/hyprland
         ]
       )
     ];

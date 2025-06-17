@@ -8,7 +8,7 @@
     enable = true;
     settings = [
       {
-        output = "DP-5";
+        output = "DP-2";
         layer = "top";
         position = "top";
         spacing = 4;

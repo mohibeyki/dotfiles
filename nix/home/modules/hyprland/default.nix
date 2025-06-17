@@ -22,18 +22,18 @@
     enable = true;
 
     theme = {
-      package = pkgs.orchis-theme;
-      name = "Orchis";
+      package = pkgs.fluent-gtk-theme;
+      name = "Fluent";
     };
 
     iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
+      package = pkgs.fluent-icon-theme;
+      name = "Fluent";
     };
 
     font = {
       name = "Sans";
-      size = 11;
+      size = 12;
     };
   };
 

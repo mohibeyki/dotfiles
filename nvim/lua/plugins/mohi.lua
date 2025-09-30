@@ -4,4 +4,5 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = { ensure_installed = { "nix" } },
   },
+  { dir = "/usr/share/fb-editor-support/nvim", name = "meta.nvim" },
 }

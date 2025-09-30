@@ -1,15 +1,10 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.copilot",
-    "lazyvim.plugins.extras.coding.yanky",
-    "lazyvim.plugins.extras.editor.navic",
-    "lazyvim.plugins.extras.editor.outline",
-    "lazyvim.plugins.extras.ui.treesitter-context",
-    "lazyvim.plugins.extras.vscode"
+
   ],
   "install_version": 8,
   "news": {
-    "NEWS.md": "10960"
+    "NEWS.md": "11866"
   },
   "version": 8
 }

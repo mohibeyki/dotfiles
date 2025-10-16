@@ -22,13 +22,13 @@
     enable = true;
 
     theme = {
-      package = pkgs.fluent-gtk-theme;
-      name = "Fluent";
+      package = pkgs.orchis-theme;
+      name = "Orchis";
     };
 
     iconTheme = {
-      package = pkgs.fluent-icon-theme;
-      name = "Fluent";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
     };
 
     font = {

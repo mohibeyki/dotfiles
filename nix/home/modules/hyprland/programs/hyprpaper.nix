@@ -5,12 +5,12 @@
     settings = {
       splash = false;
       preload = [
-        "/home/mohi/Pictures/wp-1.jpg"
-        "/home/mohi/Pictures/wp-2.jpg"
+        "/home/mohi/Pictures/wallpaper.png"
+        "/home/mohi/Pictures/wallpaper.png"
       ];
       wallpaper = [
-        "DP-2, /home/mohi/Pictures/wp-1.jpg"
-        "DP-1, /home/mohi/Pictures/wp-2.jpg"
+        "DP-2, /home/mohi/Pictures/wallpaper.png"
+        "DP-1, /home/mohi/Pictures/wallpaper.png"
       ];
     };
   };

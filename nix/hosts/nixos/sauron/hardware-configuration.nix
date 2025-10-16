@@ -14,19 +14,19 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/bba1f8aa-59d0-42b7-a8fb-d100676f03c5";
+    { device = "/dev/disk/by-uuid/9450ba4a-0fea-4766-aeb6-0e66bb717e9d";
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F267-2FC8";
+    { device = "/dev/disk/by-uuid/F4A1-2C8B";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/games" =
-    { device = "/dev/disk/by-uuid/37b95db6-8d59-424f-abc0-99a68afbff6e";
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/99a491bb-6daf-43f5-945f-d54627f7b1cf";
       fsType = "btrfs";
     };
 
@@ -38,6 +38,8 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp7s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp14s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

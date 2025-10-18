@@ -8,69 +8,140 @@
     enable = true;
     settings = [
       {
-        output = "DP-2";
+        reload_style_on_change = true;
         layer = "top";
         position = "top";
-        spacing = 4;
+        spacing = 0;
+        height = 26;
         modules-left = [
-          "custom/launcher"
-          "custom/media"
+          "hyprland/workspaces"
         ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [
-          "tray"
-          "pulseaudio"
+        modules-center = [
           "clock"
-          "custom/power"
         ];
-
-        "custom/launcher" = {
-          format = "󰀻";
-          on-click = "wofi --show drun";
-        };
+        modules-right = [
+          "group/tray-expander"
+          "bluetooth"
+          "network"
+          "pulseaudio"
+          "cpu"
+          "battery"
+        ];
 
         "hyprland/workspaces" = {
-          on-scroll-up = "hyprctl dispatch workspace r-1";
-          on-scroll-down = "hyprctl dispatch workspace r+1";
           on-click = "activate";
-          active-only = false;
-          all-outputs = true;
           format = "{icon}";
           format-icons = {
-            "active" = "";
-            "default" = "";
-            "empty" = "";
+            default = "";
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            active = "󱓻";
+          };
+          persistent-workspaces = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+            "6" = [ ];
           };
         };
 
-        "hyprland/window" = {
-          max-length = 48;
-          rewrite = {
-            "(.*) - Brave" = "$1";
+        cpu = {
+          interval = 5;
+          format = "󰍛";
+          on-click = "ghostty -e btop";
+        };
+
+        clock = {
+          format = "{:L%A %H:%M}";
+          "format-alt" = "{:L%d %B W%V %Y}";
+          tooltip = false;
+        };
+
+        network = {
+          "format-icons" = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
+          format = "{icon}";
+          "format-wifi" = "{icon}";
+          "format-ethernet" = "󰀂";
+          "format-disconnected" = "󰤮";
+          "tooltip-format-wifi" = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-ethernet" = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-disconnected" = "Disconnected";
+          interval = 3;
+          spacing = 1;
+        };
+
+        battery = {
+          format = "{capacity}% {icon}";
+          "format-discharging" = "{icon}";
+          "format-charging" = "{icon}";
+          "format-plugged" = "";
+          "format-icons" = {
+            charging = [
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
+            default = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
           };
-          separate-outputs = false;
+          "format-full" = "󰂅";
+          "tooltip-format-discharging" = "{power:>1.0f}W↓ {capacity}%";
+          "tooltip-format-charging" = "{power:>1.0f}W↑ {capacity}%";
+          interval = 5;
+          states = {
+            warning = 20;
+            critical = 10;
+          };
         };
 
-        "tray" = {
-          spacing = 16;
-          icon-size = 14;
+        bluetooth = {
+          format = "";
+          "format-disabled" = "󰂲";
+          "format-connected" = "";
+          "tooltip-format" = "Devices connected: {num_connections}";
+          on-click = "blueberry";
         };
 
-        "pulseaudio" = {
-          on-click = "pwvucontrol";
-          format = "{volume}% {icon} {format_source} ";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = "  {format_source}";
-          format-source = "  {volume}%";
-          format-source-muted = "";
-          format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
+        pulseaudio = {
+          format = "{icon}";
+          on-click = "ghostty --class=Wiremix -e wiremix";
+          "on-click-right" = "pamixer -t";
+          "tooltip-format" = "Playing at {volume}%";
+          "scroll-step" = 5;
+          "format-muted" = "";
+          "format-icons" = {
             default = [
               ""
               ""
@@ -79,38 +150,26 @@
           };
         };
 
-        "network" = {
+        "group/tray-expander" = {
+          orientation = "inherit";
+          drawer = {
+            "transition-duration" = 600;
+            "children-class" = "tray-group-item";
+          };
+          modules = [
+            "custom/expand-icon"
+            "tray"
+          ];
+        };
+
+        "custom/expand-icon" = {
+          format = " ";
           tooltip = false;
-          format-wifi = "󰖩 {essid}";
-          format-ethernet = "󰇧 {ipaddr}";
-          family = "ipv4";
         };
 
-        "cpu" = {
-          interval = 2;
-          format = "󰻠 {load:0.2f}";
-          tooltip = false;
-          on-click = "flatpak run io.missioncenter.MissionCenter";
-        };
-
-        "memory" = {
-          interval = 2;
-          format = "󰍛 {used:0.2f} GB";
-          tooltip = true;
-          tooltip-format = "󰍛 {used:0.1f} GB / {total:0.1f} GB";
-          on-click = "flatpak run io.missioncenter.MissionCenter";
-        };
-
-        "clock" = {
-          format = "󰥔 {:%I:%M 󰃭 %a, %b %d %Y}";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "{:%Y-%m-%d}";
-        };
-
-        "custom/power" = {
-          format = " ⏻ ";
-          tooltip = false;
-          on-click = "wlogout -b 6 --protocol layer-shell";
+        tray = {
+          "icon-size" = 12;
+          spacing = 12;
         };
       }
     ];

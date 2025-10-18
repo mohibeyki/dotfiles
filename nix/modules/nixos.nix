@@ -104,6 +104,7 @@
     adwaita-icon-theme
     bibata-cursors
     bind
+    blueberry
     brave
     discord
     gnome-tweaks
@@ -112,8 +113,11 @@
     mako
     niv
     papirus-icon-theme
+    pamixer
     pipewire
     sbctl
+    uwsm
+    wiremix
     wireplumber
     zed-editor
   ];

@@ -1,111 +1,80 @@
 { ... }:
 {
-  programs.waybar = {
-    style = ''
-      @define-color bg #0f0f17;
-      @define-color fg #a6accd;
-      @define-color bg-light #181827;
-      @define-color bg-lighter #292943;
+  programs.waybar.style = ''
+    @define-color foreground #cdd6f4;
+    @define-color background #1a1b26;
 
-      @define-color black #181926;
-      @define-color red #f07178;
-      @define-color green #c3e88d;
-      @define-color yellow #ffcb6b;
-      @define-color blue #82aaff;
-      @define-color magenta #c792ea;
-      @define-color cyan #89ddff;
-      @define-color white #eeffff;
+    * {
+      background-color: @background;
+      color: @foreground;
 
-      * {
-          all: unset;
-          font-family: "JetBrainsMono Nerd Font";
-          font-size: 16px;
-      }
+      border: none;
+      border-radius: 0;
+      min-height: 0;
+      font-family: CaskaydiaMono Nerd Font;
+      font-size: 12px;
+    }
 
-      window#waybar {
-      }
+    .modules-left {
+      margin-left: 8px;
+    }
 
-      .modules-left,
-      .modules-center,
-      .modules-right {
-          margin-top: 4px;
-          background-color: transparent;
-      }
+    .modules-right {
+      margin-right: 8px;
+    }
 
-      #custom-launcher,
-      #workspaces,
-      #window,
-      #tray,
-      #cpu,
-      #memory,
-      #pulseaudio,
-      #network,
-      #clock,
-      #custom-power {
-          padding: 4px 24px;
-          margin: 0 4px;
-          background-color: alpha(@bg-lighter, 0.1);
-          color: @fg;
-          border-radius: 4px;
-          min-height: 32px;
-      }
+    #workspaces button {
+      all: initial;
+      padding: 0 6px;
+      margin: 0 1.5px;
+      min-width: 9px;
+    }
 
-      #workspaces button {
-          margin: 0px 8px;
-          color: @fg;
-      }
+    #workspaces button.empty {
+      opacity: 0.5;
+    }
 
-      #workspaces button:hover {
-          color: @magenta;
-      }
+    #tray,
+    #cpu,
+    #battery,
+    #network,
+    #bluetooth,
+    #pulseaudio,
+    #custom-omarchy,
+    #custom-screenrecording-indicator,
+    #custom-update {
+      min-width: 12px;
+      margin: 0 7.5px;
+    }
 
-      #workspaces button.active {
-          color: @red;
-      }
+    #custom-expand-icon {
+      margin-right: 7px;
+    }
 
-      #custom-launcher {
-          color: @fg;
-      }
+    tooltip {
+      padding: 2px;
+    }
 
-      #window {
-          color: @fg;
-      }
+    #custom-update {
+      font-size: 10px;
+    }
 
-      window#waybar.empty #window {
-          background-color: transparent;
-      }
+    #clock {
+      margin-left: 8.75px;
+    }
 
-      window#waybar.empty .modules-center {
-          background-color: transparent;
-      }
+    .hidden {
+      opacity: 0;
+    }
 
-      #custom-pacman {
-          color: @fg;
-      }
+    #custom-screenrecording-indicator {
+      min-width: 12px;
+      margin-left: 8.75px;
+      font-size: 10px;
+    }
 
-      #cpu {
-          color: @fg;
-      }
-
-      #memory {
-          color: @fg;
-      }
-
-      #pulseaudio {
-          color: @fg;
-      }
-
-      #network {
-          color: @fg;
-      }
-
-      #clock {
-          color: @fg;
-      }
-
-      #custom-power {
-          color: @red;
-      }
-    '';
-  };
+    #custom-screenrecording-indicator.active {
+      color: #a55555;
+    }
+  '';
 }

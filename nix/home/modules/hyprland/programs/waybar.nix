@@ -9,167 +9,183 @@
     settings = [
       {
         layer = "top";
-        height = 30;
+        height = 40;
         spacing = 4;
 
         modules-left = [
           "hyprland/workspaces"
-          "memory"
-          "custom/gpt"
-          "custom/weather"
-          "battery"
-          "battery#bat2"
-          "sway/mode"
-          "sway/scratchpad"
         ];
-        modules-center = [ "clock" ];
+        modules-center = [
+          "clock"
+        ];
         modules-right = [
+          "group/tray-expander"
+          "bluetooth"
+          "network"
           "pulseaudio"
-          "custom/swaync"
-          "sway/language"
-          "backlight"
-          "idle_inhibitor"
+          "cpu"
+          "battery"
+          "custom/weather"
           "custom/power"
         ];
 
         "hyprland/workspaces" = {
-          format = "{name}";
-          persistent-workspaces = {
-            "*" = [
-              1
-              2
-              3
-            ];
+          on-click = "activate";
+          format = "{icon}";
+          format-icons = {
+            default = "";
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            active = "󱓻";
           };
-        };
-
-        "sway/mode" = {
-          format = "<span style=\"italic\">{}</span>";
-        };
-
-        "custom/gpt" = {
-          format = " ";
-          tooltip = false;
-          on-click = "firefox -P ai --new-window https://chatgpt.com/";
-        };
-
-        "sway/scratchpad" = {
-          format = "{icon} {count}";
-          show-empty = false;
-          format-icons = [
-            ""
-            ""
-          ];
-          tooltip = true;
-          "tooltip-format" = "{app}: {title}";
+          persistent-workspaces = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+            "6" = [ ];
+          };
         };
 
         "custom/weather" = {
           exec = "bash ~/.config/scripts/waybar-weather.sh";
           on-click = "mousam";
-          interval = 3;
+          interval = 1200;
           tooltip = false;
           format = "{}";
         };
 
-        idle_inhibitor = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-        };
-
-        tray = {
-          spacing = 10;
+        cpu = {
+          interval = 5;
+          format = "󰍛";
+          on-click = "ghostty -e btop";
         };
 
         clock = {
-          "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "{:%Y-%m-%d}";
-        };
-
-        memory = {
-          format = "{}% ";
-        };
-
-        "custom/swaync" = {
-          exec = "bash ~/.config/scripts/waybar-swaync.sh";
-          interval = 1;
+          format = "{:L%A %H:%M}";
+          "format-alt" = "{:L%d %B W%V %Y}";
           tooltip = false;
-          format = "{} ";
-          on-click = "swaync-client -t";
         };
 
-        backlight = {
-          format = "{percent}% {icon}";
-          format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
+        network = {
+          "format-icons" = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
           ];
+          format = "{icon}";
+          "format-wifi" = "{icon}";
+          "format-ethernet" = "󰀂";
+          "format-disconnected" = "󰤮";
+          "tooltip-format-wifi" = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-ethernet" = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-disconnected" = "Disconnected";
+          interval = 3;
+          spacing = 1;
         };
 
         battery = {
-          states = {
-            warning = 30;
-            critical = 15;
-          };
           format = "{capacity}% {icon}";
-          "format-full" = "{capacity}% {icon}";
-          "format-charging" = "{capacity}% ";
-          "format-plugged" = "{capacity}% ";
-          "format-alt" = "{time} {icon}";
-          interval = 3;
-          "format-icons" = [
-            " "
-            " "
-            " "
-            " "
-            " "
-          ];
+          "format-discharging" = "{icon}";
+          "format-charging" = "{icon}";
+          "format-plugged" = "";
+          "format-icons" = {
+            charging = [
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
+            default = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
+          };
+          "format-full" = "󰂅";
+          "tooltip-format-discharging" = "{power:>1.0f}W↓ {capacity}%";
+          "tooltip-format-charging" = "{power:>1.0f}W↑ {capacity}%";
+          interval = 5;
+          states = {
+            warning = 20;
+            critical = 10;
+          };
         };
 
-        "battery#bat2" = {
-          bat = "BAT2";
+        bluetooth = {
+          format = "";
+          "format-disabled" = "󰂲";
+          "format-connected" = "";
+          "tooltip-format" = "Devices connected: {num_connections}";
+          on-click = "blueberry";
         };
 
         pulseaudio = {
-          format = "{volume}% {icon}";
-          "format-bluetooth" = "{volume}% {icon} ";
-          "format-bluetooth-muted" = "  {icon} ";
-          "format-muted" = " ";
-          "format-source" = " {volume}% ";
-          "format-source-muted" = "";
+          format = "{icon}";
+          on-click = "ghostty --class=com.github.tsowell.wiremix -e wiremix";
+          "on-click-right" = "pamixer -t";
+          "tooltip-format" = "Playing at {volume}%";
+          "scroll-step" = 5;
+          "format-muted" = "";
           "format-icons" = {
-            headphone = "";
-            "hands-free" = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
             default = [
               ""
               ""
-              " "
+              ""
             ];
           };
-          on-click = "pavucontrol";
+        };
+
+        "group/tray-expander" = {
+          orientation = "inherit";
+          drawer = {
+            "transition-duration" = 600;
+            "children-class" = "tray-group-item";
+          };
+          modules = [
+            "custom/expand-icon"
+            "tray"
+          ];
+        };
+
+        "custom/expand-icon" = {
+          format = " ";
+          tooltip = false;
+        };
+
+        tray = {
+          "icon-size" = 12;
+          spacing = 12;
         };
 
         "custom/power" = {
           format = " ⏻ ";
           tooltip = false;
-          on-click = "wlogout -b 4";
+          on-click = "wlogout -b 6 --protocol layer-shell";
         };
-
-        "sway/language" = { };
       }
     ];
   };

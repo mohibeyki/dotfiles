@@ -113,7 +113,9 @@
     gparted
     killall
     mako
+    mousam
     niv
+    pavucontrol
     pamixer
     papirus-icon-theme
     pipewire

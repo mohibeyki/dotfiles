@@ -3,5 +3,5 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 quit-after-last-window-closed = true
-theme = tokyonight
+theme = TokyoNight
 window-padding-balance = true

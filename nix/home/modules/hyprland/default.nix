@@ -67,11 +67,12 @@
         "NVD_BACKEND,direct"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "SDL_VIDEODRIVER,wayland"
+        "GDK_SCALE,1"
       ];
 
       monitor = [
-        "DP-1, 2560x1440@180, -2560x0, 1       , bitdepth, 10"
-        "DP-2, 3840x2160@240,     0x0, 1.333334, bitdepth, 10"
+        "DP-1, 2560x1440@180, -2560x0, 1, bitdepth, 10"
+        "DP-2, 3840x2160@240,     0x0, 1, bitdepth, 10"
       ];
 
       cursor = {

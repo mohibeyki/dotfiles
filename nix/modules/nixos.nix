@@ -106,16 +106,19 @@
     bind
     blueberry
     brave
+    code-cursor-fhs
     discord
+    geekbench
     gnome-tweaks
     gparted
     killall
     mako
     niv
-    papirus-icon-theme
     pamixer
+    papirus-icon-theme
     pipewire
     sbctl
+    swaynotificationcenter
     uwsm
     wiremix
     wireplumber

@@ -36,7 +36,7 @@
       "$mod, P, exec, wofi --show drun"
       "$mod CTRL, R, exec, hyprctl reload"
       "$mod, PRINT, exec, hyprshot"
-      "$mod CTRL, Q, exec, wlogout"
+      "$mod CTRL, Q, exec, wlogout -b 6 --protocol layer-shell"
       "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
       "$mod CTRL, L, exec, hyprlock"
 

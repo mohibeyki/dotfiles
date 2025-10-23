@@ -1,0 +1,177 @@
+{ ... }:
+{
+  imports = [
+    ./waybar-theme.nix
+  ];
+
+  programs.waybar = {
+    enable = true;
+    settings = [
+      {
+        reload_style_on_change = true;
+        layer = "top";
+        position = "top";
+        spacing = 0;
+        height = 26;
+        modules-left = [
+          "hyprland/workspaces"
+        ];
+        modules-center = [
+          "clock"
+        ];
+        modules-right = [
+          "group/tray-expander"
+          "bluetooth"
+          "network"
+          "pulseaudio"
+          "cpu"
+          "battery"
+        ];
+
+        "hyprland/workspaces" = {
+          on-click = "activate";
+          format = "{icon}";
+          format-icons = {
+            default = "";
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            active = "󱓻";
+          };
+          persistent-workspaces = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+            "6" = [ ];
+          };
+        };
+
+        cpu = {
+          interval = 5;
+          format = "󰍛";
+          on-click = "ghostty -e btop";
+        };
+
+        clock = {
+          format = "{:L%A %H:%M}";
+          "format-alt" = "{:L%d %B W%V %Y}";
+          tooltip = false;
+        };
+
+        network = {
+          "format-icons" = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
+          format = "{icon}";
+          "format-wifi" = "{icon}";
+          "format-ethernet" = "󰀂";
+          "format-disconnected" = "󰤮";
+          "tooltip-format-wifi" = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-ethernet" = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          "tooltip-format-disconnected" = "Disconnected";
+          interval = 3;
+          spacing = 1;
+        };
+
+        battery = {
+          format = "{capacity}% {icon}";
+          "format-discharging" = "{icon}";
+          "format-charging" = "{icon}";
+          "format-plugged" = "";
+          "format-icons" = {
+            charging = [
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
+            default = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
+          };
+          "format-full" = "󰂅";
+          "tooltip-format-discharging" = "{power:>1.0f}W↓ {capacity}%";
+          "tooltip-format-charging" = "{power:>1.0f}W↑ {capacity}%";
+          interval = 5;
+          states = {
+            warning = 20;
+            critical = 10;
+          };
+        };
+
+        bluetooth = {
+          format = "";
+          "format-disabled" = "󰂲";
+          "format-connected" = "";
+          "tooltip-format" = "Devices connected: {num_connections}";
+          on-click = "blueberry";
+        };
+
+        pulseaudio = {
+          format = "{icon}";
+          on-click = "ghostty --class=com.github.tsowell.wiremix -e wiremix";
+          "on-click-right" = "pamixer -t";
+          "tooltip-format" = "Playing at {volume}%";
+          "scroll-step" = 5;
+          "format-muted" = "";
+          "format-icons" = {
+            default = [
+              ""
+              ""
+              ""
+            ];
+          };
+        };
+
+        "group/tray-expander" = {
+          orientation = "inherit";
+          drawer = {
+            "transition-duration" = 600;
+            "children-class" = "tray-group-item";
+          };
+          modules = [
+            "custom/expand-icon"
+            "tray"
+          ];
+        };
+
+        "custom/expand-icon" = {
+          format = " ";
+          tooltip = false;
+        };
+
+        tray = {
+          "icon-size" = 12;
+          spacing = 12;
+        };
+      }
+    ];
+  };
+}

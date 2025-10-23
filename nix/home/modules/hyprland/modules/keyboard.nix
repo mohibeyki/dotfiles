@@ -13,7 +13,8 @@
         natural_scroll = false;
         scroll_factor = 1.0;
       };
-      sensitivity = 0;
+      sensitivity = -0.2;
+      accel_profile = "flat";
     };
   };
 }

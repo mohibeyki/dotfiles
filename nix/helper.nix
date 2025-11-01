@@ -11,7 +11,8 @@ let
 
       users.mohi.imports = [
         ./home
-      ] ++ extraImports;
+      ]
+      ++ extraImports;
 
       backupFileExtension = "bak";
     };
@@ -19,7 +20,6 @@ let
 in
 {
   mkDarwin = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
-    packages.aarch64-darwin.default = inputs.fenix.packages.aarch64-darwin.complete.toolchain;
     darwinConfigurations.${machineHostname} = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {
@@ -33,7 +33,8 @@ in
         (inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true extraHmModules) {
           home-manager.users.mohi.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/mohi";
         })
-      ] ++ extraModules;
+      ]
+      ++ extraModules;
     };
   };
 
@@ -50,7 +51,8 @@ in
         ./hosts/nixos/${machineHostname}
         inputs.home-manager.nixosModules.home-manager
         (homeManagerCfg false extraHmModules)
-      ] ++ extraModules;
+      ]
+      ++ extraModules;
     };
   };
 

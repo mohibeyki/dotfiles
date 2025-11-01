@@ -106,7 +106,6 @@
     bind
     blueberry
     brave
-    code-cursor-fhs
     discord
     geekbench
     gnome-tweaks

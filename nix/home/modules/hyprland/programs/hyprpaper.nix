@@ -9,8 +9,8 @@
         "/home/mohi/Pictures/wallpaper.jpg"
       ];
       wallpaper = [
-        "DP-2, /home/mohi/Pictures/wallpaper.jpg"
-        "DP-1, /home/mohi/Pictures/wallpaper.jpg"
+        "DP-4, /home/mohi/Pictures/wallpaper.jpg"
+        "DP-5, /home/mohi/Pictures/wallpaper.jpg"
       ];
     };
   };

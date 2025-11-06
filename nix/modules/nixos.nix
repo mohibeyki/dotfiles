@@ -113,9 +113,10 @@
     mako
     mousam
     niv
-    pavucontrol
+    nwg-look
     pamixer
     papirus-icon-theme
+    pavucontrol
     pipewire
     sbctl
     spotify

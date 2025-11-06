@@ -5,7 +5,7 @@
     @define-color background #1a1b26;
 
     * {
-        background-color: @background;
+        background-color: transparent;
         color: @foreground;
         border: none;
         border-radius: 0;
@@ -13,6 +13,19 @@
         font-size: 14px;
         font-family: JetBrainsMono Nerd Font;
         font-weight: 400;
+    }
+
+    window#waybar {
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    .modules-left, .modules-center, .modules-right {
+      background-color: @background;
+      padding: 8px 8px;
+      border-radius: 8px;
+      margin: 8px 0 0 0;
     }
 
     .modules-left {
@@ -25,42 +38,32 @@
 
     #workspaces button {
       all: initial;
-      padding: 0 6px;
-      margin: 0 1.5px;
-      min-width: 9px;
+      padding: 0 8px;
+      margin: 0 2px;
+      min-width: 12px;
     }
 
     #workspaces button.empty {
       opacity: 0.5;
     }
 
-    #tray,
-    #cpu,
-    #battery,
-    #network,
-    #bluetooth,
-    #pulseaudio,
-    #custom-omarchy,
-    #custom-screenrecording-indicator,
-    #custom-update {
+    .module {
+      padding: 4px 4px;
+      margin: 0;
       min-width: 12px;
-      margin: 0 7.5px;
     }
 
-    #custom-expand-icon {
-      margin-right: 7px;
+    #clock {
+      padding: 4px 8px;
+      margin: 0;
+    }
+
+    #tray {
+      padding: 0 8px;
     }
 
     tooltip {
       padding: 2px;
-    }
-
-    #custom-update {
-      font-size: 10px;
-    }
-
-    #clock {
-      margin-left: 8.75px;
     }
 
     .hidden {

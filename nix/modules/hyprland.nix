@@ -17,6 +17,7 @@
     waybar
     wlogout
     wofi
+    xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
   ];
 }

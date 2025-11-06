@@ -55,18 +55,31 @@
     settings = {
 
       general = {
-        gaps_in = 4;
-        gaps_out = 4;
+        gaps_in = 8;
+        gaps_out = 8;
         layout = "dwindle";
         border_size = 0;
       };
 
       env = [
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        # portal
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+
+        # nvidia
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "LIBVA_DRIVER_NAME,nvidia"
         "NVD_BACKEND,direct"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+
+        # electron
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+
+        # sdl
         "SDL_VIDEODRIVER,wayland"
+
+        # gdk
         "GDK_SCALE,1"
       ];
 

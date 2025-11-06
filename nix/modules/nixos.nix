@@ -105,7 +105,6 @@
     bibata-cursors
     bind
     blueberry
-    brave
     discord
     geekbench
     gnome-tweaks
@@ -119,8 +118,10 @@
     papirus-icon-theme
     pipewire
     sbctl
+    spotify
     swaynotificationcenter
     uwsm
+    vivaldi
     wiremix
     wireplumber
     zed-editor

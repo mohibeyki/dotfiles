@@ -4,7 +4,7 @@
     "$mod" = "SUPER";
     bind = [
       "$mod, RETURN, exec, ghostty"
-      "$mod, B, exec, brave"
+      "$mod, B, exec, vivaldi"
       "$mod, E, exec, nautilus"
 
       "$mod, Q, killactive"

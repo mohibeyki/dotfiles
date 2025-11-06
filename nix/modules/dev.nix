@@ -13,10 +13,10 @@
     gotools
 
     # rust
-    # cargo
-    # clippy
-    # rust-analyzer
-    # rustc
+    cargo
+    clippy
+    rust-analyzer
+    rustc
 
     # zig
     zig

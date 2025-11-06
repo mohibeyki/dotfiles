@@ -85,7 +85,7 @@
 
       monitor = [
         "DP-4, 2560x1440@180, -2560x0, 1, bitdepth, 10"
-        "DP-5, 3840x2160@240,     0x0, 1, bitdepth, 10"
+        "DP-5, 3840x2160@240,     0x0, 1.33333, bitdepth, 10"
       ];
 
       cursor = {

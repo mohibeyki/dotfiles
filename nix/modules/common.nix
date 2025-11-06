@@ -18,6 +18,8 @@
         "nix-command"
         "flakes"
       ];
+
+      download-buffer-size = 1024 * 1024 * 1024; # 1GB
     };
   };
 

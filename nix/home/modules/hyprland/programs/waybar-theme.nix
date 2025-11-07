@@ -10,9 +10,9 @@
         border: none;
         border-radius: 0;
         min-height: 0;
-        font-size: 14px;
+        font-size: 16px;
         font-family: JetBrainsMono Nerd Font;
-        font-weight: 400;
+        font-weight: 300;
     }
 
     window#waybar {
@@ -49,7 +49,7 @@
 
     .module {
       padding: 4px 4px;
-      margin: 0;
+      margin: 0 4px;
       min-width: 12px;
     }
 
@@ -59,6 +59,10 @@
     }
 
     #tray {
+      padding: 0;
+    }
+
+    #custom-expand-icon {
       padding: 0 8px;
     }
 

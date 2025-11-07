@@ -8,6 +8,7 @@
     enable = true;
     settings = [
       {
+        output = "DP-5";
         layer = "top";
         height = 40;
         spacing = 4;
@@ -43,7 +44,7 @@
             "7" = "7";
             "8" = "8";
             "9" = "9";
-            active = "󱓻";
+            active = "";
           };
           persistent-workspaces = {
             "1" = [ ];
@@ -172,13 +173,13 @@
         };
 
         "custom/expand-icon" = {
-          format = " ";
+          format = "";
           tooltip = false;
         };
 
         tray = {
-          "icon-size" = 12;
-          spacing = 12;
+          "icon-size" = 14;
+          spacing = 14;
         };
 
         "custom/power" = {

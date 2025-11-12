@@ -14,6 +14,7 @@
     hyprland
     hyprlock
     hyprpaper
+    swaynotificationcenter
     waybar
     wlogout
     wofi

@@ -24,7 +24,7 @@
       "on-click": "activate",
       "format": "{icon}",
       "format-icons": {
-        "default": " ",
+        "default": "",
         "1": "1",
         "2": "2",
         "3": "3",
@@ -34,7 +34,7 @@
         "7": "7",
         "8": "8",
         "9": "9",
-        "active": ""
+        "active": ""
       },
       "persistent-workspaces": {
         "1": [],
@@ -54,7 +54,7 @@
     },
     "cpu": {
       "interval": 5,
-      "format": "",
+      "format": "󰍛",
       "on-click": "ghostty -e btop"
     },
     "clock": {
@@ -64,16 +64,16 @@
     },
     "network": {
       "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
+         "󰤯",
+         "󰤟",
+         "󰤢",
+         "󰤥",
+         "󰤨"
       ],
       "format": "{icon}",
       "format-wifi": "{icon}",
-      "format-ethernet": "",
-      "format-disconnected": "",
+      "format-ethernet": "󰀂",
+      "format-disconnected": "󰤮",
       "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
       "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
       "tooltip-format-disconnected": "Disconnected",
@@ -84,34 +84,34 @@
       "format": "{capacity}% {icon}",
       "format-discharging": "{icon}",
       "format-charging": "{icon}",
-      "format-plugged": "",
+      "format-plugged": "",
       "format-icons": {
         "charging": [
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          ""
+          "󰢜",
+          "󰂆",
+          "󰂇",
+          "󰂈",
+          "󰢝",
+          "󰂉",
+          "󰢞",
+          "󰂊",
+          "󰂋",
+          "󰂅"
         ],
         "default": [
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          ""
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹"
         ]
       },
-      "format-full": "",
+      "format-full": "󰂅",
       "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
       "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
       "interval": 5,
@@ -121,9 +121,9 @@
       }
     },
     "bluetooth": {
-      "format": "",
-      "format-disabled": "",
-      "format-connected": "",
+      "format": "",
+      "format-disabled": "󰂲",
+      "format-connected": "",
       "tooltip-format": "Devices connected: {num_connections}",
       "on-click": "blueberry"
     },
@@ -133,12 +133,12 @@
       "on-click-right": "pamixer -t",
       "tooltip-format": "Playing at {volume}%",
       "scroll-step": 5,
-      "format-muted": "",
+      "format-muted": "",
       "format-icons": {
         "default": [
-          "",
-          "",
-          ""
+          "",
+          "",
+          ""
         ]
       }
     },
@@ -154,7 +154,7 @@
       ]
     },
     "custom/expand-icon": {
-      "format": "",
+      "format": "",
       "tooltip": false
     },
     "tray": {
@@ -168,4 +168,3 @@
     }
   }
 ]
-

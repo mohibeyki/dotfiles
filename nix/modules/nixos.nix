@@ -120,9 +120,7 @@
     pipewire
     sbctl
     spotify
-    swaynotificationcenter
     uwsm
-    vivaldi
     wiremix
     wireplumber
     zed-editor

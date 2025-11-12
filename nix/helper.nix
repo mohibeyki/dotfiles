@@ -1,25 +1,6 @@
 { ... }@inputs:
-let
-  homeManagerCfg = userPackages: extraImports: {
-    home-manager = {
-      useGlobalPkgs = false;
-      useUserPackages = userPackages;
-
-      extraSpecialArgs = {
-        inherit inputs;
-      };
-
-      users.mohi.imports = [
-        ./home
-      ]
-      ++ extraImports;
-
-      backupFileExtension = "bak";
-    };
-  };
-in
 {
-  mkDarwin = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
+  mkDarwin = machineHostname: nixpkgsVersion: extraModules: {
     darwinConfigurations.${machineHostname} = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {
@@ -29,16 +10,12 @@ in
         ./modules/darwin.nix
         ./modules/common.nix
         ./hosts/darwin/${machineHostname}
-        inputs.home-manager.darwinModules.home-manager
-        (inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true extraHmModules) {
-          home-manager.users.mohi.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/mohi";
-        })
       ]
       ++ extraModules;
     };
   };
 
-  mkNixos = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
+  mkNixos = machineHostname: nixpkgsVersion: extraModules: {
     nixosConfigurations.${machineHostname} = nixpkgsVersion.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
@@ -49,8 +26,6 @@ in
         ./modules/common.nix
         ./programs/ghostty.nix
         ./hosts/nixos/${machineHostname}
-        inputs.home-manager.nixosModules.home-manager
-        (homeManagerCfg false extraHmModules)
       ]
       ++ extraModules;
     };

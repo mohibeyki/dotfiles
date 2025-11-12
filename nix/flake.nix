@@ -23,14 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -66,14 +58,12 @@
         [
           ./modules/dev.nix
         ]
-        [ ]
       )
 
       (mkDarwin "arwen" inputs.nixpkgs
         [
           ./modules/dev.nix
         ]
-        [ ]
       )
 
       (mkNixos "sauron" inputs.nixpkgs
@@ -83,9 +73,6 @@
           ./modules/nvidia.nix
           ./modules/dev.nix
           ./programs/steam.nix
-        ]
-        [
-          ./home/modules/hyprland
         ]
       )
     ];

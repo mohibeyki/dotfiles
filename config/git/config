@@ -1,0 +1,16 @@
+[user]
+	name = Mohi Beyki
+	email = mohibeyki@gmail.com
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short

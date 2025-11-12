@@ -1,0 +1,74 @@
+@define-color foreground #cdd6f4;
+@define-color background #1a1b26;
+
+* {
+    background-color: transparent;
+    color: @foreground;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-size: 16px;
+    font-family: JetBrainsMono Nerd Font;
+    font-weight: 300;
+}
+
+window#waybar {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: @background;
+    padding: 8px 8px;
+    border-radius: 8px;
+    margin: 8px 0 0 0;
+}
+
+.modules-left {
+    margin-left: 8px;
+}
+
+.modules-right {
+    margin-right: 8px;
+}
+
+#workspaces button {
+    all: initial;
+    padding: 0 8px;
+    margin: 0 2px;
+    min-width: 12px;
+}
+
+#workspaces button.empty {
+    opacity: 0.5;
+}
+
+.module {
+    padding: 4px 4px;
+    margin: 0 4px;
+    min-width: 12px;
+}
+
+#clock {
+    padding: 4px 8px;
+    margin: 0;
+}
+
+#tray {
+    padding: 0;
+}
+
+#custom-expand-icon {
+    padding: 0 8px;
+}
+
+tooltip {
+    padding: 2px;
+}
+
+.hidden {
+    opacity: 0;
+}

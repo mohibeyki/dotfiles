@@ -23,7 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
@@ -54,26 +53,20 @@
       inherit (helpers) mkMerge mkDarwin mkNixos;
     in
     mkMerge [
-      (mkDarwin "legolas" inputs.nixpkgs
-        [
-          ./modules/dev.nix
-        ]
-      )
+      (mkDarwin "legolas" inputs.nixpkgs [
+        ./modules/dev.nix
+      ])
 
-      (mkDarwin "arwen" inputs.nixpkgs
-        [
-          ./modules/dev.nix
-        ]
-      )
+      (mkDarwin "arwen" inputs.nixpkgs [
+        ./modules/dev.nix
+      ])
 
-      (mkNixos "sauron" inputs.nixpkgs
-        [
-          ./modules/hyprland.nix
-          ./modules/lanzaboote.nix
-          ./modules/nvidia.nix
-          ./modules/dev.nix
-          ./programs/steam.nix
-        ]
-      )
+      (mkNixos "sauron" inputs.nixpkgs [
+        ./modules/hyprland.nix
+        ./modules/lanzaboote.nix
+        ./modules/nvidia.nix
+        ./modules/dev.nix
+        ./programs/steam.nix
+      ])
     ];
 }

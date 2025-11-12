@@ -48,6 +48,7 @@
     lazygit
     mc
     ripgrep
+    stow
     tmux
     unzip
     wget

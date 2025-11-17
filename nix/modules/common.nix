@@ -53,7 +53,6 @@
     unzip
     wget
     xz
-    zellij
     zip
     zoxide
   ];

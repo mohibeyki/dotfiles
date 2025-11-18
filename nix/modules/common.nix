@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -29,6 +30,10 @@
 
   # Enable non-free applications
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    inputs.rust-overlay.overlays.default
+  ];
 
   programs = {
     zsh.enable = true;

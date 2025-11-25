@@ -105,6 +105,7 @@
     bibata-cursors
     bind
     blueberry
+    brave
     discord
     geekbench
     gnome-tweaks

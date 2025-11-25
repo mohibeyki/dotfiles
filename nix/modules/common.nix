@@ -44,7 +44,7 @@
     bc # calculator
     btop
     cachix
-    fastfetch
+    claude-code
     fd
     fishPlugins.tide
     fzf

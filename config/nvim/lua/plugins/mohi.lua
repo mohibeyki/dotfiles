@@ -1,25 +1,17 @@
 return {
-  -- add more treesitter parsers
+  -- Nix setup
+  { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = { "nix" } } },
   {
-    "nvim-treesitter/nvim-treesitter",
+    "neovim/nvim-lspconfig",
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "go",
-        "html",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "rust",
-        "vim",
-        "yaml",
-        "zig",
+      servers = {
+        nixd = {},
       },
+    },
+  },
+  opts = {
+    formatters_by_ft = {
+      nix = { "nixfmt" },
     },
   },
 

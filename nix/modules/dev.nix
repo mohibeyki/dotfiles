@@ -27,7 +27,7 @@
       zig
 
       # editor related
-      hx
+      helix
       tree-sitter
 
       # etc

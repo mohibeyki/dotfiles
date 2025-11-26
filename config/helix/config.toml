@@ -55,7 +55,7 @@ enable = true
 supersede-menu = true
 
 [editor.soft-wrap]
-enable = true
+enable = false
 max-indent-retain = 0
 max-wrap = 80
 wrap-at-text-width = true

@@ -1,43 +1,57 @@
 { pkgs, inputs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    # c/c++
-    clang
-    clang-tools
-    gcc
+  environment.systemPackages =
+    with pkgs;
+    [
+      # ai
+      claude-code
 
-    # go
-    go
-    gofumpt
-    gopls
-    gotools
+      # c/c++
+      clang
+      clang-tools
+      gcc
 
-    # rust
-    cargo
-    clippy
-    rust-analyzer
-    rustc
+      # go
+      go
+      gofumpt
+      gopls
+      gotools
 
-    # zig
-    zig
+      # rust
+      cargo
+      clippy
+      rust-analyzer
+      rustc
 
-    # etc
-    gnumake
-    jq # json processor
-    libiconv
-    lua-language-server
-    markdownlint-cli2 # markdown linter
-    marksman # markdown lsp
-    nixd # nix lsp
-    nixfmt-rfc-style # nix formatter
-    nodejs
-    python3
-    selene # lua linter
-    statix # nix linter
-    stylua # lua formatter
-    taplo # toml toolkit
-    tree-sitter
-  ] ++ [
-    inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim
-  ];
+      # zig
+      zig
+
+      # editor related
+      hx
+      tree-sitter
+
+      # etc
+      fd
+      fzf
+      git
+      gnumake
+      jq # json processor
+      lazygit
+      libiconv
+      lua-language-server
+      markdownlint-cli2 # markdown linter
+      marksman # markdown lsp
+      nixd # nix lsp
+      nixfmt-rfc-style # nix formatter
+      nodejs
+      python3
+      ripgrep
+      selene # lua linter
+      statix # nix linter
+      stylua # lua formatter
+      taplo # toml toolkit
+    ]
+    ++ [
+      inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim
+    ];
 }

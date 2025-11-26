@@ -44,15 +44,9 @@
     bc # calculator
     btop
     cachix
-    claude-code
-    fd
     fishPlugins.tide
-    fzf
-    git
     gnused
-    lazygit
     mc
-    ripgrep
     stow
     tmux
     unzip

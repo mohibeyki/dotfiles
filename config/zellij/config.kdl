@@ -5,11 +5,12 @@ keybinds clear-defaults=true {
 
     normal {
         bind "Ctrl a" { SwitchToMode "tmux"; }
-    }
-
-    shared_except "locked" {
         bind "F12"    { SwitchToMode "locked"; }
         bind "Ctrl q" { Quit; }
+        bind "Ctrl h" { MoveFocus "left";  SwitchToMode "Normal"; }
+        bind "Ctrl j" { MoveFocus "down";  SwitchToMode "Normal"; }
+        bind "Ctrl k" { MoveFocus "up";    SwitchToMode "Normal"; }
+        bind "Ctrl l" { MoveFocus "right"; SwitchToMode "Normal"; }
     }
 
     tmux {
@@ -18,13 +19,15 @@ keybinds clear-defaults=true {
         bind "d"      { Detach; }
         bind "s"      { SwitchToMode "search"; }
 
-        // Pane
-        bind "h"  { MoveFocus "left";  SwitchToMode "normal"; }
-        bind "j"  { MoveFocus "down";  SwitchToMode "normal"; }
-        bind "k"  { MoveFocus "up";    SwitchToMode "normal"; }
-        bind "l"  { MoveFocus "right"; SwitchToMode "normal"; }
-        bind "-"  { NewPane   "down";  SwitchToMode "normal"; }
-        bind "\\" { NewPane   "right"; SwitchToMode "normal"; }
+        // Resize Panes
+        bind "h"  { Resize  "Increase Left"; }
+        bind "j"  { Resize  "Increase Down"; }
+        bind "k"  { Resize  "Increase Up"; }
+        bind "l"  { Resize  "Increase right"; }
+
+        // New Panes
+        bind "-"  { NewPane "down";  SwitchToMode "normal"; }
+        bind "\\" { NewPane "right"; SwitchToMode "normal"; }
 
         // Layout
         bind "space"  { NextSwapLayout; SwitchToMode "normal"; }

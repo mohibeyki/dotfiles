@@ -25,6 +25,7 @@
 
       # zig
       zig
+      zls
 
       # editor related
       helix
@@ -38,18 +39,21 @@
       jq # json processor
       lazygit
       libiconv
+      nodejs
+      python3
+      ripgrep
+
+      # LSPs
       lua-language-server
       markdownlint-cli2 # markdown linter
       marksman # markdown lsp
       nixd # nix lsp
       nixfmt-rfc-style # nix formatter
-      nodejs
-      python3
-      ripgrep
       selene # lua linter
       statix # nix linter
       stylua # lua formatter
       taplo # toml toolkit
+      zellij # terminal multiplexer
     ]
     ++ [
       inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim

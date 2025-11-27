@@ -57,8 +57,6 @@ supersede-menu = true
 [editor.soft-wrap]
 enable = false
 max-indent-retain = 0
-max-wrap = 80
-wrap-at-text-width = true
 
 [editor.statusline]
 center = ["file-name"]
@@ -106,8 +104,8 @@ A-k = "move_line_up"
 A-l = "move_char_right"
 
 [keys.normal]
-"C-[" = ":bp"
-"C-]" = ":bn"
+'C-[' = ":buffer-previous"
+'C-]' = ":buffer-next"
 C-d = "half_page_down"
 C-u = "half_page_up"
 C-l = ":fmt"

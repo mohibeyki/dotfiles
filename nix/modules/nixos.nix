@@ -111,6 +111,7 @@
     gnome-tweaks
     gparted
     killall
+    lshw
     mako
     mousam
     niv

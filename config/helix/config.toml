@@ -5,22 +5,38 @@ auto-completion = true
 auto-format = true
 bufferline = "always"
 color-modes = true
+completion-replace = false
+completion-trigger-len = 2
+continue-comments = true
 cursorline = true
 end-of-line-diagnostics = "hint"
+idle-timeout = 250
 insert-final-newline = true
 line-number = "relative"
 mouse = false
+popup-border = "all"
+preview-completion-insert = false
 rulers = [160]
 scrolloff = 8
-shell = ["-c", "fish"]
+shell = ["fish", "-c"]
+text-width = 160
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.auto-save]
+after-delay.enable = true
+after-delay.timeout = 3000
+focus-lost = true
+
 [editor.file-picker]
+git-exclude = true
+git-global = true
+git-ignore = true
 hidden = false
+max-depth = 8
 
 [editor.gutters]
 layout = ["diagnostics", "diff", "line-numbers"]
@@ -41,8 +57,10 @@ other-lines = "info"
 
 [editor.lsp]
 auto-signature-help = true
+display-color-swatches = true
 display-inlay-hints = true
 display-messages = true
+display-signature-help-docs = true
 enable = true
 snippets = true
 
@@ -57,6 +75,16 @@ supersede-menu = true
 [editor.soft-wrap]
 enable = false
 max-indent-retain = 0
+max-wrap = 25
+wrap-indicator = "↪"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'<' = '>'
 
 [editor.statusline]
 center = ["file-name"]
@@ -94,7 +122,7 @@ tabpad = "·"
 nbsp = "all"
 newline = "none"
 nnbsp = "all"
-space = "none"
+space = "all"
 tab = "all"
 
 [keys.insert]

@@ -39,6 +39,7 @@
       jq # json processor
       lazygit
       libiconv
+      lldb
       nodejs
       python3
       ripgrep

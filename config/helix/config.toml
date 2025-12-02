@@ -74,9 +74,6 @@ supersede-menu = true
 
 [editor.soft-wrap]
 enable = false
-max-indent-retain = 0
-max-wrap = 25
-wrap-indicator = "↪"
 
 [editor.auto-pairs]
 '(' = ')'

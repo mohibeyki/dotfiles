@@ -42,13 +42,14 @@
       };
     };
 
-    displayManager.gdm = {
+    displayManager.sddm = {
       enable = true;
-      wayland = true;
+      wayland.enable = true;
+      settings.General.DisplayServer = "wayland";
     };
 
     desktopManager = {
-      gnome.enable = true;
+      plasma6.enable = true;
     };
 
     resolved = {
@@ -102,12 +103,10 @@
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
-    bibata-cursors
     bind
     blueberry
     brave
     discord
-    geekbench
     gnome-tweaks
     gparted
     killall
@@ -117,7 +116,6 @@
     niv
     nwg-look
     pamixer
-    papirus-icon-theme
     pavucontrol
     pipewire
     sbctl

@@ -42,14 +42,12 @@
       };
     };
 
-    displayManager.sddm = {
+    displayManager.cosmic-greeter = {
       enable = true;
-      wayland.enable = true;
-      settings.General.DisplayServer = "wayland";
     };
 
     desktopManager = {
-      plasma6.enable = true;
+      cosmic.enable = true;
     };
 
     resolved = {

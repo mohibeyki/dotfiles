@@ -1,6 +1,8 @@
 { config, ... }:
 {
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+  boot.kernelParams = [
+    "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+  ];
 
   # Enable OpenGL
   hardware.graphics.enable = true;
@@ -11,12 +13,13 @@
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaPersistenced = true;
-    powerManagement.enable = true;
     open = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
+
+    powerManagement.enable = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.

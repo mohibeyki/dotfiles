@@ -44,7 +44,7 @@
     bc # calculator
     btop
     cachix
-    fishPlugins.hydro
+    fishPlugins.pure
     gnused
     mc
     stow

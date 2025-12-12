@@ -42,12 +42,12 @@
       };
     };
 
-    displayManager.cosmic-greeter = {
+    displayManager.gdm = {
       enable = true;
     };
 
     desktopManager = {
-      cosmic.enable = true;
+      gnome.enable = true;
     };
 
     resolved = {

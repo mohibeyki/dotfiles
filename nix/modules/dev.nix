@@ -17,12 +17,6 @@
       gopls
       gotools
 
-      # rust
-      cargo
-      clippy
-      rust-analyzer
-      rustc
-
       # zig
       zig
       zls

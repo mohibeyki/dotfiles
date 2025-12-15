@@ -23,27 +23,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
     };
   };
 
@@ -51,23 +42,21 @@
     { ... }@inputs:
     let
       helpers = import ./helper.nix inputs;
-      inherit (helpers) mkMerge mkDarwin mkNixos;
+      inherit (helpers) mkMerge mkDarwin;
     in
     mkMerge [
-      (mkDarwin "legolas" inputs.nixpkgs [
-        ./modules/dev.nix
-      ])
+      (mkDarwin "legolas" inputs.nixpkgs
+        [
+          ./modules/dev.nix
+        ]
+        [ ]
+      )
 
-      (mkDarwin "arwen" inputs.nixpkgs [
-        ./modules/dev.nix
-      ])
-
-      (mkNixos "sauron" inputs.nixpkgs [
-        ./modules/hyprland.nix
-        ./modules/lanzaboote.nix
-        ./modules/nvidia.nix
-        ./modules/dev.nix
-        ./programs/steam.nix
-      ])
+      (mkDarwin "arwen" inputs.nixpkgs
+        [
+          ./modules/dev.nix
+        ]
+        [ ]
+      )
     ];
 }

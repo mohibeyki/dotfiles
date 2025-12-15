@@ -57,5 +57,7 @@
     };
   };
 
-  home.stateVersion = "25.11";
+  # Used for backwards compatibility with home-manager
+  # See: https://nix-community.github.io/home-manager/release-notes.xhtml
+  home.stateVersion = "25.11"; # Latest home-manager state version
 }

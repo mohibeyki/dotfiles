@@ -10,7 +10,7 @@
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 6;
+  system.stateVersion = 6; # Latest nix-darwin state version
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";

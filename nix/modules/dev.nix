@@ -5,6 +5,7 @@
     [
       # ai
       claude-code
+      crush
 
       # c/c++
       clang

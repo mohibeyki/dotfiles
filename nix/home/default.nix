@@ -15,40 +15,6 @@
   home = {
     sessionVariables = {
       EDITOR = "nvim";
-      # COSMIC dark mode
-      GTK_THEME = "Adwaita:dark";
-    };
-
-    # Set default cursor and icon themes
-    pointerCursor = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita";
-      size = 24;
-      gtk.enable = true;
-    };
-  };
-
-  # GTK theme configuration
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita-dark";
-    };
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-    cursorTheme = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita";
-      size = 24;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
     };
   };
 

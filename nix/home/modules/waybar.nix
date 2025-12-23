@@ -43,7 +43,7 @@
             "7" = "7";
             "8" = "8";
             "9" = "9";
-            active = "";
+            active = "󰺕";
           };
           persistent-workspaces = {
             "1" = [ ];
@@ -85,7 +85,7 @@
           ];
           format = "{icon}";
           format-wifi = "{icon}";
-          format-ethernet = "󰀂";
+          format-ethernet = "󰈀";
           format-disconnected = "󰤮";
           tooltip-format-wifi = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
           tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
@@ -98,9 +98,9 @@
           format = "{capacity}% {icon}";
           format-discharging = "{icon}";
           format-charging = "{icon}";
-          format-plugged = "";
           format-icons = {
             charging = [
+              "󰢟"
               "󰢜"
               "󰂆"
               "󰂇"
@@ -113,6 +113,7 @@
               "󰂅"
             ];
             default = [
+              "󰂎"
               "󰁺"
               "󰁻"
               "󰁼"
@@ -125,7 +126,6 @@
               "󰁹"
             ];
           };
-          format-full = "󰂅";
           tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%";
           tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%";
           interval = 5;
@@ -136,9 +136,9 @@
         };
 
         bluetooth = {
-          format = "";
+          format = "󰂯";
           format-disabled = "󰂲";
-          format-connected = "";
+          format-connected = "󰂱";
           tooltip-format = "Devices connected: {num_connections}";
           on-click = "blueberry";
         };
@@ -149,12 +149,12 @@
           on-click-right = "pamixer -t";
           tooltip-format = "Playing at {volume}%";
           scroll-step = 5;
-          format-muted = "";
+          format-muted = "󰝟";
           format-icons = {
             default = [
-              ""
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
           };
         };
@@ -172,7 +172,7 @@
         };
 
         "custom/expand-icon" = {
-          format = "";
+          format = "󰛁";
           tooltip = false;
         };
 
@@ -182,7 +182,7 @@
         };
 
         "custom/power" = {
-          format = " ⏻ ";
+          format = " 󰐥 ";
           tooltip = false;
           on-click = "wlogout -b 6 --protocol layer-shell";
         };

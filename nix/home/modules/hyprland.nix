@@ -5,10 +5,12 @@
     ./waybar.nix
     ./wlogout.nix
     ./wofi.nix
+    ./theme.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = true;
     xwayland.enable = true;
 
     settings = {

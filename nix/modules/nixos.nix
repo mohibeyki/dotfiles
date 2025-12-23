@@ -42,12 +42,12 @@
       };
     };
 
-    displayManager.gdm = {
+    displayManager.cosmic-greeter = {
       enable = true;
     };
 
     desktopManager = {
-      gnome.enable = true;
+      cosmic.enable = true;
     };
 
     resolved = {
@@ -99,13 +99,19 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Configure cursor and icon themes
+  environment.sessionVariables = {
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+  };
+
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    gnome-themes-extra
     bind
     blueberry
     brave
     discord
-    gnome-tweaks
     gparted
     killall
     lshw

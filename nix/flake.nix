@@ -36,13 +36,27 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =
     { ... }@inputs:
     let
       helpers = import ./helper.nix inputs;
-      inherit (helpers) mkMerge mkDarwin;
+      inherit (helpers) mkMerge mkDarwin mkNixos;
     in
     mkMerge [
       (mkDarwin "legolas" inputs.nixpkgs
@@ -57,6 +71,19 @@
           ./modules/dev.nix
         ]
         [ ]
+      )
+
+      (mkNixos "sauron" inputs.nixpkgs
+        [
+          ./modules/hyprland.nix
+          ./modules/lanzaboote.nix
+          ./modules/nvidia.nix
+          ./modules/dev.nix
+          ./programs/steam.nix
+        ]
+        [
+          ./home/modules/hyprland.nix
+        ]
       )
     ];
 }

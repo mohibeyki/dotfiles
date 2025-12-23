@@ -5,10 +5,11 @@
 }:
 {
   imports = [
-    ./fish.nix
-    ./ghostty.nix
-    ./helix.nix
-    ./tmux.nix
+    ./modules/fish.nix
+    ./modules/ghostty.nix
+    ./modules/helix.nix
+    ./modules/tmux.nix
+    ./modules/zellij.nix
   ];
 
   home = {

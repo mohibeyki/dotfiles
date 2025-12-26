@@ -4,8 +4,7 @@
     enable = true;
 
     interactiveShellInit = ''
-      set -gx EDITOR nvim
-      set -g pure_enable_single_line_prompt true
+      set -gx tide_context_always_display:true
     '';
 
     functions = {

@@ -42,7 +42,6 @@
     bc # calculator
     btop
     cachix
-    fishPlugins.tide
     gnused
     mc
     stow

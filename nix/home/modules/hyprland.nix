@@ -41,8 +41,8 @@
 
       # Monitor configuration
       monitor = [
-        "DP-4, 2560x1440@180, -2560x0, 1, bitdepth, 10"
-        "DP-5, 3840x2160@240,     0x0, 1, bitdepth, 10"
+        "DP-1, 2560x1440@180, -2560x0, 1, bitdepth, 10"
+        "DP-2, 3840x2160@240,     0x0, 1, bitdepth, 10"
       ];
 
       # Cursor
@@ -158,16 +158,16 @@
 
       # Workspaces
       workspace = [
-        "1, monitor:DP-4"
-        "2, monitor:DP-5"
-        "3, monitor:DP-4"
-        "4, monitor:DP-5"
-        "5, monitor:DP-4"
-        "6, monitor:DP-5"
-        "7, monitor:DP-4"
-        "8, monitor:DP-5"
-        "9, monitor:DP-4"
-        "10, monitor:DP-5"
+        "1, monitor:DP-1"
+        "2, monitor:DP-2"
+        "3, monitor:DP-1"
+        "4, monitor:DP-2"
+        "5, monitor:DP-1"
+        "6, monitor:DP-2"
+        "7, monitor:DP-1"
+        "8, monitor:DP-2"
+        "9, monitor:DP-1"
+        "10, monitor:DP-2"
       ];
 
       # Window rules
@@ -400,13 +400,15 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      splash = false;
+      ipc = "on";
+      splash = true;
+
       preload = [
         "/home/mohi/Pictures/wallpaper.jpg"
       ];
+
       wallpaper = [
-        "DP-4, /home/mohi/Pictures/wallpaper.jpg"
-        "DP-5, /home/mohi/Pictures/wallpaper.jpg"
+        ",/home/mohi/Pictures/wallpaper.jpg,fill"
       ];
     };
   };

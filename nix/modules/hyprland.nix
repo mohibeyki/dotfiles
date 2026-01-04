@@ -23,6 +23,7 @@
     swaynotificationcenter
     waybar
     wlogout
+    wl-clipboard-rs
     wofi
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland

@@ -69,13 +69,13 @@
 
       # Layer rules
       layerrule = [
-        "blur, waybar"
-        "ignorezero, waybar"
-        "blur, wofi"
-        "ignorezero, wofi"
-        "blur, logout_dialog"
-        "ignorezero, logout_dialog"
-        "noanim, ^(selection)$"
+        # "blur, waybar"
+        # "ignorezero, waybar"
+        # "blur, wofi"
+        # "ignorezero, wofi"
+        # "blur, logout_dialog"
+        # "ignorezero, logout_dialog"
+        # "noanim, ^(selection)$"
       ];
 
       # Animations
@@ -172,25 +172,25 @@
 
       # Window rules
       windowrule = [
-        "tag +chromium-based-browser, class:([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)"
-        "tag +firefox-based-browser, class:([fF]irefox|zen|librewolf)"
-        "tile, tag:chromium-based-browser"
-        "float, title:^(pavucontrol)$"
-        "float, title:^(blueman-manager)$"
-        "float, title:^(nm-connection-editor)$"
-        "float, title:^(Calculator)$"
-        "float, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
-        "move 69.5% 4%, title:^(Picture-in-Picture)$"
-        "idleinhibit fullscreen,class:([window])"
-        "float, tag:floating-window"
-        "center, tag:floating-window"
-        "size 800 600, tag:floating-window"
-        "tag +floating-window, class:(blueberry.py|Impala|com.github.tsowell.wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float)"
-        "tag +floating-window, class:(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus), title:^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
-        "fullscreen, class:Screensaver"
-        "opacity 1 1, class:^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
-        "tag +terminal, class:(Alacritty|kitty|com.mitchellh.ghostty)"
+        # "tag +chromium-based-browser, class:([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)"
+        # "tag +firefox-based-browser, class:([fF]irefox|zen|librewolf)"
+        # "tile, tag:chromium-based-browser"
+        # "float, title:^(pavucontrol)$"
+        # "float, title:^(blueman-manager)$"
+        # "float, title:^(nm-connection-editor)$"
+        # "float, title:^(Calculator)$"
+        # "float, title:^(Picture-in-Picture)$"
+        # "pin, title:^(Picture-in-Picture)$"
+        # "move 69.5% 4%, title:^(Picture-in-Picture)$"
+        # "idleinhibit fullscreen,class:([window])"
+        # "float, tag:floating-window"
+        # "center, tag:floating-window"
+        # "size 800 600, tag:floating-window"
+        # "tag +floating-window, class:(blueberry.py|Impala|com.github.tsowell.wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float)"
+        # "tag +floating-window, class:(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus), title:^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
+        # "fullscreen, class:Screensaver"
+        # "opacity 1 1, class:^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
+        # "tag +terminal, class:(Alacritty|kitty|com.mitchellh.ghostty)"
       ];
 
       # Key bindings

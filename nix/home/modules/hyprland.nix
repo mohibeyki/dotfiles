@@ -10,20 +10,12 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
     xwayland.enable = true;
 
     settings = {
       # Variables
       "$mod" = "SUPER";
-
-      # General
-      general = {
-        gaps_in = 8;
-        gaps_out = 8;
-        layout = "dwindle";
-        border_size = 0;
-      };
 
       # Environment variables
       env = [
@@ -39,10 +31,18 @@
         "GDK_SCALE,1"
       ];
 
+      # General
+      general = {
+        gaps_in = 8;
+        gaps_out = 8;
+        layout = "dwindle";
+        border_size = 0;
+      };
+
       # Monitor configuration
       monitor = [
-        "DP-1, 2560x1440@180, -2560x0, 1, bitdepth, 10"
-        "DP-2, 3840x2160@240,     0x0, 1, bitdepth, 10"
+        "DP-4, 2560x1440@180, -2560x0, 1, bitdepth, 10"
+        "DP-5, 3840x2160@240,     0x0, 1, bitdepth, 10"
       ];
 
       # Cursor
@@ -54,7 +54,6 @@
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "nm-applet"
         "waybar"
         "hyprpaper"
       ];
@@ -63,8 +62,6 @@
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        vrr = 1;
-        key_press_enables_dpms = true;
       };
 
       # Layer rules
@@ -158,16 +155,16 @@
 
       # Workspaces
       workspace = [
-        "1, monitor:DP-1"
-        "2, monitor:DP-2"
-        "3, monitor:DP-1"
-        "4, monitor:DP-2"
-        "5, monitor:DP-1"
-        "6, monitor:DP-2"
-        "7, monitor:DP-1"
-        "8, monitor:DP-2"
-        "9, monitor:DP-1"
-        "10, monitor:DP-2"
+        "1, monitor:DP-4"
+        "2, monitor:DP-5"
+        "3, monitor:DP-4"
+        "4, monitor:DP-5"
+        "5, monitor:DP-4"
+        "6, monitor:DP-5"
+        "7, monitor:DP-4"
+        "8, monitor:DP-5"
+        "9, monitor:DP-4"
+        "10, monitor:DP-5"
       ];
 
       # Window rules
@@ -280,121 +277,121 @@
     };
   };
 
-  # Hypridle configuration
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
-      };
+  # # Hypridle configuration
+  # services.hypridle = {
+  #   enable = true;
+  #   settings = {
+  #     general = {
+  #       lock_cmd = "pidof hyprlock || hyprlock";
+  #       before_sleep_cmd = "loginctl lock-session";
+  #       after_sleep_cmd = "hyprctl dispatch dpms on";
+  #     };
 
-      listener = [
-        {
-          timeout = 600;
-          on-timeout = "loginctl lock-session";
-        }
-        {
-          timeout = 660;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          timeout = 1800;
-          on-timeout = "systemctl suspend";
-        }
-      ];
-    };
-  };
+  #     listener = [
+  #       {
+  #         timeout = 600;
+  #         on-timeout = "loginctl lock-session";
+  #       }
+  #       {
+  #         timeout = 660;
+  #         on-timeout = "hyprctl dispatch dpms off";
+  #         on-resume = "hyprctl dispatch dpms on";
+  #       }
+  #       {
+  #         timeout = 1800;
+  #         on-timeout = "systemctl suspend";
+  #       }
+  #     ];
+  #   };
+  # };
 
   # Hyprlock configuration
-  programs.hyprlock = {
-    enable = true;
-    settings = {
-      background = [
-        {
-          monitor = "";
-          path = "$HOME/Downloads/lock_bg.png";
-        }
-      ];
+  # programs.hyprlock = {
+  #   enable = true;
+  #   settings = {
+  #     background = [
+  #       {
+  #         monitor = "";
+  #         path = /home/mohi/Pictures/wallpaper.jpg;
+  #       }
+  #     ];
 
-      input-field = [
-        {
-          monitor = "";
-          size = "200, 50";
-          outline_thickness = 3;
-          dots_size = 0.33;
-          dots_spacing = 0.15;
-          dots_center = true;
-          dots_rounding = -1;
-          outer_color = "rgb(151515)";
-          inner_color = "rgb(FFFFFF)";
-          font_color = "rgb(10, 10, 10)";
-          fade_on_empty = true;
-          fade_timeout = 1000;
-          placeholder_text = "<i>Input Password...</i>";
-          hide_input = false;
-          rounding = -1;
-          check_color = "rgb(204, 136, 34)";
-          fail_color = "rgb(204, 34, 34)";
-          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-          fail_transition = 300;
-          capslock_color = -1;
-          numlock_color = -1;
-          bothlock_color = -1;
-          invert_numlock = false;
-          swap_font_color = false;
-          position = "0, -20";
-          halign = "center";
-          valign = "center";
-        }
-      ];
+  #     input-field = [
+  #       {
+  #         monitor = "";
+  #         size = "200, 50";
+  #         outline_thickness = 3;
+  #         dots_size = 0.33;
+  #         dots_spacing = 0.15;
+  #         dots_center = true;
+  #         dots_rounding = -1;
+  #         outer_color = "rgb(151515)";
+  #         inner_color = "rgb(FFFFFF)";
+  #         font_color = "rgb(10, 10, 10)";
+  #         fade_on_empty = true;
+  #         fade_timeout = 1000;
+  #         placeholder_text = "<i>Input Password...</i>";
+  #         hide_input = false;
+  #         rounding = -1;
+  #         check_color = "rgb(204, 136, 34)";
+  #         fail_color = "rgb(204, 34, 34)";
+  #         fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+  #         fail_transition = 300;
+  #         capslock_color = -1;
+  #         numlock_color = -1;
+  #         bothlock_color = -1;
+  #         invert_numlock = false;
+  #         swap_font_color = false;
+  #         position = "0, -20";
+  #         halign = "center";
+  #         valign = "center";
+  #       }
+  #     ];
 
-      label = [
-        {
-          monitor = "";
-          text = "cmd[update:1000] echo \"$TIME\"";
-          color = "rgba(200, 200, 200, 1.0)";
-          font_size = 55;
-          font_family = "Fira Semibold";
-          position = "-100, 70";
-          halign = "right";
-          valign = "bottom";
-          shadow_passes = 5;
-          shadow_size = 10;
-        }
-        {
-          monitor = "";
-          text = "$USER";
-          color = "rgba(200, 200, 200, 1.0)";
-          font_size = 20;
-          font_family = "Fira Semibold";
-          position = "-100, 160";
-          halign = "right";
-          valign = "bottom";
-          shadow_passes = 5;
-          shadow_size = 10;
-        }
-      ];
+  #     label = [
+  #       {
+  #         monitor = "";
+  #         text = "cmd[update:1000] echo \"$TIME\"";
+  #         color = "rgba(200, 200, 200, 1.0)";
+  #         font_size = 55;
+  #         font_family = "JetBrainsMono Nerd Font";
+  #         position = "-100, 70";
+  #         halign = "right";
+  #         valign = "bottom";
+  #         shadow_passes = 5;
+  #         shadow_size = 10;
+  #       }
+  #       {
+  #         monitor = "";
+  #         text = "$USER";
+  #         color = "rgba(200, 200, 200, 1.0)";
+  #         font_size = 20;
+  #         font_family = "JetBrainsMono Nerd Font";
+  #         position = "-100, 160";
+  #         halign = "right";
+  #         valign = "bottom";
+  #         shadow_passes = 5;
+  #         shadow_size = 10;
+  #       }
+  #     ];
 
-      image = [
-        {
-          monitor = "";
-          path = "$HOME/.config/ml4w/cache/square_wallpaper.png";
-          size = 280;
-          rounding = -1;
-          border_size = 4;
-          border_color = "rgb(221, 221, 221)";
-          rotate = 0;
-          reload_time = -1;
-          position = "0, 200";
-          halign = "center";
-          valign = "center";
-        }
-      ];
-    };
-  };
+  #     image = [
+  #       {
+  #         monitor = "";
+  #         path = "$HOME/.config/ml4w/cache/square_wallpaper.png";
+  #         size = 280;
+  #         rounding = -1;
+  #         border_size = 4;
+  #         border_color = "rgb(221, 221, 221)";
+  #         rotate = 0;
+  #         reload_time = -1;
+  #         position = "0, 200";
+  #         halign = "center";
+  #         valign = "center";
+  #       }
+  #     ];
+  #   };
+  # };
 
   # Hyprpaper configuration
   services.hyprpaper = {
@@ -404,11 +401,11 @@
       splash = true;
 
       preload = [
-        "/home/mohi/Pictures/wallpaper.jpg"
+        "~/Pictures/wallpaper.jpg"
       ];
 
       wallpaper = [
-        ",/home/mohi/Pictures/wallpaper.jpg,fill"
+        ",~/Pictures/wallpaper.jpg,fill"
       ];
     };
   };

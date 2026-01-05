@@ -5,7 +5,7 @@
 
     settings = [
       {
-        output = "DP-2";
+        output = "DP-5";
         layer = "top";
         height = 40;
         spacing = 4;

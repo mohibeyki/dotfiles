@@ -1,6 +1,17 @@
 { inputs, pkgs, ... }:
+let
+  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [ inputs.hyprland.nixosModules.default ];
+
+  hardware.graphics = {
+    package = pkgs-unstable.mesa;
+
+    # 32 bit support
+    enable32Bit = true;
+    package32 = pkgs-unstable.pkgsi686Linux.mesa;
+  };
 
   programs = {
     uwsm.enable = true;

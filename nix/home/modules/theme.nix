@@ -14,7 +14,7 @@
 
     theme = {
       package = pkgs.gnome-themes-extra;
-      name = "Adwaita-dark";
+      name = "Adwaita";
     };
 
     iconTheme = {

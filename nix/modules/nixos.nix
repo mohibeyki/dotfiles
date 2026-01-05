@@ -42,13 +42,12 @@
       };
     };
 
-    displayManager.gdm = {
+    displayManager.cosmic-greeter = {
       enable = true;
     };
 
     desktopManager = {
       cosmic.enable = true;
-      gnome.enable = true;
     };
 
     resolved = {
@@ -99,12 +98,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Configure cursor and icon themes
-  environment.sessionVariables = {
-    XCURSOR_THEME = "Adwaita";
-    XCURSOR_SIZE = "24";
-  };
 
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme

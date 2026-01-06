@@ -26,15 +26,16 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    hypridle
-    hyprland
-    hyprlock
-    hyprpaper
-    hyprshot
-    swaynotificationcenter
+    brightnessctl
+    cliphist
+    playerctl
+    hyprtoolkit
+    hyprlang
+    hyprutils
+    hyprwire
     waybar
-    wlogout
     wl-clipboard-rs
+    wlogout
     wofi
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland

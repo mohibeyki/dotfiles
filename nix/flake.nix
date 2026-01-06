@@ -9,6 +9,13 @@
       "https://hyprland.cachix.org"
     ];
 
+    trusted-substituters = [
+      "https://cache.nixos.org"
+      "https://nixpkgs.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://hyprland.cachix.org"
+    ];
+
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
@@ -46,7 +53,6 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ghostty = {
@@ -84,7 +90,7 @@
           ./programs/steam.nix
         ]
         [
-          ./home/modules/hyprland.nix
+          ./home/modules/hyprland
         ]
       )
     ];

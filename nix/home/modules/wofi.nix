@@ -5,14 +5,14 @@
 
     settings = {
       show = "drun";
-      width = 650;
-      height = 750;
+      width = 800;
+      height = 720;
       prompt = "Search...";
       normal_window = true;
       location = "center";
       gtk-dark = true;
       allow_images = true;
-      image_size = 35;
+      image_size = 40;
       insensitive = true;
       allow_markup = true;
       no_actions = true;

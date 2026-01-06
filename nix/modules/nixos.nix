@@ -109,16 +109,10 @@
     gparted
     killall
     lshw
-    mako
     mousam
     niv
-    nwg-look
-    pamixer
-    pavucontrol
     pipewire
     sbctl
-    spotify
-    uwsm
     wiremix
     wireplumber
     zed-editor

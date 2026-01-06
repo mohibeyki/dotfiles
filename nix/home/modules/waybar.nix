@@ -7,7 +7,7 @@
       {
         output = "DP-5";
         layer = "top";
-        height = 40;
+        height = 54;
         spacing = 4;
 
         modules-left = [
@@ -33,7 +33,7 @@
           on-click = "activate";
           format = "{icon}";
           format-icons = {
-            default = "";
+            default = "󰧞";
             "1" = "1";
             "2" = "2";
             "3" = "3";

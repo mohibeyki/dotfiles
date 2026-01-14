@@ -44,7 +44,7 @@
       markdownlint-cli2 # markdown linter
       marksman # markdown lsp
       nixd # nix lsp
-      nixfmt-rfc-style # nix formatter
+      nixfmt # nix formatter
       selene # lua linter
       statix # nix linter
       stylua # lua formatter

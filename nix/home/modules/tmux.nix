@@ -33,6 +33,9 @@
     extraConfig = ''
       set-option -ga terminal-overrides ",ghostty:Tc"
 
+      # clear on Ctrl+k
+      bind -n C-k send-keys -R \; send-keys C-l \; clear-history
+
       # split panes using | and -
       bind \\ split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"

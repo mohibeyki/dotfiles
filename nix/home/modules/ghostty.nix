@@ -16,7 +16,9 @@
       quit-after-last-window-closed = true;
       theme = "TokyoNight";
       window-padding-balance = true;
-      keybind = "shift+enter=text:\\x1b\\r";
+      keybind = [
+        "shift+enter=text:\\x1b\\r"
+      ];
       macos-option-as-alt = true;
     };
   };

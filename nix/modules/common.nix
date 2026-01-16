@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -32,6 +33,9 @@
 
   # Enable non-free applications
   nixpkgs.config.allowUnfree = true;
+
+  # NUR overlay
+  nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
   programs = {
     zsh.enable = true;

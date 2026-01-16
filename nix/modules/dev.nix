@@ -5,7 +5,7 @@
     [
       # ai
       claude-code
-      crush
+      nur.repos.charmbracelet.crush
 
       # c/c++
       clang

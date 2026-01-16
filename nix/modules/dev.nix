@@ -4,8 +4,7 @@
     with pkgs;
     [
       # ai
-      claude-code
-      nur.repos.charmbracelet.crush
+      opencode
 
       # c/c++
       clang

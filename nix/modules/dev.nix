@@ -4,7 +4,6 @@
     with pkgs;
     [
       # ai
-      claude-code
       opencode
 
       # c/c++
@@ -41,8 +40,6 @@
 
       # LSPs
       lua-language-server
-      markdownlint-cli2 # markdown linter
-      marksman # markdown lsp
       nixd # nix lsp
       nixfmt # nix formatter
       selene # lua linter

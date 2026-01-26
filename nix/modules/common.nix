@@ -43,7 +43,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bc # calculator
     btop
     cachix
     gnused
@@ -54,6 +53,5 @@
     wget
     xz
     zip
-    zoxide
   ];
 }

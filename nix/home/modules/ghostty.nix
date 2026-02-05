@@ -14,7 +14,7 @@
         "-dlig"
       ];
       quit-after-last-window-closed = true;
-      theme = "Catppuccin Mocha";
+      theme = "Monokai Pro";
       window-padding-balance = true;
       keybind = [
         "shift+enter=text:\\x1b\\r"

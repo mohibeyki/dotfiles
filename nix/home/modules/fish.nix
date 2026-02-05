@@ -21,6 +21,12 @@
           x2ssh -et dev
         '';
       };
+
+      b = {
+        body = ''
+          x2ssh -et big
+        '';
+      };
     };
   };
 }

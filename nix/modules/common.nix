@@ -48,6 +48,7 @@
     gnused
     mc
     stow
+    superfile
     tmux
     unzip
     wget

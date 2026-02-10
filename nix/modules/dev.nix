@@ -17,10 +17,6 @@
       gopls
       gotools
 
-      # zig
-      zig
-      zls
-
       # editor related
       helix
       tree-sitter

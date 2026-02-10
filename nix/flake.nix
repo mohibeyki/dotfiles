@@ -79,13 +79,6 @@
         [ ]
       )
 
-      (mkDarwin "arwen" inputs.nixpkgs
-        [
-          ./modules/dev.nix
-        ]
-        [ ]
-      )
-
       (mkNixos "sauron" inputs.nixpkgs
         [
           ./modules/hyprland.nix

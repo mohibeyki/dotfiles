@@ -697,6 +697,22 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1770770419,
+        "narHash": "sha256-iKZMkr6Cm9JzWlRYW/VPoL0A9jVKtZYiU4zSrVeetIs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6c5e707c6b5339359a9a9e215c5e66d6d802fd7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1770562336,
@@ -753,11 +769,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770971741,
-        "narHash": "sha256-mM7tz7qnbkqgQICgXS64bbYbMglQn6p90+KWhy44fKk=",
+        "lastModified": 1770972615,
+        "narHash": "sha256-3++3YhkSeTcvueV3oAhDa0ViqUaRNcKW8R8w054mAFI=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b58d32731c44a7ff83769a4f8d0e39cbb4748f82",
+        "rev": "d781b92963a7a47460aa2188003744946b324838",
         "type": "github"
       },
       "original": {
@@ -822,6 +838,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur"
       }
     },

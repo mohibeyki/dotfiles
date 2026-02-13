@@ -21,6 +21,9 @@
       helix
       tree-sitter
 
+      # TS/JS
+      bun
+
       # etc
       fd
       fzf

@@ -26,6 +26,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -79,7 +80,7 @@
         [ ]
       )
 
-      (mkNixos "sauron" inputs.nixpkgs
+      (mkNixos "sauron" inputs.nixpkgs-stable
         [
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix

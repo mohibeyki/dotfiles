@@ -80,7 +80,7 @@
         [ ]
       )
 
-      (mkNixos "sauron" inputs.nixpkgs-stable
+      (mkNixos "sauron" inputs.nixpkgs
         [
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix

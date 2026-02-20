@@ -4,6 +4,8 @@
     with pkgs;
     [
       # ai
+      claude-code
+      crush
       opencode
 
       # c/c++

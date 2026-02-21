@@ -4,9 +4,9 @@
     with pkgs;
     [
       # ai
-      claude-code
-      crush
-      opencode
+      llm-agents.claude-code
+      llm-agents.crush
+      llm-agents.opencode
 
       # c/c++
       clang

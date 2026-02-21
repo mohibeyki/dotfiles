@@ -34,8 +34,8 @@
   # Enable non-free applications
   nixpkgs.config.allowUnfree = true;
 
-  # nix-ai-tools overlay
-  nixpkgs.overlays = [ inputs.nix-ai-tools.overlays.default ];
+  # llm-agents overlay
+  nixpkgs.overlays = [ inputs.llm-agents.overlays.default ];
 
   programs = {
     zsh.enable = true;

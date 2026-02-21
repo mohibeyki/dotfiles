@@ -60,8 +60,8 @@
       url = "github:ghostty-org/ghostty";
     };
 
-    nur = {
-      url = "github:nix-community/NUR";
+    nix-ai-tools = {
+      url = "github:numtide/nix-ai-tools";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

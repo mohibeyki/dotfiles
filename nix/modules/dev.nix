@@ -1,14 +1,7 @@
 { pkgs, inputs, ... }:
 {
   environment.systemPackages =
-    with pkgs;
-    [
-      # ai
-      llm-agents.claude-code
-      llm-agents.crush
-      llm-agents.opencode
-      llm-agents.codex
-
+    (with pkgs; [
       # c/c++
       clang
       clang-tools
@@ -49,7 +42,13 @@
       stylua # lua formatter
       taplo # toml toolkit
       zellij # terminal multiplexer
-    ]
+    ])
+    ++ (with pkgs.llm-agents; [
+      claude-code
+      crush
+      opencode
+      codex
+    ])
     ++ [
       inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim
     ];

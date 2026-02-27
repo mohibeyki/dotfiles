@@ -2,15 +2,7 @@
   description = "Mohi's nix config flake";
 
   nixConfig = {
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nixpkgs.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://cache.numtide.com"
-    ];
-
-    trusted-substituters = [
+    extra-substituters = [
       "https://cache.nixos.org"
       "https://nixpkgs.cachix.org"
       "https://nix-community.cachix.org"

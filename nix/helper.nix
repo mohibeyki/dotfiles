@@ -19,7 +19,7 @@ let
   };
 in
 {
-  mkDarwin = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
+  mkDarwin = machineHostname: extraModules: extraHmModules: {
     darwinConfigurations.${machineHostname} = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {
@@ -47,7 +47,6 @@ in
       modules = [
         ./modules/nixos.nix
         ./modules/common.nix
-        ./programs/ghostty.nix
         ./hosts/nixos/${machineHostname}
         inputs.home-manager.nixosModules.home-manager
         (homeManagerCfg false extraHmModules)

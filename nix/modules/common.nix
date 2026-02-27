@@ -13,7 +13,7 @@
         "mohi"
       ];
 
-      accept-flake-config = true;
+      accept-flake-config = false;
 
       experimental-features = [
         "nix-command"

@@ -7,6 +7,7 @@
       llm-agents.claude-code
       llm-agents.crush
       llm-agents.opencode
+      llm-agents.codex
 
       # c/c++
       clang

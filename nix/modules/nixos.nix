@@ -101,10 +101,17 @@
     description = "Mohi Beyki";
   };
 
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
+    docker
+    docker-compose
     adwaita-icon-theme
     gnome-themes-extra
     bind

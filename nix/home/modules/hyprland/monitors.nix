@@ -8,7 +8,7 @@
         position = "0x0";
         scale = 1;
         bitdepth = 10;
-        vrr = true;
+        vrr = false;
       }
       {
         output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
@@ -16,7 +16,7 @@
         position = "-2560x0";
         scale = 1;
         bitdepth = 10;
-        vrr = true;
+        vrr = false;
       }
     ];
   };

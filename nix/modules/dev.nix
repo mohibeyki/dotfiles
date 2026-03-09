@@ -23,7 +23,6 @@
       # etc
       fd
       fzf
-      git
       gnumake
       jq # json processor
       lazygit

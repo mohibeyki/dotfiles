@@ -44,6 +44,7 @@
   environment.systemPackages = with pkgs; [
     btop
     cachix
+    git
     gnused
     mc
     stow

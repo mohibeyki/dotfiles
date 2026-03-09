@@ -1,4 +1,14 @@
 {
+  "appearance": {
+    "anim": {
+      "durations": {
+        "scale": 0.1
+      }
+    }
+  },
+  "border": {
+    "rounding": 8
+  },
   "bar": {
     "excludedScreens": [
       "^(?!DP-5$).*"

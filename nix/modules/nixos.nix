@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   # Bootloader.
   boot = {
@@ -54,13 +54,15 @@
     greetd = {
       enable = true;
       settings = {
-        terminal.vt = 2;
+        terminal.vt = lib.mkForce 2;
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${pkgs.lib.concatStringsSep ":" [
-            "/etc/greetd/sessions"
-            "${pkgs.hyprland}/share/wayland-sessions"
-            "${pkgs.kdePackages.plasma-workspace}/share/wayland-sessions"
-          ]}";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${
+            pkgs.lib.concatStringsSep ":" [
+              "/etc/greetd/sessions"
+              "${pkgs.hyprland}/share/wayland-sessions"
+              "${pkgs.kdePackages.plasma-workspace}/share/wayland-sessions"
+            ]
+          }";
           user = "greeter";
         };
       };
@@ -93,6 +95,10 @@
 
   security.polkit.enable = true;
   security.rtkit.enable = true;
+  security.pam.services = {
+    greetd.enableKwallet = true;
+    login.enableKwallet = true;
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;

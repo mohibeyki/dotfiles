@@ -1,12 +1,6 @@
 { inputs, pkgs, hostConfig, ... }:
 {
   imports = [
-    ../mako.nix
-    ../theme.nix
-    ../waybar.nix
-    ../wlogout.nix
-    ../wofi.nix
-
     ./binds.nix
     ./hyprpaper.nix
     ./monitors.nix

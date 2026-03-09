@@ -42,12 +42,18 @@
       };
     };
 
-    displayManager.cosmic-greeter = {
+    greetd = {
       enable = true;
-    };
-
-    desktopManager = {
-      cosmic.enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${pkgs.lib.concatStringsSep ":" [
+            "/etc/greetd/sessions"
+            "${pkgs.hyprland}/share/wayland-sessions"
+            "${pkgs.kdePackages.plasma-workspace}/share/wayland-sessions"
+          ]}";
+          user = "greeter";
+        };
+      };
     };
 
     resolved = {

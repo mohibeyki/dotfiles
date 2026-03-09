@@ -114,11 +114,17 @@
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
+          ./modules/plasma.nix
           ./modules/dev.nix
           ./programs/steam.nix
         ]
         [
           ./home/modules/hyprland
+          ./home/modules/mako.nix
+          ./home/modules/theme.nix
+          ./home/modules/waybar.nix
+          ./home/modules/wlogout.nix
+          ./home/modules/wofi.nix
         ]
       )
     ];

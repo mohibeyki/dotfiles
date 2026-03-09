@@ -43,6 +43,7 @@
 
       # Exec on startup
       exec-once = [
+        "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
         "waybar"
         "hyprpaper"
         "wl-paste --type text --watch cliphist store"

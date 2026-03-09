@@ -83,8 +83,8 @@
             }
           ];
           workspaces = [
-            "1, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
-            "2, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
+            "1, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154, default:true, persistent:true"
+            "2, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023, default:true, persistent:true"
             "3, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
             "4, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
             "5, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"

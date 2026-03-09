@@ -1,4 +1,7 @@
-{ ... }:
+{ config, ... }:
+let
+  iconPath = "${config.home.homeDirectory}/.config/wlogout/icons";
+in
 {
   programs.wlogout = {
     enable = true;
@@ -127,7 +130,7 @@
 
       #lock {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/lock_light.png")
+              url("${iconPath}/lock_light.png")
           );
           border-radius: 32px 0px 0px 32px;
           margin: 216px 0px 216px 216px;
@@ -135,7 +138,7 @@
 
       #logout {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/logout_light.png")
+              url("${iconPath}/logout_light.png")
           );
           border-radius: 0px 0px 0px 0px;
           margin: 216px 0px 216px 0px;
@@ -143,7 +146,7 @@
 
       #suspend {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/suspend_light.png")
+              url("${iconPath}/suspend_light.png")
           );
           border-radius: 0px 0px 0px 0px;
           margin: 216px 0px 216px 0px;
@@ -151,7 +154,7 @@
 
       #shutdown {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/shutdown_light.png")
+              url("${iconPath}/shutdown_light.png")
           );
           border-radius: 0px 0px 0px 0px;
           margin: 216px 0px 216px 0px;
@@ -159,7 +162,7 @@
 
       #hibernate {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/hibernate_light.png")
+              url("${iconPath}/hibernate_light.png")
           );
           border-radius: 0px 0px 0px 0px;
           margin: 216px 0px 216px 0px;
@@ -167,7 +170,7 @@
 
       #reboot {
           background-image: image(
-              url("/home/mohi/.config/wlogout/icons/reboot_light.png")
+              url("${iconPath}/reboot_light.png")
           );
           border-radius: 0px 32px 32px 0px;
           margin: 216px 216px 216px 0px;

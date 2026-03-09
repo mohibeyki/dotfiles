@@ -1,11 +1,11 @@
-{ ... }:
+{ hostConfig, ... }:
 {
   programs.waybar = {
     enable = true;
 
     settings = [
       {
-        output = "DP-5";
+        output = hostConfig.primaryMonitor;
         layer = "top";
         height = 54;
         spacing = 4;

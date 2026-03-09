@@ -1,7 +1,4 @@
-{ ... }:
-let
-  sunset = "~/Pictures/sunset.jpg";
-in
+{ hostConfig, ... }:
 {
   services.hyprpaper = {
     enable = true;
@@ -9,10 +6,10 @@ in
     settings = {
       ipc = "on";
       splash = false;
-      preload = [ sunset ];
+      preload = [ hostConfig.wallpaper ];
       wallpaper = {
         monitor = "";
-        path = sunset;
+        path = hostConfig.wallpaper;
         fit_mode = "fill";
       };
     };

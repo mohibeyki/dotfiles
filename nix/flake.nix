@@ -67,7 +67,7 @@
       inherit (helpers) mkMerge mkDarwin mkNixos;
     in
     mkMerge [
-      (mkDarwin "legolas"
+      (mkDarwin "legolas" { }
         [
           ./modules/dev.nix
         ]
@@ -75,6 +75,41 @@
       )
 
       (mkNixos "sauron" inputs.nixpkgs
+        {
+          monitors = [
+            {
+              output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
+              mode = "3840x2160@240";
+              position = "0x0";
+              scale = 1;
+              bitdepth = 10;
+              vrr = false;
+            }
+            {
+              output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
+              mode = "2560x1440@180";
+              position = "-2560x0";
+              scale = 1;
+              bitdepth = 10;
+              vrr = false;
+            }
+          ];
+          workspaces = [
+            "1, monitor:DP-4"
+            "2, monitor:DP-5"
+            "3, monitor:DP-4"
+            "4, monitor:DP-5"
+            "5, monitor:DP-4"
+            "6, monitor:DP-5"
+            "7, monitor:DP-4"
+            "8, monitor:DP-5"
+            "9, monitor:DP-4"
+            "10, monitor:DP-5"
+          ];
+          primaryMonitor = "DP-5";
+          wallpaper = "~/Pictures/sunset.jpg";
+          nvidia = true;
+        }
         [
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix

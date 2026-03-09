@@ -1,12 +1,12 @@
 { ... }@inputs:
 let
-  homeManagerCfg = userPackages: extraImports: {
+  homeManagerCfg = userPackages: hostConfig: extraImports: {
     home-manager = {
       useGlobalPkgs = false;
       useUserPackages = userPackages;
 
       extraSpecialArgs = {
-        inherit inputs;
+        inherit inputs hostConfig;
       };
 
       users.mohi.imports = [
@@ -19,7 +19,7 @@ let
   };
 in
 {
-  mkDarwin = machineHostname: extraModules: extraHmModules: {
+  mkDarwin = machineHostname: hostConfig: extraModules: extraHmModules: {
     darwinConfigurations.${machineHostname} = inputs.nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {
@@ -30,7 +30,7 @@ in
         ./modules/common.nix
         ./hosts/darwin/${machineHostname}
         inputs.home-manager.darwinModules.home-manager
-        (inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true extraHmModules) {
+        (inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true hostConfig extraHmModules) {
           home-manager.users.mohi.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/mohi";
         })
       ]
@@ -38,7 +38,7 @@ in
     };
   };
 
-  mkNixos = machineHostname: nixpkgsVersion: extraModules: extraHmModules: {
+  mkNixos = machineHostname: nixpkgsVersion: hostConfig: extraModules: extraHmModules: {
     nixosConfigurations.${machineHostname} = nixpkgsVersion.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
@@ -49,7 +49,7 @@ in
         ./modules/common.nix
         ./hosts/nixos/${machineHostname}
         inputs.home-manager.nixosModules.home-manager
-        (homeManagerCfg false extraHmModules)
+        (homeManagerCfg false hostConfig extraHmModules)
       ]
       ++ extraModules;
     };

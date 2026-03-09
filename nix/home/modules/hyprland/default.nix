@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, hostConfig, ... }:
 {
   imports = [
     ../mako.nix
@@ -30,12 +30,13 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+      ] ++ (if hostConfig.nvidia or false then [
         "GBM_BACKEND,nvidia-drm"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "LIBVA_DRIVER_NAME,nvidia"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "NVD_BACKEND,direct"
-      ];
+      ] else []);
 
       # General
       general = {
@@ -69,18 +70,7 @@
       };
 
       # Workspaces
-      workspace = [
-        "1, monitor:DP-4"
-        "2, monitor:DP-5"
-        "3, monitor:DP-4"
-        "4, monitor:DP-5"
-        "5, monitor:DP-4"
-        "6, monitor:DP-5"
-        "7, monitor:DP-4"
-        "8, monitor:DP-5"
-        "9, monitor:DP-4"
-        "10, monitor:DP-5"
-      ];
+      workspace = hostConfig.workspaces or [];
     };
   };
 }

@@ -14,19 +14,5 @@
       set -U tide_context_always_display true
       set -U tide_context_hostname_parts 1
     '';
-
-    functions = {
-      d = {
-        body = ''
-          x2ssh -et dev
-        '';
-      };
-
-      b = {
-        body = ''
-          x2ssh -et big
-        '';
-      };
-    };
   };
 }

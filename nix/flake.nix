@@ -69,14 +69,14 @@
               output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
               mode = "3840x2160@240";
               position = "0x0";
-              scale = 1;
+              scale = 1.25;
               bitdepth = 10;
               vrr = false;
             }
             {
               output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
               mode = "2560x1440@180";
-              position = "-2560x0";
+              position = "-2560x-160";
               scale = 1;
               bitdepth = 10;
               vrr = false;
@@ -94,7 +94,7 @@
             "9, monitor:DP-1"
             "10, monitor:DP-2"
           ];
-          primaryMonitor = "DP-5";
+          primaryMonitor = "DP-2";
           wallpaper = "~/Pictures/Wallpapers/sunset.jpg";
           nvidia = true;
         }
@@ -102,15 +102,12 @@
           ./modules/hyprland.nix
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
-          ./modules/plasma.nix
           ./modules/dev.nix
           ./programs/steam.nix
         ]
         [
           ./home/modules/caelestia.nix
-          ./home/modules/mako.nix
           ./home/modules/theme.nix
-          ./home/modules/waybar.nix
         ]
       )
     ];

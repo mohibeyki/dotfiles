@@ -83,18 +83,18 @@
             }
           ];
           workspaces = [
-            "1, monitor:DP-1"
-            "2, monitor:DP-2"
-            "3, monitor:DP-1"
-            "4, monitor:DP-2"
-            "5, monitor:DP-1"
-            "6, monitor:DP-2"
-            "7, monitor:DP-1"
-            "8, monitor:DP-2"
-            "9, monitor:DP-1"
-            "10, monitor:DP-2"
+            "1, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
+            "2, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
+            "3, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
+            "4, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
+            "5, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
+            "6, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
+            "7, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
+            "8, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
+            "9, monitor:desc:LG Electronics LG ULTRAGEAR 305MXDM47154"
+            "10, monitor:desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023"
           ];
-          primaryMonitor = "DP-2";
+          primaryMonitor = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
           wallpaper = "~/Pictures/Wallpapers/sunset.jpg";
           nvidia = true;
         }

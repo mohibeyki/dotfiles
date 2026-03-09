@@ -129,13 +129,10 @@
           ./programs/steam.nix
         ]
         [
-          ./home/modules/hyprland
           ./home/modules/caelestia.nix
           ./home/modules/mako.nix
           ./home/modules/theme.nix
           ./home/modules/waybar.nix
-          ./home/modules/wlogout.nix
-          ./home/modules/wofi.nix
         ]
       )
     ];

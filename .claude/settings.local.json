@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake:*)",
+      "WebFetch(domain:aur.archlinux.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl:*)",
+      "Bash(gh api:*)",
+      "Bash(git:*)"
+    ]
+  }
+}

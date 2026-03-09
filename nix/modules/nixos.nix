@@ -6,6 +6,15 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     supportedFilesystems = [ "ntfs" ];
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "loglevel=3"
+      "systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
   };
 
   # Set your time zone.
@@ -45,6 +54,7 @@
     greetd = {
       enable = true;
       settings = {
+        terminal.vt = 2;
         default_session = {
           command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${pkgs.lib.concatStringsSep ":" [
             "/etc/greetd/sessions"

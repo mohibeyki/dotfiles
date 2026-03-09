@@ -184,7 +184,7 @@
         "custom/power" = {
           format = " 󰐥 ";
           tooltip = false;
-          on-click = "wlogout -b 6 --protocol layer-shell";
+          on-click = "caelestia shell drawers toggle session";
         };
       }
     ];

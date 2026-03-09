@@ -273,16 +273,27 @@
     text = ''
       #!/bin/sh
 
+      CACHE="$HOME/.cache/waybar-weather"
       UNITS="imperial"
       SYMBOL="°F"; [ "$UNITS" = "metric" ] && SYMBOL="°C"
       API_URL="https://api.open-meteo.com/v1/forecast"
 
+      show_cached() {
+          if [ -f "$CACHE" ]; then
+              cat "$CACHE"
+          else
+              echo "--"
+          fi
+      }
+
       # get loc
-      loc=$(curl -sf "https://free.freeipapi.com/api/json")
+      loc=$(curl -sf --max-time 5 "https://free.freeipapi.com/api/json") || { show_cached; exit 0; }
       lat=$(echo "$loc" | jq -r '.latitude')
       lon=$(echo "$loc" | jq -r '.longitude')
 
-      weather=$(curl -sf "$API_URL?latitude=$lat&longitude=$lon&current=temperature_2m,weather_code,is_day&temperature_unit=$( [ "$UNITS" = "metric" ] && echo "celsius" || echo "fahrenheit" )&timezone=auto")
+      [ -z "$lat" ] || [ -z "$lon" ] || [ "$lat" = "null" ] || [ "$lon" = "null" ] && { show_cached; exit 0; }
+
+      weather=$(curl -sf --max-time 5 "$API_URL?latitude=$lat&longitude=$lon&current=temperature_2m,weather_code,is_day&temperature_unit=$( [ "$UNITS" = "metric" ] && echo "celsius" || echo "fahrenheit" )&timezone=auto") || { show_cached; exit 0; }
 
       # display
       if [ -n "$weather" ] && echo "$weather" | jq -e '.current' >/dev/null 2>&1; then
@@ -307,9 +318,11 @@
               *) icon="🌈" ;;
           esac
 
-          echo "$temp$SYMBOL $icon"
+          result="$temp$SYMBOL $icon"
+          echo "$result" > "$CACHE"
+          echo "$result"
       else
-          echo "Weather Unavailable"
+          show_cached
       fi
     '';
   };

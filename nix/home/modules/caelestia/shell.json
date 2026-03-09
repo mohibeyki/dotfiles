@@ -10,8 +10,9 @@
     "rounding": 8
   },
   "bar": {
-    "excludedScreens": [
-      "^(?!DP-5$).*"
-    ]
+    "workspaces": {
+      "shown": 6,
+      "perMonitorWorkspaces": false
+    }
   }
 }

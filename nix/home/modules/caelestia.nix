@@ -99,9 +99,9 @@ in
     fi
   '';
 
-  home.activation.caelestiaThemeTokyoNight = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.caelestiaThemeRosePineMoon = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if command -v caelestia >/dev/null 2>&1; then
-      caelestia scheme set --name tokyonight --flavour medium --mode dark >/dev/null 2>&1 || true
+      caelestia scheme set --name rosepine --flavour moon --mode dark >/dev/null 2>&1 || true
     fi
   '';
 

@@ -38,7 +38,6 @@
   nixpkgs.overlays = [ inputs.llm-agents.overlays.default ];
 
   programs = {
-    zsh.enable = true;
     fish.enable = true;
   };
 

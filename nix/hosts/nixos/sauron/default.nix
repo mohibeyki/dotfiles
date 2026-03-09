@@ -9,9 +9,9 @@
 
     # Enable networking
     networkmanager.enable = true;
-
-    nameservers = [ "192.168.1.10#dns.home.biook.me" ];
   };
+
+  services.resolved.settings.Resolve.DNS = [ "192.168.1.10#dns.home.biook.me" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

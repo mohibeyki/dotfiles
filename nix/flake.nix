@@ -58,6 +58,16 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    caelestia = {
+      url = "github:caelestia-dots/caelestia";
+      flake = false;
+    };
   };
 
   outputs =
@@ -120,6 +130,7 @@
         ]
         [
           ./home/modules/hyprland
+          ./home/modules/caelestia.nix
           ./home/modules/mako.nix
           ./home/modules/theme.nix
           ./home/modules/waybar.nix

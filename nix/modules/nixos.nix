@@ -110,6 +110,11 @@
 
   programs = {
     firefox.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "mohi" ];
+    };
   };
 
   users.defaultUserShell = pkgs.fish;
@@ -119,6 +124,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "onepassword"
     ];
     description = "Mohi Beyki";
   };

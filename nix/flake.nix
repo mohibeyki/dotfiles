@@ -69,7 +69,7 @@
               output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
               mode = "3840x2160@240";
               position = "0x0";
-              scale = 1.25;
+              scale = 1;
               bitdepth = 10;
               vrr = false;
             }
@@ -103,6 +103,7 @@
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
           ./modules/dev.nix
+          ./modules/plasma.nix
           ./programs/steam.nix
         ]
         [

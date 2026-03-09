@@ -108,6 +108,19 @@ in
     fi
   '';
 
+  systemd.user.services.polkit-agent = {
+    Unit = {
+      Description = "Polkit authentication agent";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   programs.hyprlock = {
     enable = true;
     settings = {

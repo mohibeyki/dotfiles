@@ -48,6 +48,9 @@ in
   programs.caelestia = {
     enable = true;
     systemd.enable = true;
+    package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli.override {
+      app2unit = pkgs.app2unit;
+    };
     cli.enable = true;
   };
 

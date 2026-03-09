@@ -6,6 +6,23 @@
       }
     }
   },
+  "general": {
+    "idle": {
+      "lockBeforeSleep": true,
+      "inhibitWhenAudio": true,
+      "timeouts": [
+        {
+          "timeout": 900,
+          "idleAction": "lock"
+        },
+        {
+          "timeout": 900,
+          "idleAction": "dpms off",
+          "returnAction": "dpms on"
+        }
+      ]
+    }
+  },
   "border": {
     "rounding": 8
   },

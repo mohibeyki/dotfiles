@@ -15,6 +15,19 @@
 
       accept-flake-config = false;
 
+      extra-substituters = [
+        "https://cache.numtide.com"
+        "https://hyprland.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://nixpkgs.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+      ];
+
       experimental-features = [
         "nix-command"
         "flakes"

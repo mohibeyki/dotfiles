@@ -98,6 +98,7 @@
   security.pam.services = {
     greetd.enableKwallet = true;
     login.enableKwallet = true;
+    hyprlock = { };
   };
   services.pipewire = {
     enable = true;

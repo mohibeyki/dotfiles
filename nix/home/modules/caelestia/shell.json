@@ -28,7 +28,7 @@
   },
   "bar": {
     "workspaces": {
-      "shown": 6,
+      "shown": 8,
       "perMonitorWorkspaces": false
     }
   }

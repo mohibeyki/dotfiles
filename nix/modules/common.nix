@@ -60,6 +60,7 @@
     git
     gnused
     mc
+    openssl
     stow
     superfile
     tmux

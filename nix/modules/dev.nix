@@ -6,12 +6,14 @@
       clang
       clang-tools
       gcc
+      cppcheck # linter (nvim-lint)
 
       # go
       go
       gofumpt
       gopls
       gotools
+      golangci-lint # linter (nvim-lint)
 
       # editor related
       helix
@@ -19,6 +21,12 @@
 
       # TS/JS
       bun
+
+      # rust
+      cargo-tarpaulin # test coverage (nvim-coverage)
+
+      # python
+      ruff # linter/formatter (nvim-lint)
 
       # etc
       fd
@@ -40,6 +48,8 @@
       statix # nix linter
       stylua # lua formatter
       taplo # toml toolkit
+      vscode-langservers-extracted # json-language-server (schemastore)
+      yaml-language-server # yamlls (schemastore)
       zellij # terminal multiplexer
     ])
     ++ (with pkgs.llm-agents; [

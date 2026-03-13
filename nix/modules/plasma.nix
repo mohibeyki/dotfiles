@@ -32,5 +32,4 @@
 
   programs.kde-pim.merkuro = false;
   programs.kdeconnect.enable = true;
-
 }

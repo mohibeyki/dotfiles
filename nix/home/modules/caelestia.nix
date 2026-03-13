@@ -30,7 +30,7 @@ let
     $workspaceGaps = 20
     $windowGapsIn = 10
     $windowGapsOut = 40
-    $singleWindowGapsOut = 20
+    $singleWindowGapsOut = 8
     $windowOpacity = 1.0
     $windowRounding = 8
     $windowBorderSize = 0
@@ -38,7 +38,8 @@ let
   hyprUserConfig =
     builtins.readFile ./caelestia/hypr-user.conf
     + (if monitorLines == "" then "" else "\n${monitorLines}\n")
-    + (if workspaceLines == "" then "" else "\n${workspaceLines}\n");
+    + (if workspaceLines == "" then "" else "\n${workspaceLines}\n")
+    + "\nexec-once = ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent\n";
 in
 {
   imports = [
@@ -108,18 +109,6 @@ in
     fi
   '';
 
-  systemd.user.services.polkit-agent = {
-    Unit = {
-      Description = "Polkit authentication agent";
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
-      Restart = "on-failure";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
 
   programs.hyprlock = {
     enable = true;

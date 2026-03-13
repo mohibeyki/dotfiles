@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # Bootloader.
   boot = {
@@ -51,22 +51,8 @@
       };
     };
 
-    greetd = {
-      enable = true;
-      settings = {
-        terminal.vt = lib.mkForce 2;
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${
-            pkgs.lib.concatStringsSep ":" [
-              "/etc/greetd/sessions"
-              "${pkgs.hyprland}/share/wayland-sessions"
-              "${pkgs.kdePackages.plasma-workspace}/share/wayland-sessions"
-            ]
-          }";
-          user = "greeter";
-        };
-      };
-    };
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
 
     resolved = {
       enable = true;
@@ -98,7 +84,6 @@
   services.gnome.gnome-keyring.enable = true;
 
   security.pam.services = {
-    greetd.enableGnomeKeyring = true;
     login.enableGnomeKeyring = true;
     hyprlock = { };
   };
@@ -158,5 +143,6 @@
     wiremix
     wireplumber
     zed-editor
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

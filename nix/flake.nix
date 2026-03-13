@@ -46,6 +46,11 @@
       url = "github:caelestia-dots/caelestia";
       flake = false;
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -103,7 +108,6 @@
           ./modules/lanzaboote.nix
           ./modules/nvidia.nix
           ./modules/dev.nix
-          ./modules/plasma.nix
           ./programs/steam.nix
         ]
         [

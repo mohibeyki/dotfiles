@@ -95,9 +95,11 @@
 
   security.polkit.enable = true;
   security.rtkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+
   security.pam.services = {
-    greetd.enableKwallet = true;
-    login.enableKwallet = true;
+    greetd.enableGnomeKeyring = true;
+    login.enableGnomeKeyring = true;
     hyprlock = { };
   };
   services.pipewire = {

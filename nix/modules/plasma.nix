@@ -33,7 +33,4 @@
   programs.kde-pim.merkuro = false;
   programs.kdeconnect.enable = true;
 
-  security.pam.services.kwallet = {
-    enableKwallet = true;
-  };
 }

@@ -130,7 +130,7 @@
     adwaita-icon-theme
     gnome-themes-extra
     bind
-    blueberry
+    blueman
     brave
     discord
     gparted

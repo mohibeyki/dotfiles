@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   # Bootloader.
   boot = {
@@ -87,6 +87,7 @@
     login.enableGnomeKeyring = true;
     hyprlock = { };
   };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -143,6 +144,5 @@
     wiremix
     wireplumber
     zed-editor
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

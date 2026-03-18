@@ -9,6 +9,8 @@
 
     # Enable networking
     networkmanager.enable = true;
+    # Disable IPv6.
+    # enableIPv6 = false;
     firewall.allowedTCPPorts = [
       1420
       8080

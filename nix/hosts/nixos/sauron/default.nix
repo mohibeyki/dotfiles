@@ -11,23 +11,9 @@
     networkmanager.enable = true;
     # Disable IPv6.
     # enableIPv6 = false;
-    firewall.allowedTCPPorts = [
-      1420
-      8080
-      3478
-      7880
-      7881
-    ];
-    firewall.allowedUDPPorts = [
-      3478
-      7881
-    ];
-    firewall.allowedUDPPortRanges = [
-      {
-        from = 49160;
-        to = 49200;
-      }
-    ];
+
+    # Disable firewall.
+    firewall.enable = false;
   };
 
   services.resolved.settings.Resolve.DNS = [ "192.168.1.10#dns.home.biook.me" ];

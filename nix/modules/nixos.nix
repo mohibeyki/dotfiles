@@ -98,7 +98,6 @@
 
   programs = {
     firefox.enable = true;
-    bitwarden-desktop.enable = true;
   };
 
   users.defaultUserShell = pkgs.fish;
@@ -121,6 +120,7 @@
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
+    bitwarden-desktop
     docker
     docker-compose
     adwaita-icon-theme

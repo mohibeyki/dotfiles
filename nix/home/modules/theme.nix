@@ -26,8 +26,15 @@
       gtk-application-prefer-dark-theme = true;
     };
 
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
+    gtk4 = {
+      theme = {
+        name = "Adwaita";
+        package = pkgs.gnome-themes-extra;
+      };
+
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
     };
 
     font = {

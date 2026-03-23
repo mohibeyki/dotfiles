@@ -126,6 +126,18 @@ in
         "SUPER, 0, workspace, 10"
       ];
 
+      bindel = [
+        # Media keys
+        ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
+        ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
+        ", XF86AudioMute, exec, noctalia-shell ipc call volume mute"
+
+        # Requires playerctl
+        ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
+        ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
+        ", XF86AudioNext, exec, noctalia-shell ipc call media next"
+      ];
+
       exec-once = [
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
       ]

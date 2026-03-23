@@ -61,6 +61,7 @@
   ];
 
   homeModulesExtra = [
+    ../../home/hyprland.nix
     ../../home/modules/noctalia.nix
     ../../home/modules/theme.nix
   ];

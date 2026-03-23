@@ -1,9 +1,6 @@
 {
   inputs,
   pkgs,
-  hostConfig,
-  lib,
-  config,
   ...
 }:
 {

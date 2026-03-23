@@ -243,10 +243,10 @@
     "settingsPanelSideBarCardStyle": false
   },
   "location": {
-    "name": "Tokyo",
+    "name": "Mountain View, US",
     "weatherEnabled": true,
     "weatherShowEffects": true,
-    "useFahrenheit": false,
+    "useFahrenheit": true,
     "use12hourFormat": false,
     "showWeekNumberInCalendar": false,
     "showCalendarEvents": true,
@@ -486,7 +486,7 @@
     "bluetoothAutoConnect": true
   },
   "sessionMenu": {
-    "enableCountdown": true,
+    "enableCountdown": false,
     "countdownDuration": 10000,
     "position": "center",
     "showHeader": true,

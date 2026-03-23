@@ -48,7 +48,7 @@ in
         # Session and window management actions.
         "SUPER, Q, killactive"
         "SUPER CTRL, R, exec, hyprctl reload"
-        "SUPER CTRL, escape, exec, loginctl lock-session"
+        "SUPER CTRL, escape, exec, noctalia-shell ipc call sessionMenu lock"
         "SUPER CTRL, Q, exec, noctalia-shell ipc call sessionMenu toggle"
         "SUPER, T, togglefloating"
         "SUPER, F, fullscreen, 0"

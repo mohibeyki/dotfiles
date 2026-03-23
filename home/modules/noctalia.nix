@@ -12,6 +12,7 @@
     enable = true;
     systemd.enable = true;
     package = inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    settings = ./noctalia.json;
   };
 
   programs.noctalia-shell.plugins = {

@@ -2,6 +2,7 @@
   pkgs,
   hostConfig,
   lib,
+  inputs,
   ...
 }:
 let
@@ -23,8 +24,10 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;
-    portalPackage = null;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
     settings = {
       monitorv2 = monitors;
       workspace = workspaces;
@@ -46,6 +49,7 @@ in
         "SUPER, Q, killactive"
         "SUPER CTRL, R, exec, hyprctl reload"
         "SUPER CTRL, escape, exec, loginctl lock-session"
+        "SUPER CTRL, Q, exec, noctalia-shell ipc call sessionMenu toggle"
         "SUPER, T, togglefloating"
         "SUPER, F, fullscreen, 0"
         "SUPER SHIFT, F, fullscreen, 1"

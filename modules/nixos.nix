@@ -37,7 +37,6 @@
 
   # Enable the X11 windowing system.
   services = {
-
     # Enable sound with pipewire.
     pulseaudio.enable = false;
 
@@ -50,9 +49,6 @@
         variant = "";
       };
     };
-
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
 
     resolved = {
       enable = true;
@@ -87,8 +83,6 @@
       hyprlock = { };
     };
   };
-
-  services.gnome.gnome-keyring.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -141,5 +135,7 @@
     wiremix
     wireplumber
     zed-editor
+    wayland-utils
+    wl-clipboard
   ];
 }

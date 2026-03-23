@@ -34,8 +34,6 @@ in
     hyprwire
     quickshell
     waybar
-    wl-clipboard-rs
-    xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
   ];
 }

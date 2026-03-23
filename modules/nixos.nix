@@ -79,14 +79,16 @@
 
   hardware.bluetooth.enable = true;
 
-  security.polkit.enable = true;
-  security.rtkit.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-
-  security.pam.services = {
-    login.enableGnomeKeyring = true;
-    hyprlock = { };
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+    pam.services = {
+      login.enableGnomeKeyring = true;
+      hyprlock = { };
+    };
   };
+
+  services.gnome.gnome-keyring.enable = true;
 
   services.pipewire = {
     enable = true;

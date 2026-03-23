@@ -1,6 +1,6 @@
-{ ... }@inputs:
+inputs:
 let
-  homeManagerLib = inputs.home-manager.lib;
+  inherit (inputs.nixpkgs) lib;
 
   mkHomeManagerModule = userPackages: hostConfig: extraImports: {
     home-manager = {
@@ -32,8 +32,8 @@ in
         ../modules/common.nix
         hostModule
         inputs.home-manager.darwinModules.home-manager
-        (homeManagerLib.recursiveUpdate (mkHomeManagerModule true hostConfig extraHmModules) {
-          home-manager.users.mohi.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/mohi";
+        (lib.recursiveUpdate (mkHomeManagerModule true hostConfig extraHmModules) {
+          home-manager.users.mohi.home.homeDirectory = lib.mkForce "/Users/mohi";
         })
       ]
       ++ extraModules;

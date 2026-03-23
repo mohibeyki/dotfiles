@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   hostConfig = {
     monitors = [
       {

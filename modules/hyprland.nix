@@ -28,10 +28,11 @@ in
   environment.systemPackages = with pkgs; [
     brightnessctl
     cliphist
-    hyprtoolkit
     hyprlang
+    hyprtoolkit
     hyprutils
     hyprwire
+    quickshell
     waybar
     wl-clipboard-rs
     xdg-desktop-portal-gtk

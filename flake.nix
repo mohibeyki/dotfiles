@@ -2,6 +2,8 @@
   description = "Mohi's nix config flake";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
@@ -51,13 +53,11 @@
 
   outputs =
     inputs:
-    let
-      flakeHosts = import ./lib/flakeHosts.nix inputs;
-      allHosts = flakeHosts.discoverHosts ./hosts;
-      partitioned = flakeHosts.partitionByType allHosts;
-    in
-    {
-      nixosConfigurations = partitioned.nixos;
-      darwinConfigurations = partitioned.darwin;
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./flake/core.nix
+        ./flake/hosts.nix
+        ./flake/per-system.nix
+      ];
     };
 }

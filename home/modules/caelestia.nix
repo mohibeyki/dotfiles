@@ -50,7 +50,7 @@ in
     enable = true;
     systemd.enable = true;
     package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli.override {
-      app2unit = pkgs.app2unit;
+      inherit (pkgs) app2unit;
     };
     cli.enable = true;
   };
@@ -88,27 +88,28 @@ in
     "starship.toml".source = "${inputs.caelestia}/starship.toml";
   };
 
-  home.file = {
-    ".config/caelestia/shell.json".source = ./caelestia/shell.json;
-    ".config/caelestia/hypr-user.conf".text = hyprUserConfig;
-    ".config/caelestia/hypr-vars.conf".text = hyprVarsConfig;
+  home = {
+    file = {
+      ".config/caelestia/shell.json".source = ./caelestia/shell.json;
+      ".config/caelestia/hypr-user.conf".text = hyprUserConfig;
+      ".config/caelestia/hypr-vars.conf".text = hyprVarsConfig;
+    };
+
+    activation.caelestiaHyprScheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      scheme_dir="${config.home.homeDirectory}/.config/hypr/scheme"
+      mkdir -p "$scheme_dir"
+      install -m644 ${inputs.caelestia}/hypr/scheme/default.conf "$scheme_dir/default.conf"
+      if [ ! -e "$scheme_dir/current.conf" ]; then
+        cp "$scheme_dir/default.conf" "$scheme_dir/current.conf"
+      fi
+    '';
+
+    activation.caelestiaThemeRosePineMoon = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if command -v caelestia >/dev/null 2>&1; then
+        caelestia scheme set --name rosepine --flavour moon --mode dark >/dev/null 2>&1 || true
+      fi
+    '';
   };
-
-  home.activation.caelestiaHyprScheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    scheme_dir="${config.home.homeDirectory}/.config/hypr/scheme"
-    mkdir -p "$scheme_dir"
-    install -m644 ${inputs.caelestia}/hypr/scheme/default.conf "$scheme_dir/default.conf"
-    if [ ! -e "$scheme_dir/current.conf" ]; then
-      cp "$scheme_dir/default.conf" "$scheme_dir/current.conf"
-    fi
-  '';
-
-  home.activation.caelestiaThemeRosePineMoon = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if command -v caelestia >/dev/null 2>&1; then
-      caelestia scheme set --name rosepine --flavour moon --mode dark >/dev/null 2>&1 || true
-    fi
-  '';
-
 
   programs.hyprlock = {
     enable = true;

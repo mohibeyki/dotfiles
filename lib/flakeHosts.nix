@@ -1,8 +1,7 @@
-{ ... }@inputs:
-
+inputs:
 let
   mkHosts = import ./mkHosts.nix inputs;
-  lib = inputs.nixpkgs.lib;
+  inherit (inputs.nixpkgs) lib;
 
   discoverHosts =
     hostsDir:
@@ -40,8 +39,8 @@ let
       darwinHosts = lib.filterAttrs (_: v: v ? darwinConfiguration) hosts;
     in
     {
-      nixos = lib.mapAttrs (name: v: v.nixosConfiguration) nixosHosts;
-      darwin = lib.mapAttrs (name: v: v.darwinConfiguration) darwinHosts;
+      nixos = lib.mapAttrs (_: v: v.nixosConfiguration) nixosHosts;
+      darwin = lib.mapAttrs (_: v: v.darwinConfiguration) darwinHosts;
     };
 in
 {

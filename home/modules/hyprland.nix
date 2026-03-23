@@ -6,11 +6,13 @@
 }:
 let
   monitors = map (monitor: {
-    output = monitor.output;
-    mode = monitor.mode;
-    position = monitor.position;
-    scale = monitor.scale;
-    bitdepth = monitor.bitdepth;
+    inherit (monitor)
+      output
+      mode
+      position
+      scale
+      bitdepth
+      ;
     vrr = if monitor.vrr then 1 else 0;
   }) (hostConfig.monitors or [ ]);
 
@@ -29,16 +31,16 @@ in
 
       bind = [
         # Noctalia launcher entrypoints.
-        "SUPER, P, exec, qs -c noctalia-shell ipc call launcher toggle"
-        "SUPER SHIFT, P, exec, qs -c noctalia-shell ipc call launcher command"
+        "SUPER, P, exec, noctalia-shell ipc call launcher toggle"
+        "SUPER SHIFT, P, exec, noctalia-shell ipc call launcher command"
 
         # App launchers and Noctalia search modes.
         "SUPER, RETURN, exec, ghostty"
         "SUPER, B, exec, firefox"
-        "SUPER, V, exec, qs -c noctalia-shell ipc call launcher clipboard"
-        "SUPER, O, exec, qs -c noctalia-shell ipc call launcher windows"
-        "SUPER, comma, exec, qs -c noctalia-shell ipc call launcher settings"
-        "SUPER, period, exec, qs -c noctalia-shell ipc call launcher emoji"
+        "SUPER, V, exec, noctalia-shell ipc call launcher clipboard"
+        "SUPER, O, exec, noctalia-shell ipc call launcher windows"
+        "SUPER, comma, exec, noctalia-shell ipc call launcher settings"
+        "SUPER, period, exec, noctalia-shell ipc call launcher emoji"
 
         # Session and window management actions.
         "SUPER, Q, killactive"

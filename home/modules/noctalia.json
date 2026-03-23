@@ -1,7 +1,7 @@
 {
   "settingsVersion": 59,
   "bar": {
-    "barType": "simple",
+    "barType": "framed",
     "position": "top",
     "monitors": [],
     "density": "comfortable",
@@ -37,13 +37,64 @@
           "useDistroLogo": false
         },
         {
-          "clockColor": "none",
-          "customFont": "",
-          "formatHorizontal": "HH:mm ddd, MMM dd",
-          "formatVertical": "HH mm - dd MM",
-          "id": "Clock",
-          "tooltipFormat": "HH:mm ddd, MMM dd",
-          "useCustomFont": false
+          "characterCount": 2,
+          "colorizeIcons": false,
+          "emptyColor": "secondary",
+          "enableScrollWheel": true,
+          "focusedColor": "primary",
+          "followFocusedScreen": false,
+          "fontWeight": "bold",
+          "groupedBorderOpacity": 1,
+          "hideUnoccupied": false,
+          "iconScale": 0.8,
+          "id": "Workspace",
+          "labelMode": "index",
+          "occupiedColor": "secondary",
+          "pillSize": 0.6,
+          "showApplications": false,
+          "showApplicationsHover": false,
+          "showBadge": true,
+          "showLabelsOnlyWhenOccupied": true,
+          "unfocusedIconsOpacity": 1
+        }
+      ],
+      "center": [
+        {
+          "compactMode": false,
+          "hideMode": "hidden",
+          "hideWhenIdle": false,
+          "id": "MediaMini",
+          "maxWidth": 145,
+          "panelShowAlbumArt": true,
+          "scrollingMode": "hover",
+          "showAlbumArt": true,
+          "showArtistFirst": true,
+          "showProgressRing": true,
+          "showVisualizer": false,
+          "textColor": "none",
+          "useFixedWidth": false,
+          "visualizerType": "linear"
+        },
+        {
+          "colorizeIcons": false,
+          "hideMode": "hidden",
+          "id": "ActiveWindow",
+          "maxWidth": 145,
+          "scrollingMode": "hover",
+          "showIcon": true,
+          "textColor": "none",
+          "useFixedWidth": false
+        }
+      ],
+      "right": [
+        {
+          "blacklist": [],
+          "chevronColor": "none",
+          "colorizeIcons": false,
+          "drawerEnabled": true,
+          "hidePassive": false,
+          "id": "Tray",
+          "pinned": []
         },
         {
           "compactMode": true,
@@ -68,66 +119,6 @@
           "usePadding": false
         },
         {
-          "colorizeIcons": false,
-          "hideMode": "hidden",
-          "id": "ActiveWindow",
-          "maxWidth": 145,
-          "scrollingMode": "hover",
-          "showIcon": true,
-          "textColor": "none",
-          "useFixedWidth": false
-        },
-        {
-          "compactMode": false,
-          "hideMode": "hidden",
-          "hideWhenIdle": false,
-          "id": "MediaMini",
-          "maxWidth": 145,
-          "panelShowAlbumArt": true,
-          "scrollingMode": "hover",
-          "showAlbumArt": true,
-          "showArtistFirst": true,
-          "showProgressRing": true,
-          "showVisualizer": false,
-          "textColor": "none",
-          "useFixedWidth": false,
-          "visualizerType": "linear"
-        }
-      ],
-      "center": [
-        {
-          "characterCount": 2,
-          "colorizeIcons": false,
-          "emptyColor": "secondary",
-          "enableScrollWheel": true,
-          "focusedColor": "primary",
-          "followFocusedScreen": false,
-          "fontWeight": "bold",
-          "groupedBorderOpacity": 1,
-          "hideUnoccupied": false,
-          "iconScale": 0.8,
-          "id": "Workspace",
-          "labelMode": "index",
-          "occupiedColor": "secondary",
-          "pillSize": 0.6,
-          "showApplications": false,
-          "showApplicationsHover": false,
-          "showBadge": true,
-          "showLabelsOnlyWhenOccupied": true,
-          "unfocusedIconsOpacity": 1
-        }
-      ],
-      "right": [
-        {
-          "blacklist": [],
-          "chevronColor": "none",
-          "colorizeIcons": false,
-          "drawerEnabled": true,
-          "hidePassive": false,
-          "id": "Tray",
-          "pinned": []
-        },
-        {
           "hideWhenZero": false,
           "hideWhenZeroUnread": false,
           "iconColor": "none",
@@ -136,26 +127,10 @@
           "unreadBadgeColor": "primary"
         },
         {
-          "deviceNativePath": "__default__",
-          "displayMode": "graphic-clean",
-          "hideIfIdle": false,
-          "hideIfNotDetected": true,
-          "id": "Battery",
-          "showNoctaliaPerformance": false,
-          "showPowerProfiles": false
-        },
-        {
           "displayMode": "onhover",
           "iconColor": "none",
           "id": "Volume",
           "middleClickCommand": "pwvucontrol || pavucontrol",
-          "textColor": "none"
-        },
-        {
-          "applyToAllMonitors": false,
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Brightness",
           "textColor": "none"
         },
         {
@@ -166,6 +141,19 @@
           "icon": "noctalia",
           "id": "ControlCenter",
           "useDistroLogo": false
+        },
+        {
+          "clockColor": "none",
+          "customFont": "",
+          "formatHorizontal": "HH:mm ddd, MMM dd",
+          "formatVertical": "HH mm - dd MM",
+          "id": "Clock",
+          "tooltipFormat": "HH:mm ddd, MMM dd",
+          "useCustomFont": false
+        },
+        {
+          "iconColor": "error",
+          "id": "SessionMenu"
         }
       ]
     },
@@ -193,11 +181,11 @@
     "animationSpeed": 1,
     "animationDisabled": false,
     "compactLockScreen": false,
-    "lockScreenAnimations": false,
+    "lockScreenAnimations": true,
     "lockOnSuspend": true,
     "showSessionButtonsOnLockScreen": true,
     "showHibernateOnLockScreen": false,
-    "enableLockScreenMediaControls": false,
+    "enableLockScreenMediaControls": true,
     "enableShadows": true,
     "enableBlurBehind": true,
     "shadowDirection": "bottom_right",
@@ -211,7 +199,7 @@
     "lockScreenCountdownDuration": 10000,
     "autoStartAuth": false,
     "allowPasswordWithFprintd": false,
-    "clockStyle": "custom",
+    "clockStyle": "digital",
     "clockFormat": "hh\\nmm",
     "passwordChars": false,
     "lockScreenMonitors": [],
@@ -285,6 +273,16 @@
       {
         "directory": "/home/mohi/Pictures/Wallpapers",
         "name": "DP-5",
+        "wallpaper": ""
+      },
+      {
+        "directory": "/home/mohi/Pictures/Wallpapers",
+        "name": "DP-1",
+        "wallpaper": ""
+      },
+      {
+        "directory": "/home/mohi/Pictures/Wallpapers",
+        "name": "DP-2",
         "wallpaper": ""
       }
     ],
@@ -403,7 +401,7 @@
         "id": "audio-card"
       },
       {
-        "enabled": false,
+        "enabled": true,
         "id": "brightness-card"
       },
       {

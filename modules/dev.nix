@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages =
     (with pkgs; [
@@ -57,8 +57,5 @@
       crush
       opencode
       codex
-    ])
-    ++ [
-      inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim
-    ];
+    ]);
 }

@@ -61,7 +61,7 @@
   ];
 
   homeModulesExtra = [
-    ../../home/modules/caelestia.nix
+    ../../home/modules/noctalia.nix
     ../../home/modules/theme.nix
   ];
 }

@@ -1,4 +1,4 @@
-_: {
+{
   hostConfig = { };
 
   darwinModule = {
@@ -11,7 +11,9 @@ _: {
     nixpkgs.hostPlatform = "aarch64-darwin";
   };
 
-  modulesExtra = [ ];
+  modulesExtra = [
+    ../../modules/dev.nix
+  ];
 
   homeModulesExtra = [ ];
 }

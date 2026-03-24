@@ -1,4 +1,4 @@
-_: {
+{
   hostConfig = {
     monitors = [
       {
@@ -52,10 +52,10 @@ _: {
   };
 
   modulesExtra = [
+    ../../modules/gnome.nix
     ../../modules/hyprland.nix
     ../../modules/lanzaboote.nix
     ../../modules/nvidia.nix
-    ../../modules/plasma.nix
     ../../modules/dev.nix
     ../../modules/steam.nix
   ];

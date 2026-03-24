@@ -26,8 +26,15 @@
       nix-direnv.enable = true;
     };
 
+    # git plugin
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     git = {
       enable = true;
+      package = pkgs.git;
       ignores = [ ".DS_Store" ];
       settings = {
         user = {
@@ -43,6 +50,7 @@
           hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
         };
 
+        core.editor = "nvim";
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
       };

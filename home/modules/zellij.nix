@@ -6,6 +6,11 @@ _: {
   # Zellij configuration using KDL format
   # Home-manager doesn't have native zellij config support, so we use xdg.configFile
   xdg.configFile."zellij/config.kdl".text = ''
+    // General settings
+    scrollback_lines 100000
+    copy_on_select true
+    default_tab_index 1
+
     keybinds clear-defaults=true {
         locked {
             bind "F12" { SwitchToMode "normal"; }
@@ -19,6 +24,8 @@ _: {
             bind "Ctrl j" { MoveFocus "down";  SwitchToMode "Normal"; }
             bind "Ctrl k" { MoveFocus "up";    SwitchToMode "Normal"; }
             bind "Ctrl l" { MoveFocus "right"; SwitchToMode "Normal"; }
+            bind "Alt h"  { GoToPreviousTab; }
+            bind "Alt l"  { GoToNextTab; }
         }
 
         tmux {
@@ -26,6 +33,7 @@ _: {
             bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
             bind "d"      { Detach; }
             bind "s"      { SwitchToMode "search"; }
+            bind "r"      { ReloadConfig; SwitchToMode "normal"; }
 
             // Resize Panes
             bind "h"  { Resize  "Increase Left"; }
@@ -36,6 +44,15 @@ _: {
             // New Panes
             bind "-"  { NewPane "down";  SwitchToMode "normal"; }
             bind "\\" { NewPane "right"; SwitchToMode "normal"; }
+
+            // New floating pane
+            bind "n"      { NewFloatingPane; SwitchToMode "normal"; }
+
+            // Toggle floating pane
+            bind "p"      { ToggleFloatingPanes; SwitchToMode "normal"; }
+
+            // Toggle pane floating state
+            bind "w"      { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
 
             // Layout
             bind "space"  { NextSwapLayout; SwitchToMode "normal"; }
@@ -77,6 +94,12 @@ _: {
         entersearch {
             bind "Ctrl c" "Esc" { SwitchToMode "search"; }
             bind "Enter" { SwitchToMode "search"; }
+        }
+
+        scroll {
+            // Vi-style copy mode
+            bind "v" { EditScrollback; }
+            bind "y" { Copy; }
         }
     }
 

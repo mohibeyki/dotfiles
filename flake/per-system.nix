@@ -15,6 +15,7 @@
           nil
           nixfmt
           statix
+          inputs.agenix.packages.${pkgs.system}.default
         ];
       };
 

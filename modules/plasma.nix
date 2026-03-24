@@ -18,6 +18,8 @@
     sddm.kwallet.enable = true;
   };
 
+  systemd.user.targets.graphical-session.wants = [ "plasma-kwallet-pam.service" ];
+
   environment.systemPackages = with pkgs.kdePackages; [
     (pkgs.stdenv.mkDerivation {
       pname = "pixie-sddm";

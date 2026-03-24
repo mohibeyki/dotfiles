@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   boot.kernelParams = [
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
@@ -10,6 +10,13 @@
   environment.variables = {
     WLR_NO_HARDWARE_CURSORS = "1";
   };
+
+  # NVIDIA monitoring and management tools
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia # htop-like GPU monitor
+    # nvidia-smi is available via the driver package
+    (btop.override { cudaSupport = true; }) # btop with GPU support
+  ];
 
   # Enable OpenGL
   hardware = {

@@ -12,7 +12,7 @@ let
       map (
         hostName:
         let
-          hostModule = import (hostsDir + "/${hostName}") { inherit inputs; };
+          hostModule = import (hostsDir + "/${hostName}");
         in
         if hostModule ? nixosModule then
           {

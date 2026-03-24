@@ -1,5 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
+  imports = [ inputs.agenix.nixosModules.default ];
+
   # Bootloader.
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
@@ -40,16 +42,6 @@
     # Enable sound with pipewire.
     pulseaudio.enable = false;
 
-    xserver = {
-      enable = true;
-
-      # Configure keymap in X11
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-    };
-
     resolved = {
       enable = true;
 
@@ -79,7 +71,6 @@
     polkit.enable = true;
     rtkit.enable = true;
     pam.services = {
-      login.enableGnomeKeyring = true;
       hyprlock = { };
     };
   };
@@ -94,6 +85,11 @@
 
   programs = {
     firefox.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "mohi" ];
+    };
   };
 
   users.defaultUserShell = pkgs.fish;
@@ -116,11 +112,8 @@
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
-    bitwarden-desktop
     docker
     docker-compose
-    adwaita-icon-theme
-    gnome-themes-extra
     bind
     blueman
     brave
@@ -137,5 +130,10 @@
     zed-editor
     wayland-utils
     wl-clipboard
+    telegram-desktop
+
+    # Disk management tools
+    dua
+    baobab
   ];
 }

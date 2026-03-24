@@ -25,8 +25,6 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = {
       monitorv2 = monitors;
@@ -39,7 +37,7 @@ in
 
         # App launchers and Noctalia search modes.
         "SUPER, RETURN, exec, ghostty"
-        "SUPER, B, exec, firefox"
+        "SUPER, B, exec, brave"
         "SUPER, V, exec, noctalia-shell ipc call launcher clipboard"
         "SUPER, O, exec, noctalia-shell ipc call launcher windows"
         "SUPER, comma, exec, noctalia-shell ipc call launcher settings"

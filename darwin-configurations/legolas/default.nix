@@ -5,6 +5,8 @@
 }:
 {
   imports = [
+    inputs.home-manager.darwinModules.home-manager
+
     ../../darwin-modules/default.nix
   ];
 

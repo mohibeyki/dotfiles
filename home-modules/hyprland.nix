@@ -240,7 +240,7 @@ in
         "center on, match:tag floating-window"
         "size 800 600, match:tag floating-window"
         "fullscreen on, match:class Screensaver"
-        "opacity 1 1, match:class ^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
+        "opacity 1.0 1.0, match:class ^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
       ];
     };
   };

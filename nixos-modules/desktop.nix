@@ -28,6 +28,5 @@
     wiremix
     wireplumber
     wl-clipboard
-    zed-editor
   ];
 }

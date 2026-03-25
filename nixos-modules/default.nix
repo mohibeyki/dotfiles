@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     loader = {
       systemd-boot.enable = lib.mkDefault true;
@@ -37,7 +37,6 @@
   };
 
   security = {
-    sudo.wheelNeedsPassword = true;
     polkit.enable = true;
     rtkit.enable = true;
     pam.services.hyprlock = { };
@@ -46,7 +45,6 @@
   hardware.bluetooth.enable = true;
 
   networking = {
-    hostName = "sauron";
     networkmanager.enable = true;
     firewall.enable = false;
   };

@@ -31,6 +31,7 @@
         ../../home-modules/git.nix
         ../../home-modules/helix.nix
         ../../home-modules/tmux.nix
+        ../../home-modules/zed.nix
         ../../home-modules/zellij.nix
       ];
     };

@@ -1,7 +1,7 @@
 {
   "settingsVersion": 57,
   "bar": {
-    "barType": "framed",
+    "barType": "simple",
     "position": "top",
     "monitors": [],
     "density": "comfortable",
@@ -40,7 +40,7 @@
         {
           "characterCount": 2,
           "colorizeIcons": false,
-          "emptyColor": "secondary",
+          "emptyColor": "none",
           "enableScrollWheel": true,
           "focusedColor": "primary",
           "followFocusedScreen": false,
@@ -107,7 +107,7 @@
           "showCpuTemp": true,
           "showCpuUsage": true,
           "showDiskAvailable": false,
-          "showDiskUsage": false,
+          "showDiskUsage": true,
           "showDiskUsageAsPercent": false,
           "showGpuTemp": false,
           "showLoadAverage": false,
@@ -120,12 +120,24 @@
           "usePadding": false
         },
         {
+          "displayMode": "onhover",
+          "iconColor": "none",
+          "id": "Network",
+          "textColor": "none"
+        },
+        {
           "hideWhenZero": false,
           "hideWhenZeroUnread": false,
           "iconColor": "none",
           "id": "NotificationHistory",
           "showUnreadBadge": true,
           "unreadBadgeColor": "primary"
+        },
+        {
+          "displayMode": "onhover",
+          "iconColor": "none",
+          "id": "Bluetooth",
+          "textColor": "none"
         },
         {
           "displayMode": "onhover",
@@ -151,6 +163,10 @@
           "id": "Clock",
           "tooltipFormat": "HH:mm ddd, MMM dd",
           "useCustomFont": false
+        },
+        {
+          "iconColor": "none",
+          "id": "DarkMode"
         },
         {
           "iconColor": "error",
@@ -336,7 +352,7 @@
     "favorites": []
   },
   "appLauncher": {
-    "enableClipboardHistory": false,
+    "enableClipboardHistory": true,
     "autoPasteClipboard": false,
     "enableClipPreview": true,
     "clipboardWrapText": true,
@@ -472,7 +488,7 @@
     "deadOpacity": 0.6,
     "animationSpeed": 1,
     "sitOnFrame": false,
-    "showDockIndicator": false,
+    "showDockIndicator": true,
     "indicatorThickness": 3,
     "indicatorColor": "primary",
     "indicatorOpacity": 0.6

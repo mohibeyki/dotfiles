@@ -29,6 +29,7 @@ in
   system.stateVersion = "25.05";
 
   home-manager = {
+    startAsUserService = true;
     useGlobalPkgs = true;
     useUserPackages = true;
 

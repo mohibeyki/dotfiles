@@ -1,0 +1,249 @@
+// General settings
+scrollback_lines 100000
+copy_on_select true
+default_tab_index 1
+
+themes {
+  rose-pine-moon {
+    text_unselected {
+      base 224 222 244
+      background 42 40 62
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    text_selected {
+      base 224 222 244
+      background 68 65 90
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    ribbon_selected {
+      base 42 40 62
+      background 62 143 176
+      emphasis_0 246 193 119
+      emphasis_1 234 154 151
+      emphasis_2 196 167 231
+      emphasis_3 156 207 216
+    }
+    ribbon_unselected {
+      base 35 33 54
+      background 224 222 244
+      emphasis_0 246 193 119
+      emphasis_1 234 154 151
+      emphasis_2 196 167 231
+      emphasis_3 156 207 216
+    }
+    table_title {
+      base 62 143 176
+      background 0 0 0
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    table_cell_selected {
+      base 224 222 244
+      background 68 65 90
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    table_cell_unselected {
+      base 224 222 244
+      background 42 40 62
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    list_selected {
+      base 224 222 244
+      background 68 65 90
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    list_unselected {
+      base 224 222 244
+      background 42 40 62
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 62 143 176
+      emphasis_3 196 167 231
+    }
+    frame_selected {
+      base 62 143 176
+      background 0 0 0
+      emphasis_0 234 154 151
+      emphasis_1 156 207 216
+      emphasis_2 196 167 231
+      emphasis_3 0 0 0
+    }
+    frame_highlight {
+      base 234 154 151
+      background 0 0 0
+      emphasis_0 234 154 151
+      emphasis_1 234 154 151
+      emphasis_2 234 154 151
+      emphasis_3 234 154 151
+    }
+    exit_code_success {
+      base 62 143 176
+      background 0 0 0
+      emphasis_0 156 207 216
+      emphasis_1 42 40 62
+      emphasis_2 196 167 231
+      emphasis_3 62 143 176
+    }
+    exit_code_error {
+      base 235 111 146
+      background 0 0 0
+      emphasis_0 246 193 119
+      emphasis_1 0 0 0
+      emphasis_2 0 0 0
+      emphasis_3 0 0 0
+    }
+    multiplayer_user_colors {
+      player_1 196 167 231
+      player_2 62 143 176
+      player_3 234 154 151
+      player_4 246 193 119
+      player_5 156 207 216
+      player_6 235 111 146
+      player_7 0 0 0
+      player_8 0 0 0
+      player_9 0 0 0
+      player_10 0 0 0
+    }
+  }
+}
+
+keybinds clear-defaults=true {
+    locked {
+        bind "F12" { SwitchToMode "normal"; }
+    }
+
+    normal {
+        bind "Ctrl a" { SwitchToMode "tmux"; }
+        bind "F12"    { SwitchToMode "locked"; }
+        bind "Ctrl q" { Quit; }
+        bind "Ctrl h" { MoveFocus "left";  SwitchToMode "Normal"; }
+        bind "Ctrl j" { MoveFocus "down";  SwitchToMode "Normal"; }
+        bind "Ctrl k" { MoveFocus "up";    SwitchToMode "Normal"; }
+        bind "Ctrl l" { MoveFocus "right"; SwitchToMode "Normal"; }
+        bind "Alt h"  { GoToPreviousTab; }
+        bind "Alt l"  { GoToNextTab; }
+    }
+
+    tmux {
+        // Control commands
+        bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
+        bind "d"      { Detach; }
+        bind "s"      { SwitchToMode "search"; }
+        bind "r"      { ReloadConfig; SwitchToMode "normal"; }
+
+        // Resize Panes
+        bind "h"  { Resize  "Increase Left"; }
+        bind "j"  { Resize  "Increase Down"; }
+        bind "k"  { Resize  "Increase Up"; }
+        bind "l"  { Resize  "Increase right"; }
+
+        // New Panes
+        bind "-"  { NewPane "down";  SwitchToMode "normal"; }
+        bind "\\" { NewPane "right"; SwitchToMode "normal"; }
+
+        // New floating pane
+        bind "n"      { NewFloatingPane; SwitchToMode "normal"; }
+
+        // Toggle floating pane
+        bind "p"      { ToggleFloatingPanes; SwitchToMode "normal"; }
+
+        // Toggle pane floating state
+        bind "w"      { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+
+        // Layout
+        bind "space"  { NextSwapLayout; SwitchToMode "normal"; }
+        bind "f"      { ToggleFocusFullscreen; SwitchToMode "normal"; }
+
+        // Tab
+        bind "c" { NewTab;          SwitchToMode "normal"; }
+        bind "[" { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "]" { GoToNextTab;     SwitchToMode "normal"; }
+        bind "1" { GoToTab 1;       SwitchToMode "normal"; }
+        bind "2" { GoToTab 2;       SwitchToMode "normal"; }
+        bind "3" { GoToTab 3;       SwitchToMode "normal"; }
+        bind "4" { GoToTab 4;       SwitchToMode "normal"; }
+        bind "5" { GoToTab 5;       SwitchToMode "normal"; }
+        bind "6" { GoToTab 6;       SwitchToMode "normal"; }
+        bind "7" { GoToTab 7;       SwitchToMode "normal"; }
+        bind "8" { GoToTab 8;       SwitchToMode "normal"; }
+        bind "9" { GoToTab 9;       SwitchToMode "normal"; }
+        bind "0" { GoToTab 10;      SwitchToMode "normal"; }
+    }
+
+    search {
+        // Control
+        bind "Ctrl s" { SwitchToMode "normal"; }
+        bind "Ctrl c" { ScrollToBottom; SwitchToMode "normal"; }
+
+        // Scroll
+        bind "j" { ScrollDown; }
+        bind "k" { ScrollUp; }
+        bind "Ctrl f" "l" { PageScrollDown; }
+        bind "Ctrl b" "h" { PageScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+
+        // Search
+        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+
+    entersearch {
+        bind "Ctrl c" "Esc" { SwitchToMode "search"; }
+        bind "Enter" { SwitchToMode "search"; }
+    }
+
+    scroll {
+        // Vi-style copy mode
+        bind "v" { EditScrollback; }
+        bind "y" { Copy; }
+    }
+}
+
+plugins {
+    tab-bar location="zellij:tab-bar"
+    status-bar location="zellij:status-bar"
+    strider location="zellij:strider"
+    compact-bar location="zellij:compact-bar"
+    session-manager location="zellij:session-manager"
+    welcome-screen location="zellij:session-manager" {
+        welcome_screen true
+    }
+    filepicker location="zellij:strider" {
+        cwd "/"
+    }
+    configuration location="zellij:configuration"
+    plugin-manager location="zellij:plugin-manager"
+    about location="zellij:about"
+}
+
+load_plugins {
+}
+
+ui {
+    pane_frames {
+        hide_session_name true
+    }
+}
+
+theme "rose-pine-moon"
+
+show_startup_tips false
+
+default_layout "compact"

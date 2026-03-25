@@ -5,9 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
-
-    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    ez-configs.url = "github:ehllie/ez-configs";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -65,9 +63,15 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.home-manager.flakeModules.home-manager
-        (inputs.import-tree ./modules)
-        (inputs.import-tree ./features)
+        inputs.ez-configs.flakeModule
       ];
+
+      ezConfigs = {
+        root = ./.;
+        nixos.specialArgs = { inherit inputs; };
+        darwin.specialArgs = { inherit inputs; };
+        home.extraSpecialArgs = { inherit inputs; };
+      };
 
       systems = [
         "x86_64-linux"

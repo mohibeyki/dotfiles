@@ -3,6 +3,9 @@
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
+      accept-flake-config = false;
+      download-buffer-size = 1024 * 1024 * 1024; # 1GB
+
       experimental-features = [
         "nix-command"
         "flakes"
@@ -12,8 +15,6 @@
         "root"
         "mohi"
       ];
-
-      accept-flake-config = false;
 
       extra-substituters = [
         "https://cache.numtide.com"
@@ -29,16 +30,19 @@
         "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
       ];
 
-      download-buffer-size = 1024 * 1024 * 1024; # 1GB
+      auto-optimise-store = true;
     };
 
     gc = {
       automatic = true;
-      dates = "weekly";
       options = "--delete-older-than 14d";
-    };
 
-    optimise.automatic = true;
+      interval = {
+        Weekday = 0;
+        Hour = 0;
+        Minute = 0;
+      };
+    };
   };
 
   fonts.packages = with pkgs; [
@@ -62,27 +66,26 @@
     silent = false;
     loadInNixShell = true;
     direnvrcExtra = "";
-
     nix-direnv.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     btop
     cachix
+    dua
+    duf
+    eza
+    fd
     git
     gnused
     mc
     openssl
+    ranger
     tmux
     unzip
     wget
     xz
-    zip
-    fd
-    dua
-    duf
-    eza
     yazi
-    ranger
+    zip
   ];
 }

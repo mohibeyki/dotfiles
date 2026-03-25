@@ -1,17 +1,23 @@
-{ inputs, ... }:
+{
+  inputs,
+  overlays ? [ ],
+  ...
+}:
 {
   imports = [
-    ./hardware.nix
     inputs.home-manager.nixosModules.home-manager
-    ../../nixos-modules/default.nix
+
+    ./hardware.nix
+
+    ../../modules/dev.nix
+    ../../modules/shared.nix
     ../../nixos-modules/containers.nix
+    ../../nixos-modules/default.nix
     ../../nixos-modules/desktop.nix
-    ../../nixos-modules/dev.nix
     ../../nixos-modules/gnome.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
     ../../nixos-modules/secureboot.nix
-    ../../nixos-modules/shared.nix
     ../../nixos-modules/steam.nix
   ];
 
@@ -19,8 +25,11 @@
   system.stateVersion = "25.05";
 
   home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs overlays;
       hostConfig = {
         monitors = [
           {
@@ -61,6 +70,7 @@
       imports = [
         inputs.noctalia-shell.homeModules.default
         ../../home-configurations/mohi
+
         ../../home-modules/common.nix
         ../../home-modules/fish.nix
         ../../home-modules/ghostty.nix

@@ -60,6 +60,17 @@
 
   outputs =
     inputs:
+    let
+      # Overlay to fix direnv build on Darwin (CGO required for external linking)
+      direnvOverlay = final: prev: {
+        direnv = prev.direnv.overrideAttrs (oldAttrs: {
+          env = (oldAttrs.env or { }) // {
+            CGO_ENABLED = "1";
+          };
+        });
+      };
+      overlays = [ direnvOverlay ];
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.home-manager.flakeModules.home-manager
@@ -68,14 +79,23 @@
 
       ezConfigs = {
         root = ./.;
-        nixos.specialArgs = { inherit inputs; };
-        darwin.specialArgs = { inherit inputs; };
-        home.extraSpecialArgs = { inherit inputs; };
+        nixos.specialArgs = { inherit inputs overlays; };
+        darwin.specialArgs = { inherit inputs overlays; };
+        home.extraSpecialArgs = { inherit inputs overlays; };
       };
 
       systems = [
         "x86_64-linux"
         "aarch64-darwin"
       ];
+
+      perSystem =
+        { system, pkgs, ... }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ direnvOverlay ];
+          };
+        };
     };
 }

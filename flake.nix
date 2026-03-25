@@ -2,9 +2,17 @@
   description = "Mohi's nix config flake";
 
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
+    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -32,6 +40,7 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     llm-agents = {
@@ -49,20 +58,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
-
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./flake/core.nix
-        ./flake/hosts.nix
-        ./flake/per-system.nix
+        inputs.home-manager.flakeModules.home-manager
+        (inputs.import-tree ./modules)
+        (inputs.import-tree ./features)
+      ];
+
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
     };
 }

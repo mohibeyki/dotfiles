@@ -1,7 +1,6 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nix-darwin.darwinModules
     ../../darwin-modules/default.nix
   ];
 

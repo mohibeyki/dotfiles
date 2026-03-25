@@ -3,6 +3,10 @@
   overlays ? [ ],
   ...
 }:
+let
+  mainMonitor = "ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
+  sideMonitor = "LG Electronics LG ULTRAGEAR 305MXDM47154";
+in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -33,7 +37,7 @@
       hostConfig = {
         monitors = [
           {
-            output = "desc:PG32UCDM";
+            output = "desc:${mainMonitor}";
             mode = "3840x2160@240";
             position = "0x0";
             scale = 1;
@@ -41,27 +45,27 @@
             vrr = false;
           }
           {
-            output = "desc:305MXDM47154";
+            output = "desc:${sideMonitor}";
             mode = "2560x1440@180";
-            position = "-2560x-160";
+            position = "-2560x-80";
             scale = 1;
             bitdepth = 10;
             vrr = false;
           }
         ];
         workspaces = [
-          "1, monitor:desc:305MXDM47154, default:true, persistent:true"
-          "2, monitor:desc:PG32UCDM, default:true, persistent:true"
-          "3, monitor:desc:305MXDM47154"
-          "4, monitor:desc:PG32UCDM"
-          "5, monitor:desc:305MXDM47154"
-          "6, monitor:desc:PG32UCDM"
-          "7, monitor:desc:305MXDM47154"
-          "8, monitor:desc:PG32UCDM"
-          "9, monitor:desc:305MXDM47154"
-          "10, monitor:desc:PG32UCDM"
+          "1, monitor:desc:${sideMonitor}, default:true, persistent:true"
+          "2, monitor:desc:${mainMonitor}, default:true, persistent:true"
+          "3, monitor:desc:${sideMonitor}"
+          "4, monitor:desc:${mainMonitor}"
+          "5, monitor:desc:${sideMonitor}"
+          "6, monitor:desc:${mainMonitor}"
+          "7, monitor:desc:${sideMonitor}"
+          "8, monitor:desc:${mainMonitor}"
+          "9, monitor:desc:${sideMonitor}"
+          "10, monitor:desc:${mainMonitor}"
         ];
-        primaryMonitor = "desc:PG32UCDM";
+        primaryMonitor = "desc:${mainMonitor}";
         wallpaper = "~/Pictures/Wallpapers/sunset.jpg";
       };
     };

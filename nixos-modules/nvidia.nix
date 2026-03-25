@@ -16,7 +16,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       powerManagement = {
-        enable = true;
+        enable = false;
         finegrained = false;
       };
     };

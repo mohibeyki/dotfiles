@@ -70,11 +70,13 @@
     duf
     eza
     fd
+    fzf
     git
     gnused
     mc
     openssl
     ranger
+    ripgrep
     tmux
     unzip
     wget

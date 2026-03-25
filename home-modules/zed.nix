@@ -15,6 +15,7 @@ in
       "nix"
       "rose-pine-theme"
       "toml"
+      "zig"
     ];
 
     userSettings = {
@@ -24,19 +25,7 @@ in
       };
 
       load_direnv = "shell_hook";
-      show_whitespace = "all";
-
-      detect_venv = {
-        on = {
-          directories = [
-            ".env"
-            "env"
-            ".venv"
-            "venv"
-          ];
-          activate_script = "default";
-        };
-      };
+      show_whitespaces = "all";
 
       node = {
         path = lib.getExe pkgs.nodejs;
@@ -104,7 +93,7 @@ in
           formatter = {
             external = {
               command = "ruff";
-              args = [
+              arguments = [
                 "format"
                 "-"
               ];
@@ -138,7 +127,7 @@ in
           formatter = {
             external = {
               command = "taplo";
-              args = [
+              arguments = [
                 "fmt"
                 "-"
               ];
@@ -154,16 +143,16 @@ in
           language_servers = [ "clangd" ];
         };
 
-        CPP = {
+        "C++" = {
           language_servers = [ "clangd" ];
         };
 
-        Zig = {
+        zig = {
           language_servers = [ "zls" ];
           formatter = {
             external = {
               command = "zig";
-              args = [
+              arguments = [
                 "fmt"
                 "--stdin"
               ];

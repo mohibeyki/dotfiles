@@ -1,10 +1,20 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = true;
     package = pkgs.noctalia-shell;
-    settings = ./noctalia.json;
+    settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ./noctalia.json)) {
+      general = {
+        lockOnSuspend = true;
+      };
+
+      idle = {
+        enabled = true;
+        lockTimeout = 600;
+        suspendTimeout = 900;
+      };
+    };
   };
 
   programs.noctalia-shell.plugins = {

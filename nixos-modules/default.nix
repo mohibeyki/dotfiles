@@ -3,6 +3,11 @@
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+    plymouth = {
+      enable = true;
+      theme = "bgrt";
+    };
+
     loader = {
       systemd-boot.enable = lib.mkDefault true;
       efi.canTouchEfiVariables = lib.mkDefault true;
@@ -14,6 +19,7 @@
 
     kernelParams = lib.mkDefault [
       "quiet"
+      "splash"
       "loglevel=3"
       "systemd.show_status=false"
       "rd.udev.log_level=3"
@@ -39,7 +45,6 @@
   security = {
     polkit.enable = true;
     rtkit.enable = true;
-    pam.services.hyprlock = { };
   };
 
   hardware.bluetooth.enable = true;

@@ -245,47 +245,6 @@ in
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-      preload = [ hostConfig.wallpaper ];
-      wallpaper = {
-        monitor = "";
-        path = hostConfig.wallpaper;
-        fit_mode = "fill";
-      };
-    };
-  };
-
-  programs.hyprlock = {
-    enable = true;
-    settings = {
-      general = {
-        disable_loading_bar = true;
-        hide_cursor = true;
-      };
-    };
-  };
-
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpmsoff && hyprctl dispatch dpmson";
-      };
-      listener = [
-        {
-          timeout = 900;
-          on-timeout = "loginctl lock-session";
-        }
-      ];
-    };
-  };
-
   home.packages = with pkgs; [
     hyprpolkitagent
   ];

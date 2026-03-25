@@ -8,6 +8,10 @@
 
   programs = {
     home-manager.enable = true;
+    man = {
+      enable = true;
+      generateCaches = false;
+    };
   };
 
   programs = {

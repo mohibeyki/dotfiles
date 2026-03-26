@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.noctalia-shell = {
     enable = true;
@@ -13,6 +18,23 @@
         enabled = true;
         lockTimeout = 600;
         suspendTimeout = 900;
+      };
+
+      wallpaper = {
+        directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
+        monitorDirectories =
+          map
+            (name: {
+              inherit name;
+              directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
+              wallpaper = "wallpaper.jpg";
+            })
+            [
+              "DP-4"
+              "DP-5"
+              "DP-1"
+              "DP-2"
+            ];
       };
     };
   };
@@ -38,6 +60,16 @@
       workspace-overview.settings = {
         compositor = "Hyprland";
       };
+    };
+  };
+
+  home.file = {
+    "Pictures/face.png".source = ../assets/face.png;
+    "Pictures/Wallpapers/wallpaper.jpg".source = ../assets/wallpaper.jpg;
+
+    ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
+      defaultWallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/wallpaper.jpg";
+      wallpapers = { };
     };
   };
 }

@@ -26,7 +26,6 @@ in
   ];
 
   networking.hostName = "sauron";
-  system.stateVersion = "25.05";
 
   home-manager = {
     startAsUserService = true;
@@ -67,7 +66,6 @@ in
           "10, monitor:desc:${mainMonitor}"
         ];
         primaryMonitor = "desc:${mainMonitor}";
-        wallpaper = "~/Pictures/Wallpapers/sunset.jpg";
       };
     };
 

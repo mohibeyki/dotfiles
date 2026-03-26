@@ -21,11 +21,9 @@
     lshw
     mousam
     niv
-    pipewire
     telegram-desktop
     wayland-utils
     wiremix
-    wireplumber
     wl-clipboard
   ];
 }

@@ -49,7 +49,7 @@ in
       ui_font_family = ".ZedSans";
       buffer_line_height = "comfortable";
       buffer_font_family = "JetBrainsMono Nerd Font";
-      auto_update = true;
+      auto_update = isDarwin;
       restore_on_startup = "last_session";
       use_system_prompts = true;
       when_closing_with_no_tabs = "keep_window_open";

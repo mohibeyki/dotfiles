@@ -186,7 +186,7 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/home/mohi/.face",
+    "avatarImage": "/home/mohi/Pictures/face.png",
     "dimmerOpacity": 0.2,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,
@@ -296,28 +296,7 @@
     "enabled": true,
     "overviewEnabled": false,
     "directory": "/home/mohi/Pictures/Wallpapers",
-    "monitorDirectories": [
-      {
-        "directory": "/home/mohi/Pictures/Wallpapers",
-        "name": "DP-4",
-        "wallpaper": ""
-      },
-      {
-        "directory": "/home/mohi/Pictures/Wallpapers",
-        "name": "DP-5",
-        "wallpaper": ""
-      },
-      {
-        "directory": "/home/mohi/Pictures/Wallpapers",
-        "name": "DP-1",
-        "wallpaper": ""
-      },
-      {
-        "directory": "/home/mohi/Pictures/Wallpapers",
-        "name": "DP-2",
-        "wallpaper": ""
-      }
-    ],
+    "monitorDirectories": [],
     "enableMultiMonitorDirectories": false,
     "showHiddenFiles": false,
     "viewMode": "single",

@@ -11,8 +11,6 @@
     ../modules/shared.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   nixpkgs.overlays = overlays;
 
   programs.fish.enable = true;

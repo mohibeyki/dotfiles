@@ -5,6 +5,12 @@
   ...
 }:
 {
+  environment.systemPackages = with pkgs; [
+    cliphist
+    pavucontrol
+    playerctl
+  ];
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;

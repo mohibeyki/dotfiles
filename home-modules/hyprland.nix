@@ -33,7 +33,7 @@ in
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "NIXOS_OZONE_WL=1"
+        "NIXOS_OZONE_WL,1"
         "NVD_BACKEND,direct"
       ];
 
@@ -235,7 +235,7 @@ in
         "float on, match:title ^(Picture-in-Picture)$"
         "pin on, match:title ^(Picture-in-Picture)$"
         "move 69.5% 4%, match:title ^(Picture-in-Picture)$"
-        "idle_inhibit fullscreen, match:class ([window])"
+        "idle_inhibit fullscreen, class:.*"
         "float on, match:tag floating-window"
         "center on, match:tag floating-window"
         "size 800 600, match:tag floating-window"

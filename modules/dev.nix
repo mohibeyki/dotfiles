@@ -33,11 +33,17 @@
       # Python
       uv
       ruff
-      basedpyright
+      pyright
+
+      # TOML
+      taplo
 
       # Shell
       shellcheck
       shfmt
+
+      # Zig
+      zls
 
       # Tools
       lazygit

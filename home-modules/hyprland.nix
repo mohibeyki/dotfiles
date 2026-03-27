@@ -145,6 +145,7 @@ in
 
       exec-once = [
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
+        "noctalia-shell"
       ]
       ++ lib.optional (
         primaryMonitor != null

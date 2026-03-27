@@ -7,7 +7,7 @@
 {
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
     package = pkgs.noctalia-shell;
     settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ./noctalia.json)) {
       general = {

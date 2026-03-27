@@ -8,14 +8,18 @@
       cmake
       gdb
       gnumake
+      cpplint
 
       # Go
       go
       gofumpt
+      golangci-lint
       gopls
+      gotools
 
       # Lua
       lua-language-server
+      luajitPackages.luacheck
       stylua
 
       # Markdown
@@ -31,24 +35,33 @@
       statix
 
       # Python
-      uv
-      ruff
+      black
+      pylint
       pyright
-
-      # TOML
-      taplo
+      ruff
+      uv
 
       # Shell
       shellcheck
       shfmt
+
+      # TOML
+      taplo
+
+      # YAML
+      yamlfmt
+      yamllint
 
       # Zig
       zls
 
       # Tools
       lazygit
+      prettier
+      prettierd
       silicon
       tldr
+      treesitter-cli
       zoxide
     ])
     ++ (with pkgs.llm-agents; [

@@ -235,7 +235,7 @@ in
         "float on, match:title ^(Picture-in-Picture)$"
         "pin on, match:title ^(Picture-in-Picture)$"
         "move 69.5% 4%, match:title ^(Picture-in-Picture)$"
-        "idle_inhibit fullscreen, class:.*"
+        "idle_inhibit fullscreen, match:class (.*)"
         "float on, match:tag floating-window"
         "center on, match:tag floating-window"
         "size 800 600, match:tag floating-window"

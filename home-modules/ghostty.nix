@@ -14,10 +14,6 @@
         "-dlig"
       ];
 
-      keybind = [
-        "shift+enter=text:\x1b\r"
-      ];
-
       macos-option-as-alt = true;
       quit-after-last-window-closed = true;
       theme = "Rose Pine Moon";

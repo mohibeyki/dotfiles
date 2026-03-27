@@ -14,5 +14,11 @@
       set -g tide_context_always_display true
       set -g tide_context_hostname_parts 1
     '';
+
+    shellAliases = {
+      vi = "nvim";
+      vim = "nvim";
+      vimdiff = "nvim -d";
+    };
   };
 }

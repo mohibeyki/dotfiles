@@ -22,8 +22,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+    nixvim = {
+      url = "github:mohibeyki/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -90,7 +90,7 @@
       ];
 
       perSystem =
-        { system, pkgs, ... }:
+        { system, ... }:
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;

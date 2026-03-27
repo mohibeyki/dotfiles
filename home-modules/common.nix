@@ -4,6 +4,10 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
+
+    packages = [
+      inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
   };
 
   programs = {
@@ -22,15 +26,6 @@
     delta = {
       enable = true;
       enableGitIntegration = true;
-    };
-
-    neovim = {
-      enable = true;
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withNodeJs = true;
     };
   };
 }

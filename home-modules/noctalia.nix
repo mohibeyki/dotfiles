@@ -27,7 +27,7 @@
             (name: {
               inherit name;
               directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-              wallpaper = "wallpaper.jpg";
+              wallpaper = "";
             })
             [
               "DP-4"

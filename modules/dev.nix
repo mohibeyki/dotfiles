@@ -61,7 +61,7 @@
       prettierd
       silicon
       tldr
-      treesitter-cli
+      tree-sitter
       zoxide
     ])
     ++ (with pkgs.llm-agents; [

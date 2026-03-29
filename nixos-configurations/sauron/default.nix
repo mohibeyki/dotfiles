@@ -21,8 +21,7 @@ in
     ../../nixos-modules/gnome.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
-    ../../nixos-modules/secureboot.nix
-    ../../nixos-modules/steam.nix
+    ../../nixos-modules/game.nix
   ];
 
   networking.hostName = "sauron";
@@ -42,7 +41,7 @@ in
             position = "0x0";
             scale = 1;
             bitdepth = 10;
-            vrr = false;
+            vrr = true;
           }
           {
             output = "desc:${sideMonitor}";
@@ -50,7 +49,7 @@ in
             position = "-2560x-80";
             scale = 1;
             bitdepth = 10;
-            vrr = false;
+            vrr = true;
           }
         ];
         workspaces = [

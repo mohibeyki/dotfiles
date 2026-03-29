@@ -144,6 +144,8 @@ in
       ];
 
       exec-once = [
+        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
+        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
         "noctalia-shell"
       ]
@@ -209,7 +211,7 @@ in
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         font_family = "JetBrainsMono Nerd Font";
-        vrr = 0;
+        vrr = 2;
       };
 
       dwindle = {

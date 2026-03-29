@@ -3,11 +3,6 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-
     nvidia = {
       modesetting.enable = true;
       nvidiaPersistenced = true;
@@ -26,6 +21,4 @@
     nvtopPackages.nvidia
     (btop.override { cudaSupport = true; })
   ];
-
-  programs.gamemode.enable = true;
 }

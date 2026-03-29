@@ -1,9 +1,4 @@
-{
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
+{ inputs, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     cliphist
@@ -14,11 +9,13 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
+
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
     ];
+
     config = {
       hyprland = {
         default = [

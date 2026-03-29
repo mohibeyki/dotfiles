@@ -4,7 +4,6 @@
     steam = {
       enable = true;
       dedicatedServer.openFirewall = true;
-      gamescopeSession.enable = true;
       localNetworkGameTransfers.openFirewall = true;
       remotePlay.openFirewall = true;
     };

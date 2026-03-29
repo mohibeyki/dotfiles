@@ -5,18 +5,29 @@
   ...
 }:
 let
-  monitors = map (monitor: {
-    inherit (monitor)
-      output
-      mode
-      position
-      scale
-      bitdepth
-      ;
-    vrr = if monitor.vrr then 1 else 0;
-  }) (hostConfig.monitors or [ ]);
+  monitors = map (
+    monitor:
+    {
+      inherit (monitor)
+        output
+        mode
+        position
+        scale
+        bitdepth
+        ;
+      vrr = if monitor.vrr then 1 else 0;
+    }
+    // lib.optionalAttrs (monitor ? cm) {
+      inherit (monitor) cm;
+    }
+    // lib.optionalAttrs (monitor ? icc) {
+      inherit (monitor) icc;
+    }
+  ) (hostConfig.monitors or [ ]);
 
   workspaces = hostConfig.workspaces or [ ];
+
+  desktopMode = hostConfig.desktopMode or "gnome";
 
   primaryMonitor = hostConfig.primaryMonitor or null;
 in
@@ -150,9 +161,14 @@ in
 
       exec-once = [
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
-        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
         "noctalia-shell"
+      ]
+      ++ lib.optionals (desktopMode == "plasma") [
+        "systemctl --user start plasma-kwallet-pam.service"
+      ]
+      ++ lib.optionals (desktopMode == "gnome") [
+        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
       ]
       ++ lib.optional (
         primaryMonitor != null

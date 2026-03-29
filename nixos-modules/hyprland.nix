@@ -1,4 +1,19 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  desktopMode = config.mohi.desktop.mode;
+  desktopPortalPackage =
+    if desktopMode == "plasma" then
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    else
+      pkgs.xdg-desktop-portal-gtk;
+  desktopPortalName = if desktopMode == "plasma" then "kde" else "gtk";
+in
 {
   environment.systemPackages = with pkgs; [
     cliphist
@@ -11,19 +26,21 @@
     xdgOpenUsePortal = true;
 
     extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-gnome
+      desktopPortalPackage
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-    ];
+    ]
+    ++ lib.optionals (desktopMode == "gnome") [ pkgs.xdg-desktop-portal-gnome ];
 
     config = {
       hyprland = {
         default = [
           "hyprland"
-          "gtk"
+          desktopPortalName
         ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ desktopPortalName ];
+        "org.freedesktop.impl.portal.OpenURI" = [ desktopPortalName ];
+      }
+      // lib.optionalAttrs (desktopMode == "gnome") {
         "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
       };
     };

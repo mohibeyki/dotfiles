@@ -1,7 +1,9 @@
-{ ... }:
-{
+{ config, lib, ... }:
+let
+  cfg = config.mohi.desktop;
+in
+lib.mkIf (cfg.mode == "gnome") {
   services = {
-    displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
 
     gnome = {
@@ -9,8 +11,6 @@
       core-developer-tools.enable = true;
       core-os-services.enable = true;
       core-shell.enable = true;
-
-      gnome-keyring.enable = true;
     };
 
     xserver.enable = false;

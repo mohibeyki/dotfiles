@@ -1,36 +1,59 @@
-{ pkgs, ... }:
 {
-  services = {
-    gnome.gnome-keyring.enable = true;
-    gvfs.enable = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.mohi.desktop;
+in
+{
+  options.mohi.desktop.mode = lib.mkOption {
+    type = lib.types.enum [
+      "gnome"
+      "plasma"
+    ];
+    default = "gnome";
+    description = "Desktop stack to pair with the display manager and wallet service.";
   };
 
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
+  config = {
+    services = {
+      displayManager = {
+        gdm.enable = cfg.mode == "gnome";
+        sddm.enable = cfg.mode == "plasma";
+      };
+
+      gnome.gnome-keyring.enable = cfg.mode == "gnome";
+      gvfs.enable = true;
     };
-  };
 
-  security = {
-    polkit.enable = true;
-  };
+    hardware = {
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
+    };
 
-  environment.systemPackages = with pkgs; [
-    bind
-    blueman
-    brave
-    discord
-    ghostty
-    gparted
-    kdePackages.kate
-    killall
-    lshw
-    mousam
-    niv
-    telegram-desktop
-    wayland-utils
-    wiremix
-    wl-clipboard
-  ];
+    security = {
+      polkit.enable = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+      bind
+      blueman
+      brave
+      discord
+      ghostty
+      gparted
+      killall
+      lshw
+      mousam
+      niv
+      telegram-desktop
+      wayland-utils
+      wiremix
+      wl-clipboard
+    ];
+  };
 }

@@ -1,11 +1,31 @@
 {
+  config,
   inputs,
   overlays ? [ ],
   ...
 }:
 let
-  mainMonitor = "ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
-  sideMonitor = "LG Electronics LG ULTRAGEAR 305MXDM47154";
+  monitors = {
+    main = {
+      output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
+      mode = "3840x2160@240";
+      position = "0x0";
+      scale = 1;
+      bitdepth = 10;
+      vrr = true;
+      cm = "srgb";
+    };
+
+    side = {
+      output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
+      mode = "2560x1440@180";
+      position = "-2560x-80";
+      scale = 1;
+      bitdepth = 10;
+      vrr = true;
+      cm = "srgb";
+    };
+  };
 in
 {
   imports = [
@@ -21,10 +41,13 @@ in
     ../../nixos-modules/gnome.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
+    ../../nixos-modules/plasma.nix
     ../../nixos-modules/game.nix
   ];
 
   networking.hostName = "sauron";
+
+  mohi.desktop.mode = "gnome";
 
   home-manager = {
     startAsUserService = true;
@@ -34,39 +57,21 @@ in
     extraSpecialArgs = {
       inherit inputs overlays;
       hostConfig = {
-        monitors = [
-          {
-            output = "desc:${mainMonitor}";
-            mode = "3840x2160@240";
-            position = "0x0";
-            scale = 1;
-            bitdepth = 10;
-            vrr = true;
-            cm = "wide";
-          }
-          {
-            output = "desc:${sideMonitor}";
-            mode = "2560x1440@180";
-            position = "-2560x-80";
-            scale = 1;
-            bitdepth = 10;
-            vrr = true;
-            cm = "wide";
-          }
-        ];
+        desktopMode = config.mohi.desktop.mode;
+        monitors = builtins.attrValues monitors;
         workspaces = [
-          "1, monitor:desc:${sideMonitor}, default:true, persistent:true"
-          "2, monitor:desc:${mainMonitor}, default:true, persistent:true"
-          "3, monitor:desc:${sideMonitor}"
-          "4, monitor:desc:${mainMonitor}"
-          "5, monitor:desc:${sideMonitor}"
-          "6, monitor:desc:${mainMonitor}"
-          "7, monitor:desc:${sideMonitor}"
-          "8, monitor:desc:${mainMonitor}"
-          "9, monitor:desc:${sideMonitor}"
-          "10, monitor:desc:${mainMonitor}"
+          "1, monitor:${monitors.side.output}, default:true, persistent:true"
+          "2, monitor:${monitors.main.output}, default:true, persistent:true"
+          "3, monitor:${monitors.side.output}"
+          "4, monitor:${monitors.main.output}"
+          "5, monitor:${monitors.side.output}"
+          "6, monitor:${monitors.main.output}"
+          "7, monitor:${monitors.side.output}"
+          "8, monitor:${monitors.main.output}"
+          "9, monitor:${monitors.side.output}"
+          "10, monitor:${monitors.main.output}"
         ];
-        primaryMonitor = "desc:${mainMonitor}";
+        primaryMonitor = monitors.main.output;
       };
     };
 

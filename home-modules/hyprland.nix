@@ -143,6 +143,11 @@ in
         ", XF86AudioNext, exec, noctalia-shell ipc call media next"
       ];
 
+      bindm = [
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
+      ];
+
       exec-once = [
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
         "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"

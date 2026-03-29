@@ -40,16 +40,18 @@ in
             mode = "3840x2160@240";
             position = "0x0";
             scale = 1;
-            bitdepth = 8;
+            bitdepth = 10;
             vrr = true;
+            cm = "wide";
           }
           {
             output = "desc:${sideMonitor}";
             mode = "2560x1440@180";
             position = "-2560x-80";
             scale = 1;
-            bitdepth = 8;
+            bitdepth = 10;
             vrr = true;
+            cm = "wide";
           }
         ];
         workspaces = [

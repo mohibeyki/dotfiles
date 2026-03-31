@@ -19,7 +19,6 @@
 
       # Lua
       lua-language-server
-      luajitPackages.luacheck
       stylua
 
       # Markdown

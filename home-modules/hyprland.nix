@@ -170,6 +170,9 @@ in
       ++ lib.optionals (desktopMode == "gnome") [
         "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
       ]
+      ++ [
+        "${pkgs._1password-gui}/bin/1password --silent"
+      ]
       ++ lib.optional (
         primaryMonitor != null
       ) "hyprctl dispatch focusmonitor \"${primaryMonitor}\" && hyprctl dispatch workspace 2";

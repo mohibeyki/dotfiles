@@ -1,4 +1,9 @@
-{ pkgs, hostConfig, ... }:
+{
+  pkgs,
+  lib,
+  hostConfig,
+  ...
+}:
 let
   desktopMode = hostConfig.desktopMode or "gnome";
 
@@ -75,8 +80,8 @@ in
   };
 
   # Remove KDE defaults when using GNOME mode to prevent icon theme conflicts
-  home.activation = pkgs.lib.mkIf (desktopMode == "gnome") {
-    removeKdeDefaults = pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation = lib.mkIf (desktopMode == "gnome") {
+    removeKdeDefaults = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if [ -d "$HOME/.config/kdedefaults" ]; then
         $DRY_RUN_CMD rm -rf "$HOME/.config/kdedefaults"
         $VERBOSE_ECHO "Removed ~/.config/kdedefaults to prevent KDE icon theme override"

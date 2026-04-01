@@ -19,6 +19,7 @@
     useUserPackages = true;
     extraSpecialArgs = {
       inherit inputs overlays;
+      hostConfig = { };
     };
 
     users.mohi = {

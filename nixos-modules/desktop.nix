@@ -43,6 +43,7 @@ in
       bind
       blueman
       brave
+      compsize
       discord
       ghostty
       gparted

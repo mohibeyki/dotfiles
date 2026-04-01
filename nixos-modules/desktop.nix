@@ -50,6 +50,7 @@ in
       lshw
       mousam
       niv
+      teamspeak6-client
       telegram-desktop
       wayland-utils
       wiremix

@@ -46,12 +46,14 @@ in
       brave
       compsize
       discord
+      easyeffects
       ghostty
       gparted
       killall
       lshw
       mousam
       niv
+      streamcontroller
       teamspeak6-client
       telegram-desktop
       wayland-utils

@@ -40,6 +40,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      bambu-studio
       bind
       blueman
       brave

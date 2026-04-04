@@ -18,6 +18,7 @@
     heroic
     lutris
     mangohud
+    protontricks
     protonup-ng
     protonup-qt
   ];

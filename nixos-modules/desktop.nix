@@ -45,20 +45,26 @@ in
       blueman
       brave
       compsize
+      curl
       discord
       easyeffects
       ghostty
       gparted
+      jq
       killall
       lshw
       mousam
       niv
+      p7zip
       streamcontroller
       teamspeak6-client
       telegram-desktop
       wayland-utils
+      websocat
+      wget
       wiremix
       wl-clipboard
+      zenity
     ];
   };
 }

@@ -6,10 +6,6 @@
 }:
 let
   cfg = config.mohi.desktop;
-  xtermGhostty = pkgs.runCommandLocal "xterm-ghostty" { } ''
-    mkdir -p "$out/bin"
-    ln -s ${lib.getExe pkgs.ghostty} "$out/bin/xterm-ghostty"
-  '';
 in
 {
   options.mohi.desktop.mode = lib.mkOption {
@@ -44,16 +40,15 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      bambu-studio
       bind
       blueman
       brave
+      cider-2
       compsize
       curl
       discord
       easyeffects
       ghostty
-      xtermGhostty
       glibc
       gparted
       jq
@@ -65,6 +60,7 @@ in
       streamcontroller
       teamspeak6-client
       telegram-desktop
+      transmission_4-gtk
       wayland-utils
       websocat
       wget

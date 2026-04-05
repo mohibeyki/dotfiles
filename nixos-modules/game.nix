@@ -13,13 +13,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bottles
-    cartridges
-    heroic
-    lutris
     mangohud
     protontricks
-    protonup-ng
-    protonup-qt
   ];
 }

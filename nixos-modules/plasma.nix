@@ -33,6 +33,7 @@ lib.mkIf (cfg.mode == "plasma") {
     kdePackages.kdeconnect-kde
     kdePackages.kdf
     kdePackages.kdialog
+    kdePackages.discover
     kdePackages.kfind
     kdePackages.kgpg
     kdePackages.khelpcenter

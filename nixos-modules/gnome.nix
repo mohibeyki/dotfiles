@@ -5,6 +5,7 @@ in
 lib.mkIf (cfg.mode == "gnome") {
   services = {
     desktopManager.gnome.enable = true;
+    gnome.gnome-software.enable = true;
 
     gnome = {
       core-apps.enable = true;

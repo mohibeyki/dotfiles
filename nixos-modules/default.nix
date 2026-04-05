@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
 
     plymouth = {
       enable = true;
@@ -55,6 +55,8 @@
   };
 
   services = {
+    flatpak.enable = true;
+
     pulseaudio.enable = false;
     pipewire = {
       enable = true;

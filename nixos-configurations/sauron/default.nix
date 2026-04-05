@@ -30,6 +30,7 @@ in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-flatpak.nixosModules.nix-flatpak
 
     ./hardware.nix
 
@@ -48,6 +49,25 @@ in
   networking.hostName = "sauron";
 
   mohi.desktop.mode = "gnome";
+
+  services.flatpak = {
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+
+    packages = [
+      "com.bambulab.BambuStudio"
+      "com.heroicgameslauncher.hgl"
+      "com.usebottles.bottles"
+      "io.github.flattool.Warehouse"
+      "net.davidotek.pupgui2"
+      "net.lutris.Lutris"
+      "page.kramo.Cartridges"
+    ];
+  };
 
   home-manager = {
     startAsUserService = true;

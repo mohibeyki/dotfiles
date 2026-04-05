@@ -6,6 +6,10 @@
 }:
 let
   cfg = config.mohi.desktop;
+  xtermGhostty = pkgs.runCommandLocal "xterm-ghostty" { } ''
+    mkdir -p "$out/bin"
+    ln -s ${lib.getExe pkgs.ghostty} "$out/bin/xterm-ghostty"
+  '';
 in
 {
   options.mohi.desktop.mode = lib.mkOption {
@@ -49,6 +53,8 @@ in
       discord
       easyeffects
       ghostty
+      xtermGhostty
+      glibc
       gparted
       jq
       killall

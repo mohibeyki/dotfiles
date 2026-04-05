@@ -20,9 +20,14 @@ in
 
     packages = [
       brave
+      pkgs.xdg-terminal-exec
       inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
+
+  xdg.configFile."hyprland-xdg-terminals.list".text = ''
+    com.mitchellh.ghostty.desktop
+  '';
 
   programs = {
     home-manager.enable = true;

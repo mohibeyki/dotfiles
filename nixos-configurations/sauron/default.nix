@@ -48,7 +48,7 @@ in
 
   networking.hostName = "sauron";
 
-  mohi.desktop.mode = "gnome";
+  mohi.desktop.mode = "plasma";
 
   services.flatpak = {
     remotes = [
@@ -61,7 +61,6 @@ in
     packages = [
       "com.bambulab.BambuStudio"
       "com.heroicgameslauncher.hgl"
-      "com.usebottles.bottles"
       "io.github.flattool.Warehouse"
       "net.davidotek.pupgui2"
       "net.lutris.Lutris"

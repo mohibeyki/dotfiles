@@ -21,6 +21,8 @@ in
     playerctl
   ];
 
+  systemd.services.display-manager.path = [ pkgs.uwsm ];
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
@@ -38,7 +40,9 @@ in
           desktopPortalName
         ];
         "org.freedesktop.impl.portal.FileChooser" = [ desktopPortalName ];
+        "org.freedesktop.impl.portal.Inhibit" = [ desktopPortalName ];
         "org.freedesktop.impl.portal.OpenURI" = [ desktopPortalName ];
+        "org.freedesktop.impl.portal.Settings" = [ desktopPortalName ];
       }
       // lib.optionalAttrs (desktopMode == "gnome") {
         "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];

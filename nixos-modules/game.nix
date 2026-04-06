@@ -13,6 +13,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    bottles
     mangohud
     protontricks
   ];

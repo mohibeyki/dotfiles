@@ -41,6 +41,11 @@ in
     icon-theme = iconTheme.name;
   };
 
+  dconf.settings."org/gnome/Console" = {
+    custom-font = "JetBrainsMono Nerd Font 12";
+    use-system-font = false;
+  };
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.bibata-cursors;
@@ -59,19 +64,17 @@ in
       inherit (iconTheme) name package;
     };
 
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-
-    gtk4 = {
-      theme = {
-        inherit (gtkTheme) name package;
-      };
-
-      extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-      };
-    };
+    gtk4 =
+      if desktopMode == "plasma" then
+        {
+          theme = {
+            inherit (gtkTheme) name package;
+          };
+        }
+      else
+        {
+          enable = false;
+        };
 
     font = {
       name = "Noto Sans";

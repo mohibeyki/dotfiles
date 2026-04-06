@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
 {
   programs.zed-editor = {

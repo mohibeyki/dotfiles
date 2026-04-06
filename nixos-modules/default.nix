@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     plymouth = {
       enable = true;
@@ -110,6 +110,7 @@
   programs = {
     fish.enable = true;
     firefox.enable = lib.mkDefault true;
+    nix-ld.enable = true;
     _1password.enable = lib.mkDefault true;
     _1password-gui = lib.mkDefault {
       enable = true;

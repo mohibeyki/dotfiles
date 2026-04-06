@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   overlays ? [ ],
   ...
@@ -42,13 +41,10 @@ in
     ../../nixos-modules/gnome.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
-    ../../nixos-modules/plasma.nix
     ../../nixos-modules/game.nix
   ];
 
   networking.hostName = "sauron";
-
-  mohi.desktop.mode = "plasma";
 
   services.flatpak = {
     remotes = [
@@ -76,7 +72,6 @@ in
     extraSpecialArgs = {
       inherit inputs overlays;
       hostConfig = {
-        desktopMode = config.mohi.desktop.mode;
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"

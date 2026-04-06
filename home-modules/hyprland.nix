@@ -27,8 +27,6 @@ let
 
   workspaces = hostConfig.workspaces or [ ];
 
-  desktopMode = hostConfig.desktopMode or "gnome";
-
   primaryMonitor = hostConfig.primaryMonitor or null;
 in
 {
@@ -161,17 +159,9 @@ in
 
       exec-once = [
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
-        "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
-        "noctalia-shell"
-      ]
-      ++ lib.optionals (desktopMode == "plasma") [
-        "systemctl --user start plasma-kwallet-pam.service"
-      ]
-      ++ lib.optionals (desktopMode == "gnome") [
-        "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --components=secrets"
-      ]
-      ++ [
-        "${pkgs._1password-gui}/bin/1password --silent"
+
+        "${pkgs.noctalia-shell}/bin/noctalia-shell"
+        "${pkgs.blueman}/bin/blueman-applet"
       ]
       ++ lib.optional (
         primaryMonitor != null
@@ -272,7 +262,20 @@ in
     };
   };
 
-  home.packages = with pkgs; [
-    hyprpolkitagent
-  ];
+  systemd.user.services._1password = {
+    Unit = {
+      Description = "1Password";
+      PartOf = [ "hyprland-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
+      Restart = "on-failure";
+      Slice = "app.slice";
+    };
+
+    Install.WantedBy = [ "hyprland-session.target" ];
+  };
+
 }

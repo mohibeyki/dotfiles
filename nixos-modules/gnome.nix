@@ -1,8 +1,5 @@
-{ config, lib, ... }:
-let
-  cfg = config.mohi.desktop;
-in
-lib.mkIf (cfg.mode == "gnome") {
+{ ... }:
+{
   services = {
     desktopManager.gnome.enable = true;
     gnome.gnome-software.enable = true;
@@ -13,8 +10,6 @@ lib.mkIf (cfg.mode == "gnome") {
       core-os-services.enable = true;
       core-shell.enable = true;
     };
-
-    xserver.enable = false;
   };
 
   programs.dconf.enable = true;

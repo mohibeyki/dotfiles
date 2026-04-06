@@ -1,36 +1,18 @@
 {
   pkgs,
   lib,
-  hostConfig,
   ...
 }:
 let
-  desktopMode = hostConfig.desktopMode or "gnome";
+  gtkTheme = {
+    name = "Adwaita-dark";
+    package = pkgs.gnome-themes-extra;
+  };
 
-  # Theme configurations based on desktop mode
-  gtkTheme =
-    if desktopMode == "plasma" then
-      {
-        name = "Breeze-Dark";
-        package = pkgs.kdePackages.breeze-gtk;
-      }
-    else
-      {
-        name = "Adwaita-dark";
-        package = pkgs.gnome-themes-extra;
-      };
-
-  iconTheme =
-    if desktopMode == "plasma" then
-      {
-        name = "breeze-dark";
-        package = pkgs.kdePackages.breeze-icons;
-      }
-    else
-      {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
-      };
+  iconTheme = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+  };
 in
 {
   dconf.settings."org/gnome/desktop/interface" = {
@@ -64,17 +46,7 @@ in
       inherit (iconTheme) name package;
     };
 
-    gtk4 =
-      if desktopMode == "plasma" then
-        {
-          theme = {
-            inherit (gtkTheme) name package;
-          };
-        }
-      else
-        {
-          enable = false;
-        };
+    gtk4.enable = false;
 
     font = {
       name = "Noto Sans";
@@ -82,8 +54,8 @@ in
     };
   };
 
-  # Remove KDE defaults when using GNOME mode to prevent icon theme conflicts
-  home.activation = lib.mkIf (desktopMode == "gnome") {
+  # Remove KDE defaults to prevent icon theme conflicts
+  home.activation = {
     removeKdeDefaults = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if [ -d "$HOME/.config/kdedefaults" ]; then
         $DRY_RUN_CMD rm -rf "$HOME/.config/kdedefaults"

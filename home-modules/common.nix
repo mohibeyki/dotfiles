@@ -1,17 +1,8 @@
 {
-  hostConfig,
   inputs,
-  lib,
   pkgs,
   ...
 }:
-let
-  desktopMode = hostConfig.desktopMode or "gnome";
-  bravePasswordStore = if desktopMode == "plasma" then "kwallet6" else "gnome-libsecret";
-  brave = pkgs.writeShellScriptBin "brave" ''
-    exec ${lib.getExe pkgs.brave} --password-store=${bravePasswordStore} "$@"
-  '';
-in
 {
   home = {
     sessionVariables = {
@@ -19,15 +10,10 @@ in
     };
 
     packages = [
-      brave
       pkgs.xdg-terminal-exec
       inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
-
-  xdg.configFile."hyprland-xdg-terminals.list".text = ''
-    com.mitchellh.ghostty.desktop
-  '';
 
   programs = {
     home-manager.enable = true;
@@ -47,4 +33,9 @@ in
       enableGitIntegration = true;
     };
   };
+
+  xdg.configFile."autostart/blueman.desktop".text = ''
+    [Desktop Entry]
+    Hidden=true
+  '';
 }

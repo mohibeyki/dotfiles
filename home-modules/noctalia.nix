@@ -1,9 +1,13 @@
 {
   config,
+  hostConfig,
   lib,
   pkgs,
   ...
 }:
+let
+  monitorNames = map (monitor: monitor.output) (hostConfig.monitors or [ ]);
+in
 {
   programs.noctalia-shell = {
     enable = true;
@@ -22,19 +26,11 @@
 
       wallpaper = {
         directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-        monitorDirectories =
-          map
-            (name: {
-              inherit name;
-              directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-              wallpaper = "";
-            })
-            [
-              "DP-4"
-              "DP-5"
-              "DP-1"
-              "DP-2"
-            ];
+        monitorDirectories = map (name: {
+          inherit name;
+          directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
+          wallpaper = "";
+        }) monitorNames;
       };
     };
   };

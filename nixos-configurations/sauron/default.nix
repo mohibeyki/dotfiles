@@ -17,7 +17,7 @@ let
 
     side = {
       output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
-      mode = "2560x1440@180";
+      mode = "2560x1440@144";
       position = "-2560x-80";
       scale = 1;
       bitdepth = 10;

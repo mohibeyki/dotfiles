@@ -46,7 +46,7 @@ in
       inherit (iconTheme) name package;
     };
 
-    gtk4.enable = false;
+    gtk4.enable = true;
 
     font = {
       name = "Noto Sans";

@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   services = {
     desktopManager.gnome.enable = true;
     gnome.gnome-software.enable = true;

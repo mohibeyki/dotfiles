@@ -1,6 +1,7 @@
 _: {
   programs.helix = {
     enable = true;
+    # Helix is not the default editor - Neovim (nixvim) is primary
     defaultEditor = false;
 
     settings = {

@@ -15,6 +15,7 @@ in
     package = pkgs.noctalia-shell;
     settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ./noctalia.json)) {
       general = {
+        avatarImage = "${config.home.homeDirectory}/Pictures/face.png";
         lockOnSuspend = true;
       };
 

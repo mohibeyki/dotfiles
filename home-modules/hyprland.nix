@@ -158,10 +158,10 @@ in
       ];
 
       exec-once = [
-        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
+        "dbus-update-activation-environment --systemd --all"
 
-        "${pkgs.noctalia-shell}/bin/noctalia-shell"
-        "${pkgs.blueman}/bin/blueman-applet"
+        "noctalia-shell"
+        "blueman-applet"
       ]
       ++ lib.optional (
         primaryMonitor != null

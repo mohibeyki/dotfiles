@@ -6,6 +6,7 @@
 {
   home = {
     sessionVariables = {
+      # Primary editor: Neovim (via custom nixvim config from github.com/mohibeyki/nixvim)
       EDITOR = "nvim";
     };
 

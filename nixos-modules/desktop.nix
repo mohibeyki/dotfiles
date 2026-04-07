@@ -17,10 +17,6 @@
     };
   };
 
-  security = {
-    polkit.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     bind
     blueman

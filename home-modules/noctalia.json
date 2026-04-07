@@ -186,7 +186,6 @@
     "screenOverrides": []
   },
   "general": {
-    "avatarImage": "/home/mohi/Pictures/face.png",
     "dimmerOpacity": 0.2,
     "showScreenCorners": false,
     "forceBlackScreenCorners": false,

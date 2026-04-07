@@ -7,10 +7,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     ez-configs.url = "github:ehllie/ez-configs";
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # TODO: Enable agenix for secrets management (WiFi passwords, API keys, etc.)
+    # agenix = {
+    #   url = "github:ryantm/agenix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -61,6 +62,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -79,6 +85,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.ez-configs.flakeModule
+        inputs.pre-commit-hooks.flakeModule
       ];
 
       ezConfigs = {
@@ -99,6 +106,16 @@
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [ direnvOverlay ];
+          };
+
+          pre-commit = {
+            check.enable = true;
+            settings = {
+              hooks = {
+                nixfmt.enable = true;
+                statix.enable = true;
+              };
+            };
           };
         };
     };

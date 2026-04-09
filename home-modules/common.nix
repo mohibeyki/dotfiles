@@ -8,6 +8,8 @@
     sessionVariables = {
       # Primary editor: Neovim (via custom nixvim config from github.com/mohibeyki/nixvim)
       EDITOR = "nvim";
+      # Rootless Docker socket location
+      DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
     };
 
     packages = [

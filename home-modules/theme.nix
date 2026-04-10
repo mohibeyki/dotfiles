@@ -16,18 +16,9 @@ in
 {
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
-    cursor-theme = "Vimix-cursors";
     font-name = "Noto Sans 12";
     gtk-theme = gtkTheme.name;
     icon-theme = iconTheme.name;
-    cursor-size = 16;
-  };
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.vimix-cursors;
-    name = "Vimix-cursors";
-    size = 16;
   };
 
   gtk = {

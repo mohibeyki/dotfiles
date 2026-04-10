@@ -44,8 +44,10 @@ in
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "NIXOS_OZONE_WL,1"
         "NVD_BACKEND,direct"
-        "HYPRCURSOR_THEME,Vimix-cursors"
-        "HYPRCURSOR_SIZE,16"
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "HYPRCURSOR_SIZE,24"
+        "XCURSOR_THEME,rose-pine-hyprcursor"
+        "XCURSOR_SIZE,24"
       ];
 
       bind = [
@@ -202,7 +204,6 @@ in
           size = 16;
           passes = 4;
           ignore_opacity = true;
-          new_optimizations = true;
           xray = false;
         };
 
@@ -227,7 +228,6 @@ in
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         font_family = "JetBrainsMono Nerd Font";
-        vrr = 2;
       };
 
       dwindle = {

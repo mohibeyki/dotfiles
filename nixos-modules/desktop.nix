@@ -1,11 +1,11 @@
 {
+  inputs,
   pkgs,
   ...
 }:
 {
   services = {
-    displayManager.cosmic-greeter.enable = true;
-    desktopManager.cosmic.enable = true;
+    displayManager.ly.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
   };
@@ -34,6 +34,7 @@
     killall
     lshw
     mousam
+    nemo
     niv
     p7zip
     streamcontroller
@@ -46,5 +47,6 @@
     wiremix
     wl-clipboard
     zenity
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

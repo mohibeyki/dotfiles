@@ -46,14 +46,6 @@ in
     ];
 
     states = {
-      color-scheme-creator.enable = true;
-      file-search.enable = true;
-      ip-monitor.enable = true;
-      mini-docker.enable = true;
-      parallax-wallpaper.enable = true;
-      polkit-agent.enable = true;
-      screen-recorder.enable = true;
-
       workspace-overview.settings = {
         compositor = "Hyprland";
       };

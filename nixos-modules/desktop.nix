@@ -4,8 +4,8 @@
 }:
 {
   services = {
-    displayManager.gdm.enable = true;
-
+    displayManager.cosmic-greeter.enable = true;
+    desktopManager.cosmic.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
   };
@@ -30,6 +30,7 @@
     glibc
     gparted
     jq
+    kdiskmark
     killall
     lshw
     mousam

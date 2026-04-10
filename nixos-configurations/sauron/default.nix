@@ -38,7 +38,6 @@ in
     ../../nixos-modules/containers.nix
     ../../nixos-modules/default.nix
     ../../nixos-modules/desktop.nix
-    ../../nixos-modules/gnome.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
     ../../nixos-modules/game.nix

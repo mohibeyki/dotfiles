@@ -44,6 +44,8 @@ in
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "NIXOS_OZONE_WL,1"
         "NVD_BACKEND,direct"
+        "HYPRCURSOR_THEME,Vimix-cursors"
+        "HYPRCURSOR_SIZE,16"
       ];
 
       bind = [

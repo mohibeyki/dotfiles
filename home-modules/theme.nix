@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 let
@@ -10,28 +9,24 @@ let
   };
 
   iconTheme = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
+    name = "Tela-dark";
+    package = pkgs.tela-icon-theme;
   };
 in
 {
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
-    cursor-theme = "Bibata-Modern-Classic";
+    cursor-theme = "Vimix-cursors";
     font-name = "Noto Sans 12";
     gtk-theme = gtkTheme.name;
     icon-theme = iconTheme.name;
-  };
-
-  dconf.settings."org/gnome/Console" = {
-    custom-font = "JetBrainsMono Nerd Font 12";
-    use-system-font = false;
+    cursor-size = 16;
   };
 
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
+    package = pkgs.vimix-cursors;
+    name = "Vimix-cursors";
     size = 16;
   };
 
@@ -52,15 +47,5 @@ in
       name = "Noto Sans";
       size = 12;
     };
-  };
-
-  # Remove KDE defaults to prevent icon theme conflicts
-  home.activation = {
-    removeKdeDefaults = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      if [ -d "$HOME/.config/kdedefaults" ]; then
-        $DRY_RUN_CMD rm -rf "$HOME/.config/kdedefaults"
-        $VERBOSE_ECHO "Removed ~/.config/kdedefaults to prevent KDE icon theme override"
-      fi
-    '';
   };
 }

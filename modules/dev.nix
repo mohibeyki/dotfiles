@@ -55,11 +55,16 @@
       zls
 
       # Tools
+      ghostscript
+      imagemagick
       lazygit
+      mermaid-cli
       prettier
       prettierd
       silicon
+      sqlite
       tldr
+      trash-cli
       tree-sitter
       zoxide
     ])

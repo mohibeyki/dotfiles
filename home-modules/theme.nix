@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -11,6 +12,12 @@ let
   iconTheme = {
     name = "Tela-dark";
     package = pkgs.tela-icon-theme;
+  };
+
+  cursorTheme = {
+    name = "rose-pine-hyprcursor";
+    package = inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    size = 24;
   };
 in
 {
@@ -38,5 +45,11 @@ in
       name = "Noto Sans";
       size = 12;
     };
+  };
+
+  home.pointerCursor = {
+    inherit (cursorTheme) name size package;
+    gtk.enable = true;
+    hyprcursor.enable = true;
   };
 }

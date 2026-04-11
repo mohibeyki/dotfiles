@@ -32,7 +32,6 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    # Use system hyprland package
 
     settings = {
       monitorv2 = monitors;
@@ -165,7 +164,7 @@ in
         "dbus-update-activation-environment --systemd --all"
 
         "noctalia-shell"
-        "blueman-applet"
+        "${pkgs._1password-gui}/bin/1password --silent"
       ]
       ++ lib.optional (
         primaryMonitor != null
@@ -244,11 +243,10 @@ in
         "tag +chromium-based-browser, match:class ([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)"
         "tag +firefox-based-browser, match:class ([fF]irefox|zen|librewolf)"
         "tag +terminal, match:class (Alacritty|kitty|com.mitchellh.ghostty)"
-        "tag +floating-window, match:class (blueberry.py|Impala|com.github.tsowell.wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float)"
+        "tag +floating-window, match:class (Impala|com.github.tsowell.wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float)"
         "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus), match:title ^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
         "tile on, match:tag chromium-based-browser"
         "float on, match:title ^(pavucontrol)$"
-        "float on, match:title ^(blueman-manager)$"
         "float on, match:title ^(nm-connection-editor)$"
         "float on, match:title ^(Calculator)$"
         "float on, match:title ^(Picture-in-Picture)$"
@@ -262,22 +260,6 @@ in
         "opacity 1.0 1.0, match:class ^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
       ];
     };
-  };
-
-  systemd.user.services._1password = {
-    Unit = {
-      Description = "1Password";
-      PartOf = [ "hyprland-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
-      Restart = "on-failure";
-      Slice = "app.slice";
-    };
-
-    Install.WantedBy = [ "hyprland-session.target" ];
   };
 
 }

@@ -47,6 +47,24 @@
       # TOML
       taplo
 
+      # TypeScript
+      bun
+      bunx
+      esbuild
+      eslint
+      nodejs
+      pnpm
+      ts-node
+      ts-standard
+      tsup
+      tsx
+      typescript
+      typescript-eslint
+      typescript-language-server
+      vite
+      vitest
+      yarn
+
       # YAML
       yamlfmt
       yamllint
@@ -62,7 +80,6 @@
       prettier
       prettierd
       silicon
-      sqlite
       tldr
       trash-cli
       tree-sitter
@@ -70,8 +87,10 @@
     ])
     ++ (with pkgs.llm-agents; [
       claude-code
-      crush
-      opencode
       codex
+      copilot-cli
+      crush
+      gemini-cli
+      opencode
     ]);
 }

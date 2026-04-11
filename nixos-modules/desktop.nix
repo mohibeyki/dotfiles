@@ -19,7 +19,6 @@
 
   environment.systemPackages = with pkgs; [
     bind
-    blueman
     brave
     cider-2
     compsize

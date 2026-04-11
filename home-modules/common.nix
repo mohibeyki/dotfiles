@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}:
+{ inputs, pkgs, ... }:
 {
   home = {
     sessionVariables = {
@@ -34,11 +30,6 @@
       enableGitIntegration = true;
     };
   };
-
-  xdg.configFile."autostart/blueman.desktop".text = ''
-    [Desktop Entry]
-    Hidden=true
-  '';
 
   xdg.configFile."docker/daemon.json".text = builtins.toJSON {
     dns = [

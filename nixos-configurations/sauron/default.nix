@@ -64,7 +64,6 @@ in
   };
 
   home-manager = {
-    startAsUserService = true;
     useGlobalPkgs = true;
     useUserPackages = true;
 

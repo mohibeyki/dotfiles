@@ -1,10 +1,4 @@
 { lib, pkgs, ... }:
-
-# Module conventions:
-# - Use `lib.mkDefault` for optional features that hosts may want to override
-#   (security services, user preferences, optional hardware)
-# - Use direct assignment for core required services
-#   (desktop environment, audio, essential hardware support)
 {
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
@@ -57,8 +51,6 @@
 
   networking = {
     networkmanager.enable = true;
-    # Firewall disabled: Desktop is not accessible over the internet,
-    # behind NAT/router on trusted local network. Re-enable if exposing services.
     firewall.enable = false;
   };
 
@@ -93,8 +85,6 @@
       enable = true;
       settings = {
         Resolve = {
-          # Local DNS server (Pi-hole/AdGuard) at home - 192.168.1.10
-          # Provides ad-blocking and local DNS resolution
           DNS = [ "192.168.1.10#dns.home.biook.me" ];
           DNSSEC = "allow-downgrade";
           DNSOverTLS = "opportunistic";
@@ -119,7 +109,6 @@
       extraGroups = [
         "networkmanager"
         "wheel"
-        # Note: "docker" group not needed with rootless Docker
       ];
     };
   };

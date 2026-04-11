@@ -25,6 +25,5 @@
 
   environment.systemPackages = with pkgs; [
     nvtopPackages.nvidia
-    (btop.override { cudaSupport = true; })
   ];
 }

@@ -7,13 +7,9 @@ _: {
       theme = "rose_pine_moon";
 
       editor = {
-        auto-completion = true;
-        auto-format = true;
         bufferline = "always";
         color-modes = true;
-        completion-replace = false;
         completion-trigger-len = 2;
-        continue-comments = true;
         cursorline = true;
         end-of-line-diagnostics = "hint";
         idle-timeout = 250;
@@ -95,10 +91,6 @@ _: {
         smart-tab = {
           enable = true;
           supersede-menu = true;
-        };
-
-        soft-wrap = {
-          enable = false;
         };
 
         auto-pairs = {
@@ -217,120 +209,30 @@ _: {
           name = "toml";
           formatter = {
             command = "taplo";
-            args = [
-              "format"
-              "-"
-            ];
+            args = [ "format" "-" ];
           };
-          auto-format = true;
         }
         {
           name = "rust";
-          scope = "source.rust";
-          injection-regex = "rs|rust";
-          file-types = [ "rs" ];
-          roots = [
-            "Cargo.toml"
-            "Cargo.lock"
-          ];
-          auto-format = true;
-          comment-tokens = [
-            "//"
-            "///"
-            "//!"
-          ];
           language-servers = [ "rust-analyzer" ];
-          indent = {
-            tab-width = 4;
-            unit = "    ";
-          };
-          persistent-diagnostic-sources = [
-            "rustc"
-            "clippy"
-          ];
+          persistent-diagnostic-sources = [ "rustc" "clippy" ];
         }
         {
           name = "zig";
-          scope = "source.zig";
-          injection-regex = "zig";
-          file-types = [
-            "zig"
-            "zon"
-          ];
-          roots = [ "build.zig" ];
-          auto-format = true;
-          comment-tokens = [
-            "//"
-            "///"
-            "//!"
-          ];
           language-servers = [ "zls" ];
-          indent = {
-            tab-width = 4;
-            unit = "    ";
-          };
           formatter = {
             command = "zig";
-            args = [
-              "fmt"
-              "--stdin"
-            ];
+            args = [ "fmt" "--stdin" ];
           };
         }
         {
           name = "cpp";
-          scope = "source.cpp";
-          injection-regex = "cpp";
-          file-types = [
-            "cc"
-            "hh"
-            "c++"
-            "cpp"
-            "hpp"
-            "h"
-            "ipp"
-            "tpp"
-            "cxx"
-            "hxx"
-            "ixx"
-            "txx"
-            "ino"
-            "C"
-            "H"
-            "cu"
-            "cuh"
-            "cppm"
-            "h++"
-            "ii"
-            "inl"
-          ];
-          comment-token = "//";
-          block-comment-tokens = {
-            start = "/*";
-            end = "*/";
-          };
           language-servers = [ "clangd" ];
-          indent = {
-            tab-width = 4;
-            unit = "    ";
-          };
           auto-format = true;
         }
         {
           name = "c";
-          scope = "source.c";
-          injection-regex = "c";
-          file-types = [ "c" ];
-          comment-token = "//";
-          block-comment-tokens = {
-            start = "/*";
-            end = "*/";
-          };
           language-servers = [ "clangd" ];
-          indent = {
-            tab-width = 4;
-            unit = "    ";
-          };
           auto-format = true;
         }
       ];

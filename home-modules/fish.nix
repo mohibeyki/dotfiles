@@ -19,6 +19,10 @@
       vi = "nvim";
       vim = "nvim";
       vimdiff = "nvim -d";
+      ls = "eza --icons";
+      ll = "eza -la --icons --git";
+      la = "eza -a --icons";
+      tree = "eza --tree --icons";
     };
   };
 }

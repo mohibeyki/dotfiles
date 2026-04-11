@@ -15,10 +15,7 @@
   programs = {
     home-manager.enable = true;
 
-    man = {
-      enable = true;
-      generateCaches = false;
-    };
+    man.enable = true;
 
     direnv = {
       enable = true;
@@ -28,6 +25,16 @@
     delta = {
       enable = true;
       enableGitIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
     };
   };
 

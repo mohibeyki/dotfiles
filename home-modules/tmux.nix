@@ -2,7 +2,7 @@
 {
   programs.tmux = {
     enable = true;
-    terminal = "ghostty";
+    terminal = "tmux-256color";
     baseIndex = 1;
     escapeTime = 0;
     keyMode = "vi";
@@ -14,18 +14,23 @@
       vim-tmux-navigator
       yank
       {
-        plugin = pkgs.tmuxPlugins.catppuccin;
+        plugin = pkgs.tmuxPlugins.rose-pine;
         extraConfig = ''
-          set -g @catppuccin_flavour "mocha"
-          set -g @catppuccin_window_status_style "rounded"
+          set -g @rose_pine_variant 'moon'
+          set -g @rose_pine_host 'on'
+          set -g @rose_pine_date_time '%H:%M'
+          set -g @rose_pine_directory 'on'
+          set -g @rose_pine_show_current_program 'on'
+          set -g @rose_pine_show_pane_directory 'on'
 
-          # Window status
+          # Status bar sizing
           set -g status-right-length 100
           set -g status-left-length 100
-          set -g status-left ""
-          set -g status-right "#{E:@catppuccin_status_application}"
-          set -ag status-right "#{E:@catppuccin_status_session}"
-          set -ag status-right "#{E:@catppuccin_status_uptime}"
+
+          # Pane borders — inactive: subtle, active: foam (cyan) bold
+          set -g pane-border-style 'fg=#44415a'
+          set -g pane-active-border-style 'fg=#9ccfd8,bold'
+          set -g pane-border-lines heavy
         '';
       }
     ];
@@ -50,7 +55,6 @@
 
       # base 1 indexing
       set -g pane-base-index 1
-      set-window-option -g pane-base-index 1
       set-option -g renumber-windows on
 
       # vi mode settings

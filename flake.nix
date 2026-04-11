@@ -17,7 +17,7 @@
     };
 
     nix-flatpak = {
-      url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
+      url = "github:gmodena/nix-flatpak";
     };
 
     nixvim = {

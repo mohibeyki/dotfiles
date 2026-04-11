@@ -54,14 +54,6 @@
     config.allowUnfree = true;
   };
 
-  programs.direnv = {
-    enable = true;
-    silent = false;
-    loadInNixShell = true;
-    direnvrcExtra = "";
-    nix-direnv.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     btop
     cachix
@@ -69,14 +61,11 @@
     duf
     eza
     fd
-    fzf
-    git
     gnused
     mc
     openssl
     ranger
     ripgrep
-    tmux
     unzip
     wget
     xz

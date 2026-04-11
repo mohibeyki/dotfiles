@@ -34,15 +34,14 @@
     lshw
     mousam
     nemo
-    niv
     p7zip
     streamcontroller
     teamspeak6-client
     telegram-desktop
     transmission_4-gtk
+    grimblast
     wayland-utils
     websocat
-    wget
     wiremix
     wl-clipboard
     zenity

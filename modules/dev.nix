@@ -34,11 +34,13 @@
       statix
 
       # Python
-      black
-      pylint
       pyright
       ruff
       uv
+
+      # Rust (toolchain + LSP via fenix overlay for version coherence)
+      fenix.stable.toolchain
+      fenix.stable.rust-analyzer
 
       # Shell
       shellcheck
@@ -53,15 +55,10 @@
       eslint
       nodejs
       pnpm
-      ts-node
-      ts-standard
-      tsup
       tsx
       typescript
-      typescript-eslint
       typescript-language-server
       vite
-      vitest
       yarn
 
       # YAML

@@ -4,6 +4,10 @@
   ...
 }:
 let
+  sauronOverlays = [
+    (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
+  ];
+
   monitors = {
     main = {
       output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
@@ -45,6 +49,8 @@ in
 
   networking.hostName = "sauron";
 
+  nixpkgs.overlays = sauronOverlays;
+
   services.flatpak = {
     remotes = [
       {
@@ -70,6 +76,8 @@ in
     extraSpecialArgs = {
       inherit inputs overlays;
       hostConfig = {
+        isNvidia = true;
+        gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINXLVyVxRPmymadz+LcJr9aia6IRnvkA1QfkFzdGELjn mohi@sauron";
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"
@@ -98,6 +106,7 @@ in
         ../../home-modules/git.nix
         ../../home-modules/helix.nix
         ../../home-modules/hyprland.nix
+        ../../home-modules/hyprland-rules.nix
         ../../home-modules/noctalia.nix
         ../../home-modules/theme.nix
         ../../home-modules/tmux.nix

@@ -37,17 +37,20 @@ in
       monitorv2 = monitors;
       workspace = workspaces;
 
-      env = [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "NIXOS_OZONE_WL,1"
-        "NVD_BACKEND,direct"
-        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-        "HYPRCURSOR_SIZE,24"
-        "XCURSOR_THEME,rose-pine-hyprcursor"
-        "XCURSOR_SIZE,24"
-      ];
+      env =
+        [
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "NIXOS_OZONE_WL,1"
+          "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+          "HYPRCURSOR_SIZE,24"
+          "XCURSOR_THEME,rose-pine-hyprcursor"
+          "XCURSOR_SIZE,24"
+        ]
+        ++ lib.optionals (hostConfig.isNvidia or false) [
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "NVD_BACKEND,direct"
+        ];
 
       bind = [
         # Noctalia launcher entrypoints.
@@ -70,9 +73,19 @@ in
         "SUPER, T, togglefloating"
         "SUPER, F, fullscreen, 0"
         "SUPER SHIFT, F, fullscreen, 1"
-        "SUPER CTRL SHIFT, Q, exec, hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill"
+        "SUPER CTRL SHIFT, Q, exec, hyprctl -j activewindow | jq '.pid' | xargs kill -9"
         "SUPER SHIFT, D, layoutmsg, swapsplit"
         "SUPER SHIFT, S, layoutmsg, togglesplit"
+
+        # App shortcuts.
+        "SUPER, E, exec, nemo"
+        "SUPER, S, exec, grimblast copy area"
+        ", Print, exec, grimblast save area"
+
+        # Media transport keys (must not repeat on hold).
+        ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
+        ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
+        ", XF86AudioNext, exec, noctalia-shell ipc call media next"
 
         # Focus movement with vim keys and arrows.
         "SUPER, H, movefocus, l"
@@ -144,15 +157,10 @@ in
       ];
 
       bindel = [
-        # Media keys
+        # Volume keys (repeat on hold is desirable).
         ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
         ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
         ", XF86AudioMute, exec, noctalia-shell ipc call volume mute"
-
-        # Requires playerctl
-        ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
-        ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
-        ", XF86AudioNext, exec, noctalia-shell ipc call media next"
       ];
 
       bindm = [
@@ -188,7 +196,6 @@ in
 
         touchpad = {
           natural_scroll = true;
-          scroll_factor = 1.0;
         };
       };
 
@@ -230,35 +237,9 @@ in
       };
 
       dwindle = {
-        pseudotile = false;
         preserve_split = true;
       };
 
-      layerrule = [
-        "blur on, match:namespace logout_dialog"
-        "no_anim on, match:namespace ^(selection)$"
-      ];
-
-      windowrule = [
-        "tag +chromium-based-browser, match:class ([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)"
-        "tag +firefox-based-browser, match:class ([fF]irefox|zen|librewolf)"
-        "tag +terminal, match:class (Alacritty|kitty|com.mitchellh.ghostty)"
-        "tag +floating-window, match:class (Impala|com.github.tsowell.wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float)"
-        "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus), match:title ^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
-        "tile on, match:tag chromium-based-browser"
-        "float on, match:title ^(pavucontrol)$"
-        "float on, match:title ^(nm-connection-editor)$"
-        "float on, match:title ^(Calculator)$"
-        "float on, match:title ^(Picture-in-Picture)$"
-        "pin on, match:title ^(Picture-in-Picture)$"
-        "move 69.5% 4%, match:title ^(Picture-in-Picture)$"
-        "idle_inhibit fullscreen, match:class (.*)"
-        "float on, match:tag floating-window"
-        "center on, match:tag floating-window"
-        "size 800 600, match:tag floating-window"
-        "fullscreen on, match:class Screensaver"
-        "opacity 1.0 1.0, match:class ^(zoom|vlc|mpv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|imv|org.gnome.NautilusPreviewer)$"
-      ];
     };
   };
 

@@ -19,7 +19,9 @@
     useUserPackages = true;
     extraSpecialArgs = {
       inherit inputs overlays;
-      hostConfig = { };
+      hostConfig = {
+        gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWAa0kKyejpLeHARiBUsnJvzgljWIzBJnGm2BcueVWk mohi@legolas";
+      };
     };
 
     users.mohi = {

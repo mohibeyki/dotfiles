@@ -51,11 +51,8 @@ in
       buffer_font_family = "JetBrainsMono Nerd Font";
       auto_update = isDarwin;
       restore_on_startup = "last_session";
-      use_system_prompts = true;
       when_closing_with_no_tabs = "keep_window_open";
       on_last_window_closed = "quit_app";
-      use_system_path_prompts = true;
-      helix_mode = false;
       vim_mode = true;
       base_keymap = "VSCode";
 

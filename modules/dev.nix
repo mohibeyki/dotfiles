@@ -49,7 +49,6 @@
 
       # TypeScript
       bun
-      bunx
       esbuild
       eslint
       nodejs

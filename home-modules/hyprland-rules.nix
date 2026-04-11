@@ -29,7 +29,7 @@
       "tag +quick-access, match:class ^(org.gnome.Calculator)$"
       "tag +quick-access, match:class ^(gparted)$"
       "tag +quick-access, match:class ^(transmission-gtk)$"
-      "tag +quick-access, match:class pavucontrol"
+      "tag +quick-access, match:class ^(org.pulseaudio.pavucontrol)$"
       "tag +quick-access, match:title ^(nm-connection-editor)$"
 
       # Media players — need full opacity (inactive_opacity would wash out video)

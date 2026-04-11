@@ -37,20 +37,17 @@ in
       monitorv2 = monitors;
       workspace = workspaces;
 
-      env =
-        [
-          "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          "NIXOS_OZONE_WL,1"
-          "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-          "HYPRCURSOR_SIZE,24"
-          "XCURSOR_THEME,rose-pine-hyprcursor"
-          "XCURSOR_SIZE,24"
-        ]
-        ++ lib.optionals (hostConfig.isNvidia or false) [
-          "LIBVA_DRIVER_NAME,nvidia"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          "NVD_BACKEND,direct"
-        ];
+      env = [
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "NIXOS_OZONE_WL,1"
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "HYPRCURSOR_SIZE,24"
+      ]
+      ++ lib.optionals (hostConfig.isNvidia or false) [
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "NVD_BACKEND,direct"
+      ];
 
       bind = [
         # Noctalia launcher entrypoints.

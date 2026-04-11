@@ -209,20 +209,29 @@ _: {
           name = "toml";
           formatter = {
             command = "taplo";
-            args = [ "format" "-" ];
+            args = [
+              "format"
+              "-"
+            ];
           };
         }
         {
           name = "rust";
           language-servers = [ "rust-analyzer" ];
-          persistent-diagnostic-sources = [ "rustc" "clippy" ];
+          persistent-diagnostic-sources = [
+            "rustc"
+            "clippy"
+          ];
         }
         {
           name = "zig";
           language-servers = [ "zls" ];
           formatter = {
             command = "zig";
-            args = [ "fmt" "--stdin" ];
+            args = [
+              "fmt"
+              "--stdin"
+            ];
           };
         }
         {

@@ -15,9 +15,14 @@ let
   };
 
   cursorTheme = {
+    name = "BreezeX-RosePine-Linux";
+    package = pkgs.rose-pine-cursor;
+    size = 24;
+  };
+
+  hyprcursorTheme = {
     name = "rose-pine-hyprcursor";
     package = inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    size = 24;
   };
 in
 {
@@ -47,9 +52,11 @@ in
     };
   };
 
+  home.packages = [ hyprcursorTheme.package ];
+
   home.pointerCursor = {
     inherit (cursorTheme) name size package;
     gtk.enable = true;
-    hyprcursor.enable = true;
+    x11.enable = true;
   };
 }

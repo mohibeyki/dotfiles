@@ -166,8 +166,6 @@ in
       ];
 
       exec-once = [
-        "dbus-update-activation-environment --systemd --all"
-
         "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
         "noctalia-shell"
         "${pkgs._1password-gui}/bin/1password --silent"

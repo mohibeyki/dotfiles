@@ -46,8 +46,6 @@ in
 
   networking.hostName = "sauron";
 
-  noctalia.sddm.background = ../../assets/sddm.jpg;
-
   nixpkgs.overlays = sauronOverlays;
 
   services.flatpak = {
@@ -71,6 +69,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "bak";
 
     extraSpecialArgs = {
       inherit inputs;

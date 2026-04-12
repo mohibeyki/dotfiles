@@ -38,7 +38,7 @@ Rectangle {
     readonly property real fontSizeClock: 42 * scaleFactor
 
     // Configurable Background
-    readonly property string backgroundPath: config.background || "Assets/background.jpg"
+    readonly property string backgroundPath: config.background || "Assets/background.png"
 
     // Fonts
     property font fontMain: Qt.font({
@@ -115,91 +115,6 @@ Rectangle {
                 width: 70 * scaleFactor
                 height: 70 * scaleFactor
 
-                property int tryIndex: 0
-
-                property string primaryUser: userModel.lastUser
-                property string currentIcon: ""
-                property string currentHome: ""
-                property string currentRealName: ""
-                property string firstUserName: ""
-
-                // Data Extractor
-                Repeater {
-                    model: userModel
-                    delegate: Item {
-                        visible: false
-
-                        // Capture first user name as fallback
-                        Binding {
-                            target: avatarRect
-                            property: "firstUserName"
-                            value: model.name
-                            when: index === 0
-                        }
-
-                        // Capture details if this matches primaryUser
-                        Binding {
-                            target: avatarRect
-                            property: "currentIcon"
-                            value: model.icon
-                            when: model.name === avatarRect.displayUser
-                        }
-                        Binding {
-                            target: avatarRect
-                            property: "currentHome"
-                            value: model.homeDir
-                            when: model.name === avatarRect.displayUser
-                        }
-                         Binding {
-                            target: avatarRect
-                            property: "currentRealName"
-                            value: model.realName
-                            when: model.name === avatarRect.displayUser
-                        }
-                    }
-                }
-
-                // Computed property for whom we are showing
-                property string displayUser: primaryUser !== "" ? primaryUser : firstUserName
-                property string displayName: currentRealName !== "" ? currentRealName : (displayUser !== "" ? displayUser : "User")
-
-                // Reset try index when user changes
-                onDisplayUserChanged: {
-                    tryIndex = 0
-                }
-
-                // Get list of icon paths to try
-                property var iconPaths: {
-                    var paths = []
-                    var u = displayUser
-
-                    if (u) {
-                        // 1. Try path from userModel (if any)
-                        if (currentIcon && currentIcon !== "") {
-                            var p = currentIcon
-                            if (p.indexOf("://") === -1 && p.charAt(0) === '/')
-                                p = "file://" + p
-                            paths.push(p)
-                        }
-
-                        // 2. Try home directory faces
-                        if (currentHome) {
-                            paths.push("file://" + currentHome + "/.face.icon")
-                            paths.push("file://" + currentHome + "/.face")
-                        }
-
-                        // 3. System paths
-                        paths.push("file:///usr/share/sddm/faces/" + u + ".face.icon")
-                        paths.push("file:///var/lib/AccountsService/icons/" + u)
-                    }
-
-                    // 4. Default fallback
-                    paths.push("file:///usr/share/sddm/faces/.face.icon")
-
-                    return paths
-                }
-
-                // Circular mask for perfect circle
                 Rectangle {
                     id: avatarMask
                     anchors.fill: parent
@@ -207,35 +122,20 @@ Rectangle {
                     visible: false
                 }
 
-                // User avatar image (circular)
                 Image {
-                    id: userAvatar
                     anchors.fill: parent
-                    source: {
-                        if (parent.iconPaths.length === 0) return ""
-                        var idx = Math.min(parent.tryIndex, parent.iconPaths.length - 1)
-                        return parent.iconPaths[idx]
-                    }
+                    source: Qt.resolvedUrl("Assets/face.png")
                     sourceSize: Qt.size(70 * scaleFactor, 70 * scaleFactor)
                     fillMode: Image.PreserveAspectCrop
                     smooth: true
-                    visible: status === Image.Ready
                     asynchronous: true
 
                     layer.enabled: true
                     layer.effect: OpacityMask {
                         maskSource: avatarMask
                     }
-
-                    // Try next path if current one fails
-                    onStatusChanged: {
-                        if (status === Image.Error && parent.tryIndex < parent.iconPaths.length - 1) {
-                            parent.tryIndex++
-                        }
-                    }
                 }
 
-                // Circular border
                 Rectangle {
                     anchors.fill: parent
                     radius: width / 2
@@ -251,7 +151,7 @@ Rectangle {
                 spacing: 2 * scaleFactor
 
                 Text {
-                    text: "Welcome back, " + avatarRect.displayName + "!"
+                    text: "Welcome back, Mohi"
                     font.pixelSize: root.fontSizeXXL
                     font.bold: true
                     color: root.mOnSurface
@@ -324,10 +224,10 @@ Rectangle {
 
                         focus: true
 
-                        onAccepted: sddm.login(userModel.lastUser, passwordBox.text, sessionModel.lastIndex)
+                        onAccepted: sddm.login(userModel.lastUser, passwordBox.text, sessionList.currentIndex)
                         Keys.onPressed: {
                             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                sddm.login(userModel.lastUser, passwordBox.text, sessionModel.lastIndex)
+                                sddm.login(userModel.lastUser, passwordBox.text, sessionList.currentIndex)
                                 event.accepted = true
                             }
                         }
@@ -363,7 +263,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                     }
 
-                    onClicked: sddm.login(userModel.lastUser, passwordBox.text, sessionModel.lastIndex)
+                    onClicked: sddm.login(userModel.lastUser, passwordBox.text, sessionList.currentIndex)
                 }
             }
 
@@ -491,7 +391,7 @@ Rectangle {
         Text {
             id: errorMessage
             anchors.centerIn: parent
-            text: ""
+            text: "" // Set by signal
             color: "#1e1418" // mOnError
             font.pixelSize: root.fontSizeM
             font.bold: true

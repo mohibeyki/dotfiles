@@ -16,7 +16,7 @@ let
     License=MIT
     Type=greeter
     Version=1.0
-    MainScript=sddm.qml
+    MainScript=Main.qml
     ConfigFile=theme.conf
     Theme-Id=noctalia
     Theme-API=2.0
@@ -48,7 +48,7 @@ let
 
   theme = pkgs.linkFarm "sddm-noctalia" [
     {
-      name = "share/sddm/themes/noctalia/sddm.qml";
+      name = "share/sddm/themes/noctalia/Main.qml";
       path = ./sddm.qml;
     }
     {
@@ -61,17 +61,16 @@ let
     }
     {
       name = "share/sddm/themes/noctalia/Assets/background.jpg";
-      path = cfg.background;
+      path = ../assets/sddm.jpg;
+    }
+    {
+      name = "share/sddm/themes/noctalia/Assets/face.png";
+      path = ../assets/face.png;
     }
   ];
 in
 {
   options.noctalia.sddm = {
-    background = lib.mkOption {
-      type = lib.types.path;
-      description = "Path to the background image";
-    };
-
     blurRadius = lib.mkOption {
       type = lib.types.int;
       default = 0;
@@ -81,77 +80,73 @@ in
     colors = {
       primary = lib.mkOption {
         type = lib.types.str;
-        default = "#c7a1d8";
+        default = "#c4a7e7";
       };
       onPrimary = lib.mkOption {
         type = lib.types.str;
-        default = "#1a151f";
+        default = "#232136";
       };
       secondary = lib.mkOption {
         type = lib.types.str;
-        default = "#a984c4";
+        default = "#56526e";
       };
       onSecondary = lib.mkOption {
         type = lib.types.str;
-        default = "#f3edf7";
+        default = "#e0def4";
       };
       tertiary = lib.mkOption {
         type = lib.types.str;
-        default = "#e0b7c9";
+        default = "#ea9a97";
       };
       onTertiary = lib.mkOption {
         type = lib.types.str;
-        default = "#20161f";
+        default = "#232136";
       };
       error = lib.mkOption {
         type = lib.types.str;
-        default = "#e9899d";
+        default = "#eb6f92";
       };
       onError = lib.mkOption {
         type = lib.types.str;
-        default = "#1e1418";
+        default = "#232136";
       };
       surface = lib.mkOption {
         type = lib.types.str;
-        default = "#1c1822";
+        default = "#232136";
       };
       onSurface = lib.mkOption {
         type = lib.types.str;
-        default = "#e9e4f0";
+        default = "#e0def4";
       };
       surfaceVariant = lib.mkOption {
         type = lib.types.str;
-        default = "#262130";
+        default = "#2a273f";
       };
       onSurfaceVariant = lib.mkOption {
         type = lib.types.str;
-        default = "#a79ab0";
+        default = "#908caa";
       };
       outline = lib.mkOption {
         type = lib.types.str;
-        default = "#342c42";
+        default = "#393552";
       };
       shadow = lib.mkOption {
         type = lib.types.str;
-        default = "#120f18";
+        default = "#232136";
       };
       hover = lib.mkOption {
         type = lib.types.str;
-        default = "#e0b7c9";
+        default = "#44415a";
       };
       onHover = lib.mkOption {
         type = lib.types.str;
-        default = "#20161f";
+        default = "#e0def4";
       };
     };
   };
 
   config = {
-    services.displayManager.sddm = {
-      theme = "noctalia";
-      extraPackages = [ pkgs.kdePackages.qt5compat ];
-    };
-
+    services.displayManager.sddm.extraPackages = [ pkgs.kdePackages.qt5compat ];
     environment.systemPackages = [ theme ];
   };
 }

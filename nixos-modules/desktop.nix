@@ -1,9 +1,13 @@
 { pkgs, ... }:
 {
   services = {
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
+    displayManager = {
+      defaultSession = "hyprland-uwsm";
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "noctalia";
+      };
     };
 
     desktopManager.plasma6.enable = true;

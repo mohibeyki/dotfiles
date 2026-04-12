@@ -29,6 +29,9 @@ in
   gtk = {
     enable = true;
 
+    # Override existing config files
+    gtk2.force = true;
+
     theme = {
       inherit (gtkTheme) name package;
     };

@@ -58,7 +58,6 @@
       tsx
       typescript
       typescript-language-server
-      vite
       yarn
 
       # YAML

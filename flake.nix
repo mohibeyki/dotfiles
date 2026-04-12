@@ -70,12 +70,23 @@
         inputs.pre-commit-hooks.flakeModule
       ];
 
-      ezConfigs = {
-        root = ./.;
-        nixos.specialArgs = { inherit inputs; };
-        darwin.specialArgs = { inherit inputs; };
-        home.extraSpecialArgs = { inherit inputs; };
-      };
+      ezConfigs =
+        let
+          overlays = [
+            inputs.fenix.overlays.default
+            inputs.llm-agents.overlays.default
+          ];
+        in
+        {
+          root = ./.;
+          nixos.specialArgs = {
+            inherit inputs overlays;
+          };
+          darwin.specialArgs = {
+            inherit inputs overlays;
+          };
+          home.extraSpecialArgs = { inherit inputs; };
+        };
 
       systems = [
         "x86_64-linux"

@@ -1,8 +1,4 @@
-{
-  inputs,
-  overlays ? [ ],
-  ...
-}:
+{ inputs, overlays, ... }:
 let
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
@@ -49,7 +45,7 @@ in
 
   networking.hostName = "sauron";
 
-  nixpkgs.overlays = sauronOverlays;
+  nixpkgs.overlays = sauronOverlays ++ overlays;
 
   services.flatpak = {
     remotes = [

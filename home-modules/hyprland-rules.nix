@@ -17,7 +17,7 @@
       "tag +game, match:initial_class ^(steam_app_.*)$"
 
       # Game launchers — Steam main window, Heroic, Lutris, Cartridges, Bottles
-      "tag +game-launcher, match:class ^(steam)$, match:title ^(Steam)$"
+      "tag +game-launcher, match:class ^(steam)$"
       "tag +game-launcher, match:class ^(com.heroicgameslauncher.hgl)$"
       "tag +game-launcher, match:class ^(net.lutris.Lutris)$"
       "tag +game-launcher, match:class ^(page.kramo.Cartridges)$"

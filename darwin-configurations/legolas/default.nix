@@ -1,8 +1,4 @@
-{
-  inputs,
-  overlays ? [ ],
-  ...
-}:
+{ inputs, overlays, ... }:
 {
   imports = [
     ../../darwin-modules/default.nix
@@ -10,7 +6,11 @@
 
   networking.hostName = "legolas";
   system.stateVersion = 6;
-  nixpkgs.hostPlatform = "aarch64-darwin";
+
+  nixpkgs = {
+    hostPlatform = "aarch64-darwin";
+    inherit overlays;
+  };
 
   security.pam.services.sudo_local.touchIdAuth = true;
 

@@ -124,7 +124,7 @@ Rectangle {
 
                 Image {
                     anchors.fill: parent
-                    source: Qt.resolvedUrl("Assets/face.png")
+                    source: "Assets/face.png"
                     sourceSize: Qt.size(70 * scaleFactor, 70 * scaleFactor)
                     fillMode: Image.PreserveAspectCrop
                     smooth: true

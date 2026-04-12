@@ -133,10 +133,10 @@ keybinds clear-defaults=true {
         bind "Ctrl a" { SwitchToMode "tmux"; }
         bind "F12"    { SwitchToMode "locked"; }
         bind "Ctrl q" { Quit; }
-        bind "Ctrl h" { MoveFocus "left";  SwitchToMode "Normal"; }
-        bind "Ctrl j" { MoveFocus "down";  SwitchToMode "Normal"; }
-        bind "Ctrl k" { MoveFocus "up";    SwitchToMode "Normal"; }
-        bind "Ctrl l" { MoveFocus "right"; SwitchToMode "Normal"; }
+        bind "Ctrl h" { MoveFocus "left";  SwitchToMode "normal"; }
+        bind "Ctrl j" { MoveFocus "down";  SwitchToMode "normal"; }
+        bind "Ctrl k" { MoveFocus "up";    SwitchToMode "normal"; }
+        bind "Ctrl l" { MoveFocus "right"; SwitchToMode "normal"; }
         bind "Alt h"  { GoToPreviousTab; }
         bind "Alt l"  { GoToNextTab; }
     }
@@ -146,20 +146,26 @@ keybinds clear-defaults=true {
         bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
         bind "d"      { Detach; }
         bind "s"      { SwitchToMode "search"; }
-        bind "r"      { ReloadConfig; SwitchToMode "normal"; }
+        bind "r" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "normal";
+        }
 
         // Resize Panes
         bind "h"  { Resize  "Increase Left"; }
         bind "j"  { Resize  "Increase Down"; }
         bind "k"  { Resize  "Increase Up"; }
-        bind "l"  { Resize  "Increase right"; }
+        bind "l"  { Resize  "Increase Right"; }
 
         // New Panes
-        bind "-"  { NewPane "down";  SwitchToMode "normal"; }
-        bind "\\" { NewPane "right"; SwitchToMode "normal"; }
+        bind "-"  { NewPane "Down";  SwitchToMode "normal"; }
+        bind "\\" { NewPane "Right"; SwitchToMode "normal"; }
 
         // New floating pane
-        bind "n"      { NewFloatingPane; SwitchToMode "normal"; }
+        bind "n"      { ToggleFloatingPanes; NewPane; ToggleFloatingPanes; SwitchToMode "normal"; }
 
         // Toggle floating pane
         bind "p"      { ToggleFloatingPanes; SwitchToMode "normal"; }

@@ -1,4 +1,4 @@
-{ inputs, overlays, ... }:
+{ inputs, ... }:
 {
   imports = [
     ../../darwin-modules/default.nix
@@ -7,10 +7,7 @@
   networking.hostName = "legolas";
   system.stateVersion = 6;
 
-  nixpkgs = {
-    hostPlatform = "aarch64-darwin";
-    inherit overlays;
-  };
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
@@ -18,7 +15,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      inherit inputs overlays;
+      inherit inputs;
       hostConfig = {
         gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWAa0kKyejpLeHARiBUsnJvzgljWIzBJnGm2BcueVWk mohi@legolas";
       };

@@ -75,7 +75,7 @@ in
         "SUPER SHIFT, S, layoutmsg, togglesplit"
 
         # App shortcuts.
-        "SUPER, E, exec, nemo"
+        "SUPER, E, exec, dolphin"
         "SUPER, S, exec, grimblast copy area"
         ", Print, exec, grimblast save area"
 
@@ -168,6 +168,7 @@ in
       exec-once = [
         "dbus-update-activation-environment --systemd --all"
 
+        "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
         "noctalia-shell"
         "${pkgs._1password-gui}/bin/1password --silent"
       ]

@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  overlays ? [ ],
   ...
 }:
 {
@@ -11,7 +10,13 @@
     ../modules/shared.nix
   ];
 
-  nixpkgs.overlays = overlays;
+  nix.gc.interval = [
+    {
+      Weekday = 7;
+      Hour = 3;
+      Minute = 15;
+    }
+  ];
 
   programs.fish.enable = true;
 

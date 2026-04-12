@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 {
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
@@ -24,6 +28,15 @@
       "systemd.show_status=false"
       "rd.udev.log_level=3"
       "udev.log_priority=3"
+    ];
+  };
+
+  nix.gc.dates = "weekly";
+
+  nix.settings = {
+    extra-substituters = [ "https://hyprland.cachix.org" ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 

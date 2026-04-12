@@ -26,18 +26,18 @@
       # Quick-access utilities — password manager, audio, networking, system tools
       "tag +quick-access, match:class ^(1password)$"
       "tag +quick-access, match:class ^(com.github.tsowell.wiremix)$"
-      "tag +quick-access, match:class ^(org.gnome.Calculator)$"
+      "tag +quick-access, match:class ^(org.kde.kcalc)$"
       "tag +quick-access, match:class ^(gparted)$"
       "tag +quick-access, match:class ^(transmission-gtk)$"
       "tag +quick-access, match:class ^(org.pulseaudio.pavucontrol)$"
       "tag +quick-access, match:title ^(nm-connection-editor)$"
 
       # Media players — need full opacity (inactive_opacity would wash out video)
-      "tag +media-player, match:class ^(vlc|mpv|imv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|org.gnome.NautilusPreviewer|zoom)$"
+      "tag +media-player, match:class ^(vlc|mpv|imv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|zoom)$"
 
       # Generic floating windows — dialogs, file pickers, misc popups
       "tag +floating-window, match:class (Impala|com.gabm.satty|Omarchy|About|TUI.float)"
-      "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus), match:title ^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
+      "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors), match:title ^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
 
       # ── Rules by tag ────────────────────────────────────────────────────────
 

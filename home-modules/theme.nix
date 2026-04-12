@@ -26,13 +26,6 @@ let
   };
 in
 {
-  dconf.settings."org/gnome/desktop/interface" = {
-    color-scheme = "prefer-dark";
-    font-name = "Noto Sans 12";
-    gtk-theme = gtkTheme.name;
-    icon-theme = iconTheme.name;
-  };
-
   gtk = {
     enable = true;
 

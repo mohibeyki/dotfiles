@@ -1,4 +1,4 @@
-{ inputs, overlays, ... }:
+{ inputs, ... }:
 let
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
@@ -38,6 +38,7 @@ in
     ../../nixos-modules/containers.nix
     ../../nixos-modules/default.nix
     ../../nixos-modules/desktop.nix
+    ../../nixos-modules/sddm.nix
     ../../nixos-modules/hyprland.nix
     ../../nixos-modules/nvidia.nix
     ../../nixos-modules/game.nix
@@ -45,7 +46,9 @@ in
 
   networking.hostName = "sauron";
 
-  nixpkgs.overlays = sauronOverlays ++ overlays;
+  noctalia.sddm.background = ../../assets/sddm.jpg;
+
+  nixpkgs.overlays = sauronOverlays;
 
   services.flatpak = {
     remotes = [
@@ -70,7 +73,7 @@ in
     useUserPackages = true;
 
     extraSpecialArgs = {
-      inherit inputs overlays;
+      inherit inputs;
       hostConfig = {
         isNvidia = true;
         gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINXLVyVxRPmymadz+LcJr9aia6IRnvkA1QfkFzdGELjn mohi@sauron";
@@ -97,6 +100,7 @@ in
         ../../home-configurations/mohi
 
         ../../home-modules/common.nix
+        ../../home-modules/docker.nix
         ../../home-modules/fish.nix
         ../../home-modules/ghostty.nix
         ../../home-modules/git.nix

@@ -39,16 +39,16 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 │   ├── containers.nix                     # Podman/Docker containers
 │   └── secureboot.nix                     # Secure boot signing
 ├── home-modules/                          # Home Manager modules (per-user config)
-│   ├── common.nix                         # Docker daemon.json, session variables
+│   ├── common.nix                         # nixvim, xdg-terminal-exec, session variables
 │   ├── hyprland.nix                       # Hyprland WM: keybinds, env vars, exec-once, settings
 │   ├── hyprland-rules.nix                  # Hyprland window rules and layer rules
 │   ├── theme.nix                          # GTK/icon/cursor theming + rose-pine-hyprcursor
 │   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
 │   ├── git.nix                            # Git config
-│   ├── dev.nix (→ modules/dev.nix)       # Dev tools symlinked to nixos-modules
 │   ├── noctalia.nix                       # Noctalia app config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
-│   └── noctalia.json                      # Noctalia launcher data
+│   ├── docker.nix                         # Docker daemon config
+│   └── zellij.kdl                         # Zellij layout/UI config
 ├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
 │   ├── default.nix                        # Host imports + NixOS/HM module list
 │   └── hardware.nix                       # Hardware config from nixos-generate-config
@@ -89,7 +89,8 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 - `hyprland.nix` uses `hostConfig.monitors`, `hostConfig.workspaces`, `hostConfig.primaryMonitor`, `hostConfig.isNvidia`
 - `hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no special args
 - `theme.nix` uses `inputs.rose-pine-hyprcursor` directly
-- `dev.nix` does NOT exist as a home module; dev tools are in `modules/dev.nix` (NixOS-only system packages)
+- `common.nix` uses `inputs.nixvim` directly for the nixvim package
+- **`dev.nix` does NOT exist as a home module**; dev tools live in `modules/dev.nix` (NixOS-only system packages)
 
 ### Hyprland Window Rules Pattern
 Rules in `hyprland-rules.nix` follow a two-phase pattern:
@@ -135,14 +136,14 @@ Configured in `flake.nix` per-system:
 - `nixfmt` — formats `.nix` files
 - `statix` — static analysis for Nix (must be installed in PATH)
 
-Run manually: `nix run .#pre-commit-check`
+Run manually:
+- Linux: `nix build .#checks.x86_64-linux.pre-commit --no-link`
+- Darwin: `nix build .#checks.aarch64-darwin.pre-commit --no-link`
 
 ## Gotchas
 
 - **Home Manager is NOT a user service** — changes only apply after `nixos-rebuild switch`. Do not expect `home-manager` commands to work interactively.
 - **`hostConfig` must be passed through** — home modules that need monitor/workspace data receive it via `extraSpecialArgs.hostConfig`. If a module doesn't receive it, check the host's `home-manager.users.mohi.imports`.
-- **Hyprland `initial_class` field** — Hyprland renamed `initial_class` to `initialClass` in recent versions. If `hyprland-rules.nix` line 17 causes errors, use `initialClass` instead.
-- **`suppress_event` syntax** — Hyprland changed `suppress_event windowclose` to `suppressevent windowclose` (no underscore, camelCase). Check `hyprland-rules.nix` line 88 if errors occur.
 - **Darwin has no Hyprland** — only import Hyprland-related modules on NixOS hosts.
 - **`dev.nix` is system-only** — dev tools live in `modules/dev.nix` (NixOS system packages), not as a home module.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
@@ -159,7 +160,7 @@ Run manually: `nix run .#pre-commit-check`
 | `flake-parts` | Flake module system |
 | `ez-configs` | Declarative host/home config |
 | `fenix` | Rust toolchain via overlay |
-| `nixvim` | NixVim (fork) |
+| `nixvim` | NixVim (fork) — used in `common.nix` |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `llm-agents.nix` | LLM CLI tools (claude-code, copilot-cli, etc.) |
 | `noctalia-qs` / `noctalia-shell` | Noctalia app |
@@ -179,3 +180,7 @@ Run manually: `nix run .#pre-commit-check`
 - **NixOS system package**: add to `nixos-modules/default.nix` or `modules/dev.nix` (if dev tool)
 - **Darwin system package**: add to `darwin-modules/default.nix`
 - **User package**: add to appropriate `home-modules/<name>.nix` under `home.packages`
+
+## Known Issues / Pending
+
+- **`hyprland-rules.nix`** (lines 17, 88): `initialClass` and `suppress_event` fields may be invalid — user needs to verify against Hyprland documentation and decide whether to remove or fix

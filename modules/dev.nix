@@ -6,7 +6,7 @@
       clang
       clang-tools
       cmake
-      gdb
+      lldb
       gnumake
       cpplint
 
@@ -16,6 +16,9 @@
       golangci-lint
       gopls
       gotools
+
+      # JSON / HTML / CSS
+      vscode-langservers-extracted
 
       # Lua
       lua-language-server
@@ -61,6 +64,7 @@
       yarn
 
       # YAML
+      yaml-language-server
       yamlfmt
       yamllint
 
@@ -68,6 +72,7 @@
       zls
 
       # Tools
+      cachix
       ghostscript
       imagemagick
       lazygit
@@ -84,7 +89,6 @@
       claude-code
       codex
       copilot-cli
-      crush
       gemini-cli
       opencode
     ]);

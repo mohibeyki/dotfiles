@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
@@ -144,7 +148,7 @@ in
           language_servers = [ "clangd" ];
         };
 
-        zig = {
+        Zig = {
           language_servers = [ "zls" ];
           formatter = {
             external = {

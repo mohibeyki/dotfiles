@@ -1,15 +1,18 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 {
   home = {
     sessionVariables = {
       EDITOR = "nvim";
-      DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
     };
 
     packages = [
-      pkgs.xdg-terminal-exec
       inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+    ]
+    ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.xdg-terminal-exec ];
   };
 
   programs = {
@@ -41,11 +44,4 @@
     };
   };
 
-  xdg.configFile."docker/daemon.json".text = builtins.toJSON {
-    dns = [
-      "192.168.1.10"
-      "1.1.1.1"
-      "8.8.8.8"
-    ];
-  };
 }

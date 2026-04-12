@@ -6,6 +6,7 @@
 {
   environment.systemPackages = with pkgs; [
     cliphist
+    grimblast
     pavucontrol
     playerctl
   ];
@@ -14,26 +15,21 @@
 
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true;
-
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-    ];
-
     config = {
       hyprland = {
         default = [
           "hyprland"
-          "gtk"
+          "kde"
         ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.Inhibit" = [ "gtk" ];
-        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
-        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        "org.freedesktop.impl.portal.Inhibit" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.OpenURI" = [ "kde" ];
+        "org.freedesktop.impl.portal.Settings" = [ "kde" ];
+        "org.freedesktop.impl.portal.Secret" = [ "kde" ];
       };
     };
+
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
   };
 
   programs.hyprland = {

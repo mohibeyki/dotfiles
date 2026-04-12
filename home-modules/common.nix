@@ -15,7 +15,10 @@
   programs = {
     home-manager.enable = true;
 
-    man.enable = true;
+    man = {
+      enable = true;
+      package = pkgs.man;
+    };
 
     direnv = {
       enable = true;

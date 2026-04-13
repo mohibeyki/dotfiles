@@ -19,7 +19,6 @@
       shell-integration = "fish";
       shell-integration-features = "cursor,sudo,title";
       theme = "Rose Pine Moon";
-      window-decoration = false;
       window-padding-balance = true;
     };
   };

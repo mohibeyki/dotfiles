@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
@@ -6,12 +8,7 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
-    daemon.settings = {
-      dns = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-    };
+    daemon.settings.dns = lib.mkDefault config.networking.nameservers;
   };
 
   environment.systemPackages = with pkgs; [

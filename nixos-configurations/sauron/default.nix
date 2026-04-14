@@ -1,6 +1,5 @@
 {
   inputs,
-  lib,
   ...
 }:
 let
@@ -55,9 +54,9 @@ in
   ];
 
   networking.hostName = "sauron";
+  networking.nameservers = dns;
 
   services.resolved.settings.Resolve.DNS = [ "${builtins.head dns}#dns.home.biook.me" ];
-  virtualisation.docker.rootless.daemon.settings.dns = lib.mkForce dns;
 
   nixpkgs.overlays = sauronOverlays;
 

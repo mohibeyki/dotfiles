@@ -64,29 +64,28 @@
 
   outputs =
     inputs:
+    let
+      overlays = [
+        inputs.fenix.overlays.default
+        inputs.llm-agents.overlays.default
+      ];
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.ez-configs.flakeModule
         inputs.pre-commit-hooks.flakeModule
       ];
 
-      ezConfigs =
-        let
-          overlays = [
-            inputs.fenix.overlays.default
-            inputs.llm-agents.overlays.default
-          ];
-        in
-        {
-          root = ./.;
-          nixos.specialArgs = {
-            inherit inputs overlays;
-          };
-          darwin.specialArgs = {
-            inherit inputs overlays;
-          };
-          home.extraSpecialArgs = { inherit inputs; };
+      ezConfigs = {
+        root = ./.;
+        nixos.specialArgs = {
+          inherit inputs overlays;
         };
+        darwin.specialArgs = {
+          inherit inputs overlays;
+        };
+        home.extraSpecialArgs = { inherit inputs overlays; };
+      };
 
       systems = [
         "x86_64-linux"
@@ -97,7 +96,7 @@
         { system, ... }:
         {
           _module.args.pkgs = import inputs.nixpkgs {
-            inherit system;
+            inherit system overlays;
           };
 
           pre-commit = {

@@ -38,7 +38,7 @@ Rectangle {
     readonly property real fontSizeClock: 42 * scaleFactor
 
     // Configurable Background
-    readonly property string backgroundPath: config.background || "Assets/background.png"
+    readonly property string backgroundPath: config.background || "Assets/background.jpg"
 
     // Fonts
     property font fontMain: Qt.font({

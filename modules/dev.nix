@@ -37,6 +37,7 @@
       nix-output-monitor
       nixd
       nixfmt
+      nixfmt-tree
       statix
 
       # Python
@@ -92,6 +93,7 @@
       claude-code
       codex
       copilot-cli
+      crush
       gemini-cli
       opencode
     ]);

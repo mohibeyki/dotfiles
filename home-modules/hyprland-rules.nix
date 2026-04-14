@@ -1,4 +1,4 @@
-{
+_: {
   wayland.windowManager.hyprland.settings = {
     layerrule = [
       "blur on, match:namespace logout_dialog"

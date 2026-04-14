@@ -15,7 +15,7 @@ let
         scale
         bitdepth
         ;
-      vrr = monitor.vrr;
+      inherit (monitor) vrr;
     }
     // lib.optionalAttrs (monitor ? cm) {
       inherit (monitor) cm;

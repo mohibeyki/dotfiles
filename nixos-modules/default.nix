@@ -98,7 +98,6 @@
       enable = true;
       settings = {
         Resolve = {
-          DNS = [ "192.168.1.10#dns.home.biook.me" ];
           DNSSEC = "allow-downgrade";
           DNSOverTLS = "opportunistic";
           Domains = [ "~." ];

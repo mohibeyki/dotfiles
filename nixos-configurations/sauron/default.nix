@@ -1,5 +1,11 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 let
+  dns = [
+    "192.168.1.10"
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
+
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
   ];
@@ -11,7 +17,7 @@ let
       position = "0x0";
       scale = 1;
       bitdepth = 10;
-      vrr = true;
+      vrr = 2;
       cm = "srgb";
     };
 
@@ -21,7 +27,7 @@ let
       position = "-2560x-80";
       scale = 1;
       bitdepth = 10;
-      vrr = true;
+      vrr = 0;
       cm = "srgb";
     };
   };
@@ -45,6 +51,9 @@ in
   ];
 
   networking.hostName = "sauron";
+
+  services.resolved.settings.Resolve.DNS = [ "${builtins.head dns}#dns.home.biook.me" ];
+  virtualisation.docker.rootless.daemon.settings.dns = lib.mkForce dns;
 
   nixpkgs.overlays = sauronOverlays;
 
@@ -99,7 +108,6 @@ in
         ../../home-configurations/mohi
 
         ../../home-modules/common.nix
-        ../../home-modules/docker.nix
         ../../home-modules/fish.nix
         ../../home-modules/ghostty.nix
         ../../home-modules/git.nix

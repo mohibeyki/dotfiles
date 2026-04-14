@@ -146,7 +146,12 @@ in
   };
 
   config = {
-    services.displayManager.sddm.extraPackages = [ pkgs.kdePackages.qt5compat ];
+    services.displayManager.sddm.extraPackages = with pkgs; [
+      kdePackages.qt5compat
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+    ];
     environment.systemPackages = [ theme ];
   };
 }

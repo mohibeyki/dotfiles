@@ -4,6 +4,15 @@
   ...
 }:
 {
+  home.sessionVariables = {
+    SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
+  };
+
+  home.file.".ssh/allowed_signers".text =
+    builtins.concatStringsSep "\n" (
+      map (key: "mohibeyki@gmail.com ${key}") hostConfig.gitAllowedSigners
+    ) + "\n";
+
   programs.git = {
     enable = true;
     ignores = [ ".DS_Store" ];
@@ -27,6 +36,7 @@
       push.autoSetupRemote = true;
 
       gpg.format = "ssh";
+      "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
       "gpg \"ssh\"".program =
         if pkgs.stdenv.isDarwin then
           "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"

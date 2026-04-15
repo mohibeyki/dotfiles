@@ -3,6 +3,8 @@
   ...
 }:
 let
+  keys = import ../../modules/keys.nix;
+
   dns = [
     "192.168.1.10"
     "1.1.1.1"
@@ -87,7 +89,8 @@ in
       inherit inputs;
       hostConfig = {
         isNvidia = true;
-        gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINXLVyVxRPmymadz+LcJr9aia6IRnvkA1QfkFzdGELjn mohi@sauron";
+        gitSigningKey = keys.sauron;
+        gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"

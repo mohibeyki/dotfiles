@@ -2,6 +2,9 @@
   inputs,
   ...
 }:
+let
+  keys = import ../../modules/keys.nix;
+in
 {
   imports = [
     ../../darwin-modules/default.nix
@@ -20,7 +23,8 @@
     extraSpecialArgs = {
       inherit inputs;
       hostConfig = {
-        gitSigningKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWAa0kKyejpLeHARiBUsnJvzgljWIzBJnGm2BcueVWk mohi@legolas";
+        gitSigningKey = keys.legolas;
+        gitAllowedSigners = builtins.attrValues keys;
       };
     };
 

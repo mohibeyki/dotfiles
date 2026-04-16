@@ -11,7 +11,8 @@
   home.file.".ssh/allowed_signers".text =
     builtins.concatStringsSep "\n" (
       map (key: "mohibeyki@gmail.com ${key}") hostConfig.gitAllowedSigners
-    ) + "\n";
+    )
+    + "\n";
 
   programs.git = {
     enable = true;

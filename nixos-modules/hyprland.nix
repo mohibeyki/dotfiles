@@ -11,8 +11,6 @@
     playerctl
   ];
 
-  systemd.services.display-manager.path = [ pkgs.uwsm ];
-
   xdg.portal = {
     enable = true;
     config = {

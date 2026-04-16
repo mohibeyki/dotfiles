@@ -3,8 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+
     ez-configs.url = "github:ehllie/ez-configs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -14,10 +16,6 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
     };
 
     nixvim = {
@@ -56,8 +54,8 @@
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -73,7 +71,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.ez-configs.flakeModule
-        inputs.pre-commit-hooks.flakeModule
+        inputs.git-hooks.flakeModule
       ];
 
       ezConfigs = {

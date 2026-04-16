@@ -26,8 +26,6 @@ let
   ) (hostConfig.monitors or [ ]);
 
   workspaces = hostConfig.workspaces or [ ];
-
-  primaryMonitor = hostConfig.primaryMonitor or null;
 in
 {
   wayland.windowManager.hyprland = {
@@ -169,10 +167,7 @@ in
         "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
         "noctalia-shell"
         "${pkgs._1password-gui}/bin/1password --silent"
-      ]
-      ++ lib.optional (
-        primaryMonitor != null
-      ) "hyprctl dispatch focusmonitor \"${primaryMonitor}\" && hyprctl dispatch workspace 2";
+      ];
 
       general = {
         border_size = 0;

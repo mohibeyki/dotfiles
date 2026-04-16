@@ -1,15 +1,10 @@
 {
   inputs,
+  overlays,
   ...
 }:
 let
   keys = import ../../modules/keys.nix;
-
-  dns = [
-    "192.168.1.10"
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
 
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
@@ -56,9 +51,6 @@ in
   ];
 
   networking.hostName = "sauron";
-  networking.nameservers = dns;
-
-  services.resolved.settings.Resolve.DNS = [ "${builtins.head dns}#dns.home.biook.me" ];
 
   nixpkgs.overlays = sauronOverlays;
 
@@ -86,7 +78,7 @@ in
     backupFileExtension = "bak";
 
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs overlays;
       hostConfig = {
         isNvidia = true;
         gitSigningKey = keys.sauron;
@@ -104,7 +96,6 @@ in
           "8, monitor:${monitors.main.output}"
           "9, monitor:${monitors.main.output}"
         ];
-        primaryMonitor = monitors.main.output;
       };
     };
 

@@ -23,7 +23,6 @@
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    kernelParams = [ "zswap.enabled=1" ];
   };
 
   fileSystems = {

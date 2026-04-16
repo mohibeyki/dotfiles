@@ -47,7 +47,6 @@
 
       # Rust (toolchain + LSP via fenix overlay for version coherence)
       fenix.stable.toolchain
-      fenix.stable.rust-analyzer
 
       # Shell
       shellcheck

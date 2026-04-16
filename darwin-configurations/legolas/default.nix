@@ -1,5 +1,6 @@
 {
   inputs,
+  overlays,
   ...
 }:
 let
@@ -21,7 +22,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs overlays;
       hostConfig = {
         gitSigningKey = keys.legolas;
         gitAllowedSigners = builtins.attrValues keys;

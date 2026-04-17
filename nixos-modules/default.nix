@@ -5,7 +5,7 @@
 }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
 
     plymouth = {
       enable = true;
@@ -83,7 +83,7 @@
     };
 
     resolved = {
-      enable = true;
+      enable = lib.mkDefault true;
       settings = {
         Resolve = {
           DNSSEC = "allow-downgrade";

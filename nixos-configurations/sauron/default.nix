@@ -51,6 +51,7 @@ in
   ];
 
   networking.hostName = "sauron";
+  services.resolved.enable = false;
 
   nixpkgs.overlays = sauronOverlays;
 

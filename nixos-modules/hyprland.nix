@@ -11,6 +11,16 @@
     playerctl
   ];
 
+  systemd.user.services.xdg-desktop-portal-kde = {
+    description = "Portal service (KDE implementation)";
+    wantedBy = [ "xdg-desktop-portal.service" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.kdePackages.xdg-desktop-portal-kde}/libexec/xdg-desktop-portal-kde";
+      Restart = "on-failure";
+    };
+  };
+
   xdg.portal = {
     enable = true;
     config = {

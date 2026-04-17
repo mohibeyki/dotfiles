@@ -77,6 +77,7 @@
       # Tools
       cachix
       ghostscript
+      glib
       imagemagick
       lazygit
       mermaid-cli

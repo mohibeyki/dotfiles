@@ -28,6 +28,18 @@ let
   workspaces = hostConfig.workspaces or [ ];
 in
 {
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+
+    config.hyprland.default = [
+      "hyprland"
+      "kde"
+    ];
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
 

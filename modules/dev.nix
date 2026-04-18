@@ -88,13 +88,5 @@
       trash-cli
       tree-sitter
       zoxide
-    ])
-    ++ (with pkgs.llm-agents; [
-      claude-code
-      codex
-      copilot-cli
-      crush
-      gemini-cli
-      opencode
     ]);
 }

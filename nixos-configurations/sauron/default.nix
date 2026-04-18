@@ -103,6 +103,7 @@ in
     users.mohi = {
       imports = [
         inputs.noctalia-shell.homeModules.default
+        inputs.plasma-manager.homeModules.plasma-manager
         ../../home-configurations/mohi
 
         ../../home-modules/common.nix
@@ -113,6 +114,7 @@ in
         ../../home-modules/hyprland.nix
         ../../home-modules/hyprland-rules.nix
         ../../home-modules/noctalia.nix
+        ../../home-modules/dev.nix
         ../../home-modules/theme.nix
         ../../home-modules/tmux.nix
         ../../home-modules/zed.nix

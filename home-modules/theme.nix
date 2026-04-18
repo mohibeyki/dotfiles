@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -49,6 +50,18 @@ in
   };
 
   home.packages = [ hyprcursorTheme.package ];
+
+  # Without this, xdg-desktop-portal-kde starts with a default light Qt
+  # palette under Hyprland (no full Plasma session), causing the Settings
+  # portal to report prefer-light. Scoped to the portal service only —
+  # setting it globally breaks apps like Noctalia that lack kirigami.
+  home.file.".config/systemd/user/plasma-xdg-desktop-portal-kde.service.d/qt-theme.conf".text =
+    lib.generators.toINI { } { Service.Environment = "QT_QPA_PLATFORMTHEME=kde"; };
+
+  programs.plasma = {
+    enable = true;
+    workspace.colorScheme = "BreezeDark";
+  };
 
   home.pointerCursor = {
     inherit (cursorTheme) name size package;

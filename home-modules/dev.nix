@@ -21,4 +21,9 @@
         '';
       })
     ];
+
+  home.file = {
+    ".pi/agent/extensions/footer.ts".source = ./pi/extensions/footer.ts;
+    ".pi/agent/themes/personal.json".source = ./pi/themes/personal.json;
+  };
 }

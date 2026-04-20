@@ -3,10 +3,6 @@
   home.packages =
     (with pkgs.llm-agents; [
       claude-code
-      codex
-      copilot-cli
-      crush
-      gemini-cli
       opencode
     ])
     ++ [

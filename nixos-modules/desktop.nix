@@ -28,6 +28,10 @@
   xdg.mime.enable = true;
   xdg.menus.enable = true;
 
+  # https://github.com/NixOS/nixpkgs/issues/409986
+  environment.etc."xdg/menus/applications.menu".source =
+    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
   environment.systemPackages =
     (with pkgs; [
       bind
@@ -55,8 +59,14 @@
       wl-clipboard
     ])
     ++ (with pkgs.kdePackages; [
+      ark
+      baloo
+      baloo-widgets
       breeze-icons
       dolphin
+      dolphin-plugins
+      gwenview
+      kate
       kdegraphics-thumbnailers
       kdf
       kio
@@ -64,6 +74,7 @@
       kio-extras
       kio-fuse
       kservice
+      okular
       plasma-integration
       qtsvg
       qtwayland

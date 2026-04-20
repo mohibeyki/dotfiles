@@ -177,7 +177,8 @@ in
 
       exec-once = [
         "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
-        "noctalia-shell"
+        "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
+        "env -u QT_QPA_PLATFORMTHEME noctalia-shell"
         "${pkgs._1password-gui}/bin/1password --silent"
       ];
 

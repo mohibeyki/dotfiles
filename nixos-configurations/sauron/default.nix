@@ -65,10 +65,8 @@ in
 
     packages = [
       "com.bambulab.BambuStudio"
-      "com.heroicgameslauncher.hgl"
       "io.github.flattool.Warehouse"
       "net.davidotek.pupgui2"
-      "net.lutris.Lutris"
       "page.kramo.Cartridges"
     ];
   };

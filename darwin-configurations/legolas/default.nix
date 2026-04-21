@@ -34,6 +34,7 @@ in
         ../../home-configurations/mohi
 
         ../../home-modules/common.nix
+        ../../home-modules/dev.nix
         ../../home-modules/fish.nix
         ../../home-modules/ghostty.nix
         ../../home-modules/git.nix

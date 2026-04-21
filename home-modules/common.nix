@@ -11,8 +11,7 @@
 
     packages = [
       inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ]
-    ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.xdg-terminal-exec ];
+    ];
   };
 
   programs = {

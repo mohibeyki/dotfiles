@@ -3,6 +3,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in
 {
   home.sessionVariables = {
     SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
@@ -39,7 +42,7 @@
       gpg.format = "ssh";
       "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
       "gpg \"ssh\"".program =
-        if pkgs.stdenv.isDarwin then
+        if isDarwin then
           "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
         else
           "/run/current-system/sw/bin/op-ssh-sign";

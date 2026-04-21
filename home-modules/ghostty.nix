@@ -1,13 +1,15 @@
 {
   pkgs,
+  lib,
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in
 {
   programs.ghostty = {
     enable = true;
-    # Ghostty for macOS is distributed via DMG, not nix
-    # Set package to null to only manage config without installing
-    package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+    package = lib.mkIf isDarwin null;
 
     settings = {
       font-family = "JetBrainsMono Nerd Font";

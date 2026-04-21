@@ -13,7 +13,7 @@ in
     enable = true;
     systemd.enable = false;
     package = pkgs.noctalia-shell;
-    settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ./noctalia.json)) {
+    settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ../noctalia.json)) {
       general = {
         avatarImage = "${config.home.homeDirectory}/Pictures/face.png";
         lockOnSuspend = true;
@@ -53,8 +53,8 @@ in
   };
 
   home.file = {
-    "Pictures/face.png".source = ../assets/face.png;
-    "Pictures/Wallpapers/wallpaper.jpg".source = ../assets/wallpaper.jpg;
+    "Pictures/face.png".source = ../../assets/face.png;
+    "Pictures/Wallpapers/wallpaper.jpg".source = ../../assets/wallpaper.jpg;
 
     ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
       defaultWallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/wallpaper.jpg";

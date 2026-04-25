@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -8,10 +7,6 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
-
-    packages = [
-      inputs.nixvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
   };
 
   programs = {

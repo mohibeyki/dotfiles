@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.68.1",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "k2p6",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
   "npmCommand": [

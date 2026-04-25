@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -7,10 +8,22 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
+
+    sessionPath = [
+      "${config.home.homeDirectory}/.local/share/npm/bin"
+    ];
   };
 
   programs = {
     home-manager.enable = true;
+
+    npm = {
+      enable = true;
+      settings = {
+        prefix = "${config.home.homeDirectory}/.local/share/npm";
+        cache = "${config.home.homeDirectory}/.cache/npm";
+      };
+    };
 
     man = {
       enable = true;

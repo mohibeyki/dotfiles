@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.70.2",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
   "npmCommand": [
@@ -17,7 +17,6 @@
     "npm:pi-mcp-adapter@2.4.1",
     "npm:pi-ask-user",
     "npm:pi-web-access@0.10.6",
-    "npm:pi-nvidia-nim",
     "npm:@tran-quil/pi-rose-pine",
     "npm:context-mode"
   ]

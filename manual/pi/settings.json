@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.68.1",
-  "defaultProvider": "kimi-coding",
-  "defaultModel": "k2p6",
+  "lastChangelogVersion": "0.70.2",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.3-codex",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
   "npmCommand": [
@@ -25,6 +25,7 @@
     "npm:@feniix/pi-notion",
     "npm:pi-ask-user",
     "npm:@davidorex/pi-workflows",
-    "npm:pi-web-access@0.10.6"
+    "npm:pi-web-access@0.10.6",
+    "npm:pi-nvidia-nim"
   ]
 }

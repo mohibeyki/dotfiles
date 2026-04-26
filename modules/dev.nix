@@ -3,90 +3,89 @@
   ...
 }:
 {
-  environment.systemPackages =
-    (with pkgs; [
-      # C/C++
-      clang
-      clang-tools
-      cmake
-      lldb
-      gnumake
-      cpplint
+  environment.systemPackages = with pkgs; [
+    # C/C++
+    clang
+    clang-tools
+    cmake
+    lldb
+    gnumake
+    cpplint
 
-      # Go
-      go
-      gofumpt
-      golangci-lint
-      gopls
-      gotools
+    # Go
+    go
+    gofumpt
+    golangci-lint
+    gopls
+    gotools
 
-      # JSON / HTML / CSS
-      vscode-langservers-extracted
+    # JSON / HTML / CSS
+    vscode-langservers-extracted
 
-      # Lua
-      lua-language-server
-      stylua
+    # Lua
+    lua-language-server
+    stylua
 
-      # Markdown
-      glow
-      markdownlint-cli
-      marksman
+    # Markdown
+    glow
+    markdownlint-cli
+    marksman
 
-      # Nix
-      manix
-      nix-output-monitor
-      nixd
-      nixfmt
-      nixfmt-tree
-      statix
+    # Nix
+    manix
+    nix-output-monitor
+    nixd
+    nixfmt
+    nixfmt-tree
+    statix
 
-      # Python
-      pyright
-      ruff
-      uv
+    # Python
+    pyright
+    ruff
+    uv
 
-      # Rust (toolchain + LSP via fenix overlay for version coherence)
-      fenix.stable.toolchain
+    # Rust (toolchain + LSP via fenix overlay for version coherence)
+    fenix.stable.toolchain
 
-      # Shell
-      shellcheck
-      shfmt
+    # Shell
+    shellcheck
+    shfmt
 
-      # TOML
-      taplo
+    # TOML
+    taplo
 
-      # TypeScript
-      bun
-      esbuild
-      eslint
-      nodejs
-      pnpm
-      tsx
-      typescript
-      typescript-language-server
-      yarn
+    # TypeScript
+    bun
+    esbuild
+    eslint
+    nodejs
+    pnpm
+    tsx
+    typescript
+    typescript-language-server
+    yarn
 
-      # YAML
-      yaml-language-server
-      yamlfmt
-      yamllint
+    # YAML
+    yaml-language-server
+    yamlfmt
+    yamllint
 
-      # Zig
-      zls
+    # Zig
+    zls
 
-      # Tools
-      cachix
-      ghostscript
-      glib
-      imagemagick
-      lazygit
-      mermaid-cli
-      prettier
-      prettierd
-      silicon
-      tldr
-      trash-cli
-      tree-sitter
-      zoxide
-    ]);
+    # Tools
+    cachix
+    ghostscript
+    glib
+    imagemagick
+    lazygit
+    mermaid-cli
+    prettier
+    prettierd
+    silicon
+    tldr
+    trash-cli
+    tree-sitter
+    zoxide
+  ];
 }

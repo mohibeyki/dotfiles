@@ -16,6 +16,9 @@ _: {
       # Games — most Steam games use steam_app_<appid> as their initial class
       "tag +game, match:initial_class ^(steam_app_.*)$"
 
+      # Game launchers — Steam, Heroic, Lutris, Bottles
+      "tag +game-launcher, match:class ^(steam|heroic|net.lutris.Lutris|com.usebottles.bottles)$"
+
       # Quick-access utilities — password manager, audio, networking, system tools
       "tag +quick-access, match:class ^(1password)$"
       "tag +quick-access, match:class ^(com.github.tsowell.wiremix)$"
@@ -30,7 +33,7 @@ _: {
 
       # Generic floating windows — dialogs, file pickers, misc popups
       "tag +floating-window, match:class (Impala|com.gabm.satty|About|TUI.float)"
-      "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors), match:title ^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files)"
+      "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors), match:title ^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)"
 
       # ── Rules by tag ────────────────────────────────────────────────────────
 

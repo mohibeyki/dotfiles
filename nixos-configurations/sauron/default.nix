@@ -51,6 +51,7 @@ in
   ];
 
   networking.hostName = "sauron";
+  # Disabled — systemd-resolved interferes with rootless Docker DNS in containers.
   services.resolved.enable = false;
 
   nixpkgs.overlays = sauronOverlays;

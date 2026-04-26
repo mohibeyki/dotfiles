@@ -1,12 +1,22 @@
-import { CustomEditor, type ExtensionAPI, type ExtensionContext, type Theme } from "@mariozechner/pi-coding-agent";
-import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
-import { basename } from "node:path";
 import { homedir } from "node:os";
+import { basename } from "node:path";
+import {
+	CustomEditor,
+	type ExtensionAPI,
+	type ExtensionContext,
+	type Theme,
+} from "@mariozechner/pi-coding-agent";
+import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
 // ── Editor ────────────────────────────────────────────────────────────────────
 
 class MessageStyleEditor extends CustomEditor {
-	constructor(tui: any, editorTheme: any, keybindings: any, private chromeTheme: Theme) {
+	constructor(
+		tui: unknown,
+		editorTheme: unknown,
+		keybindings: unknown,
+		private chromeTheme: Theme,
+	) {
 		super(tui, editorTheme, keybindings, { paddingX: 1 });
 	}
 
@@ -27,9 +37,15 @@ class MessageStyleEditor extends CustomEditor {
 		return /^─+$/.test(text) || /^─── (?:↑|↓) \d+ more ─*$/.test(text);
 	}
 
-	private panelPaint(text: string, fg: "userMessageText" | "muted" = "userMessageText"): string {
+	private panelPaint(
+		text: string,
+		fg: "userMessageText" | "muted" = "userMessageText",
+	): string {
 		const marker = "__PI_PANEL_MARKER__";
-		const sample = this.chromeTheme.bg("userMessageBg", this.chromeTheme.fg(fg, marker));
+		const sample = this.chromeTheme.bg(
+			"userMessageBg",
+			this.chromeTheme.fg(fg, marker),
+		);
 		const [prefix] = sample.split(marker);
 		if (!prefix) return text;
 		return prefix + text.replace(/\x1b\[0m/g, `\x1b[0m${prefix}`) + "\x1b[0m";
@@ -45,21 +61,35 @@ class MessageStyleEditor extends CustomEditor {
 			const plain = this.stripAnsi(line);
 			if (this.isBorderLine(plain)) {
 				if (plain.includes(" more ")) {
-					return accentBar + this.panelPaint(
-						this.padVisible(` ${plain.replace(/^─+/, "").replace(/─+$/, "").trim()} `, bgWidth),
-						"muted",
+					return (
+						accentBar +
+						this.panelPaint(
+							this.padVisible(
+								` ${plain.replace(/^─+/, "").replace(/─+$/, "").trim()} `,
+								bgWidth,
+							),
+							"muted",
+						)
 					);
 				}
 				return accentBar + this.panelPaint(" ".repeat(bgWidth));
 			}
-			return accentBar + this.panelPaint(" " + this.padVisible(line, innerWidth));
+			return (
+				accentBar + this.panelPaint(" " + this.padVisible(line, innerWidth))
+			);
 		});
 	}
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-type RuntimeState = "idle" | "thinking" | "tooling" | "waiting" | "done" | "error";
+type RuntimeState =
+	| "idle"
+	| "thinking"
+	| "tooling"
+	| "waiting"
+	| "done"
+	| "error";
 
 type GitInfo = {
 	repoName: string;
@@ -136,7 +166,7 @@ export default function (pi: ExtensionAPI) {
 
 	const updateUsage = (ctx: ExtensionContext) => {
 		state.modelId = ctx.model?.id;
-		state.providerId = (ctx.model as any)?.provider; // TODO: fix upstream type
+		state.providerId = (ctx.model as { provider?: string } | undefined)?.provider; // TODO: fix upstream type
 		state.thinkingLevel = pi.getThinkingLevel();
 		const usage = ctx.getContextUsage();
 		state.contextPercent = usage?.percent ?? null;
@@ -148,8 +178,9 @@ export default function (pi: ExtensionAPI) {
 		let input = 0;
 		let output = 0;
 		for (const entry of ctx.sessionManager.getBranch()) {
-			if (entry.type !== "message" || entry.message.role !== "assistant") continue;
-			const usage = (entry.message as any).usage;
+			if (entry.type !== "message" || entry.message.role !== "assistant")
+				continue;
+			const usage = (entry.message as { usage?: { input?: number; output?: number } }).usage;
 			input += usage?.input ?? 0;
 			output += usage?.output ?? 0;
 		}
@@ -159,11 +190,22 @@ export default function (pi: ExtensionAPI) {
 
 	const parseGitStatus = async (cwd: string): Promise<GitInfo | null> => {
 		try {
-			const root = await pi.exec("git", ["-C", cwd, "rev-parse", "--show-toplevel"]);
+			const root = await pi.exec("git", [
+				"-C",
+				cwd,
+				"rev-parse",
+				"--show-toplevel",
+			]);
 			if (root.code !== 0 || !root.stdout.trim()) return null;
 			const toplevel = root.stdout.trim();
 
-			const status = await pi.exec("git", ["-C", cwd, "status", "--porcelain=v1", "--branch"]);
+			const status = await pi.exec("git", [
+				"-C",
+				cwd,
+				"status",
+				"--porcelain=v1",
+				"--branch",
+			]);
 			if (status.code !== 0) return null;
 
 			const lines = status.stdout.split(/\r?\n/).filter(Boolean);
@@ -172,15 +214,28 @@ export default function (pi: ExtensionAPI) {
 			const ahead = Number(/ahead (\d+)/.exec(branchLine)?.[1] ?? 0);
 			const behind = Number(/behind (\d+)/.exec(branchLine)?.[1] ?? 0);
 
-			let staged = 0, unstaged = 0, untracked = 0;
+			let staged = 0,
+				unstaged = 0,
+				untracked = 0;
 			for (const line of lines) {
 				if (line.startsWith("## ")) continue;
-				if (line.startsWith("??")) { untracked++; continue; }
+				if (line.startsWith("??")) {
+					untracked++;
+					continue;
+				}
 				if ((line[0] ?? " ") !== " ") staged++;
 				if ((line[1] ?? " ") !== " ") unstaged++;
 			}
 
-			return { repoName: basename(toplevel) || shortenHome(toplevel), branch, staged, unstaged, untracked, ahead, behind };
+			return {
+				repoName: basename(toplevel) || shortenHome(toplevel),
+				branch,
+				staged,
+				unstaged,
+				untracked,
+				ahead,
+				behind,
+			};
 		} catch {
 			return null;
 		}
@@ -195,7 +250,11 @@ export default function (pi: ExtensionAPI) {
 	};
 
 	// refreshGit already calls requestRender, so no trailing call needed here
-	const syncAll = async (ctx: ExtensionContext, forceGit = false, recomputeTotals = false) => {
+	const syncAll = async (
+		ctx: ExtensionContext,
+		forceGit = false,
+		recomputeTotals = false,
+	) => {
 		currentCwd = ctx.cwd;
 		updateUsage(ctx);
 		if (recomputeTotals) recomputeTokenTotals(ctx);
@@ -204,7 +263,7 @@ export default function (pi: ExtensionAPI) {
 
 	// ── Footer render ─────────────────────────────────────────────────────────
 
-	const footerLines = (theme: any, width: number): string[] => {
+	const footerLines = (theme: { fg: (color: string, text: string) => string }, width: number): string[] => {
 		const outerPad = "  ";
 		const availableWidth = Math.max(1, width - 4);
 
@@ -214,23 +273,19 @@ export default function (pi: ExtensionAPI) {
 		const success = (s: string) => theme.fg("success", s);
 		const warning = (s: string) => theme.fg("warning", s);
 		const muted = (s: string) => theme.fg("muted", s);
-		const error = (s: string) => theme.fg("error", s);
 		const sep = dim(" · ");
 
-		const fixedCount = (prefix: string, count: number, paint: (s: string) => string) => {
-			const bounded = `${Math.max(0, Math.min(99, count))}`.padStart(GIT_COUNTER_DIGITS, "0");
+		const fixedCount = (
+			prefix: string,
+			count: number,
+			paint: (s: string) => string,
+		) => {
+			const bounded = `${Math.max(0, Math.min(99, count))}`.padStart(
+				GIT_COUNTER_DIGITS,
+				"0",
+			);
 			return paint(`${prefix}${bounded}`);
 		};
-
-		// Runtime indicator — static glyphs, not spinner frames
-		const runtimeIndicator: Partial<Record<RuntimeState, string>> = {
-			thinking: dim("·"),
-			tooling: dim("»"),
-			waiting: dim("…"),
-			done: success("✓"),
-			error: error("✗"),
-		};
-		const indicator = runtimeIndicator[state.runtime] ?? "";
 
 		// Git
 		const git = state.git;
@@ -248,24 +303,38 @@ export default function (pi: ExtensionAPI) {
 		// Model / context
 		const provider = state.providerId ? muted(state.providerId) : "";
 		const modelBase = state.modelId ? text(state.modelId) : muted("no-model");
-		const modelWithThinking = state.modelId && state.thinkingLevel
-			? text(state.modelId) + muted(`:${state.thinkingLevel}`)
-			: modelBase;
-		const ctxSection = state.contextTokens == null ? "" : muted(
-			[
-				state.contextWindow
-					? `${fmtK(state.contextTokens)}/${fmtK(state.contextWindow)}`
-					: `${fmtK(state.contextTokens)}`,
-				state.contextPercent != null ? `${Math.round(state.contextPercent)}%` : "",
-			].filter(Boolean).join(" "),
+		const modelWithThinking =
+			state.modelId && state.thinkingLevel
+				? text(state.modelId) + muted(`:${state.thinkingLevel}`)
+				: modelBase;
+		const ctxSection =
+			state.contextTokens == null
+				? ""
+				: muted(
+						[
+							state.contextWindow
+								? `${fmtK(state.contextTokens)}/${fmtK(state.contextWindow)}`
+								: `${fmtK(state.contextTokens)}`,
+							state.contextPercent != null
+								? `${Math.round(state.contextPercent)}%`
+								: "",
+						]
+							.filter(Boolean)
+							.join(" "),
+					);
+		const tokens = muted(
+			`↑${fmtK(state.inputTokens)} ↓${fmtK(state.outputTokens)}`,
 		);
-		const tokens = muted(`↑${fmtK(state.inputTokens)} ↓${fmtK(state.outputTokens)}`);
 
 		// Left/right sections at different widths
-		const leftRich = [indicator, provider, modelWithThinking].filter(Boolean).join(sep);
-		const leftTerse = [indicator, modelWithThinking].filter(Boolean).join(sep);
-		const rightFull = [tokens, ctxSection, repoBranch, gitCounts].filter(Boolean).join(sep);
-		const rightTerse = [tokens, repoBranch, gitCounts].filter(Boolean).join(sep);
+		const leftRich = [provider, modelWithThinking].filter(Boolean).join(sep);
+		const leftTerse = [modelWithThinking].filter(Boolean).join(sep);
+		const rightFull = [tokens, ctxSection, repoBranch, gitCounts]
+			.filter(Boolean)
+			.join(sep);
+		const rightTerse = [tokens, repoBranch, gitCounts]
+			.filter(Boolean)
+			.join(sep);
 
 		const candidates: Array<[string, string]> = [
 			[leftRich, rightFull],
@@ -273,7 +342,12 @@ export default function (pi: ExtensionAPI) {
 			[leftTerse, rightTerse],
 		];
 
-		let mainLine = outerPad + truncateToWidth([leftTerse, rightTerse].filter(Boolean).join("  "), availableWidth);
+		let mainLine =
+			outerPad +
+			truncateToWidth(
+				[leftTerse, rightTerse].filter(Boolean).join("  "),
+				availableWidth,
+			);
 		for (const [left, right] of candidates) {
 			if (!left) {
 				if (visibleWidth(right) <= availableWidth) {
@@ -292,7 +366,11 @@ export default function (pi: ExtensionAPI) {
 			const lw = visibleWidth(left);
 			const rw = visibleWidth(right);
 			if (lw + 2 + rw <= availableWidth) {
-				mainLine = outerPad + left + " ".repeat(Math.max(2, availableWidth - lw - rw)) + right;
+				mainLine =
+					outerPad +
+					left +
+					" ".repeat(Math.max(2, availableWidth - lw - rw)) +
+					right;
 				break;
 			}
 		}
@@ -315,7 +393,10 @@ export default function (pi: ExtensionAPI) {
 			});
 
 			return {
-				dispose: () => { render = undefined; unsub(); },
+				dispose: () => {
+					render = undefined;
+					unsub();
+				},
 				invalidate() {},
 				render: (w: number) => footerLines(theme, w),
 			};
@@ -328,8 +409,9 @@ export default function (pi: ExtensionAPI) {
 		clearResetTimer();
 		state.runtime = "idle";
 		state.lastError = undefined;
-		ctx.ui.setEditorComponent((tui, theme, keybindings) =>
-			new MessageStyleEditor(tui, theme, keybindings, ctx.ui.theme),
+		ctx.ui.setEditorComponent(
+			(tui, theme, keybindings) =>
+				new MessageStyleEditor(tui, theme, keybindings, ctx.ui.theme),
 		);
 		installFooter(ctx);
 		await syncAll(ctx, true, true);

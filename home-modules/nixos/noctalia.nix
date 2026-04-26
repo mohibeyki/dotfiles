@@ -55,10 +55,5 @@ in
   home.file = {
     "Pictures/face.png".source = ../../assets/face.png;
     "Pictures/Wallpapers/wallpaper.jpg".source = ../../assets/wallpaper.jpg;
-
-    ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
-      defaultWallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/wallpaper.jpg";
-      wallpapers = { };
-    };
   };
 }

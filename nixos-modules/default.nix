@@ -52,6 +52,8 @@
 
   networking = {
     networkmanager.enable = true;
+    # Firewall disabled intentionally — machine is behind a NAT router with no port
+    # forwarding, and dev work requires frequent port exposure for testing.
     firewall.enable = false;
   };
 

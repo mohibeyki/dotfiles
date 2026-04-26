@@ -37,18 +37,19 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 │   ├── nvidia.nix                         # NVIDIA GPU + DRM kernel params
 │   ├── game.nix                           # Gaming settings (gamescope, etc.)
 │   ├── containers.nix                     # Podman/Docker containers
-│   └── secureboot.nix                     # Secure boot signing
+│   └── sddm.nix                           # SDDM display manager config
 ├── home-modules/                          # Home Manager modules (per-user config)
 │   ├── common.nix                         # nixvim, xdg-terminal-exec, session variables
-│   ├── hyprland.nix                       # Hyprland WM: keybinds, env vars, exec-once, settings
-│   ├── hyprland-rules.nix                  # Hyprland window rules and layer rules
-│   ├── theme.nix                          # GTK/icon/cursor theming + rose-pine-hyprcursor
+│   ├── dev.nix                            # User-level dev tool packages
 │   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
 │   ├── git.nix                            # Git config
-│   ├── noctalia.nix                       # Noctalia app config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
-│   ├── docker.nix                         # Docker daemon config
-│   └── zellij.kdl                         # Zellij layout/UI config
+│   ├── zellij.kdl                         # Zellij layout/UI config
+│   └── nixos/                             # NixOS-only home modules
+│       ├── hyprland.nix                   # Hyprland WM: keybinds, env vars, exec-once, settings
+│       ├── hyprland-rules.nix              # Hyprland window rules and layer rules
+│       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor
+│       └── noctalia.nix                   # Noctalia app config
 ├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
 │   ├── default.nix                        # Host imports + NixOS/HM module list
 │   └── hardware.nix                       # Hardware config from nixos-generate-config
@@ -86,14 +87,13 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 
 ### Home Modules
 - Most home modules take `hostConfig` from `extraSpecialArgs` to adapt to host
-- `hyprland.nix` uses `hostConfig.monitors`, `hostConfig.workspaces`, `hostConfig.primaryMonitor`, `hostConfig.isNvidia`
-- `hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no special args
-- `theme.nix` uses `inputs.rose-pine-hyprcursor` directly
+- `nixos/hyprland.nix` uses `hostConfig.monitors`, `hostConfig.workspaces`, `hostConfig.primaryMonitor`, `hostConfig.isNvidia`
+- `nixos/hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no special args
+- `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` directly
 - `common.nix` uses `inputs.nixvim` directly for the nixvim package
-- **`dev.nix` does NOT exist as a home module**; dev tools live in `modules/dev.nix` (NixOS-only system packages)
 
 ### Hyprland Window Rules Pattern
-Rules in `hyprland-rules.nix` follow a two-phase pattern:
+Rules in `nixos/hyprland-rules.nix` follow a two-phase pattern:
 1. **Tag assignment**: `windowrule "tag +<name>, match:class ^(...)"` assigns windows to logical tags
 2. **Tag rules**: `windowrule "<action> on, match:tag <name>"` applies behaviors to all windows with that tag
 
@@ -128,7 +128,7 @@ vrr = if monitor.vrr then 1 else 0;
 ### Darwin-Specific
 - `stateVersion` uses integers (`6`) not strings
 - `nixpkgs.hostPlatform = "aarch64-darwin"` explicitly sets host platform
-- Hyprland modules are **not** imported on Darwin (no hyprland.nix, hyprland-rules.nix, noctalia.nix, theme.nix, ghostty.nix)
+- Hyprland-specific modules (`nixos/hyprland.nix`, `nixos/hyprland-rules.nix`, `nixos/noctalia.nix`, `nixos/theme.nix`) are **not** imported on Darwin
 
 ## Pre-commit Hooks
 
@@ -145,7 +145,7 @@ Run manually:
 - **Home Manager is NOT a user service** — changes only apply after `nixos-rebuild switch`. Do not expect `home-manager` commands to work interactively.
 - **`hostConfig` must be passed through** — home modules that need monitor/workspace data receive it via `extraSpecialArgs.hostConfig`. If a module doesn't receive it, check the host's `home-manager.users.mohi.imports`.
 - **Darwin has no Hyprland** — only import Hyprland-related modules on NixOS hosts.
-- **`dev.nix` is system-only** — dev tools live in `modules/dev.nix` (NixOS system packages), not as a home module.
+- **Dev tools have two modules** — system-level dev tools are in `modules/dev.nix`; user-level dev tools are in `home-modules/dev.nix`. Both exist.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
 
@@ -183,4 +183,4 @@ Run manually:
 
 ## Known Issues / Pending
 
-- **`hyprland-rules.nix`** (lines 17, 88): `initialClass` and `suppress_event` fields may be invalid — user needs to verify against Hyprland documentation and decide whether to remove or fix
+- **`nixos/hyprland-rules.nix`** (lines 17, 81): `initial_class` and `suppress_event` fields may be invalid — user needs to verify against Hyprland documentation and decide whether to remove or fix

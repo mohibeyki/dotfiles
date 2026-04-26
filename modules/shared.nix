@@ -8,7 +8,7 @@
     package = pkgs.nixVersions.latest;
     settings = {
       accept-flake-config = false;
-      download-buffer-size = 1024 * 1024 * 1024; # 1GB
+      download-buffer-size = 256 * 1024 * 1024; # 256MiB
 
       experimental-features = [
         "nix-command"

@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.70.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
   "npmCommand": [
@@ -10,22 +10,15 @@
     "npm"
   ],
   "packages": [
-    "npm:@tran-quil/pi-rose-pine",
     "npm:@aliou/pi-processes@0.8.0",
     "npm:pi-subagents",
-    "npm:pi-lens",
     "npm:@samfp/pi-memory",
-    "npm:pi-markdown-preview",
-    "npm:pi-mermaid",
-    "npm:@walterra/pi-charts",
     "npm:pi-btw@0.2.1",
-    "npm:@davidorex/pi-project",
     "npm:pi-mcp-adapter@2.4.1",
-    "npm:@a5c-ai/babysitter-pi",
-    "npm:@feniix/pi-notion",
     "npm:pi-ask-user",
-    "npm:@davidorex/pi-workflows",
     "npm:pi-web-access@0.10.6",
-    "npm:pi-nvidia-nim"
+    "npm:pi-nvidia-nim",
+    "npm:@tran-quil/pi-rose-pine",
+    "npm:context-mode"
   ]
 }

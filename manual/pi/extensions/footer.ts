@@ -83,14 +83,6 @@ class MessageStyleEditor extends CustomEditor {
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-type RuntimeState =
-	| "idle"
-	| "thinking"
-	| "tooling"
-	| "waiting"
-	| "done"
-	| "error";
-
 type GitInfo = {
 	repoName: string;
 	branch: string;
@@ -102,8 +94,6 @@ type GitInfo = {
 };
 
 type FooterState = {
-	runtime: RuntimeState;
-	lastError?: string;
 	git?: GitInfo | null;
 	modelId?: string;
 	providerId?: string;
@@ -117,8 +107,6 @@ type FooterState = {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const DONE_MS = 1400;
-const ERROR_MS = 2200;
 const GIT_REFRESH_MS = 2500;
 const GIT_COUNTER_DIGITS = 2; // caps display at 99, intentional for layout stability
 const HOME_DIR = homedir();
@@ -127,34 +115,17 @@ const HOME_DIR = homedir();
 
 export default function (pi: ExtensionAPI) {
 	const state: FooterState = {
-		runtime: "idle",
 		inputTokens: 0,
 		outputTokens: 0,
 	};
 
 	let render: (() => void) | undefined;
 	let lastGitRefresh = 0;
-	let resetTimer: ReturnType<typeof setTimeout> | undefined;
 	let currentCwd = "";
 
 	// ── Helpers ───────────────────────────────────────────────────────────────
 
 	const requestRender = () => render?.();
-
-	const clearResetTimer = () => {
-		clearTimeout(resetTimer);
-		resetTimer = undefined;
-	};
-
-	const setTransientState = (next: RuntimeState, ms: number) => {
-		clearResetTimer();
-		state.runtime = next;
-		requestRender();
-		resetTimer = setTimeout(() => {
-			state.runtime = "idle";
-			requestRender();
-		}, ms);
-	};
 
 	const shortenHome = (path: string) =>
 		path.startsWith(HOME_DIR) ? `~${path.slice(HOME_DIR.length)}` : path;
@@ -406,9 +377,6 @@ export default function (pi: ExtensionAPI) {
 	// ── Events ────────────────────────────────────────────────────────────────
 
 	pi.on("session_start", async (_event, ctx) => {
-		clearResetTimer();
-		state.runtime = "idle";
-		state.lastError = undefined;
 		ctx.ui.setEditorComponent(
 			(tui, theme, keybindings) =>
 				new MessageStyleEditor(tui, theme, keybindings, ctx.ui.theme),
@@ -424,52 +392,32 @@ export default function (pi: ExtensionAPI) {
 	});
 
 	pi.on("agent_start", async (_event, ctx) => {
-		clearResetTimer();
-		state.runtime = ctx.hasPendingMessages() ? "waiting" : "thinking";
 		updateUsage(ctx);
 		requestRender();
 	});
 
 	pi.on("message_update", async (_event, ctx) => {
-		if (state.runtime !== "error" && state.runtime !== "tooling") {
-			state.runtime = "thinking";
-		}
 		updateUsage(ctx);
 		requestRender();
 	});
 
 	pi.on("tool_execution_start", async (_event, ctx) => {
-		clearResetTimer();
-		state.runtime = "tooling";
 		updateUsage(ctx);
 		requestRender();
 	});
 
-	pi.on("tool_execution_end", async (event, ctx) => {
+	pi.on("tool_execution_end", async (_event, ctx) => {
 		updateUsage(ctx);
 		await refreshGit(ctx);
-		if (event.isError) {
-			state.lastError = `${event.toolName} failed`;
-			setTransientState("error", ERROR_MS);
-			return;
-		}
-		state.lastError = undefined;
-		state.runtime = "thinking";
 		requestRender();
 	});
 
 	pi.on("turn_end", async (_event, ctx) => {
 		await syncAll(ctx, true, true);
-		if (ctx.hasPendingMessages()) {
-			state.runtime = "waiting";
-			requestRender();
-			return;
-		}
-		setTransientState("done", DONE_MS);
+		requestRender();
 	});
 
 	pi.on("session_shutdown", async () => {
-		clearResetTimer();
 		render = undefined;
 	});
 }

@@ -14,7 +14,10 @@ in
   networking.hostName = "legolas";
   system.stateVersion = 6;
 
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs = {
+    hostPlatform = "aarch64-darwin";
+    inherit overlays;
+  };
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
@@ -23,10 +26,6 @@ in
     useUserPackages = true;
     extraSpecialArgs = {
       inherit inputs overlays;
-      hostConfig = {
-        gitSigningKey = keys.legolas;
-        gitAllowedSigners = builtins.attrValues keys;
-      };
     };
 
     users.mohi = {
@@ -35,6 +34,11 @@ in
 
         ../../home-modules
       ];
+
+      dotfiles.host = {
+        gitSigningKey = keys.legolas;
+        gitAllowedSigners = builtins.attrValues keys;
+      };
     };
   };
 }

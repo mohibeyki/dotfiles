@@ -151,7 +151,7 @@ Rectangle {
                 spacing: 2 * scaleFactor
 
                 Text {
-                    text: "Welcome back, Mohi"
+                    text: "Welcome back, " + userModel.lastUser
                     font.pixelSize: root.fontSizeXXL
                     font.bold: true
                     color: root.mOnSurface

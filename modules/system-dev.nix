@@ -86,6 +86,5 @@
     tldr
     trash-cli
     tree-sitter
-    zoxide
   ];
 }

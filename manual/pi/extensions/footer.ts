@@ -8,6 +8,14 @@ import {
 } from "@mariozechner/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
+// Augment the upstream type to include the provider field that exists at runtime
+// but is not yet declared in the public ExtensionContext type.
+declare module "@mariozechner/pi-coding-agent" {
+	interface ModelInfo {
+		provider?: string;
+	}
+}
+
 // ── Editor ────────────────────────────────────────────────────────────────────
 
 class MessageStyleEditor extends CustomEditor {
@@ -137,7 +145,7 @@ export default function (pi: ExtensionAPI) {
 
 	const updateUsage = (ctx: ExtensionContext) => {
 		state.modelId = ctx.model?.id;
-		state.providerId = (ctx.model as { provider?: string } | undefined)?.provider; // TODO: fix upstream type
+		state.providerId = ctx.model?.provider;
 		state.thinkingLevel = pi.getThinkingLevel();
 		const usage = ctx.getContextUsage();
 		state.contextPercent = usage?.percent ?? null;

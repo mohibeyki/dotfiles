@@ -39,8 +39,8 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 │   ├── containers.nix                     # Podman/Docker containers
 │   └── sddm.nix                           # SDDM display manager config
 ├── home-modules/                          # Home Manager modules (per-user config)
-│   ├── common.nix                         # nixvim, xdg-terminal-exec, session variables
-│   ├── dev.nix                            # User-level dev tool packages
+│   ├── common.nix                         # session variables, shared tools
+│   ├── user-dev.nix                       # User-level dev tool packages
 │   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
 │   ├── git.nix                            # Git config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
@@ -59,7 +59,7 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
 │   └── default.nix
 ├── modules/                               # Shared modules (imported by both NixOS and Darwin)
 │   ├── shared.nix                         # Nix settings, fonts, system packages
-│   └── dev.nix                            # Dev tool packages (clang, go, rust/fenix, node, etc.)
+│   └── system-dev.nix                     # Dev tool packages (clang, go, rust/fenix, node, etc.)
 └── darwin-modules/                        # Darwin-specific system modules
     └── default.nix
 ```
@@ -78,19 +78,18 @@ nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath --dry
   2. Platform modules (`nixos-modules/`, `darwin-modules/`)
   3. Shared modules (`modules/`)
   4. Home modules (`home-modules/`)
-- `hostConfig` attribute set in `home-manager.extraSpecialArgs` carries per-host data:
+- `dotfiles.host` Home Manager option carries per-host data:
   - `isNvidia` — whether to set NVIDIA env vars
   - `monitors` — monitor configs (output, mode, position, scale, bitdepth, vrr, cm)
   - `workspaces` — workspace-to-monitor mappings
-  - `primaryMonitor` — primary monitor output name
   - `gitSigningKey` — SSH signing key for commits
 
 ### Home Modules
-- Most home modules take `hostConfig` from `extraSpecialArgs` to adapt to host
-- `nixos/hyprland.nix` uses `hostConfig.monitors`, `hostConfig.workspaces`, `hostConfig.primaryMonitor`, `hostConfig.isNvidia`
-- `nixos/hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no special args
+- Most home modules read `config.dotfiles.host` to adapt to host
+- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `config.dotfiles.host.workspaces`, and `config.dotfiles.host.isNvidia`
+- `nixos/hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no host option access
 - `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` directly
-- `common.nix` uses `inputs.nixvim` directly for the nixvim package
+- `nixvim.nix` uses `inputs.nixvim` directly for the nixvim package
 
 ### Hyprland Window Rules Pattern
 Rules in `nixos/hyprland-rules.nix` follow a two-phase pattern:
@@ -120,10 +119,7 @@ sauronOverlays = [
 ```
 
 ### Hyprland Monitor Config
-Monitors use `desc:...` (EDID description) for identification. The `vrr` field maps to integer (0/1) in the settings:
-```nix
-vrr = if monitor.vrr then 1 else 0;
-```
+Monitors use `desc:...` (EDID description) for identification. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`).
 
 ### Darwin-Specific
 - `stateVersion` uses integers (`6`) not strings
@@ -143,9 +139,9 @@ Run manually:
 ## Gotchas
 
 - **Home Manager is NOT a user service** — changes only apply after `nixos-rebuild switch`. Do not expect `home-manager` commands to work interactively.
-- **`hostConfig` must be passed through** — home modules that need monitor/workspace data receive it via `extraSpecialArgs.hostConfig`. If a module doesn't receive it, check the host's `home-manager.users.mohi.imports`.
+- **`dotfiles.host` must be set per host** — home modules that need monitor/workspace/signing data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
 - **Darwin has no Hyprland** — only import Hyprland-related modules on NixOS hosts.
-- **Dev tools have two modules** — system-level dev tools are in `modules/dev.nix`; user-level dev tools are in `home-modules/dev.nix`. Both exist.
+- **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. Both exist.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
 
@@ -160,16 +156,17 @@ Run manually:
 | `flake-parts` | Flake module system |
 | `ez-configs` | Declarative host/home config |
 | `fenix` | Rust toolchain via overlay |
-| `nixvim` | NixVim (fork) — used in `common.nix` |
+| `nixvim` | NixVim (fork) — installed via `home-modules/nixvim.nix` |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `llm-agents.nix` | LLM CLI tools (claude-code, copilot-cli, etc.) |
 | `noctalia-qs` / `noctalia-shell` | Noctalia app |
+| `plasma-manager` | KDE Plasma configuration via Home Manager |
 | `nix-flatpak` | Flatpak integration for NixOS |
-| `pre-commit-hooks.nix` | Pre-commit hooks |
+| `git-hooks.nix` | Pre-commit hooks |
 
 ## Adding a New Home Module
 
-1. Create `home-modules/<name>.nix` — takes at minimum `{ pkgs, ... }` or `{ hostConfig, lib, pkgs, ... }` if it needs host-specific data
+1. Create `home-modules/<name>.nix` — takes at minimum `{ pkgs, ... }` or `{ config, lib, pkgs, ... }` if it needs host-specific data from `config.dotfiles.host`
 2. Add to the host's `home-manager.users.mohi.imports` list in the appropriate config file
 3. For NixOS: add to `nixos-configurations/sauron/default.nix`
 4. For Darwin: add to `darwin-configurations/legolas/default.nix`
@@ -177,7 +174,7 @@ Run manually:
 
 ## Adding a New System Package
 
-- **NixOS system package**: add to `nixos-modules/default.nix` or `modules/dev.nix` (if dev tool)
+- **NixOS system package**: add to `nixos-modules/default.nix` or `modules/system-dev.nix` (if dev tool)
 - **Darwin system package**: add to `darwin-modules/default.nix`
 - **User package**: add to appropriate `home-modules/<name>.nix` under `home.packages`
 

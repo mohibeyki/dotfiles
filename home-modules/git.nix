@@ -1,10 +1,11 @@
 {
-  hostConfig,
+  config,
   pkgs,
   ...
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (config.dotfiles) host;
 in
 {
   home.sessionVariables = {
@@ -12,9 +13,7 @@ in
   };
 
   home.file.".ssh/allowed_signers".text =
-    builtins.concatStringsSep "\n" (
-      map (key: "mohibeyki@gmail.com ${key}") hostConfig.gitAllowedSigners
-    )
+    builtins.concatStringsSep "\n" (map (key: "mohibeyki@gmail.com ${key}") host.gitAllowedSigners)
     + "\n";
 
   programs.git = {
@@ -24,7 +23,7 @@ in
       user = {
         name = "Mohi Beyki";
         email = "mohibeyki@gmail.com";
-        signingKey = hostConfig.gitSigningKey;
+        signingKey = host.gitSigningKey;
       };
 
       alias = {
@@ -47,6 +46,7 @@ in
         else
           "/run/current-system/sw/bin/op-ssh-sign";
       commit.gpgsign = true;
+      tag.gpgsign = true;
     };
   };
 }

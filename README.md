@@ -20,6 +20,14 @@ macOS:
 nix run nix-darwin -- switch --flake .#legolas
 ```
 
+## Validation
+
+```bash
+nix flake check --all-systems
+```
+
+Note: pre-commit checks are configured through the flake and run via `nix flake check`. They are not installed automatically into `.git/hooks`.
+
 ## Layout
 
 - `nixos-configurations/` host configs
@@ -34,4 +42,4 @@ nix run nix-darwin -- switch --flake .#legolas
 
 - Hyprland and Noctalia are configured for `sauron`
 - Zed is Nix-managed on NixOS and app-managed on Darwin
-- `agenix` is kept for future secrets setup
+- secrets management is planned (likely via `agenix`), but it has not been added yet

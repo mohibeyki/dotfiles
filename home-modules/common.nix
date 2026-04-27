@@ -1,17 +1,20 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
 {
   home = {
-    sessionVariables = {
-      EDITOR = "nvim";
-    };
-
     sessionPath = [
       "${config.home.homeDirectory}/.local/share/npm/bin"
     ];
+  };
+
+  services.home-manager.autoExpire = lib.mkIf pkgs.stdenv.isLinux {
+    enable = true;
+    timestamp = "-7 days";
+    frequency = "weekly";
   };
 
   programs = {
@@ -49,6 +52,13 @@
       enable = true;
       enableFishIntegration = true;
     };
+
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
   };
+
+  home.packages = [ pkgs.comma ];
 
 }

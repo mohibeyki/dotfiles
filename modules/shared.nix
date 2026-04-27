@@ -1,13 +1,13 @@
 {
-  overlays,
   pkgs,
   ...
 }:
 {
+  home-manager.backupFileExtension = "bak";
+
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
-      accept-flake-config = false;
       download-buffer-size = 256 * 1024 * 1024; # 256MiB
 
       experimental-features = [
@@ -48,10 +48,7 @@
     noto-fonts-color-emoji
   ];
 
-  nixpkgs = {
-    inherit overlays;
-    config.allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     btop

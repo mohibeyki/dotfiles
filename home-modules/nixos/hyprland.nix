@@ -1,31 +1,28 @@
 {
-  hostConfig,
+  config,
   lib,
   pkgs,
   ...
 }:
 let
+  inherit (config.dotfiles) host;
+  inherit (host) workspaces;
+
   monitors = map (
     monitor:
-    {
+    lib.filterAttrs (_: value: value != null) {
       inherit (monitor)
         output
         mode
         position
         scale
         bitdepth
+        vrr
+        cm
+        icc
         ;
-      inherit (monitor) vrr;
     }
-    // lib.optionalAttrs (monitor ? cm) {
-      inherit (monitor) cm;
-    }
-    // lib.optionalAttrs (monitor ? icc) {
-      inherit (monitor) icc;
-    }
-  ) (hostConfig.monitors or [ ]);
-
-  workspaces = hostConfig.workspaces or [ ];
+  ) host.monitors;
 in
 {
   xdg.portal = {
@@ -53,7 +50,7 @@ in
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE,24"
       ]
-      ++ lib.optionals (hostConfig.isNvidia or false) [
+      ++ lib.optionals host.isNvidia [
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "NVD_BACKEND,direct"
@@ -80,7 +77,7 @@ in
         "SUPER, T, togglefloating"
         "SUPER, F, fullscreen, 0"
         "SUPER SHIFT, F, fullscreen, 1"
-        "SUPER CTRL SHIFT, Q, exec, hyprctl -j activewindow | jq '.pid' | xargs kill -9"
+        "SUPER CTRL SHIFT, Q, exec, hyprctl -j activewindow | jq -e '.pid' | xargs -I{} kill -9 {}"
         "SUPER SHIFT, D, layoutmsg, swapsplit"
         "SUPER SHIFT, S, layoutmsg, togglesplit"
 

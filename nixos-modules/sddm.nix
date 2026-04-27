@@ -146,12 +146,20 @@ in
   };
 
   config = {
-    services.displayManager.sddm.extraPackages = with pkgs; [
-      kdePackages.qt5compat
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-    ];
+    services.displayManager = {
+      defaultSession = "hyprland-uwsm";
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "noctalia";
+        extraPackages = with pkgs; [
+          kdePackages.qt5compat
+          noto-fonts
+          noto-fonts-cjk-sans
+          noto-fonts-color-emoji
+        ];
+      };
+    };
     environment.systemPackages = [ theme ];
   };
 }

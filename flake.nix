@@ -87,7 +87,6 @@
         darwin.specialArgs = {
           inherit inputs overlays;
         };
-        home.extraSpecialArgs = { inherit inputs overlays; };
       };
 
       systems = [
@@ -95,22 +94,16 @@
         "aarch64-darwin"
       ];
 
-      perSystem =
-        { system, ... }:
-        {
-          _module.args.pkgs = import inputs.nixpkgs {
-            inherit system overlays;
-          };
-
-          pre-commit = {
-            check.enable = true;
-            settings = {
-              hooks = {
-                nixfmt.enable = true;
-                statix.enable = true;
-              };
+      perSystem = _: {
+        pre-commit = {
+          check.enable = true;
+          settings = {
+            hooks = {
+              nixfmt.enable = true;
+              statix.enable = true;
             };
           };
         };
+      };
     };
 }

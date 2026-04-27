@@ -13,8 +13,12 @@
     };
 
     loader = {
-      systemd-boot.enable = lib.mkDefault true;
-      efi.canTouchEfiVariables = lib.mkDefault true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = lib.mkDefault 10;
+      };
+
+      efi.canTouchEfiVariables = true;
     };
 
     supportedFilesystems = [ "ntfs" ];
@@ -40,7 +44,6 @@
     ];
   };
 
-  time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
 
   security = {
@@ -52,9 +55,7 @@
 
   networking = {
     networkmanager.enable = true;
-    # Firewall disabled intentionally — machine is behind a NAT router with no port
-    # forwarding, and dev work requires frequent port exposure for testing.
-    firewall.enable = false;
+    firewall.enable = lib.mkDefault true;
   };
 
   services = {
@@ -71,31 +72,14 @@
       jack.enable = true;
     };
 
-    printing.enable = lib.mkDefault false;
     libinput.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
     openssh = {
-      enable = lib.mkDefault true;
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = false;
         PubkeyAuthentication = true;
-      };
-    };
-
-    resolved = {
-      enable = lib.mkDefault true;
-      settings = {
-        Resolve = {
-          DNSSEC = "allow-downgrade";
-          DNSOverTLS = "opportunistic";
-          Domains = [ "~." ];
-          FallbackDNS = [
-            "1.1.1.1"
-            "1.0.0.1"
-          ];
-        };
       };
     };
   };
@@ -115,16 +99,10 @@
     };
   };
 
-  programs = {
-    fish.enable = true;
-    firefox.enable = lib.mkDefault true;
-    nix-ld.enable = true;
-    _1password.enable = lib.mkDefault true;
-    _1password-gui = lib.mkDefault {
-      enable = true;
-      polkitPolicyOwners = [ "mohi" ];
-    };
-  };
+  # programs.fish.enable is also set in home-modules/fish.nix for HM user config.
+  # Both are required: the system-level declaration enables fish as the login shell;
+  # the HM declaration configures aliases, plugins, and other user settings.
+  programs.fish.enable = true;
 
   system.stateVersion = "26.05";
 }

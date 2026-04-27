@@ -1,18 +1,19 @@
 {
   config,
-  hostConfig,
+  inputs,
   lib,
   pkgs,
   ...
 }:
 let
-  monitorNames = map (monitor: monitor.output) (hostConfig.monitors or [ ]);
+  inherit (config.dotfiles) host;
+  monitorNames = map (monitor: monitor.output) host.monitors;
 in
 {
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = false;
-    package = pkgs.noctalia-shell;
+    package = inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ../noctalia.json)) {
       general = {
         avatarImage = "${config.home.homeDirectory}/Pictures/face.png";

@@ -3,16 +3,16 @@
   ...
 }:
 {
-  services = {
-    displayManager = {
-      defaultSession = "hyprland-uwsm";
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-        theme = "noctalia";
-      };
+  programs = {
+    firefox.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "mohi" ];
     };
+  };
 
+  services = {
     desktopManager.plasma6.enable = true;
   };
 

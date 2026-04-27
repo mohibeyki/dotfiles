@@ -1,7 +1,9 @@
+{ ... }:
 {
   imports = [
+    ./host-config.nix
     ./common.nix
-    ./dev.nix
+    ./user-dev.nix
     ./fish.nix
     ./ghostty.nix
     ./git.nix

@@ -78,7 +78,6 @@ _: {
       "float on, match:title ^(Picture-in-Picture)$"
       "pin on, match:title ^(Picture-in-Picture)$"
       "move 69.5% 4%, match:title ^(Picture-in-Picture)$"
-      "suppress_event windowclose, match:title ^(Picture-in-Picture)$"
 
       # Screensaver
       "fullscreen on, match:class Screensaver"

@@ -1,6 +1,7 @@
 {
   inputs,
   overlays,
+  pkgs,
   ...
 }:
 let
@@ -39,7 +40,7 @@ in
 
     ./hardware.nix
 
-    ../../modules/dev.nix
+    ../../modules/system-dev.nix
     ../../modules/shared.nix
     ../../nixos-modules/containers.nix
     ../../nixos-modules/default.nix
@@ -50,11 +51,17 @@ in
     ../../nixos-modules/game.nix
   ];
 
-  networking.hostName = "sauron";
-  # Disabled — systemd-resolved interferes with rootless Docker DNS in containers.
-  services.resolved.enable = false;
+  time.timeZone = "America/Los_Angeles";
 
-  nixpkgs.overlays = sauronOverlays;
+  networking = {
+    hostName = "sauron";
+    # Disabled intentionally — machine is behind a NAT router with no port forwarding,
+    # and dev work requires frequent port exposure for testing.
+    firewall.enable = false;
+  };
+  services.openssh.enable = true;
+
+  nixpkgs.overlays = overlays ++ sauronOverlays;
 
   services.flatpak = {
     remotes = [
@@ -63,6 +70,11 @@ in
         location = "https://flathub.org/repo/flathub.flatpakrepo";
       }
     ];
+
+    update.auto = {
+      enable = true;
+      onCalendar = "daily";
+    };
 
     packages = [
       "com.bambulab.BambuStudio"
@@ -75,11 +87,22 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    backupFileExtension = "bak";
 
     extraSpecialArgs = {
       inherit inputs overlays;
-      hostConfig = {
+    };
+
+    users.mohi = {
+      imports = [
+        inputs.noctalia-shell.homeModules.default
+        inputs.plasma-manager.homeModules.plasma-manager
+        ../../home-configurations/mohi
+
+        ../../home-modules
+        ../../home-modules/nixos
+      ];
+
+      dotfiles.host = {
         isNvidia = true;
         gitSigningKey = keys.sauron;
         gitAllowedSigners = builtins.attrValues keys;
@@ -97,17 +120,8 @@ in
           "9, monitor:${monitors.main.output}"
         ];
       };
-    };
 
-    users.mohi = {
-      imports = [
-        inputs.noctalia-shell.homeModules.default
-        inputs.plasma-manager.homeModules.plasma-manager
-        ../../home-configurations/mohi
-
-        ../../home-modules
-        ../../home-modules/nixos
-      ];
+      home.packages = [ pkgs.docker-compose ];
     };
   };
 }

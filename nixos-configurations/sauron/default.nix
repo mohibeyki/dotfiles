@@ -9,6 +9,7 @@ let
 
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
+    (final: prev: { openldap = prev.openldap.overrideAttrs (old: { doCheck = false; }); })
   ];
 
   monitors = {

@@ -9,7 +9,11 @@ let
 
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
-    (final: prev: { openldap = prev.openldap.overrideAttrs (old: { doCheck = false; }); })
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (old: {
+        doCheck = false;
+      });
+    })
   ];
 
   monitors = {
@@ -19,7 +23,7 @@ let
       position = "0x0";
       scale = 1;
       bitdepth = 10;
-      vrr = 2;
+      vrr = 1;
       cm = "srgb";
     };
 
@@ -29,7 +33,7 @@ let
       position = "-2560x-80";
       scale = 1;
       bitdepth = 10;
-      vrr = 0;
+      vrr = 1;
       cm = "srgb";
     };
   };
@@ -48,6 +52,7 @@ in
     ../../nixos-modules/desktop.nix
     ../../nixos-modules/sddm.nix
     ../../nixos-modules/hyprland.nix
+    ../../nixos-modules/niri.nix
     ../../nixos-modules/nvidia.nix
     ../../nixos-modules/game.nix
   ];

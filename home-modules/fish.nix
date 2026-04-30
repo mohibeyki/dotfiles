@@ -13,6 +13,10 @@
       }
     ];
 
+    shellInit = ''
+      set -gx PILENS_DATA_DIR "$HOME/.pi/pi-lens/projects"
+    '';
+
     interactiveShellInit = ''
       set -g tide_context_always_display true
       set -g tide_context_hostname_parts 1

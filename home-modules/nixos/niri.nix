@@ -146,6 +146,7 @@ in
 
     spawn-at-startup "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
     spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
+    spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
     spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
     spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
     spawn-at-startup "xwayland-satellite"

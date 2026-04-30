@@ -47,14 +47,7 @@ in
 
     ../../modules/system-dev.nix
     ../../modules/shared.nix
-    ../../nixos-modules/containers.nix
-    ../../nixos-modules/default.nix
-    ../../nixos-modules/desktop.nix
-    ../../nixos-modules/sddm.nix
-    ../../nixos-modules/hyprland.nix
-    ../../nixos-modules/niri.nix
-    ../../nixos-modules/nvidia.nix
-    ../../nixos-modules/game.nix
+    ../../nixos-modules
   ];
 
   time.timeZone = "America/Los_Angeles";

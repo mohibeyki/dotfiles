@@ -1,5 +1,8 @@
-config/tmux/plugins/
+# ai
 .claude
+.pi
+
+# nix
+.direnv
 result
 result-*
-.direnv/

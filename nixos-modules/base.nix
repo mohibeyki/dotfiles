@@ -5,7 +5,7 @@
 }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     plymouth = {
       enable = true;

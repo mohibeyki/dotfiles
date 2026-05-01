@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -11,10 +10,8 @@
   hardware = {
     nvidia = {
       modesetting.enable = true;
-      nvidiaPersistenced = true;
       nvidiaSettings = true;
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       powerManagement = {
         enable = true;

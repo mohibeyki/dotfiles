@@ -1,45 +1,87 @@
 # Dotfiles
 
-Nix flake-based dotfiles for:
-- `sauron`: NixOS desktop
-- `legolas`: macOS (`nix-darwin`)
+Nix flake-based dotfiles for two hosts:
 
-Home Manager is integrated on both platforms.
+- `sauron`: NixOS desktop (`x86_64-linux`) with Plasma, Hyprland, Niri, NVIDIA, Flatpak, gaming, containers, and Home Manager
+- `legolas`: macOS (`nix-darwin`, `aarch64-darwin`) with Home Manager
+
+Home Manager is integrated into system rebuilds on both platforms; there is no separate interactive `home-manager switch` workflow.
 
 ## Rebuild
 
-NixOS:
+NixOS (`sauron`):
 
 ```bash
 sudo nixos-rebuild switch --flake .#sauron
 ```
 
-macOS:
+macOS (`legolas`):
 
 ```bash
 nix run nix-darwin -- switch --flake .#legolas
 ```
 
+Update inputs:
+
+```bash
+nix flake update
+```
+
 ## Validation
+
+Evaluate the NixOS system derivation:
+
+```bash
+nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath
+```
+
+Dry-run build the NixOS system:
+
+```bash
+nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --no-link
+```
+
+Run flake checks, including pre-commit checks:
 
 ```bash
 nix flake check --all-systems
 ```
 
-Note: pre-commit checks are configured through the flake and run via `nix flake check`. They are not installed automatically into `.git/hooks`.
+Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and are not installed automatically into `.git/hooks`.
 
 ## Layout
 
-- `nixos-configurations/` host configs
-- `darwin-configurations/` host configs
-- `nixos-modules/` NixOS modules
-- `darwin-modules/` Darwin modules
-- `home-modules/` Home Manager modules
-- `modules/` shared modules
-- `assets/` repo-managed images
+- `flake.nix` — flake entry point, `flake-parts`, `ez-configs`, pre-commit hooks
+- `nixos-configurations/sauron/` — NixOS host config and hardware config
+- `darwin-configurations/legolas/` — nix-darwin host config
+- `nixos-modules/` — NixOS modules
+  - `base.nix` — boot, users, services, networking, PipeWire, polkit
+  - `desktop.nix` — Plasma, desktop packages, graphics, MIME/menu integration
+  - `hyprland.nix` — Hyprland system integration
+  - `niri.nix` — Niri system integration and supporting tools
+  - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
+  - `nvidia.nix` — NVIDIA driver settings
+- `home-modules/` — shared Home Manager modules
+- `home-modules/nixos/` — NixOS-only Home Manager desktop modules
+  - `hyprland.nix` / `hyprland-rules.nix` — Hyprland settings and rules
+  - `niri.nix` — generated Niri `config.kdl`
+  - `noctalia.nix` — Noctalia config
+  - `theme.nix` — GTK, cursor, Hyprcursor, and Plasma theme settings
+- `home-configurations/mohi/` — shared user identity/home settings
+- `modules/` — shared system modules and keys
+- `darwin-modules/` — Darwin system modules
+- `assets/` — repo-managed images/assets
+
+## Desktop notes
+
+- SDDM is the display manager on `sauron`.
+- Plasma, Hyprland, and Niri are intended to coexist.
+- Hyprland and Niri both start Noctalia, 1Password, KDE wallet setup, and the KDE polkit agent.
+- `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly; Niri strips `desc:` and matches outputs by manufacturer/model/serial.
+- Niri uses persistent named workspaces (`"1"` through `"10"`) to mimic the Hyprland workspace layout.
 
 ## Notes
 
-- Hyprland and Noctalia are configured for `sauron`
-- Zed is Nix-managed on NixOS and app-managed on Darwin
-- secrets management is planned (likely via `agenix`), but it has not been added yet
+- Zed is Nix-managed on NixOS and app-managed on Darwin.
+- `nixos-modules/nvidia.nix` currently includes a small workaround for the NVIDIA beta driver/persistenced `makeFlags` issue in nixpkgs.
+- Secrets management is planned (likely via `agenix`), but it has not been added yet.

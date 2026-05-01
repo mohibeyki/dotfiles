@@ -1,62 +1,54 @@
 # Global Agent Guidance
 
-## Response style
-- Be concise by default.
-- Answer directly first, then add brief supporting detail if needed.
-- State assumptions clearly when something is uncertain.
-- Prefer bullets over long prose.
+## Communication
+- Be concise by default: answer directly, prefer bullets, and add detail only when useful or requested.
+- Be thorough when researching, investigating, debugging, reviewing, or planning.
+- State assumptions, uncertainty, risks, and tradeoffs clearly.
+
+## Safety and decisions
+- Never commit changes unless explicitly asked; never push, force-push, reset, rebase, delete branches/files, or perform destructive cleanup without explicit approval.
+- Before committing, inspect `git status` and the relevant diff unless the user explicitly says to skip review.
+- Ask before irreversible, destructive, high-blast-radius, or architectural changes.
+- Ask clarifying questions only when requirements are ambiguous and cannot be reasonably inferred from files, docs, or context.
+- For meaningful choices, briefly explain tradeoffs and recommend one option when possible; prefer one focused question at a time.
 
 ## Editing and implementation
-- Prefer minimal, targeted diffs over broad rewrites.
-- Read files before editing them.
-- Preserve the existing code style, structure, and naming unless there is a clear reason to change them.
-- Do not perform unrelated cleanup unless asked or unless it is directly required to complete the task safely.
+- Prefer simple, maintainable solutions and minimal, targeted diffs.
+- Read files before editing; preserve existing style, structure, and naming unless there is a clear reason to change them.
+- Avoid unrelated cleanup; remove dead code only when it is directly related to the change.
+- Avoid overengineering and new dependencies unless they provide clear value.
+- Keep comments sparse and useful.
 - When changing files, always mention the exact file paths.
-- Remove dead code when it is directly related to the change being made.
 
-## Safety and change management
-- Never commit, push, or perform destructive cleanup without explicit user approval.
-- Ask before making irreversible, high-blast-radius, or architectural changes.
-- Prefer dry-run, validation, or evaluation commands before applying changes when such commands exist.
-- Call out risks, tradeoffs, and follow-up actions clearly.
-
-## Tool preferences
-- Use `rg`, `find`, and shell commands for discovery.
-- Use the `read` tool instead of `cat` for reading files.
-- Use precise edits instead of full rewrites whenever practical.
-- Use background processes for long-running commands.
+## Tools and workflow
+- Use `rg`, `find`, and shell commands for discovery; use `read` instead of `cat` for file reads.
+- Use `edit` for precise changes and `write` mainly for new files or intentional full rewrites.
+- Use `process` for long-running commands; avoid `&`, `nohup`, `disown`, or `setsid` when it fits.
+- Use available specialized tools when appropriate and valuable; prefer local docs/source before external research.
+- Use task tracking for multi-step implementation, research, or debugging; keep tasks short, actionable, and avoid tracking obvious single-step work.
+- Keep at most one task actively in progress unless work is truly parallel; mark tasks complete only when actually done and, when applicable, validated.
 - Avoid noisy polling or unnecessary repeated commands.
 
-## Configuration and dotfiles preferences
-- Prefer declarative, reproducible configuration over ad-hoc fixes.
-- Prefer pinned versions when practical for shared or long-lived configuration.
+## Configuration and environment
+- Prefer reproducible, documented configuration changes over one-off local fixes.
+- Avoid editing generated files or live runtime config when a source-of-truth file exists.
+- Prefer pinned versions for shared or long-lived configuration when practical.
 - Avoid introducing tools that create unexpected per-project clutter unless they provide clear value.
-- This user's global pi setup is managed from dotfiles via symlinks where practical; preserve that pattern.
-
-## Nix and dotfiles workflow
-- Respect flake structure, module boundaries, and host-specific separation.
-- Prefer changes that fit naturally into the existing NixOS/Home Manager/darwin layout.
-- Suggest the appropriate rebuild, eval, or validation command after Nix changes.
-- Do not assume Home Manager is running as a live user service unless explicitly stated.
-
-## Decision-making
-- Ask clarifying questions when requirements are ambiguous.
-- For meaningful choices, briefly explain tradeoffs and recommend one option when possible.
-- Use explicit confirmation for high-stakes decisions.
-
-## Code quality
-- Prefer simple, boring, maintainable solutions.
-- Avoid overengineering.
-- Avoid adding dependencies unless they are justified by clear value.
-- Keep comments sparse and useful.
+- Prefer project-local, manifest-based dependency changes; ask before installing tools globally/user-level or changing shell/profile/machine settings.
+- If a missing tool blocks progress, explain it and ask before installing it outside the project.
+- When a change requires a reload, restart, rebuild, or re-login to take effect, say so clearly.
 
 ## Research and verification
 - For pi-specific questions, check pi docs before guessing.
 - For library or API behavior, prefer source-backed or doc-backed answers.
 - Distinguish verified facts from inference.
+- Prefer dry-run, validation, or evaluation commands before applying changes when such commands exist.
+- After changes, run the narrowest relevant validation or test command when practical.
+- Do not claim a fix is fully verified unless the relevant checks passed; if validation was skipped or could not be run, say why.
 
 ## Change summaries
 - When making a change, summarize:
   1. what changed
   2. which files were touched
-  3. how to apply or verify the change
+  3. what validation was run, or why it was not run
+  4. how to apply, reload, or verify the change when relevant

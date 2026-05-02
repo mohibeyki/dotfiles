@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.70.5",
+  "lastChangelogVersion": "0.72.1",
   "defaultProvider": "kimi-coding",
-  "defaultModel": "k2p6",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
   "packages": [
@@ -17,6 +17,7 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:taskplane",
     "npm:@juicesharp/rpiv-advisor",
-    "npm:@feniix/pi-notion"
+    "npm:@feniix/pi-notion",
+    "npm:pi-provider-kimi-code"
   ]
 }

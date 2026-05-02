@@ -60,6 +60,9 @@ in
       vim_mode = true;
       base_keymap = "VSCode";
 
+      use_system_prompts = false;
+      use_system_path_prompts = false;
+
       icon_theme = {
         mode = "dark";
         light = "Zed (Default)";

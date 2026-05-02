@@ -16,11 +16,13 @@ _: {
       # Games — most Steam games use steam_app_<appid> as their initial class
       "tag +game, match:initial_class ^(steam_app_.*)$"
 
-      # Game launchers — Steam, Heroic, Lutris, Bottles
-      "tag +game-launcher, match:class ^(steam|heroic|net.lutris.Lutris|com.usebottles.bottles)$"
+      # Floating centered apps — password manager, etc.
+      "tag +floating-centered, match:class ^(1password)$"
 
-      # Quick-access utilities — password manager, audio, networking, system tools
-      "tag +quick-access, match:class ^(1password)$"
+      # Steam chat windows — float but let Steam position them
+      "tag +steam-chat, match:class ^(steam)$, match:title ^(Friends List|Chat)$"
+
+      # Quick-access utilities — audio, networking, system tools
       "tag +quick-access, match:class ^(com.github.tsowell.wiremix)$"
       "tag +quick-access, match:class ^(org.kde.kcalc)$"
       "tag +quick-access, match:class ^(gparted)$"
@@ -44,11 +46,13 @@ _: {
       # Browsers always tile (Chromium-based sometimes opens floating)
       "tile on, match:tag chromium-based-browser"
 
-      # Game launchers: float, centered, consistent size, full opacity
-      "float on, match:tag game-launcher"
-      "center on, match:tag game-launcher"
-      "size 1200 800, match:tag game-launcher"
-      "opacity 1.0 1.0, match:tag game-launcher"
+      # Floating centered apps
+      "float on, match:tag floating-centered"
+      "center on, match:tag floating-centered"
+      "size 1200 800, match:tag floating-centered"
+
+      # Steam chat windows
+      "float on, match:tag steam-chat"
 
       # Quick-access: float and center at natural size
       "float on, match:tag quick-access"
@@ -63,9 +67,6 @@ _: {
       "size 800 600, match:tag floating-window"
 
       # ── Specific overrides ───────────────────────────────────────────────────
-
-      # Steam Friends List — narrower than the default game-launcher size
-      "size 300 600, match:class ^(steam)$, match:title ^(Friends List)$"
 
       # GParted and Transmission — larger than natural quick-access default
       "size 900 700, match:class ^(gparted)$"

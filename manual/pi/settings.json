@@ -4,11 +4,6 @@
   "defaultModel": "k2p6",
   "defaultThinkingLevel": "medium",
   "theme": "rose-pine-moon",
-  "npmCommand": [
-    "env",
-    "NPM_CONFIG_PREFIX=~/.local/share/pi",
-    "npm"
-  ],
   "packages": [
     "npm:@aliou/pi-processes@0.8.0",
     "npm:pi-subagents",
@@ -21,6 +16,7 @@
     "npm:context-mode",
     "npm:@juicesharp/rpiv-todo",
     "npm:taskplane",
-    "npm:@juicesharp/rpiv-advisor"
+    "npm:@juicesharp/rpiv-advisor",
+    "npm:@feniix/pi-notion"
   ]
 }

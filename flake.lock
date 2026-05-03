@@ -226,6 +226,27 @@
     },
     "flake-parts_4": {
       "inputs": {
+        "nixpkgs-lib": [
+          "neovim-nightly-overlay",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777678872,
+        "narHash": "sha256-EPIFsulyon7Z1vLQq5Fk64GR8L7cQsT+IPhcsukVbgk=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "5250617bffd85403b14dbf43c3870e7f255d2c16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_5": {
+      "inputs": {
         "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
@@ -242,7 +263,7 @@
         "type": "github"
       }
     },
-    "flake-parts_5": {
+    "flake-parts_6": {
       "inputs": {
         "nixpkgs-lib": [
           "nixvim",
@@ -264,7 +285,7 @@
         "type": "github"
       }
     },
-    "flake-parts_6": {
+    "flake-parts_7": {
       "inputs": {
         "nixpkgs-lib": [
           "nixvim",
@@ -741,8 +762,30 @@
     },
     "neovim-nightly-overlay": {
       "inputs": {
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_4",
         "neovim-src": "neovim-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777766643,
+        "narHash": "sha256-Q8LsZy6hfRAZrSm0560OspF5ijkmcBRAZoKevrBFeEw=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "4f9b5a9d75f5a1908eb8abd8d4aa311c014157df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "type": "github"
+      }
+    },
+    "neovim-nightly-overlay_2": {
+      "inputs": {
+        "flake-parts": "flake-parts_6",
+        "neovim-src": "neovim-src_2",
         "nixpkgs": [
           "nixvim",
           "nixpkgs"
@@ -763,6 +806,22 @@
       }
     },
     "neovim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777764119,
+        "narHash": "sha256-mNQDdRdoJeVGD908nqK/+uGX8jNEGREbs6z+jZgMmSk=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "14819d55fbca18ef70638cce38318fe6bc4b32dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "neovim-src_2": {
       "flake": false,
       "locked": {
         "lastModified": 1777159037,
@@ -894,8 +953,8 @@
     },
     "nixvim": {
       "inputs": {
-        "flake-parts": "flake-parts_4",
-        "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "flake-parts": "flake-parts_5",
+        "neovim-nightly-overlay": "neovim-nightly-overlay_2",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim_2"
       },
@@ -915,7 +974,7 @@
     },
     "nixvim_2": {
       "inputs": {
-        "flake-parts": "flake-parts_6",
+        "flake-parts": "flake-parts_7",
         "nixpkgs": [
           "nixvim",
           "nixpkgs"
@@ -1036,6 +1095,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "llm-agents": "llm-agents",
+        "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_2",

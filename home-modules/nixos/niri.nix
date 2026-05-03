@@ -11,8 +11,8 @@ let
 
   stripDesc = output: lib.removePrefix "desc:" output;
 
-  mainOutput = stripDesc "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
-  sideOutput = stripDesc "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
+  mainOutput = stripDesc (builtins.elemAt host.monitors 0).output;
+  sideOutput = stripDesc (builtins.elemAt host.monitors 1).output;
 
   # Niri wants the exact refresh with three decimals if specified. Omitting the
   # refresh makes it pick the highest mode for that resolution. This keeps the

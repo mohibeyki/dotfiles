@@ -60,7 +60,10 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
   - `hyprland.nix` — Hyprland system integration
   - `niri.nix` — Niri system integration and supporting tools
   - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
-  - `nvidia.nix` — NVIDIA driver settings
+  - `nvidia.nix` — NVIDIA driver settings (beta + open kernel module)
+  - `game.nix` — gaming settings (Steam, gamescope, gamemode)
+  - `containers.nix` — Docker/Podman containers
+  - `sddm.nix` — SDDM display manager config
 - `home-modules/` — shared Home Manager modules
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
   - `hyprland.nix` / `hyprland-rules.nix` — Hyprland settings and rules
@@ -83,5 +86,6 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 ## Notes
 
 - Zed is Nix-managed on NixOS and app-managed on Darwin.
-- `nixos-modules/nvidia.nix` currently includes a small workaround for the NVIDIA beta driver/persistenced `makeFlags` issue in nixpkgs.
-- Secrets management is planned (likely via `agenix`), but it has not been added yet.
+- `nixos-modules/nvidia.nix` selects `nvidiaPackages.beta` with the open kernel module.
+- **Secrets management** — planned via `agenix`. Not yet implemented; SSH public keys are fine in-repo, but WiFi passwords, VPN configs, and API tokens will need it.
+- **Disk encryption** — planned. `/` and `/home` are currently unencrypted. Will add LUKS when reinstalling or migrating.

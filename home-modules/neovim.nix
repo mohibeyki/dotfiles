@@ -1,11 +1,15 @@
-_: {
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    viAlias = true;
-    withNodeJs = true;
-    withPython3 = true;
-    withRuby = true;
-    defaultEditor = true;
+{
+  pkgs,
+  ...
+}:
+{
+  home.packages = [ pkgs.neovim ];
+
+  home.shellAliases = {
+    vi = "nvim";
+    vim = "nvim";
+    vimdiff = "nvim -d";
   };
+
+  home.sessionVariables.EDITOR = "nvim";
 }

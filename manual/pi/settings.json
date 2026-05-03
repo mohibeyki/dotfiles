@@ -17,7 +17,6 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:taskplane",
     "npm:@juicesharp/rpiv-advisor",
-    "npm:@feniix/pi-notion",
     "npm:pi-provider-kimi-code"
   ]
 }

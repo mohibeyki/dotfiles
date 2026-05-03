@@ -67,6 +67,24 @@
   };
 
   services = {
+    btrbk.instances.local = {
+      onCalendar = "daily";
+      settings = {
+        snapshot_preserve = "7d 4w";
+        snapshot_preserve_min = "3d";
+
+        volume."/" = {
+          snapshot_dir = ".snapshots";
+          subvolume."/" = { };
+        };
+
+        volume."/home" = {
+          snapshot_dir = ".snapshots";
+          subvolume."/home" = { };
+        };
+      };
+    };
+
     flatpak.enable = true;
 
     pulseaudio.enable = false;

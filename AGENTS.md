@@ -47,9 +47,12 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 ├── home-modules/                          # Home Manager modules (per-user config)
 │   ├── common.nix                         # session variables, shared tools
 │   ├── user-dev.nix                       # User-level dev tool packages
+│   ├── host-config.nix                    # Typed dotfiles.host options
 │   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
 │   ├── git.nix                            # Git config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
+│   ├── neovim.nix                         # Neovim config
+│   ├── nixvim.nix                         # NixVim wrapper
 │   ├── zellij.kdl                         # Zellij layout/UI config
 │   └── nixos/                             # NixOS-only home modules
 │       ├── hyprland.nix                   # Hyprland WM: keybinds, env vars, exec-once, settings
@@ -191,5 +194,5 @@ Run manually:
 
 ## Known Issues / Pending
 
-- **NVIDIA beta driver workaround**: `nixos-modules/nvidia.nix` overrides the selected beta driver to provide `makeFlags = old.makeFlags or [ ];` because current nixpkgs `nvidia-persistenced` expects `nvidia_x11.makeFlags`.
+- **NVIDIA beta driver**: `nixos-modules/nvidia.nix` selects `nvidiaPackages.beta` with the open kernel module.
 - **Niri output names**: if monitor matching fails after hardware/EDID changes, log into Niri and check `niri msg outputs`; update the stripped `desc:` names in `home-modules/nixos/niri.nix` if needed.

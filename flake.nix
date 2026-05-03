@@ -61,7 +61,13 @@
     };
 
     nixvim = {
+      # Self-contained; pins its own nixpkgs internally.
       url = "github:mohibeyki/nixvim";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -71,6 +77,7 @@
       overlays = [
         inputs.fenix.overlays.default
         inputs.llm-agents.overlays.default
+        inputs.neovim-nightly-overlay.overlays.default
       ];
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
@@ -94,16 +101,29 @@
         "aarch64-darwin"
       ];
 
-      perSystem = _: {
-        pre-commit = {
-          check.enable = true;
-          settings = {
-            hooks = {
-              nixfmt.enable = true;
-              statix.enable = true;
+      perSystem =
+        { pkgs, ... }:
+        {
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              nixd
+              nixfmt
+              statix
+              treefmt
+              python3
+              python3Packages.vdf
+            ];
+          };
+
+          pre-commit = {
+            check.enable = true;
+            settings = {
+              hooks = {
+                nixfmt.enable = true;
+                statix.enable = true;
+              };
             };
           };
         };
-      };
     };
 }

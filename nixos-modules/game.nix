@@ -14,5 +14,6 @@
     lutris
     mangohud
     protontricks
+    steamtinkerlaunch
   ];
 }

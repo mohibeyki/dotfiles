@@ -40,6 +40,7 @@
     statix
 
     # Python
+    python3
     pyright
     ruff
     uv

@@ -43,7 +43,6 @@
       discord
       easyeffects
       gparted
-      jq
       kdiskmark
       killall
       lshw

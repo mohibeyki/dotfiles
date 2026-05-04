@@ -31,10 +31,13 @@ in
       pkgs.kdePackages.xdg-desktop-portal-kde
     ];
 
-    config.hyprland.default = [
-      "hyprland"
-      "kde"
-    ];
+    config = {
+      hyprland.default = [
+        "hyprland"
+        "kde"
+      ];
+      niri.default = [ "kde" ];
+    };
   };
 
   wayland.windowManager.hyprland = {
@@ -131,10 +134,6 @@ in
         "SUPER ALT, up, swapwindow, u"
         "SUPER ALT, right, swapwindow, r"
 
-        # Scratchpad workspace for temporary windows.
-        "SUPER, grave, togglespecialworkspace, magic"
-        "SUPER SHIFT, grave, movetoworkspace, special:magic"
-
         # Workspace switching and sending windows to workspaces.
         "SUPER, TAB, workspace, m+1"
         "SUPER SHIFT, TAB, workspace, m-1"
@@ -173,7 +172,7 @@ in
       ];
 
       exec-once = [
-        "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
+        "systemctl --user start plasma-kwallet-pam.service"
         "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
         "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         "env -u QT_QPA_PLATFORMTHEME noctalia-shell"

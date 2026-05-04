@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -15,9 +16,16 @@
   services = {
     desktopManager.plasma6.enable = true;
     blueman.enable = true;
+
+    # KWallet is the selected secret backend; avoid GNOME Keyring racing for
+    # org.freedesktop.secrets and confusing Chromium/Brave session encryption.
+    gnome.gnome-keyring.enable = lib.mkForce false;
   };
 
-  security.pam.services.sddm.kwallet.enable = true;
+  security.pam.services = {
+    login.enableGnomeKeyring = lib.mkForce false;
+    sddm.kwallet.enable = true;
+  };
 
   hardware = {
     graphics = {

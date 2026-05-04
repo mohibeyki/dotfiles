@@ -79,6 +79,7 @@ in
     ${workspaceBlocks}
 
     environment {
+        DISPLAY ":0"
         ELECTRON_OZONE_PLATFORM_HINT "auto"
         NIXOS_OZONE_WL "1"
     ${nvidiaEnvironment}    }
@@ -97,12 +98,7 @@ in
             accel-profile "flat"
         }
 
-        touchpad {
-            natural-scroll
-        }
-
         focus-follows-mouse
-        workspace-auto-back-and-forth
         mod-key "Super"
     }
 
@@ -134,7 +130,7 @@ in
             proportion 1.0
         }
 
-        default-column-width { proportion 0.5; }
+        default-column-width { proportion 1.0; }
     }
 
     prefer-no-csd
@@ -144,12 +140,12 @@ in
         skip-at-startup
     }
 
-    spawn-at-startup "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
+    spawn-at-startup "systemctl" "--user" "start" "plasma-kwallet-pam.service"
     spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
     spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
     spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
     spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
-    spawn-at-startup "xwayland-satellite"
+    spawn-at-startup "${pkgs.xwayland-satellite}/bin/xwayland-satellite" ":0"
 
     // Base decoration: match Hyprland's borderless, rounded look as closely as niri allows.
     window-rule {
@@ -274,7 +270,7 @@ in
         Mod+Shift+T { switch-focus-between-floating-and-tiling; }
         Mod+F { fullscreen-window; }
         Mod+Shift+F { maximize-column; }
-        Mod+Ctrl+Shift+Q { spawn "bash" "-lc" "niri msg -j focused-window | jq -e '.pid' | xargs -r kill -9"; }
+        Mod+Ctrl+Shift+Q { spawn "sh" "-c" "kill -9 \"$(niri msg -j focused-window | jq -r .pid)\""; }
         Mod+Shift+D { expel-window-from-column; }
         Mod+Shift+S { consume-window-into-column; }
         Mod+R { switch-preset-column-width; }
@@ -285,7 +281,7 @@ in
         // App shortcuts.
         Mod+E { spawn "dolphin"; }
         Mod+S { spawn "bash" "-lc" "grim -g \"$(slurp)\" - | wl-copy"; }
-        Print { spawn "bash" "-lc" "mkdir -p \"$HOME/Pictures/Screenshots\" && grim -g \"$(slurp)\" \"$HOME/Pictures/Screenshots/Screenshot from $(date +'%Y-%m-%d %H-%M-%S').png\""; }
+        Print { screenshot; }
         Ctrl+Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
 

@@ -7,8 +7,8 @@ Run with: nix-shell -p python3Packages.vdf --run 'python3 scripts/steam-gamescop
 Backs up localconfig.vdf before modifying. Idempotent: re-running with different
 settings strips any prior `gamescope ... --` wrapper before injecting the new one.
 
-Edit WIDTH / HEIGHT / REFRESH / EXTRA_FLAGS at the top of this script to change
-the gamescope invocation. Defaults: 3840x2160 @ 240Hz with VRR + native Wayland.
+Edit WIDTH / HEIGHT / EXTRA_FLAGS at the top of this script to change the
+gamescope invocation. Defaults: 3840x2160, no extra flags.
 """
 import re
 import shutil
@@ -25,14 +25,13 @@ except ImportError:
 # --- Configurable gamescope invocation ---
 WIDTH = 3840
 HEIGHT = 2160
-REFRESH = 240
-EXTRA_FLAGS = ["--adaptive-sync", "--expose-wayland", "--backend", "wayland", "--rt"]
+EXTRA_FLAGS = []
 # -----------------------------------------
 
 STEAM_ROOT = Path.home() / ".local/share/Steam"
 USERDATA = STEAM_ROOT / "userdata"
 
-GAMESCOPE_ARGS = ["gamescope", "-W", str(WIDTH), "-H", str(HEIGHT), "-r", str(REFRESH)] + EXTRA_FLAGS
+GAMESCOPE_ARGS = ["gamescope", "-W", str(WIDTH), "-H", str(HEIGHT)] + EXTRA_FLAGS
 LAUNCH_PREFIX = " ".join(GAMESCOPE_ARGS) + " -- "
 
 # Matches any prior `gamescope ... --` wrapper at the start of the launch options,

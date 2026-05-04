@@ -80,7 +80,6 @@ in
       "com.spotify.Client"
       "io.github.flattool.Warehouse"
       "md.obsidian.Obsidian"
-      "net.davidotek.pupgui2"
       "page.kramo.Cartridges"
     ];
   };

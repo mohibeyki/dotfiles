@@ -8,6 +8,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";

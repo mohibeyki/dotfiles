@@ -38,6 +38,7 @@
     heroic
     lutris
     protontricks
+    protonup-rs
     winetricks
   ];
 }

@@ -11,9 +11,14 @@
   programs = {
     steam = {
       enable = true;
+      extest.enable = true;
       platformOptimizations.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
+      extraPackages = with pkgs; [
+        hidapi
+      ];
     };
+
     gamescope.enable = true;
     gamemode = {
       enable = true;
@@ -33,6 +38,8 @@
       };
     };
   };
+
+  hardware.steam-hardware.enable = true;
 
   environment.systemPackages = with pkgs; [
     heroic

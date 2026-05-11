@@ -93,6 +93,10 @@ in
             numlock
         }
 
+        touchpad {
+            natural-scroll
+        }
+
         mouse {
             accel-speed -0.2
             accel-profile "flat"
@@ -353,6 +357,8 @@ in
         Mod+Page_Up { focus-workspace-up; }
         Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
         Mod+Ctrl+Page_Up { move-column-to-workspace-up; }
+        Mod+Alt+Page_Down { move-window-to-workspace-down; }
+        Mod+Alt+Page_Up { move-window-to-workspace-up; }
         Mod+Shift+Page_Down { move-workspace-down; }
         Mod+Shift+Page_Up { move-workspace-up; }
         Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
@@ -379,6 +385,24 @@ in
         Mod+Shift+8 { move-column-to-workspace "8"; }
         Mod+Shift+9 { move-column-to-workspace "9"; }
         Mod+Shift+0 { move-column-to-workspace "10"; }
+
+        // Window-level workspace moves (leave column behind).
+        Mod+Ctrl+Shift+1 { move-window-to-workspace "1"; }
+        Mod+Ctrl+Shift+2 { move-window-to-workspace "2"; }
+        Mod+Ctrl+Shift+3 { move-window-to-workspace "3"; }
+        Mod+Ctrl+Shift+4 { move-window-to-workspace "4"; }
+        Mod+Ctrl+Shift+5 { move-window-to-workspace "5"; }
+        Mod+Ctrl+Shift+6 { move-window-to-workspace "6"; }
+        Mod+Ctrl+Shift+7 { move-window-to-workspace "7"; }
+        Mod+Ctrl+Shift+8 { move-window-to-workspace "8"; }
+        Mod+Ctrl+Shift+9 { move-window-to-workspace "9"; }
+        Mod+Ctrl+Shift+0 { move-window-to-workspace "10"; }
+
+        // Window-level monitor moves (leave column behind).
+        Mod+Shift+Alt+H { move-window-to-monitor-left; }
+        Mod+Shift+Alt+J { move-window-to-monitor-down; }
+        Mod+Shift+Alt+K { move-window-to-monitor-up; }
+        Mod+Shift+Alt+L { move-window-to-monitor-right; }
     }
   '';
 }

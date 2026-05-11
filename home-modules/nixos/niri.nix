@@ -157,12 +157,6 @@ in
         clip-to-geometry true
     }
 
-    // Hyprland uses inactive_opacity = 0.9. Keep active/media/game windows fully opaque below.
-    window-rule {
-        match is-active=false
-        opacity 0.9
-    }
-
     // Browsers always tile, mirroring the Hyprland chromium-browser tile rule.
     window-rule {
         match app-id="^([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)$"
@@ -175,7 +169,6 @@ in
         match app-id="^(steam_app_.*|gamescope)$"
         open-on-workspace "9"
         open-fullscreen true
-        opacity 1.0
         variable-refresh-rate true
     }
 
@@ -185,7 +178,6 @@ in
         open-floating true
         default-column-width { fixed 1200; }
         default-window-height { fixed 800; }
-        opacity 1.0
     }
 
     // Quick-access utilities: float and center at natural size.
@@ -195,10 +187,9 @@ in
         open-floating true
     }
 
-    // Media/creative apps: full opacity and on-demand VRR for video playback.
+    // Media/creative apps: on-demand VRR for video playback.
     window-rule {
         match app-id="^(vlc|mpv|imv|org\\.kde\\.kdenlive|com\\.obsproject\\.Studio|com\\.github\\.PintaProject\\.Pinta|zoom)$"
-        opacity 1.0
         variable-refresh-rate true
     }
 
@@ -228,11 +219,6 @@ in
         match app-id="^transmission-gtk$"
         default-column-width { fixed 900; }
         default-window-height { fixed 600; }
-    }
-
-    window-rule {
-        match app-id="^com\\.bambulab\\.BambuStudio$"
-        opacity 1.0
     }
 
     // Picture-in-Picture: float near the top-right, approximate Hyprland's pinned rule.

@@ -30,9 +30,6 @@ _: {
       "tag +quick-access, match:class ^(org.pulseaudio.pavucontrol)$"
       "tag +quick-access, match:title ^(nm-connection-editor)$"
 
-      # Media players — need full opacity (inactive_opacity would wash out video)
-      "tag +media-player, match:class ^(vlc|mpv|imv|org.kde.kdenlive|com.obsproject.Studio|com.github.PintaProject.Pinta|zoom)$"
-
       # Generic floating windows — dialogs, file pickers, misc popups
       "tag +floating-window, match:class (Impala|com.gabm.satty|About|TUI.float)"
       "tag +floating-window, match:class (xdg-desktop-portal-gtk|sublime_text|DesktopEditors), match:title ^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)"
@@ -58,9 +55,6 @@ _: {
       "float on, match:tag quick-access"
       "center on, match:tag quick-access"
 
-      # Media players: full opacity
-      "opacity 1.0 1.0, match:tag media-player"
-
       # Generic floating windows
       "float on, match:tag floating-window"
       "center on, match:tag floating-window"
@@ -71,9 +65,6 @@ _: {
       # GParted and Transmission — larger than natural quick-access default
       "size 900 700, match:class ^(gparted)$"
       "size 900 600, match:class ^(transmission-gtk)$"
-
-      # BambuStudio — 3D slicer, always full opacity
-      "opacity 1.0 1.0, match:class ^(com.bambulab.BambuStudio)$"
 
       # Picture-in-Picture — pinned floating in top-right corner
       "float on, match:title ^(Picture-in-Picture)$"

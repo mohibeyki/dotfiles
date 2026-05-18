@@ -49,6 +49,7 @@ let
   '';
 
   workspaceBlocks = lib.concatStrings [
+    # Two rails with numbered workspaces: side context on 1/10, active work and games on 2-9.
     (workspaceBlock "1" sideOutput)
     (workspaceBlock "10" sideOutput)
     (workspaceBlock "2" mainOutput)
@@ -74,8 +75,7 @@ in
 
     ${lib.concatMapStrings monitorBlock host.monitors}
 
-    // Persistent workspaces mirroring Hyprland:
-    // 1 and 10 on the side monitor; 2-9 on the main 4K/240Hz OLED.
+    // Two Rails with numbered workspaces: 1 and 10 on the side monitor; 2-9 on the main monitor.
     ${workspaceBlocks}
 
     environment {
@@ -128,13 +128,11 @@ in
         }
 
         preset-column-widths {
-            proportion 0.33333
             proportion 0.5
-            proportion 0.66667
             proportion 1.0
         }
 
-        default-column-width { proportion 1.0; }
+        default-column-width { proportion 0.5; }
     }
 
     prefer-no-csd
@@ -157,14 +155,37 @@ in
         clip-to-geometry true
     }
 
-    // Browsers always tile, mirroring the Hyprland chromium-browser tile rule.
+    // Browsers are intentionally not monitor-pinned: launch them where you need them.
     window-rule {
         match app-id="^([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)$"
         match app-id="^([fF]irefox|zen|librewolf)$"
         open-floating false
+        default-column-width { proportion 0.5; }
     }
 
-    // Games: send to workspace 9, open fullscreen, and enable on-demand VRR.
+    // Secondary monitor utilities: half-width columns on the side rail.
+    window-rule {
+        match app-id="^(discord|vesktop|telegram-desktop|teamspeak6)$"
+        open-on-workspace "1"
+        open-floating false
+        default-column-width { proportion 0.5; }
+    }
+
+    window-rule {
+        match app-id="^md\\.obsidian\\.Obsidian$"
+        open-on-workspace "10"
+        open-floating false
+        default-column-width { proportion 0.5; }
+    }
+
+    window-rule {
+        match app-id="^steam$"
+        open-on-workspace "1"
+        open-floating false
+        default-column-width { proportion 0.5; }
+    }
+
+    // Games: main monitor, fullscreen, and enable on-demand VRR.
     window-rule {
         match app-id="^(steam_app_.*|gamescope)$"
         open-on-workspace "9"
@@ -172,12 +193,12 @@ in
         variable-refresh-rate true
     }
 
-    // Game launchers: float, center by default, use a consistent 1200x800 size.
+    // Non-Steam game launchers: float on the game rail, still starting at 50% width.
     window-rule {
-        match app-id="^(steam|heroic|net\\.lutris\\.Lutris|com\\.usebottles\\.bottles|com\\.heroicgameslauncher\\.hgl)$"
+        match app-id="^(heroic|net\\.lutris\\.Lutris|com\\.usebottles\\.bottles|com\\.heroicgameslauncher\\.hgl)$"
+        open-on-workspace "9"
         open-floating true
-        default-column-width { fixed 1200; }
-        default-window-height { fixed 800; }
+        default-column-width { proportion 0.5; }
     }
 
     // Quick-access utilities: float and center at natural size.
@@ -187,46 +208,43 @@ in
         open-floating true
     }
 
-    // Media/creative apps: on-demand VRR for video playback.
+    // Media/creative apps: secondary monitor half-width columns and on-demand VRR.
     window-rule {
-        match app-id="^(vlc|mpv|imv|org\\.kde\\.kdenlive|com\\.obsproject\\.Studio|com\\.github\\.PintaProject\\.Pinta|zoom)$"
+        match app-id="^(vlc|mpv|imv|cider|cider-2|org\\.kde\\.kdenlive|com\\.obsproject\\.Studio|com\\.github\\.PintaProject\\.Pinta|zoom)$"
+        open-on-workspace "10"
+        default-column-width { proportion 0.5; }
         variable-refresh-rate true
     }
 
-    // Generic dialogs and file pickers: float and use the Hyprland 800x600 default.
+    // Generic dialogs and file pickers: float but keep the universal 50% width rule.
     window-rule {
         match app-id="^(Impala|com\\.gabm\\.satty|About|TUI\\.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"
         match title="^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)$"
         open-floating true
-        default-column-width { fixed 800; }
-        default-window-height { fixed 600; }
+        default-column-width { proportion 0.5; }
     }
 
-    // Specific size overrides matching hyprland-rules.nix.
+    // Specific apps remain at the universal 50% starting width.
     window-rule {
         match app-id="^steam$" title="^Friends List$"
-        default-column-width { fixed 300; }
-        default-window-height { fixed 600; }
+        default-column-width { proportion 0.5; }
     }
 
     window-rule {
         match app-id="^gparted$"
-        default-column-width { fixed 900; }
-        default-window-height { fixed 700; }
+        default-column-width { proportion 0.5; }
     }
 
     window-rule {
         match app-id="^transmission-gtk$"
-        default-column-width { fixed 900; }
-        default-window-height { fixed 600; }
+        default-column-width { proportion 0.5; }
     }
 
-    // Picture-in-Picture: float near the top-right, approximate Hyprland's pinned rule.
+    // Picture-in-Picture: float near the top-right, but keep the universal 50% starting width.
     window-rule {
         match title="^Picture-in-Picture$"
         open-floating true
-        default-column-width { fixed 480; }
-        default-window-height { fixed 270; }
+        default-column-width { proportion 0.5; }
         default-floating-position x=32 y=32 relative-to="top-right"
     }
 
@@ -258,8 +276,8 @@ in
         Mod+Ctrl+Q { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
         Mod+T { toggle-window-floating; }
         Mod+Shift+T { switch-focus-between-floating-and-tiling; }
-        Mod+F { fullscreen-window; }
-        Mod+Shift+F { maximize-column; }
+        Mod+F { set-column-width "100%"; }
+        Mod+Shift+F { fullscreen-window; }
         Mod+Ctrl+Shift+Q { spawn "sh" "-c" "kill -9 \"$(niri msg -j focused-window | jq -r .pid)\""; }
         Mod+Shift+D { expel-window-from-column; }
         Mod+Shift+S { consume-window-into-column; }

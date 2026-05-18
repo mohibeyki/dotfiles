@@ -8,7 +8,6 @@
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/share/npm/bin"
-      "${config.home.homeDirectory}/.local/share/pi/bin"
     ];
   };
 

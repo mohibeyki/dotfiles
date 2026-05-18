@@ -16,7 +16,7 @@
     ruff
     uv
 
-    # Needed for pi-agent
+    # JavaScript
     nodejs
 
     # Tools

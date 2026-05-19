@@ -49,17 +49,9 @@ let
   '';
 
   workspaceBlocks = lib.concatStrings [
-    # Two rails with numbered workspaces: side context on 1/10, active work and games on 2-9.
+    # Side monitor anchors: workspace 1 and 10. Main uses dynamic scrolling.
     (workspaceBlock "1" sideOutput)
     (workspaceBlock "10" sideOutput)
-    (workspaceBlock "2" mainOutput)
-    (workspaceBlock "3" mainOutput)
-    (workspaceBlock "4" mainOutput)
-    (workspaceBlock "5" mainOutput)
-    (workspaceBlock "6" mainOutput)
-    (workspaceBlock "7" mainOutput)
-    (workspaceBlock "8" mainOutput)
-    (workspaceBlock "9" mainOutput)
   ];
 
   nvidiaEnvironment = lib.optionalString host.isNvidia ''
@@ -75,7 +67,7 @@ in
 
     ${lib.concatMapStrings monitorBlock host.monitors}
 
-    // Two Rails with numbered workspaces: 1 and 10 on the side monitor; 2-9 on the main monitor.
+    // Side monitor anchors: workspace 1 and 10. Main monitor uses dynamic scrolling.
     ${workspaceBlocks}
 
     environment {
@@ -185,18 +177,16 @@ in
         default-column-width { proportion 0.5; }
     }
 
-    // Games: main monitor, fullscreen, and enable on-demand VRR.
+    // Games: open fullscreen with on-demand VRR, no fixed workspace.
     window-rule {
         match app-id="^(steam_app_.*|gamescope)$"
-        open-on-workspace "9"
         open-fullscreen true
         variable-refresh-rate true
     }
 
-    // Non-Steam game launchers: float on the game rail, still starting at 50% width.
+    // Non-Steam game launchers: float but no fixed workspace.
     window-rule {
         match app-id="^(heroic|net\\.lutris\\.Lutris|com\\.usebottles\\.bottles|com\\.heroicgameslauncher\\.hgl)$"
-        open-on-workspace "9"
         open-floating true
         default-column-width { proportion 0.5; }
     }
@@ -368,38 +358,16 @@ in
         Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
         Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
 
+        // Direct anchors: 1 and 10 on side, 2 jumps to main monitor.
         Mod+1 { focus-workspace "1"; }
-        Mod+2 { focus-workspace "2"; }
-        Mod+3 { focus-workspace "3"; }
-        Mod+4 { focus-workspace "4"; }
-        Mod+5 { focus-workspace "5"; }
-        Mod+6 { focus-workspace "6"; }
-        Mod+7 { focus-workspace "7"; }
-        Mod+8 { focus-workspace "8"; }
-        Mod+9 { focus-workspace "9"; }
+        Mod+2 { focus-monitor-right; }
         Mod+0 { focus-workspace "10"; }
 
         Mod+Shift+1 { move-column-to-workspace "1"; }
-        Mod+Shift+2 { move-column-to-workspace "2"; }
-        Mod+Shift+3 { move-column-to-workspace "3"; }
-        Mod+Shift+4 { move-column-to-workspace "4"; }
-        Mod+Shift+5 { move-column-to-workspace "5"; }
-        Mod+Shift+6 { move-column-to-workspace "6"; }
-        Mod+Shift+7 { move-column-to-workspace "7"; }
-        Mod+Shift+8 { move-column-to-workspace "8"; }
-        Mod+Shift+9 { move-column-to-workspace "9"; }
         Mod+Shift+0 { move-column-to-workspace "10"; }
 
         // Window-level workspace moves (leave column behind).
         Mod+Ctrl+Shift+1 { move-window-to-workspace "1"; }
-        Mod+Ctrl+Shift+2 { move-window-to-workspace "2"; }
-        Mod+Ctrl+Shift+3 { move-window-to-workspace "3"; }
-        Mod+Ctrl+Shift+4 { move-window-to-workspace "4"; }
-        Mod+Ctrl+Shift+5 { move-window-to-workspace "5"; }
-        Mod+Ctrl+Shift+6 { move-window-to-workspace "6"; }
-        Mod+Ctrl+Shift+7 { move-window-to-workspace "7"; }
-        Mod+Ctrl+Shift+8 { move-window-to-workspace "8"; }
-        Mod+Ctrl+Shift+9 { move-window-to-workspace "9"; }
         Mod+Ctrl+Shift+0 { move-window-to-workspace "10"; }
 
         // Window-level monitor moves (leave column behind).

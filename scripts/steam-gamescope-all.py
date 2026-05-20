@@ -7,7 +7,7 @@ Run with: nix-shell -p python3Packages.vdf --run 'python3 scripts/steam-gamescop
 Backs up localconfig.vdf before modifying. Idempotent: re-running with different
 settings strips any prior `gamescope ... --` wrapper before injecting the new one.
 
-Edit WIDTH / HEIGHT / EXTRA_FLAGS / PROTON_ENV_VARS at the top of this script
+Edit WIDTH / HEIGHT / REFRESH at the top of this script
 to change the launch wrapper.
 """
 import re
@@ -26,15 +26,6 @@ except ImportError:
 WIDTH = 3840
 HEIGHT = 2160
 REFRESH = 240
-EXTRA_FLAGS = [
-    "-f",
-    "-R",
-    str(REFRESH),
-    "--force-grab-cursor",
-    "--backend",
-    "sdl",
-]
-PROTON_ENV_VARS = ["PROTON_ENABLE_WAYLAND=1"]
 # -----------------------------------------
 
 STEAM_ROOT = Path.home() / ".local/share/Steam"
@@ -50,7 +41,9 @@ GAMESCOPE_ARGS = [
     str(WIDTH),
     "-h",
     str(HEIGHT),
-] + EXTRA_FLAGS
+    "-R",
+    str(REFRESH),
+]
 LAUNCH_PREFIX = " ".join(GAMESCOPE_ARGS) + " -- "
 
 # Matches any prior `gamescope ... --` wrapper at the start of the launch options,
@@ -79,10 +72,6 @@ def build_launch_options(existing: str) -> str:
         # Steam silently fails to launch if %command% is missing. Append it so
         # any user-set env vars (e.g. PROTON_LOG=1) still apply.
         inner = f"{inner} %command%"
-
-    for env_var in PROTON_ENV_VARS:
-        if env_var not in inner:
-            inner = f"{env_var} {inner}"
 
     return LAUNCH_PREFIX + inner
 

@@ -71,7 +71,6 @@ in
     ${workspaceBlocks}
 
     environment {
-        DISPLAY ":0"
         ELECTRON_OZONE_PLATFORM_HINT "auto"
         NIXOS_OZONE_WL "1"
     ${nvidiaEnvironment}    }
@@ -139,8 +138,6 @@ in
     spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
     spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
     spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
-    spawn-at-startup "${pkgs.xwayland-satellite}/bin/xwayland-satellite" ":0"
-
     // Base decoration: match Hyprland's borderless, rounded look as closely as niri allows.
     window-rule {
         geometry-corner-radius 8

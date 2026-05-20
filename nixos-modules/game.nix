@@ -8,6 +8,8 @@
     inputs.nix-gaming.nixosModules.platformOptimizations
   ];
 
+  boot.kernelModules = [ "ntsync" ];
+
   programs = {
     steam = {
       enable = true;

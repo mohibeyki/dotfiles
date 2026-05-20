@@ -136,8 +136,10 @@ in
     spawn-at-startup "systemctl" "--user" "start" "plasma-kwallet-pam.service"
     spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
     spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
+    spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
     spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
     spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
+
     // Base decoration: match Hyprland's borderless, rounded look as closely as niri allows.
     window-rule {
         geometry-corner-radius 8

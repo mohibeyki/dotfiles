@@ -13,7 +13,7 @@ hl.layer_rule({
 hl.window_rule({ name = "tag-chromium", match = { class = "([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)" }, tag = "+chromium-based-browser" })
 hl.window_rule({ name = "tag-firefox", match = { class = "([fF]irefox|zen|librewolf)" }, tag = "+firefox-based-browser" })
 hl.window_rule({ name = "tag-terminal", match = { class = "(Alacritty|kitty|com.mitchellh.ghostty)" }, tag = "+terminal" })
-hl.window_rule({ name = "tag-game", match = { initial_class = "^(steam_app_.*)$" }, tag = "+game" })
+hl.window_rule({ name = "tag-gamescope", match = { class = "^(gamescope)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-floating-centered", match = { class = "^(1password)$" }, tag = "+floating-centered" })
 hl.window_rule({ name = "tag-steam-chat", match = { class = "^(steam)$", title = "^(Friends List|Chat)$" }, tag = "+steam-chat" })
 hl.window_rule({ name = "tag-wiremix", match = { class = "^(com.github.tsowell.wiremix)$" }, tag = "+quick-access" })

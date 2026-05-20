@@ -16,6 +16,10 @@ local function workspace_rule(value)
     local rule = {}
     local index = 0
 
+    local function warn(message)
+        print("[hypr host] " .. message)
+    end
+
     for raw in value:gmatch("[^,]+") do
         index = index + 1
         local part = trim(raw)
@@ -34,7 +38,11 @@ local function workspace_rule(value)
                     rule.default = raw_value == "true"
                 elseif key == "persistent" then
                     rule.persistent = raw_value == "true"
+                else
+                    warn("Ignoring unknown workspace key '" .. key .. "' in rule: " .. value)
                 end
+            else
+                warn("Ignoring malformed workspace segment '" .. part .. "' in rule: " .. value)
             end
         end
     end

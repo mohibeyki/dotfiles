@@ -25,20 +25,6 @@
     gnome.gnome-keyring.enable = lib.mkForce false;
   };
 
-  systemd.user.services.blueman-applet = {
-    description = "Blueman tray applet";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.blueman.Applet";
-      ExecCondition = "${pkgs.runtimeShell} -c 'case \":$XDG_CURRENT_DESKTOP:\" in *:Hyprland:*|*:hyprland:*|*:Niri:*|*:niri:*) exit 0;; *) exit 1;; esac'";
-      ExecStart = "${pkgs.blueman}/bin/blueman-applet";
-      Restart = "on-failure";
-    };
-  };
-
   security.pam.services = {
     login.enableGnomeKeyring = lib.mkForce false;
     sddm.kwallet.enable = true;

@@ -31,7 +31,7 @@ let
       output = ${luaString monitor.output},
       mode = ${luaString monitor.mode},
       position = ${luaString monitor.position},
-      scale = ${luaString (toString monitor.scale)},
+      scale = ${luaString monitor.scale},
       bitdepth = ${toString monitor.bitdepth},
       vrr = ${toString monitor.vrr},
     ${lib.optionalString (monitor ? cm) "  cm = ${luaString monitor.cm},"}
@@ -96,6 +96,7 @@ in
     "hypr/host.lua".source = ./hypr/host.lua;
     "hypr/rules.lua".source = ./hypr/rules.lua;
     "hypr/settings.lua".source = pkgs.replaceVars ./hypr/settings.lua {
+      blueman = "${pkgs.blueman}";
       kservice = "${pkgs.kdePackages.kservice}";
       onePassword = "${pkgs._1password-gui}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";

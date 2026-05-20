@@ -13,6 +13,7 @@ to change the launch wrapper.
 import re
 import shutil
 import sys
+import argparse
 from pathlib import Path
 
 try:
@@ -65,18 +66,25 @@ def strip_existing_gamescope(launch_options: str) -> str:
 
 def build_launch_options(existing: str) -> str:
     """Return new LaunchOptions string with our gamescope wrapper applied."""
-    inner = strip_existing_gamescope(existing).strip()
-    if not inner:
-        inner = "%command%"
-    elif "%command%" not in inner:
-        # Steam silently fails to launch if %command% is missing. Append it so
-        # any user-set env vars (e.g. PROTON_LOG=1) still apply.
-        inner = f"{inner} %command%"
+    _ = strip_existing_gamescope(existing)
+    return LAUNCH_PREFIX + "%command%"
 
-    return LAUNCH_PREFIX + inner
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Bulk-update Steam LaunchOptions for all games.")
+    parser.add_argument(
+        "--clear-all",
+        "--strip-all",
+        dest="clear_all",
+        action="store_true",
+        help="Clear LaunchOptions from all Steam app entries instead of applying gamescope.",
+    )
+    return parser.parse_args()
 
 
 def main():
+    args = parse_args()
+
     if not USERDATA.exists():
         print(f"Steam userdata not found at {USERDATA}")
         sys.exit(1)
@@ -113,7 +121,11 @@ def main():
                 continue
 
             existing = appcfg.get("LaunchOptions", "")
-            new_options = build_launch_options(existing)
+            if args.clear_all:
+                new_options = ""
+            else:
+                new_options = build_launch_options(existing)
+
             if new_options == existing:
                 skipped += 1
                 continue
@@ -129,7 +141,10 @@ def main():
             f"(already up-to-date)"
         )
 
-    print(f"\nDone. Applied: {LAUNCH_PREFIX.strip()}")
+    if args.clear_all:
+        print("\nDone. Cleared LaunchOptions for all Steam app entries.")
+    else:
+        print(f"\nDone. Applied: {LAUNCH_PREFIX.strip()}")
     print("Restart Steam for changes to take effect.")
     print("To revert, copy the .backup file over localconfig.vdf.")
 

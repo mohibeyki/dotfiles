@@ -1,0 +1,59 @@
+input {
+    keyboard {
+        repeat-rate 35
+        repeat-delay 100
+
+        xkb {
+            layout "us"
+            options "altwin:swap_lalt_lwin"
+        }
+    }
+
+    touchpad {
+        natural-scroll
+    }
+
+    mouse {
+        accel-speed -0.2
+        accel-profile "flat"
+    }
+
+    focus-follows-mouse max-scroll-amount="0%"
+    mod-key "Super"
+}
+
+layout {
+    gaps 8
+    center-focused-column "never"
+
+    focus-ring {
+        off
+    }
+
+    border {
+        off
+    }
+
+    shadow {
+        on
+        softness 16
+        spread 0
+        offset x=0 y=4
+        draw-behind-window true
+        color "#1a1a1aee"
+    }
+
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.5; }
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+hotkey-overlay {
+    skip-at-startup
+}

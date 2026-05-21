@@ -13,6 +13,7 @@ let
 
   mainOutput = stripDesc (builtins.elemAt host.monitors 0).output;
   sideOutput = stripDesc (builtins.elemAt host.monitors 1).output;
+  kdlDir = ./niri;
 
   # Niri wants the exact refresh with three decimals if specified. Omitting the
   # refresh makes it pick the highest mode for that resolution. This keeps the
@@ -59,6 +60,19 @@ let
     __GLX_VENDOR_LIBRARY_NAME "nvidia"
     NVD_BACKEND "direct"
   '';
+
+  inputLayoutKdl = builtins.readFile (kdlDir + "/10-input-layout.kdl");
+  rulesKdl = builtins.readFile (kdlDir + "/30-rules.kdl");
+  bindsKdl = builtins.readFile (kdlDir + "/40-binds.kdl");
+
+  startupBlock = ''
+    spawn-at-startup "systemctl" "--user" "start" "plasma-kwallet-pam.service"
+    spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
+    spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
+    spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
+    spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
+    spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
+  '';
 in
 {
   xdg.configFile."niri/config.kdl".text = ''
@@ -75,305 +89,12 @@ in
         NIXOS_OZONE_WL "1"
     ${nvidiaEnvironment}    }
 
-    input {
-        keyboard {
-            xkb {
-                layout "us"
-                options "altwin:swap_lalt_lwin"
-            }
-            numlock
-        }
+    ${inputLayoutKdl}
 
-        touchpad {
-            natural-scroll
-        }
+    ${startupBlock}
 
-        mouse {
-            accel-speed -0.2
-            accel-profile "flat"
-        }
+    ${rulesKdl}
 
-        focus-follows-mouse
-        mod-key "Super"
-    }
-
-    layout {
-        gaps 8
-        center-focused-column "never"
-
-        focus-ring {
-            off
-        }
-
-        border {
-            off
-        }
-
-        shadow {
-            on
-            softness 16
-            spread 0
-            offset x=0 y=4
-            draw-behind-window true
-            color "#1a1a1aee"
-        }
-
-        preset-column-widths {
-            proportion 0.5
-            proportion 1.0
-        }
-
-        default-column-width { proportion 0.5; }
-    }
-
-    prefer-no-csd
-    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-
-    hotkey-overlay {
-        skip-at-startup
-    }
-
-    spawn-at-startup "systemctl" "--user" "start" "plasma-kwallet-pam.service"
-    spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
-    spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
-    spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
-    spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
-    spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
-
-    // Base decoration: match Hyprland's borderless, rounded look as closely as niri allows.
-    window-rule {
-        geometry-corner-radius 8
-        clip-to-geometry true
-    }
-
-    // Browsers are intentionally not monitor-pinned: launch them where you need them.
-    window-rule {
-        match app-id="^([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)$"
-        match app-id="^([fF]irefox|zen|librewolf)$"
-        open-floating false
-        default-column-width { proportion 0.5; }
-    }
-
-    // Secondary monitor utilities: half-width columns on the side rail.
-    window-rule {
-        match app-id="^(discord|vesktop|telegram-desktop|teamspeak6)$"
-        open-on-workspace "1"
-        open-floating false
-        default-column-width { proportion 0.5; }
-    }
-
-    window-rule {
-        match app-id="^md\\.obsidian\\.Obsidian$"
-        open-on-workspace "10"
-        open-floating false
-        default-column-width { proportion 0.5; }
-    }
-
-    window-rule {
-        match app-id="^steam$"
-        open-on-workspace "1"
-        open-floating false
-        default-column-width { proportion 0.5; }
-    }
-
-    // Games: open fullscreen with on-demand VRR, no fixed workspace.
-    window-rule {
-        match app-id="^(steam_app_.*|gamescope)$"
-        open-fullscreen true
-        variable-refresh-rate true
-    }
-
-    // Non-Steam game launchers: float but no fixed workspace.
-    window-rule {
-        match app-id="^(heroic|net\\.lutris\\.Lutris|com\\.usebottles\\.bottles|com\\.heroicgameslauncher\\.hgl)$"
-        open-floating true
-        default-column-width { proportion 0.5; }
-    }
-
-    // Quick-access utilities: float and center at natural size.
-    window-rule {
-        match app-id="^(1password|com\\.github\\.tsowell\\.wiremix|org\\.kde\\.kcalc|gparted|transmission-gtk|org\\.pulseaudio\\.pavucontrol)$"
-        match title="^(nm-connection-editor)$"
-        open-floating true
-    }
-
-    // Media/creative apps: secondary monitor half-width columns and on-demand VRR.
-    window-rule {
-        match app-id="^(vlc|mpv|imv|cider|cider-2|org\\.kde\\.kdenlive|com\\.obsproject\\.Studio|com\\.github\\.PintaProject\\.Pinta|zoom)$"
-        open-on-workspace "10"
-        default-column-width { proportion 0.5; }
-        variable-refresh-rate true
-    }
-
-    // Generic dialogs and file pickers: float but keep the universal 50% width rule.
-    window-rule {
-        match app-id="^(Impala|com\\.gabm\\.satty|About|TUI\\.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"
-        match title="^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)$"
-        open-floating true
-        default-column-width { proportion 0.5; }
-    }
-
-    // Specific apps remain at the universal 50% starting width.
-    window-rule {
-        match app-id="^steam$" title="^Friends List$"
-        default-column-width { proportion 0.5; }
-    }
-
-    window-rule {
-        match app-id="^gparted$"
-        default-column-width { proportion 0.5; }
-    }
-
-    window-rule {
-        match app-id="^transmission-gtk$"
-        default-column-width { proportion 0.5; }
-    }
-
-    // Picture-in-Picture: float near the top-right, but keep the universal 50% starting width.
-    window-rule {
-        match title="^Picture-in-Picture$"
-        open-floating true
-        default-column-width { proportion 0.5; }
-        default-floating-position x=32 y=32 relative-to="top-right"
-    }
-
-    window-rule {
-        match app-id="^Screensaver$"
-        open-fullscreen true
-    }
-
-    binds {
-        // Niri hotkey help overlay.
-        Mod+Shift+Slash { show-hotkey-overlay; }
-
-        // Noctalia launcher entrypoints.
-        Mod+P { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-        Mod+Shift+P { spawn "noctalia-shell" "ipc" "call" "launcher" "command"; }
-
-        // App launchers and Noctalia search modes.
-        Mod+Return { spawn "ghostty"; }
-        Mod+B { spawn "brave"; }
-        Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
-        Mod+O { spawn "noctalia-shell" "ipc" "call" "launcher" "windows"; }
-        Mod+Comma { spawn "noctalia-shell" "ipc" "call" "launcher" "settings"; }
-        Mod+Period { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
-
-        // Session and window management actions.
-        Mod+Q { close-window; }
-        Mod+Ctrl+R { spawn "niri" "msg" "action" "reload-config"; }
-        Mod+Ctrl+Escape { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "lock"; }
-        Mod+Ctrl+Q { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
-        Mod+T { toggle-window-floating; }
-        Mod+Shift+T { switch-focus-between-floating-and-tiling; }
-        Mod+F { set-column-width "100%"; }
-        Mod+Shift+F { fullscreen-window; }
-        Mod+Ctrl+Shift+Q { spawn "sh" "-c" "kill -9 \"$(niri msg -j focused-window | jq -r .pid)\""; }
-        Mod+Shift+D { expel-window-from-column; }
-        Mod+Shift+S { consume-window-into-column; }
-        Mod+R { switch-preset-column-width; }
-        Mod+C { center-column; }
-        Mod+Ctrl+Shift+P { power-off-monitors; }
-        Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
-
-        // App shortcuts.
-        Mod+E { spawn "dolphin"; }
-        Mod+S { spawn "bash" "-lc" "grim -g \"$(slurp)\" - | wl-copy"; }
-        Print { screenshot; }
-        Ctrl+Print { screenshot-screen; }
-        Alt+Print { screenshot-window; }
-
-        // Media transport keys.
-        XF86AudioPlay { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
-        XF86AudioPrev { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
-        XF86AudioNext { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
-
-        // Volume keys.
-        XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
-        XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-        XF86AudioMute { spawn "noctalia-shell" "ipc" "call" "volume" "mute"; }
-
-        // Focus movement with vim keys and arrows.
-        Mod+H { focus-column-left; }
-        Mod+J { focus-window-down; }
-        Mod+K { focus-window-up; }
-        Mod+L { focus-column-right; }
-        Mod+Left { focus-column-left; }
-        Mod+Down { focus-window-down; }
-        Mod+Up { focus-window-up; }
-        Mod+Right { focus-column-right; }
-
-        // Move windows/columns around the layout.
-        Mod+Ctrl+H { move-column-left; }
-        Mod+Ctrl+J { move-window-down; }
-        Mod+Ctrl+K { move-window-up; }
-        Mod+Ctrl+L { move-column-right; }
-        Mod+Ctrl+Left { move-column-left; }
-        Mod+Ctrl+Down { move-window-down; }
-        Mod+Ctrl+Up { move-window-up; }
-        Mod+Ctrl+Right { move-column-right; }
-
-        // Resize column/window analogues to the Hyprland resize binds.
-        Mod+Shift+H { set-column-width "-10%"; }
-        Mod+Shift+J { set-window-height "+10%"; }
-        Mod+Shift+K { set-window-height "-10%"; }
-        Mod+Shift+L { set-column-width "+10%"; }
-        Mod+Shift+Left { set-column-width "-10%"; }
-        Mod+Shift+Down { set-window-height "+10%"; }
-        Mod+Shift+Up { set-window-height "-10%"; }
-        Mod+Shift+Right { set-column-width "+10%"; }
-
-        // Monitor movement analogues.
-        Mod+Alt+H { focus-monitor-left; }
-        Mod+Alt+J { focus-monitor-down; }
-        Mod+Alt+K { focus-monitor-up; }
-        Mod+Alt+L { focus-monitor-right; }
-        Mod+Alt+Left { focus-monitor-left; }
-        Mod+Alt+Down { focus-monitor-down; }
-        Mod+Alt+Up { focus-monitor-up; }
-        Mod+Alt+Right { focus-monitor-right; }
-
-        Mod+Ctrl+Alt+H { move-column-to-monitor-left; }
-        Mod+Ctrl+Alt+J { move-column-to-monitor-down; }
-        Mod+Ctrl+Alt+K { move-column-to-monitor-up; }
-        Mod+Ctrl+Alt+L { move-column-to-monitor-right; }
-
-        // First/last column helpers.
-        Mod+Home { focus-column-first; }
-        Mod+End { focus-column-last; }
-        Mod+Ctrl+Home { move-column-to-first; }
-        Mod+Ctrl+End { move-column-to-last; }
-
-        // Workspace switching and sending columns to workspaces.
-        Mod+Tab { focus-workspace-down; }
-        Mod+Shift+Tab { focus-workspace-up; }
-        Mod+Page_Down { focus-workspace-down; }
-        Mod+Page_Up { focus-workspace-up; }
-        Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-        Mod+Ctrl+Page_Up { move-column-to-workspace-up; }
-        Mod+Alt+Page_Down { move-window-to-workspace-down; }
-        Mod+Alt+Page_Up { move-window-to-workspace-up; }
-        Mod+Shift+Page_Down { move-workspace-down; }
-        Mod+Shift+Page_Up { move-workspace-up; }
-        Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
-        Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
-
-        // Direct anchors: 1 and 10 on side, 2 jumps to main monitor.
-        Mod+1 { focus-workspace "1"; }
-        Mod+2 { focus-monitor-right; }
-        Mod+0 { focus-workspace "10"; }
-
-        Mod+Shift+1 { move-column-to-workspace "1"; }
-        Mod+Shift+0 { move-column-to-workspace "10"; }
-
-        // Window-level workspace moves (leave column behind).
-        Mod+Ctrl+Shift+1 { move-window-to-workspace "1"; }
-        Mod+Ctrl+Shift+0 { move-window-to-workspace "10"; }
-
-        // Window-level monitor moves (leave column behind).
-        Mod+Shift+Alt+H { move-window-to-monitor-left; }
-        Mod+Shift+Alt+J { move-window-to-monitor-down; }
-        Mod+Shift+Alt+K { move-window-to-monitor-up; }
-        Mod+Shift+Alt+L { move-window-to-monitor-right; }
-    }
+    ${bindsKdl}
   '';
 }

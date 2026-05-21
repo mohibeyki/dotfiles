@@ -23,7 +23,7 @@ let
       position = "0x0";
       scale = 1;
       bitdepth = 10;
-      vrr = 0;
+      vrr = 1;
       cm = "srgb";
     };
 
@@ -33,7 +33,7 @@ let
       position = "-2560x-80";
       scale = 1;
       bitdepth = 10;
-      vrr = 0;
+      vrr = 1;
       cm = "srgb";
     };
   };

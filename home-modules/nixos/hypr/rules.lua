@@ -29,8 +29,8 @@ hl.window_rule({ name = "tag-file-dialogs", match = { class = "(xdg-desktop-port
 hl.window_rule({ name = "games-workspace", match = { tag = "game" }, workspace = "9 silent" })
 hl.window_rule({ name = "games-fullscreen", match = { tag = "game" }, fullscreen = true })
 hl.window_rule({ name = "games-noanim", match = { tag = "game" }, no_anim = true })
-hl.window_rule({ name = "games-noblur", match = { tag = "game" }, noblur = true })
-hl.window_rule({ name = "games-noshadow", match = { tag = "game" }, noshadow = true })
+hl.window_rule({ name = "games-no-blur", match = { tag = "game" }, no_blur = true })
+hl.window_rule({ name = "games-no-shadow", match = { tag = "game" }, no_shadow = true })
 hl.window_rule({ name = "chromium-tile", match = { tag = "chromium-based-browser" }, tile = true })
 
 hl.window_rule({ name = "floating-centered-float", match = { tag = "floating-centered" }, float = true })

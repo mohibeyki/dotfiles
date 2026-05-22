@@ -42,7 +42,7 @@ GAMESCOPE_ARGS = [
     str(WIDTH),
     "-h",
     str(HEIGHT),
-    "-R",
+    "-r",
     str(REFRESH),
 ]
 LAUNCH_PREFIX = " ".join(GAMESCOPE_ARGS) + " -- "

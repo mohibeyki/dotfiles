@@ -21,7 +21,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^md\.obsidian\.Obsidian$"
+    match app-id=r#"^md\.obsidian\.Obsidian$"#
     open-on-workspace "10"
     open-floating false
     default-column-width { proportion 0.5; }
@@ -43,21 +43,21 @@ window-rule {
 
 // Non-Steam game launchers: float but no fixed workspace.
 window-rule {
-    match app-id="^(heroic|net\.lutris\.Lutris|com\.usebottles\.bottles|com\.heroicgameslauncher\.hgl)$"
+    match app-id=r#"^(heroic|net\.lutris\.Lutris|com\.usebottles\.bottles|com\.heroicgameslauncher\.hgl)$"#
     open-floating true
     default-column-width { proportion 0.5; }
 }
 
 // Quick-access utilities: float and center at natural size.
 window-rule {
-    match app-id="^(1password|com\.github\.tsowell\.wiremix|org\.kde\.kcalc|gparted|transmission-gtk|org\.pulseaudio\.pavucontrol)$"
+    match app-id=r#"^(1password|com\.github\.tsowell\.wiremix|org\.kde\.kcalc|gparted|transmission-gtk|org\.pulseaudio\.pavucontrol)$"#
     match title="^(nm-connection-editor)$"
     open-floating true
 }
 
 // Media/creative apps: secondary monitor half-width columns and on-demand VRR.
 window-rule {
-    match app-id="^(vlc|mpv|imv|cider|cider-2|org\.kde\.kdenlive|com\.obsproject\.Studio|com\.github\.PintaProject\.Pinta|zoom)$"
+    match app-id=r#"^(vlc|mpv|imv|cider|cider-2|org\.kde\.kdenlive|com\.obsproject\.Studio|com\.github\.PintaProject\.Pinta|zoom)$"#
     open-on-workspace "10"
     default-column-width { proportion 0.5; }
     variable-refresh-rate true
@@ -65,7 +65,7 @@ window-rule {
 
 // Generic dialogs and file pickers: float but keep the universal 50% width rule.
 window-rule {
-    match app-id="^(Impala|com\.gabm\.satty|About|TUI\.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"
+    match app-id=r#"^(Impala|com\.gabm\.satty|About|TUI\.float|xdg-desktop-portal-gtk|sublime_text|DesktopEditors)$"#
     match title="^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)$"
     open-floating true
     default-column-width { proportion 0.5; }

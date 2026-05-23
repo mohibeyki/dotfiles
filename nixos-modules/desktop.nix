@@ -17,7 +17,6 @@
     desktopManager.plasma6.enable = true;
     blueman = {
       enable = true;
-      withApplet = false;
     };
 
     # KWallet is the selected secret backend; avoid GNOME Keyring racing for

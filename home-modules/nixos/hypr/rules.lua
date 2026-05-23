@@ -4,15 +4,7 @@ hl.layer_rule({
     blur = true,
 })
 
-hl.layer_rule({
-    name = "selection-no-anim",
-    match = { namespace = "^(selection)$" },
-    no_anim = true,
-})
-
 hl.window_rule({ name = "tag-chromium", match = { class = "([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)" }, tag = "+chromium-based-browser" })
-hl.window_rule({ name = "tag-firefox", match = { class = "([fF]irefox|zen|librewolf)" }, tag = "+firefox-based-browser" })
-hl.window_rule({ name = "tag-terminal", match = { class = "(Alacritty|kitty|com.mitchellh.ghostty)" }, tag = "+terminal" })
 hl.window_rule({ name = "tag-steam-game", match = { initial_class = "^(steam_app_.*)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-gamescope", match = { class = "^(gamescope)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-floating-centered", match = { class = "^(1password)$" }, tag = "+floating-centered" })
@@ -45,13 +37,6 @@ hl.window_rule({ name = "quick-access-center", match = { tag = "quick-access" },
 hl.window_rule({ name = "floating-window-float", match = { tag = "floating-window" }, float = true })
 hl.window_rule({ name = "floating-window-center", match = { tag = "floating-window" }, center = true })
 hl.window_rule({ name = "floating-window-size", match = { tag = "floating-window" }, size = "800 600" })
-
-hl.window_rule({ name = "gparted-size", match = { class = "^(gparted)$" }, size = "900 700" })
-hl.window_rule({ name = "transmission-size", match = { class = "^(transmission-gtk)$" }, size = "900 600" })
-
-hl.window_rule({ name = "pip-float", match = { title = "^(Picture-in-Picture)$" }, float = true })
-hl.window_rule({ name = "pip-pin", match = { title = "^(Picture-in-Picture)$" }, pin = true })
-hl.window_rule({ name = "pip-move", match = { title = "^(Picture-in-Picture)$" }, move = "69.5% 4%" })
 
 hl.window_rule({ name = "screensaver-fullscreen", match = { class = "Screensaver" }, fullscreen = true })
 hl.window_rule({ name = "idle-inhibit-fullscreen", match = { fullscreen = 1 }, idle_inhibit = "fullscreen" })

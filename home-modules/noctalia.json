@@ -341,7 +341,7 @@
     "useApp2Unit": false,
     "sortByMostUsed": true,
     "terminalCommand": "ghostty",
-    "customLaunchPrefixEnabled": true,
+    "customLaunchPrefixEnabled": false,
     "customLaunchPrefix": "bash -lc",
     "viewMode": "list",
     "showCategories": true,
@@ -443,7 +443,7 @@
     "disableDesktopWidgets": true
   },
   "dock": {
-    "enabled": true,
+    "enabled": false,
     "position": "bottom",
     "displayMode": "auto_hide",
     "dockType": "floating",

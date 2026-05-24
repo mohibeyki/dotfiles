@@ -4,6 +4,12 @@ hl.layer_rule({
     blur = true,
 })
 
+hl.layer_rule({
+    name = "launcher-no-anim",
+    match = { namespace = "^noctalia-launcher-overlay-.*$" },
+    no_anim = true,
+})
+
 hl.window_rule({ name = "tag-chromium", match = { class = "([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge|Vivaldi-stable)" }, tag = "+chromium-based-browser" })
 hl.window_rule({ name = "tag-steam-game", match = { initial_class = "^(steam_app_.*)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-gamescope", match = { class = "^(gamescope)$" }, tag = "+game" })

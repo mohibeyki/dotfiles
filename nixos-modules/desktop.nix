@@ -50,7 +50,6 @@
       cider-2
       compsize
       curl
-      discord
       easyeffects
       gparted
       kdiskmark

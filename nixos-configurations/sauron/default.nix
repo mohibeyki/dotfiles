@@ -77,6 +77,7 @@ in
 
     packages = [
       "com.bambulab.BambuStudio"
+      "com.discordapp.Discord"
       "com.spotify.Client"
       "io.github.flattool.Warehouse"
       "md.obsidian.Obsidian"

@@ -6,7 +6,10 @@
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+  boot = {
+    kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+    initrd.kernelModules = [ "nvidia_drm" ];
+  };
 
   hardware = {
     nvidia = {

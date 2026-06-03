@@ -48,18 +48,6 @@
       ];
     };
 
-    "/home" = {
-      device = "/dev/disk/by-uuid/7a8912b4-a782-4526-aba7-f46617496d7e";
-      fsType = "btrfs";
-      options = [
-        "compress=zstd:3"
-        "noatime"
-        "space_cache=v2"
-        "discard=async"
-        "ssd"
-      ];
-    };
-
     "/mnt/games" = {
       device = "/dev/disk/by-uuid/c10b9414-a469-411a-817f-50617a41af28";
       fsType = "btrfs";

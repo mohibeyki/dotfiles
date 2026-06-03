@@ -74,6 +74,7 @@
       breeze-icons
       dolphin
       dolphin-plugins
+      filelight
       gwenview
       kate
       kdegraphics-thumbnailers

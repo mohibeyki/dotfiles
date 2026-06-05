@@ -85,6 +85,7 @@
       kio-fuse
       kservice
       okular
+      partitionmanager
       plasma-integration
       qtsvg
       qtwayland

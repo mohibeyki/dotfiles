@@ -10,10 +10,9 @@ let
   monitorNames = map (monitor: monitor.output) host.monitors;
 in
 {
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
     systemd.enable = false;
-    package = inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = lib.recursiveUpdate (builtins.fromJSON (builtins.readFile ../noctalia.json)) {
       general = {
         avatarImage = "${config.home.homeDirectory}/Pictures/face.png";
@@ -34,21 +33,21 @@ in
           wallpaper = "";
         }) monitorNames;
       };
-    };
-  };
 
-  programs.noctalia-shell.plugins = {
-    sources = [
-      {
-        enabled = true;
-        name = "Noctalia Plugins";
-        url = "https://github.com/noctalia-dev/noctalia-plugins";
-      }
-    ];
+      plugins = {
+        sources = [
+          {
+            enabled = true;
+            name = "Noctalia Plugins";
+            url = "https://github.com/noctalia-dev/noctalia-plugins";
+          }
+        ];
 
-    states = {
-      workspace-overview.settings = {
-        compositor = "Hyprland";
+        states = {
+          workspace-overview.settings = {
+            compositor = "Hyprland";
+          };
+        };
       };
     };
   };

@@ -2,23 +2,13 @@ binds {
     // Niri hotkey help overlay.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Noctalia launcher entrypoints.
-    Mod+P { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Mod+Shift+P { spawn "noctalia-shell" "ipc" "call" "launcher" "command"; }
-
-    // App launchers and Noctalia search modes.
+    // App launchers.
     Mod+Return { spawn "ghostty"; }
     Mod+B { spawn "brave"; }
-    Mod+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
-    Mod+O { toggle-overview; }
-    Mod+Comma { consume-window-into-column; }
-    Mod+Period { expel-window-from-column; }
 
     // Session and window management actions.
     Mod+Q { close-window; }
     Mod+Ctrl+R { reset-window-height; }
-    Mod+Ctrl+Escape { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "lock"; }
-    Mod+Ctrl+Q { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
     Mod+T { toggle-window-floating; }
     Mod+Shift+T { switch-focus-between-floating-and-tiling; }
     Mod+F { maximize-column; }
@@ -43,16 +33,6 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
-
-    // Media transport keys.
-    XF86AudioPlay { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
-    XF86AudioPrev { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
-    XF86AudioNext { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
-
-    // Volume keys.
-    XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
-    XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-    XF86AudioMute { spawn "noctalia-shell" "ipc" "call" "volume" "mute"; }
 
     // Focus movement with vim keys and arrows.
     Mod+H { focus-column-left; }

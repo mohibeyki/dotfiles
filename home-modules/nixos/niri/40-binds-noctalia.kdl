@@ -1,0 +1,23 @@
+    // Noctalia launcher entrypoints.
+    Mod+P { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+Shift+P { spawn "noctalia" "msg" "panel-toggle" "launcher" "/cmd"; }
+
+    // Noctalia search modes.
+    Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+O { spawn "noctalia" "msg" "window-switcher"; }
+    Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
+    Mod+Period { spawn "noctalia" "msg" "panel-toggle" "launcher" "/emo"; }
+
+    // Noctalia session actions.
+    Mod+Ctrl+Escape { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+Ctrl+Q { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+
+    // Media transport keys.
+    XF86AudioPlay { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioPrev { spawn "noctalia" "msg" "media" "previous"; }
+    XF86AudioNext { spawn "noctalia" "msg" "media" "next"; }
+
+    // Volume keys.
+    XF86AudioRaiseVolume { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute { spawn "noctalia" "msg" "volume-mute"; }

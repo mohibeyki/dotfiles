@@ -96,6 +96,7 @@ in
     users.mohi = {
       imports = [
         inputs.noctalia-shell.homeModules.default
+        inputs.caelestia-shell.homeManagerModules.default
         inputs.plasma-manager.homeModules.plasma-manager
         ../../home-configurations/mohi
 
@@ -105,6 +106,7 @@ in
 
       dotfiles.host = {
         isNvidia = true;
+        shell = "noctalia";
         gitSigningKey = keys.sauron;
         gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;

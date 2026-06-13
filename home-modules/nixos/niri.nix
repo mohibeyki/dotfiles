@@ -63,15 +63,37 @@ let
 
   inputLayoutKdl = builtins.readFile (kdlDir + "/10-input-layout.kdl");
   rulesKdl = builtins.readFile (kdlDir + "/30-rules.kdl");
-  bindsKdl = builtins.readFile (kdlDir + "/40-binds.kdl");
+  baseBindsKdl = builtins.readFile (kdlDir + "/40-binds.kdl");
+  noctaliaBindsKdl = builtins.readFile (kdlDir + "/40-binds-noctalia.kdl");
+  caelestiaBindsKdl = builtins.readFile (kdlDir + "/40-binds-caelestia.kdl");
+
+  bindsKdl =
+    if host.shell == "noctalia" then baseBindsKdl + "\n" + noctaliaBindsKdl
+    else if host.shell == "caelestia" then baseBindsKdl + "\n" + caelestiaBindsKdl
+    else baseBindsKdl;
+
+  shellStartup =
+    if host.shell == "noctalia" then ''
+      spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia"
+    ''
+    else if host.shell == "caelestia" then
+      let
+        qmlPath = lib.makeSearchPath "lib/qt-6/qml" [
+          pkgs.kdePackages.kirigami.unwrapped
+          pkgs.kdePackages.qqc2-breeze-style
+          pkgs.kdePackages.qqc2-desktop-style
+        ];
+      in ''
+      spawn-at-startup "env" "NIXPKGS_QT6_QML_IMPORT_PATH=${qmlPath}" "caelestia" "shell" "-d"
+    ''
+    else "";
 
   startupBlock = ''
     spawn-at-startup "systemctl" "--user" "start" "plasma-kwallet-pam.service"
     spawn-at-startup "${pkgs.kdePackages.kservice}/bin/kbuildsycoca6"
     spawn-at-startup "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
     spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
-    spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia-shell"
-    spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
+    ${shellStartup}spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
   '';
 in
 {

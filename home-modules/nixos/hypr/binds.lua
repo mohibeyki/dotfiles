@@ -8,20 +8,11 @@ local function exec(key, command, options)
     bind(key, hl.dsp.exec_cmd(command), options)
 end
 
-exec(main_mod .. " + P", "noctalia-shell ipc call launcher toggle")
-exec(main_mod .. " + SHIFT + P", "noctalia-shell ipc call launcher command")
-
 exec(main_mod .. " + RETURN", "ghostty")
 exec(main_mod .. " + B", "brave")
-exec(main_mod .. " + V", "noctalia-shell ipc call launcher clipboard")
-exec(main_mod .. " + O", "noctalia-shell ipc call launcher windows")
-exec(main_mod .. " + comma", "noctalia-shell ipc call launcher settings")
-exec(main_mod .. " + period", "noctalia-shell ipc call launcher emoji")
 
 bind(main_mod .. " + Q", hl.dsp.window.close())
 exec(main_mod .. " + CTRL + R", "hyprctl reload")
-exec(main_mod .. " + CTRL + escape", "noctalia-shell ipc call sessionMenu lock")
-exec(main_mod .. " + CTRL + Q", "noctalia-shell ipc call sessionMenu toggle")
 bind(main_mod .. " + T", hl.dsp.window.float())
 bind(main_mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 bind(main_mod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
@@ -32,10 +23,6 @@ bind(main_mod .. " + SHIFT + S", hl.dsp.layout("togglesplit"))
 exec(main_mod .. " + E", "dolphin")
 exec(main_mod .. " + S", "grimblast copy area")
 exec("Print", "grimblast save area")
-
-exec("XF86AudioPlay", "noctalia-shell ipc call media playPause")
-exec("XF86AudioPrev", "noctalia-shell ipc call media previous")
-exec("XF86AudioNext", "noctalia-shell ipc call media next")
 
 local directions = {
     { "H", "left" },
@@ -95,9 +82,6 @@ for i = 1, 10 do
 end
 
 local volume_options = { locked = true, repeating = true }
-exec("XF86AudioRaiseVolume", "noctalia-shell ipc call volume increase", volume_options)
-exec("XF86AudioLowerVolume", "noctalia-shell ipc call volume decrease", volume_options)
-exec("XF86AudioMute", "noctalia-shell ipc call volume mute", volume_options)
 
 bind(main_mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 bind(main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })

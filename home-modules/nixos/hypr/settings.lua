@@ -58,6 +58,6 @@ hl.on("hyprland.start", function()
     hl.dispatch(hl.dsp.exec_cmd("@kservice@/bin/kbuildsycoca6"))
     hl.dispatch(hl.dsp.exec_cmd("@polkitKde@/libexec/polkit-kde-authentication-agent-1"))
     hl.dispatch(hl.dsp.exec_cmd("@blueman@/bin/blueman-applet"))
-    hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia-shell"))
+    @shellStartup@
     hl.dispatch(hl.dsp.exec_cmd("@onePassword@/bin/1password --silent"))
 end)

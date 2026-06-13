@@ -73,6 +73,31 @@ let
 
   envToLua =
     entry: "{ ${luaString (builtins.elemAt entry 0)}, ${luaString (builtins.elemAt entry 1)} },";
+
+  bindsLua =
+    let
+      baseBinds = builtins.readFile ./hypr/binds.lua;
+      noctaliaBinds = builtins.readFile ./hypr/binds-noctalia.lua;
+      caelestiaBinds = builtins.readFile ./hypr/binds-caelestia.lua;
+    in
+    if host.shell == "noctalia" then baseBinds + "\n" + noctaliaBinds
+    else if host.shell == "caelestia" then baseBinds + "\n" + caelestiaBinds
+    else baseBinds;
+
+  shellStartupLine =
+    if host.shell == "noctalia" then
+      ''hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))''
+    else if host.shell == "caelestia" then
+      let
+        qmlPath = lib.makeSearchPath "lib/qt-6/qml" [
+          pkgs.kdePackages.kirigami.unwrapped
+          pkgs.kdePackages.qqc2-breeze-style
+          pkgs.kdePackages.qqc2-desktop-style
+        ];
+      in
+      ''hl.dispatch(hl.dsp.exec_cmd("env NIXPKGS_QT6_QML_IMPORT_PATH=${qmlPath} caelestia shell -d"))''
+    else
+      "";
 in
 {
   xdg.portal = {
@@ -92,7 +117,7 @@ in
 
   xdg.configFile = {
     "hypr/hyprland.lua".source = ./hypr/hyprland.lua;
-    "hypr/binds.lua".source = ./hypr/binds.lua;
+    "hypr/binds.lua".text = bindsLua;
     "hypr/host.lua".source = ./hypr/host.lua;
     "hypr/rules.lua".source = ./hypr/rules.lua;
     "hypr/settings.lua".source = pkgs.replaceVars ./hypr/settings.lua {
@@ -100,6 +125,7 @@ in
       kservice = "${pkgs.kdePackages.kservice}";
       onePassword = "${pkgs._1password-gui}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
+      shellStartup = shellStartupLine;
     };
 
     "hypr/generated-host.lua".text = ''

@@ -60,4 +60,6 @@ hl.on("hyprland.start", function()
     hl.dispatch(hl.dsp.exec_cmd("@blueman@/bin/blueman-applet"))
     @shellStartup@
     hl.dispatch(hl.dsp.exec_cmd("@onePassword@/bin/1password --silent"))
+    hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch workspace 1"))
+    hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch workspace 2"))
 end)

@@ -21,8 +21,7 @@ bind(main_mod .. " + SHIFT + D", hl.dsp.layout("swapsplit"))
 bind(main_mod .. " + SHIFT + S", hl.dsp.layout("togglesplit"))
 
 exec(main_mod .. " + E", "dolphin")
-exec(main_mod .. " + S", "grimblast copy area")
-exec("Print", "grimblast save area")
+exec(main_mod .. " + S", "caelestia screenshot -r")
 
 local directions = {
     { "H", "left" },
@@ -71,8 +70,8 @@ for _, entry in ipairs(directions) do
     bind(main_mod .. " + ALT + " .. key, hl.dsp.window.swap({ direction = direction }))
 end
 
-bind(main_mod .. " + TAB", hl.dsp.focus({ workspace = "m+1" }))
-bind(main_mod .. " + SHIFT + TAB", hl.dsp.focus({ workspace = "m-1" }))
+bind(main_mod .. " + TAB", hl.dsp.focus({ workspace = "e+1" }))
+bind(main_mod .. " + SHIFT + TAB", hl.dsp.focus({ workspace = "e-1" }))
 
 for i = 1, 10 do
     local key = tostring(i % 10)

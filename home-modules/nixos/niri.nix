@@ -50,9 +50,17 @@ let
   '';
 
   workspaceBlocks = lib.concatStrings [
-    # Side monitor anchors: workspace 1 and 10. Main uses dynamic scrolling.
+    # Odd workspaces on the side monitor, even workspaces on the main monitor.
     (workspaceBlock "1" sideOutput)
-    (workspaceBlock "10" sideOutput)
+    (workspaceBlock "3" sideOutput)
+    (workspaceBlock "5" sideOutput)
+    (workspaceBlock "7" sideOutput)
+    (workspaceBlock "9" sideOutput)
+    (workspaceBlock "2" mainOutput)
+    (workspaceBlock "4" mainOutput)
+    (workspaceBlock "6" mainOutput)
+    (workspaceBlock "8" mainOutput)
+    (workspaceBlock "10" mainOutput)
   ];
 
   nvidiaEnvironment = lib.optionalString host.isNvidia ''
@@ -76,15 +84,8 @@ let
     if host.shell == "noctalia" then ''
       spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia"
     ''
-    else if host.shell == "caelestia" then
-      let
-        qmlPath = lib.makeSearchPath "lib/qt-6/qml" [
-          pkgs.kdePackages.kirigami.unwrapped
-          pkgs.kdePackages.qqc2-breeze-style
-          pkgs.kdePackages.qqc2-desktop-style
-        ];
-      in ''
-      spawn-at-startup "env" "NIXPKGS_QT6_QML_IMPORT_PATH=${qmlPath}" "caelestia" "shell" "-d"
+    else if host.shell == "caelestia" then ''
+      spawn-at-startup "caelestia" "shell" "-d"
     ''
     else "";
 
@@ -103,7 +104,7 @@ in
 
     ${lib.concatMapStrings monitorBlock host.monitors}
 
-    // Side monitor anchors: workspace 1 and 10. Main monitor uses dynamic scrolling.
+    // Odd workspaces (1,3,5,7,9) on the side monitor; even workspaces (2,4,6,8,10) on the main monitor.
     ${workspaceBlocks}
 
     environment {

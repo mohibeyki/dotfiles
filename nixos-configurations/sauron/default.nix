@@ -106,21 +106,21 @@ in
 
       dotfiles.host = {
         isNvidia = true;
-        shell = "noctalia";
+        shell = "caelestia";
         gitSigningKey = keys.sauron;
         gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"
-          "10, monitor:${monitors.side.output}, persistent:true"
           "2, monitor:${monitors.main.output}, default:true, persistent:true"
-          "3, monitor:${monitors.main.output}"
-          "4, monitor:${monitors.main.output}"
-          "5, monitor:${monitors.main.output}"
-          "6, monitor:${monitors.main.output}"
-          "7, monitor:${monitors.main.output}"
-          "8, monitor:${monitors.main.output}"
-          "9, monitor:${monitors.main.output}"
+          "3, monitor:${monitors.side.output}, persistent:true"
+          "4, monitor:${monitors.main.output}, persistent:true"
+          "5, monitor:${monitors.side.output}, persistent:true"
+          "6, monitor:${monitors.main.output}, persistent:true"
+          "7, monitor:${monitors.side.output}, persistent:true"
+          "8, monitor:${monitors.main.output}, persistent:true"
+          "9, monitor:${monitors.side.output}, persistent:true"
+          "10, monitor:${monitors.main.output}, persistent:true"
         ];
       };
 

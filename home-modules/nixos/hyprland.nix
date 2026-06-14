@@ -88,14 +88,7 @@ let
     if host.shell == "noctalia" then
       ''hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))''
     else if host.shell == "caelestia" then
-      let
-        qmlPath = lib.makeSearchPath "lib/qt-6/qml" [
-          pkgs.kdePackages.kirigami.unwrapped
-          pkgs.kdePackages.qqc2-breeze-style
-          pkgs.kdePackages.qqc2-desktop-style
-        ];
-      in
-      ''hl.dispatch(hl.dsp.exec_cmd("env NIXPKGS_QT6_QML_IMPORT_PATH=${qmlPath} caelestia shell -d"))''
+      ''hl.dispatch(hl.dsp.exec_cmd("caelestia shell -d"))''
     else
       "";
 in

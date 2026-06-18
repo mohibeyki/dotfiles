@@ -47,6 +47,7 @@
     (with pkgs; [
       bind
       brave
+      caffeine-ng
       cider-2
       compsize
       curl

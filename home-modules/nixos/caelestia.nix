@@ -50,6 +50,13 @@ lib.mkIf (host.shell == "caelestia") {
       enable = true;
     };
     package = shellWrapped;
+    settings = {
+      general.idle = {
+        lockBeforeSleep = false;
+        inhibitWhenAudio = false;
+        timeouts = [];
+      };
+    };
   };
 
   home.packages = qmlDeps;

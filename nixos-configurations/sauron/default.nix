@@ -107,15 +107,15 @@ in
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"
-          "2, monitor:${monitors.main.output}, default:true, persistent:true"
-          "3, monitor:${monitors.side.output}, persistent:true"
+          "10, monitor:${monitors.side.output}, default:true, persistent:true"
+          "2, monitor:${monitors.main.output}, persistent:true"
+          "3, monitor:${monitors.main.output}, persistent:true"
           "4, monitor:${monitors.main.output}, persistent:true"
-          "5, monitor:${monitors.side.output}, persistent:true"
+          "5, monitor:${monitors.main.output}, persistent:true"
           "6, monitor:${monitors.main.output}, persistent:true"
-          "7, monitor:${monitors.side.output}, persistent:true"
+          "7, monitor:${monitors.main.output}, persistent:true"
           "8, monitor:${monitors.main.output}, persistent:true"
-          "9, monitor:${monitors.side.output}, persistent:true"
-          "10, monitor:${monitors.main.output}, persistent:true"
+          "9, monitor:${monitors.main.output}, persistent:true"
         ];
       };
 

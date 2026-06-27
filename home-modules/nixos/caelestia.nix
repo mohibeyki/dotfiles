@@ -6,8 +6,6 @@
   ...
 }:
 let
-  inherit (config.dotfiles) host;
-
   shellPackage = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli;
 
   qmlDeps = [
@@ -39,7 +37,7 @@ let
       --prefix LD_LIBRARY_PATH : "${libPath}"
   '';
 in
-lib.mkIf (host.shell == "caelestia") {
+{
   programs.caelestia = {
     enable = true;
     systemd = {
@@ -64,10 +62,5 @@ lib.mkIf (host.shell == "caelestia") {
   home.sessionVariables = {
     NIXPKGS_QT6_QML_IMPORT_PATH = qmlImportPath;
     QML2_IMPORT_PATH = qmlImportPath;
-  };
-
-  home.file = {
-    "Pictures/face.png".source = ../../assets/face.png;
-    "Pictures/Wallpapers/wallpaper.jpg".source = ../../assets/wallpaper.jpg;
   };
 }

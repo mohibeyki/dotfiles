@@ -147,7 +147,7 @@ in
 
   config = {
     services.displayManager = {
-      defaultSession = "hyprland-uwsm";
+      defaultSession = "hyprland-caelestia-uwsm";
       sddm = {
         enable = true;
         wayland.enable = true;

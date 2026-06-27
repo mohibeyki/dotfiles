@@ -80,17 +80,29 @@ let
       noctaliaBinds = builtins.readFile ./hypr/binds-noctalia.lua;
       caelestiaBinds = builtins.readFile ./hypr/binds-caelestia.lua;
     in
-    if host.shell == "noctalia" then baseBinds + "\n" + noctaliaBinds
-    else if host.shell == "caelestia" then baseBinds + "\n" + caelestiaBinds
-    else baseBinds;
+    baseBinds
+    + ''
 
-  shellStartupLine =
-    if host.shell == "noctalia" then
-      ''hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))''
-    else if host.shell == "caelestia" then
-      ''hl.dispatch(hl.dsp.exec_cmd("caelestia shell -d"))''
-    else
-      "";
+      -- Shell-specific binds: selected at startup via DOTFILES_SHELL env
+      local dotfiles_shell = os.getenv("DOTFILES_SHELL") or "caelestia"
+      if dotfiles_shell == "caelestia" then
+    ''
+    + caelestiaBinds
+    + ''
+      elseif dotfiles_shell == "noctalia" then
+    ''
+    + noctaliaBinds
+    + ''
+      end
+    '';
+
+  shellStartupLua = ''
+    local dotfiles_shell = os.getenv("DOTFILES_SHELL") or "caelestia"
+    if dotfiles_shell == "caelestia" then
+        hl.dispatch(hl.dsp.exec_cmd("caelestia shell -d"))
+    elseif dotfiles_shell == "noctalia" then
+        hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))
+    end'';
 in
 {
   xdg.portal = {
@@ -118,7 +130,7 @@ in
       kservice = "${pkgs.kdePackages.kservice}";
       onePassword = "${pkgs._1password-gui}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
-      shellStartup = shellStartupLine;
+      shellStartup = shellStartupLua;
     };
 
     "hypr/generated-host.lua".text = ''
@@ -143,4 +155,8 @@ in
     extraConfig = "# Hyprland v0.55 reads ~/.config/hypr/hyprland.lua.";
   };
 
+  home.file = {
+    "Pictures/face.png".source = ../../assets/face.png;
+    "Pictures/Wallpapers/wallpaper.jpg".source = ../../assets/wallpaper.jpg;
+  };
 }

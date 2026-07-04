@@ -56,9 +56,9 @@ in
     };
 
     shell = lib.mkOption {
-      type = types.nullOr (types.enum [ "noctalia" "caelestia" ]);
+      type = types.nullOr (types.enum [ "noctalia" ]);
       default = null;
-      description = "Active shell/launcher for this host (noctalia or caelestia). null means no shell.";
+      description = "Active shell/launcher for this host. null means no shell.";
     };
 
   };

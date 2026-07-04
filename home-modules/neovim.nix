@@ -3,13 +3,15 @@
   ...
 }:
 {
-  home.packages = [ pkgs.neovim ];
+  home = {
+    packages = [ pkgs.neovim ];
 
-  home.shellAliases = {
-    vi = "nvim";
-    vim = "nvim";
-    vimdiff = "nvim -d";
+    shellAliases = {
+      vi = "nvim";
+      vim = "nvim";
+      vimdiff = "nvim -d";
+    };
+
+    sessionVariables.EDITOR = "nvim";
   };
-
-  home.sessionVariables.EDITOR = "nvim";
 }

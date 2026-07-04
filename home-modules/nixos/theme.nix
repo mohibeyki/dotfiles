@@ -48,7 +48,25 @@ in
     };
   };
 
-  home.packages = [ hyprcursorTheme.package ];
+  home = {
+    packages = [ hyprcursorTheme.package ];
+
+    sessionVariables = {
+      # Legacy toolkit scaling for apps that don't follow the compositor's
+      # fractional scale (mostly X11/XWayland or older toolkits).
+      GDK_SCALE = "2";
+      GDK_DPI_SCALE = "0.625";
+      QT_SCALE_FACTOR = "1.25";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+      WINIT_X11_SCALE_FACTOR = "1.25";
+    };
+
+    pointerCursor = {
+      inherit (cursorTheme) name size package;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+  };
 
   # Without this, Qt apps running outside a full Plasma session (Hyprland)
   # initialize with a default light palette. This breaks xdg-desktop-portal-kde
@@ -60,11 +78,5 @@ in
   programs.plasma = {
     enable = true;
     workspace.colorScheme = "BreezeDark";
-  };
-
-  home.pointerCursor = {
-    inherit (cursorTheme) name size package;
-    gtk.enable = true;
-    x11.enable = true;
   };
 }

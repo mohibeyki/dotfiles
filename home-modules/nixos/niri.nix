@@ -73,77 +73,8 @@ let
   rulesKdl = builtins.readFile (kdlDir + "/30-rules.kdl");
   baseBindsKdl = builtins.readFile (kdlDir + "/40-binds.kdl");
 
-  # Dispatch wrapper that routes shell actions based on DOTFILES_SHELL env var.
-  shellDispatch = pkgs.writeShellScriptBin "dotfiles-shell-dispatch" ''
-    action="$1"
-    case "''${DOTFILES_SHELL:-caelestia}" in
-      caelestia)
-        case "$action" in
-          start) exec caelestia shell -d ;;
-          launcher) exec caelestia shell drawers toggle launcher ;;
-          cmd) exec caelestia shell drawers toggle launcher ;;
-          clipboard) exec caelestia clipboard ;;
-          session) exec caelestia shell drawers toggle session ;;
-          emoji) exec caelestia emoji -p ;;
-          lock) exec caelestia shell lock lock ;;
-          sidebar) exec caelestia shell drawers toggle sidebar ;;
-          windows) exec true ;;
-          playpause) exec caelestia shell mpris playPause ;;
-          prev) exec caelestia shell mpris previous ;;
-          next) exec caelestia shell mpris next ;;
-          volup) exec wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
-          voldown) exec wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
-          volmute) exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
-          *) exec true ;;
-        esac ;;
-      noctalia)
-        case "$action" in
-          start) exec env -u QT_QPA_PLATFORMTHEME noctalia ;;
-          launcher) exec noctalia msg panel-toggle launcher ;;
-          cmd) exec noctalia msg panel-toggle launcher /cmd ;;
-          clipboard) exec noctalia msg panel-toggle clipboard ;;
-          session) exec noctalia msg settings-toggle ;;
-          emoji) exec noctalia msg panel-toggle launcher /emo ;;
-          lock) exec noctalia msg session lock ;;
-          sidebar) exec noctalia msg panel-toggle control-center ;;
-          windows) exec noctalia msg window-switcher ;;
-          playpause) exec noctalia msg media toggle ;;
-          prev) exec noctalia msg media previous ;;
-          next) exec noctalia msg media next ;;
-          volup) exec noctalia msg volume-up ;;
-          voldown) exec noctalia msg volume-down ;;
-          volmute) exec noctalia msg volume-mute ;;
-          *) exec true ;;
-        esac ;;
-      *)
-        exec true ;;
-    esac
-  '';
-
-  shellDispatchBin = "${shellDispatch}/bin/dotfiles-shell-dispatch";
-
-  shellBindsKdl = ''
-    // Shell binds unified via dotfiles-shell-dispatch (reads DOTFILES_SHELL env).
-    Mod+P { spawn "${shellDispatchBin}" "launcher"; }
-    Mod+Shift+P { spawn "${shellDispatchBin}" "cmd"; }
-    Mod+V { spawn "${shellDispatchBin}" "clipboard"; }
-    Mod+O { spawn "${shellDispatchBin}" "windows"; }
-    Mod+Comma { spawn "${shellDispatchBin}" "session"; }
-    Mod+Period { spawn "${shellDispatchBin}" "emoji"; }
-    Mod+Ctrl+Escape { spawn "${shellDispatchBin}" "lock"; }
-    Mod+Ctrl+Q { spawn "${shellDispatchBin}" "sidebar"; }
-    XF86AudioPlay { spawn "${shellDispatchBin}" "playpause"; }
-    XF86AudioPrev { spawn "${shellDispatchBin}" "prev"; }
-    XF86AudioNext { spawn "${shellDispatchBin}" "next"; }
-    XF86AudioRaiseVolume { spawn "${shellDispatchBin}" "volup"; }
-    XF86AudioLowerVolume { spawn "${shellDispatchBin}" "voldown"; }
-    XF86AudioMute { spawn "${shellDispatchBin}" "volmute"; }
-  '';
-
-  # Shell startup: the dispatch wrapper handles both shells; Niri starts
-  # whichever DOTFILES_SHELL points to.
   shellStartup = ''
-    spawn-at-startup "${shellDispatchBin}" "start"
+    spawn-at-startup "env" "-u" "QT_QPA_PLATFORMTHEME" "noctalia"
   '';
 
   startupBlock = ''
@@ -154,7 +85,7 @@ let
     ${shellStartup}spawn-at-startup "${pkgs._1password-gui}/bin/1password" "--silent"
   '';
 
-  bindsKdl = baseBindsKdl + "\n" + shellBindsKdl;
+  bindsKdl = baseBindsKdl + "\n" + builtins.readFile (kdlDir + "/40-binds-noctalia.kdl");
 in
 {
   xdg.configFile."niri/config.kdl".text = ''
@@ -180,5 +111,5 @@ in
     ${bindsKdl}
   '';
 
-  home.packages = [ shellDispatch ];
+  home.packages = [ ];
 }

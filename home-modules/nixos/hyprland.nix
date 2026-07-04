@@ -78,31 +78,14 @@ let
     let
       baseBinds = builtins.readFile ./hypr/binds.lua;
       noctaliaBinds = builtins.readFile ./hypr/binds-noctalia.lua;
-      caelestiaBinds = builtins.readFile ./hypr/binds-caelestia.lua;
     in
-    baseBinds
-    + ''
+    if host.shell == "noctalia" then baseBinds + "\n" + noctaliaBinds else baseBinds;
 
-      -- Shell-specific binds: selected at startup via DOTFILES_SHELL env
-      local dotfiles_shell = os.getenv("DOTFILES_SHELL") or "caelestia"
-      if dotfiles_shell == "caelestia" then
-    ''
-    + caelestiaBinds
-    + ''
-      elseif dotfiles_shell == "noctalia" then
-    ''
-    + noctaliaBinds
-    + ''
-      end
-    '';
-
-  shellStartupLua = ''
-    local dotfiles_shell = os.getenv("DOTFILES_SHELL") or "caelestia"
-    if dotfiles_shell == "caelestia" then
-        hl.dispatch(hl.dsp.exec_cmd("caelestia shell -d"))
-    elseif dotfiles_shell == "noctalia" then
-        hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))
-    end'';
+  shellStartupLine =
+    if host.shell == "noctalia" then
+      ''hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))''
+    else
+      "";
 in
 {
   xdg.portal = {
@@ -130,7 +113,7 @@ in
       kservice = "${pkgs.kdePackages.kservice}";
       onePassword = "${pkgs._1password-gui}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
-      shellStartup = shellStartupLua;
+      shellStartup = shellStartupLine;
     };
 
     "hypr/generated-host.lua".text = ''

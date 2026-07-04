@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./caelestia.nix
     ./hyprland.nix
     ./mangohud.nix
     ./niri.nix

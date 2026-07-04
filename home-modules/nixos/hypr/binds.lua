@@ -21,7 +21,7 @@ bind(main_mod .. " + SHIFT + D", hl.dsp.layout("swapsplit"))
 bind(main_mod .. " + SHIFT + S", hl.dsp.layout("togglesplit"))
 
 exec(main_mod .. " + E", "dolphin")
-exec(main_mod .. " + S", "caelestia screenshot -r")
+exec(main_mod .. " + S", "grimblast copy area")
 
 local directions = {
     { "H", "left" },

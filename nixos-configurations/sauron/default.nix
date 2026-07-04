@@ -15,18 +15,18 @@ let
     main = {
       output = "desc:ASUSTek COMPUTER INC PG32UCDM S6LMQS030023";
       mode = "3840x2160@240";
-      position = "0x0";
-      scale = 1;
+      position = "3072x0";
+      scale = 1.25;
       bitdepth = 10;
       vrr = 1;
       cm = "srgb";
     };
 
     side = {
-      output = "desc:LG Electronics LG ULTRAGEAR 305MXDM47154";
-      mode = "2560x1440@144";
-      position = "-2560x-80";
-      scale = 1;
+      output = "desc:ASUSTek COMPUTER INC XG32UCDS W3LMQV042954";
+      mode = "3840x2160@165";
+      position = "0x0";
+      scale = 1.25;
       bitdepth = 10;
       vrr = 1;
       cm = "srgb";
@@ -91,7 +91,6 @@ in
     users.mohi = {
       imports = [
         inputs.noctalia-shell.homeModules.default
-        inputs.caelestia-shell.homeManagerModules.default
         inputs.plasma-manager.homeModules.plasma-manager
         ../../home-configurations/mohi
 
@@ -101,21 +100,21 @@ in
 
       dotfiles.host = {
         isNvidia = true;
-        shell = "caelestia";
+        shell = "noctalia";
         gitSigningKey = keys.sauron;
         gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;
         workspaces = [
           "1, monitor:${monitors.side.output}, default:true, persistent:true"
-          "10, monitor:${monitors.side.output}, default:true, persistent:true"
-          "2, monitor:${monitors.main.output}, persistent:true"
-          "3, monitor:${monitors.main.output}, persistent:true"
+          "3, monitor:${monitors.side.output}, persistent:true"
+          "5, monitor:${monitors.side.output}, persistent:true"
+          "7, monitor:${monitors.side.output}, persistent:true"
+          "9, monitor:${monitors.side.output}, persistent:true"
+          "2, monitor:${monitors.main.output}, default:true, persistent:true"
           "4, monitor:${monitors.main.output}, persistent:true"
-          "5, monitor:${monitors.main.output}, persistent:true"
           "6, monitor:${monitors.main.output}, persistent:true"
-          "7, monitor:${monitors.main.output}, persistent:true"
           "8, monitor:${monitors.main.output}, persistent:true"
-          "9, monitor:${monitors.main.output}, persistent:true"
+          "10, monitor:${monitors.main.output}, persistent:true"
         ];
       };
 

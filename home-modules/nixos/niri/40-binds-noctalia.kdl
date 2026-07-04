@@ -3,6 +3,7 @@
     Mod+Shift+P { spawn "noctalia" "msg" "panel-toggle" "launcher" "/cmd"; }
 
     // Noctalia search modes.
+    Mod+C { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Mod+O { spawn "noctalia" "msg" "window-switcher"; }
     Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
@@ -10,7 +11,7 @@
 
     // Noctalia session actions.
     Mod+Ctrl+Escape { spawn "noctalia" "msg" "session" "lock"; }
-    Mod+Ctrl+Q { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+Ctrl+Q { spawn "noctalia" "msg" "panel-open" "session"; }
 
     // Media transport keys.
     XF86AudioPlay { spawn "noctalia" "msg" "media" "toggle"; }

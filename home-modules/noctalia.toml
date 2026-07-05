@@ -23,6 +23,7 @@ order = [ "default" ]
     capsule_group = []
     capsule_opacity = 1.0
     capsule_padding = 6.0
+    capsule_thickness = 0.75999999046325684
     center = [ "clock" ]
     contact_shadow = false
     enabled = true
@@ -41,8 +42,9 @@ order = [ "default" ]
     ]
     font_weight = 500
     layer = "top"
-    margin_edge = 4
+    margin_edge = 8
     margin_ends = 8
+    margin_opposite_edge = 0
     padding = 16
     panel_overlap = 1
     position = "top"
@@ -54,9 +56,17 @@ order = [ "default" ]
     reserve_space = true
     scale = 1.0
     shadow = true
-    start = [ "launcher", "wallpaper", "workspaces" ]
+    show_on_workspace_switch = true
+    start = [ "launcher", "workspaces" ]
     thickness = 40
     widget_spacing = 8
+
+        [bar.default.dead_zone]
+        command = ""
+        middle_command = ""
+        right_command = ""
+        scroll_down_command = ""
+        scroll_up_command = ""
 
 [battery]
 warning_threshold = 20
@@ -64,14 +74,21 @@ warning_threshold = 20
 [brightness]
 enable_ddcutil = false
 ignore_mmids = []
+minimum_brightness = 0.0
+sync_all_monitors = false
 
 [calendar]
 enabled = false
 refresh_minutes = 15
 
 [control_center]
+hidden_tabs = []
 sidebar = "compact"
 sidebar_section = "compact"
+width = 700
+
+    [control_center.calendar]
+    show_events_card = true
 
     [[control_center.shortcuts]]
     type = "wifi"
@@ -112,6 +129,8 @@ icon_size = 48
 inactive_opacity = 0.85000002384185791
 inactive_scale = 0.85000002384185791
 item_spacing = 6
+launcher_custom_image = ""
+launcher_custom_image_colorize = false
 launcher_icon = "grid-dots"
 launcher_position = "none"
 magnification = true
@@ -162,27 +181,29 @@ pre_action_fade_seconds = 2.0
     command = ""
     enabled = false
     resume_command = ""
-    timeout = 600
+    timeout = 600.0
 
     [idle.behavior.lock-and-suspend]
     action = "lock_and_suspend"
     command = ""
     enabled = false
     resume_command = ""
-    timeout = 900
+    timeout = 900.0
 
     [idle.behavior.screen-off]
     action = "screen_off"
     command = ""
     enabled = false
     resume_command = ""
-    timeout = 660
+    timeout = 660.0
 
 [keybinds]
 cancel = [ "Escape" ]
 down = [ "Down" ]
 left = [ "Left" ]
 right = [ "Right" ]
+tab_next = [ "Tab" ]
+tab_previous = [ "Shift+ISO_Left_Tab" ]
 up = [ "Up" ]
 validate = [ "Return", "KP_Enter" ]
 
@@ -193,8 +214,11 @@ sunrise = ""
 sunset = ""
 
 [lockscreen]
+allow_empty_password = false
 blur_intensity = 0.5
 blurred_desktop = false
+enabled = true
+fingerprint = true
 monitors = []
 tint_intensity = 0.30000001192092896
 wallpaper = ""
@@ -252,10 +276,7 @@ temperature_day = 6500
 temperature_night = 4000
 
 [notification]
-allowed_urgencies = []
 background_opacity = 0.97000002861022949
-blacklist = []
-blacklist_allow_critical = true
 collapse_on_dismiss = true
 enable_daemon = true
 layer = "top"
@@ -274,6 +295,7 @@ offset_x = 20
 offset_y = 8
 orientation = "horizontal"
 position = "top_center"
+position_vertical = "top_center"
 scale = 1.0
 
     [osd.kinds]
@@ -283,7 +305,10 @@ scale = 1.0
     dnd = true
     keyboard_layout = true
     lock_keys = true
+    media = true
+    nightlight = true
     power_profile = true
+    privacy = true
     volume = true
     volume_input = true
     volume_output = true
@@ -294,12 +319,14 @@ enabled = []
 
     [[plugins.source]]
     auto_update = false
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
     auto_update = false
+    enabled = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -317,6 +344,7 @@ date_format = "%A, %x"
 disable_mipmaps = false
 font_family = "sans-serif"
 launch_apps_as_systemd_services = false
+launch_apps_custom_command = ""
 middle_click_opens_widget_settings = true
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
@@ -335,32 +363,56 @@ ui_scale = 1.0
     enabled = true
     speed = 1.0
 
+    [shell.greeter_sync]
+    auto_sync = false
+
+    [shell.launcher]
+    app_grid = false
+    categories = true
+    compact = false
+    session_search = false
+    show_icons = true
+    sort_by_usage = true
+
+        [shell.launcher.dmenu]
+
     [shell.mpris]
     blacklist = []
 
     [shell.panel]
     borders = true
-    clipboard_placement = "centered"
+    clipboard_placement = "floating"
+    clipboard_position = "center"
     control_center_placement = "attached"
-    launcher_categories = true
-    launcher_compact = false
-    launcher_placement = "centered"
-    launcher_show_icons = true
+    control_center_position = "auto"
+    floating_offset = 8
+    launcher_placement = "floating"
+    launcher_position = "center"
     open_near_click_clipboard = false
     open_near_click_control_center = false
     open_near_click_launcher = false
     open_near_click_session = false
     open_near_click_wallpaper = false
+    polkit_placement = "floating"
+    polkit_position = "center"
     session_placement = "attached"
+    session_position = "auto"
     shadow = true
     transparency_mode = "solid"
     wallpaper_placement = "attached"
+    wallpaper_position = "auto"
+
+    [shell.privacy]
+    cam_filter_regex = ""
+    mic_filter_regex = ""
+    screen_filter_regex = ""
 
     [shell.screen_corners]
     enabled = false
     size = 32
 
     [shell.screenshot]
+    confirm_region = false
     copy_to_clipboard = true
     directory = ""
     filename_pattern = ""
@@ -369,9 +421,12 @@ ui_scale = 1.0
     pipe_to_command = false
     save_to_file = true
 
+    [shell.session.power]
+
     [[shell.session.actions]]
     action = "lock"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -381,6 +436,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "logout"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -390,6 +446,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "lock_and_suspend"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -399,6 +456,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "reboot"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -408,6 +466,7 @@ ui_scale = 1.0
     [[shell.session.actions]]
     action = "shutdown"
     command = ""
+    countdown_seconds = 0.0
     enabled = true
     glyph = ""
     label = ""
@@ -422,6 +481,7 @@ ui_scale = 1.0
 cpu_poll_seconds = 2.0
 cpu_temp_activity_threshold = 60.0
 cpu_temp_critical_threshold = 85.0
+cpu_temp_sensor_path = ""
 cpu_usage_activity_threshold = 50.0
 cpu_usage_critical_threshold = 90.0
 disk_pct_activity_threshold = 80.0
@@ -546,3 +606,7 @@ type = "spacer"
 [widget.temp]
 stat = "cpu_temp"
 type = "sysmon"
+
+[widget.workspaces]
+display = "name"
+type = "workspaces"

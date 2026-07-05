@@ -9,7 +9,7 @@ local function exec(key, command, options)
 end
 
 exec(main_mod .. " + RETURN", "ghostty")
-exec(main_mod .. " + B", "brave")
+exec(main_mod .. " + B", "firefox")
 
 bind(main_mod .. " + Q", hl.dsp.window.close())
 exec(main_mod .. " + CTRL + R", "hyprctl reload")

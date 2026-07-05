@@ -2,7 +2,7 @@
 
 Nix flake-based dotfiles for two hosts:
 
-- `sauron`: NixOS desktop (`x86_64-linux`) with Plasma, Hyprland, Niri, NVIDIA, Flatpak, gaming, containers, and Home Manager
+- `sauron`: NixOS desktop (`x86_64-linux`) with Plasma, Hyprland, NVIDIA, Flatpak, gaming, containers, and Home Manager
 - `legolas`: macOS (`nix-darwin`, `aarch64-darwin`) with Home Manager
 
 Home Manager is integrated into system rebuilds on both platforms; there is no separate interactive `home-manager switch` workflow.
@@ -58,16 +58,14 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
   - `base.nix` — boot, users, services, networking, PipeWire, polkit
   - `desktop.nix` — Plasma, desktop packages, graphics, MIME/menu integration
   - `hyprland.nix` — Hyprland system integration
-  - `niri.nix` — Niri system integration and supporting tools
   - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
-  - `nvidia.nix` — NVIDIA driver settings (beta + open kernel module)
+  - `nvidia.nix` — NVIDIA driver settings (latest + open kernel module)
   - `game.nix` — gaming settings (Steam, gamescope, gamemode)
   - `containers.nix` — Docker/Podman containers
   - `sddm.nix` — SDDM display manager config
 - `home-modules/` — shared Home Manager modules
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
   - `hyprland.nix` / `hyprland-rules.nix` — Hyprland settings and rules
-  - `niri.nix` — generated Niri `config.kdl`
   - `noctalia.nix` — Noctalia config
   - `theme.nix` — GTK, cursor, Hyprcursor, and Plasma theme settings
 - `home-configurations/mohi/` — shared user identity/home settings
@@ -78,14 +76,13 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 ## Desktop notes
 
 - SDDM is the display manager on `sauron`.
-- Plasma, Hyprland, and Niri are intended to coexist.
-- Hyprland and Niri both start Noctalia, 1Password, KDE wallet setup, and the KDE polkit agent.
-- `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly; Niri strips `desc:` and matches outputs by manufacturer/model/serial.
-- Niri uses persistent named workspaces (`"1"` through `"10"`) to mimic the Hyprland workspace layout.
+- Plasma and Hyprland are intended to coexist; Hyprland is the primary tiling session.
+- Hyprland starts Noctalia, 1Password, KDE wallet setup, and the KDE polkit agent.
+- `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly.
 
 ## Notes
 
 - Zed is Nix-managed on NixOS and app-managed on Darwin.
-- `nixos-modules/nvidia.nix` selects `nvidiaPackages.beta` with the open kernel module.
+- `nixos-modules/nvidia.nix` selects `nvidiaPackages.latest` with the open kernel module.
 - **Secrets management** — planned via `agenix`. Not yet implemented; SSH public keys are fine in-repo, but WiFi passwords, VPN configs, and API tokens will need it.
 - **Disk encryption** — planned. `/` and `/home` are currently unencrypted. Will add LUKS when reinstalling or migrating.

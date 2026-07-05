@@ -46,8 +46,8 @@
   environment.systemPackages =
     (with pkgs; [
       bind
-      brave
       caffeine-ng
+      cider-2
       cider-2
       compsize
       curl

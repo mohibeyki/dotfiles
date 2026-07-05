@@ -3,7 +3,7 @@
 ## Project Overview
 
 Nix flake-based dotfiles managing two hosts:
-- **`sauron`**: NixOS desktop (x86_64-linux) with Plasma, Hyprland, Niri, and NVIDIA GPU
+- **`sauron`**: NixOS desktop (x86_64-linux) with Plasma, Hyprland, and NVIDIA GPU
 - **`legolas`**: macOS (`nix-darwin`, aarch64-darwin)
 
 Home Manager runs **only during rebuilds**, not as a user service (`startAsUserService = false`).
@@ -38,7 +38,6 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── base.nix                           # Core system config (boot, i18n, users, services)
 │   ├── desktop.nix                        # Plasma, desktop apps, graphics, MIME/menu integration
 │   ├── hyprland.nix                       # Hyprland system config
-│   ├── niri.nix                           # Niri system config and supporting packages
 │   ├── nix-ld.nix                         # nix-ld runtime libraries for non-Nix binaries/Bazel
 │   ├── nvidia.nix                         # NVIDIA GPU + DRM kernel params
 │   ├── game.nix                           # Gaming settings (gamescope, Steam, etc.)
@@ -53,11 +52,11 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
 │   ├── neovim.nix                         # Neovim config
 │   ├── nixvim.nix                         # NixVim wrapper
+│   ├── opencode.nix                       # opencode permissions and config
 │   ├── zellij.kdl                         # Zellij layout/UI config
 │   └── nixos/                             # NixOS-only home modules
 │       ├── hyprland.nix                   # Hyprland WM: keybinds, env vars, exec-once, settings
 │       ├── hyprland-rules.nix             # Hyprland window rules and layer rules
-│       ├── niri.nix                       # Niri config.kdl generated from Nix
 │       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor + Plasma theme
 │       └── noctalia.nix                   # Noctalia app config
 ├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
@@ -82,7 +81,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 - Supports two systems: `x86_64-linux` and `aarch64-darwin`
 - Pre-commit hooks: `nixfmt` + `statix` (both enabled)
 
-### Host Configs (`nixos-configurations/*/`, `darwin-configurations/*/`)
+### Host Configs (`nixos-configurations/*/`, `darwin-configurations/*/`)`
 - Each host imports:
   1. `home-manager.nixosModules.home-manager` (NixOS) or HM standalone (Darwin)
   2. Platform modules (`nixos-modules/`, `darwin-modules/`)
@@ -98,7 +97,6 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 - Most home modules read `config.dotfiles.host` to adapt to host
 - `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `config.dotfiles.host.workspaces`, and `config.dotfiles.host.isNvidia`
 - `nixos/hyprland-rules.nix` only needs `wayland.windowManager.hyprland.settings` — no host option access
-- `nixos/niri.nix` uses `config.dotfiles.host.monitors` and `config.dotfiles.host.isNvidia`, and mirrors the Hyprland monitor/workspace/keybinding model where Niri supports it
 - `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` directly and configures Plasma colors via plasma-manager
 - `nixvim.nix` uses `inputs.nixvim` directly for the nixvim package
 
@@ -106,8 +104,6 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 Hyprland rules in `nixos/hyprland-rules.nix` follow a two-phase pattern:
 1. **Tag assignment**: `windowrule "tag +<name>, match:class ^(...)"` assigns windows to logical tags
 2. **Tag rules**: `windowrule "<action> on, match:tag <name>"` applies behaviors to all windows with that tag
-
-Niri configuration in `nixos/niri.nix` is generated as raw KDL at `~/.config/niri/config.kdl`. It uses named workspaces (`"1"` through `"10"`) to mimic Hyprland's persistent workspace layout.
 
 ## Key Conventions
 
@@ -133,12 +129,12 @@ sauronOverlays = [
 ```
 
 ### Monitor Config
-Host monitor definitions use `desc:...` (EDID description) for identification. Hyprland consumes these directly via `monitorv2`. Niri strips the `desc:` prefix and matches outputs by manufacturer/model/serial. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`); Niri treats any non-zero value as on-demand VRR.
+Host monitor definitions use `desc:...` (EDID description) for identification. Hyprland consumes these directly via `monitorv2`. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`).
 
 ### Darwin-Specific
 - `stateVersion` uses integers (`6`) not strings
 - `nixpkgs.hostPlatform = "aarch64-darwin"` explicitly sets host platform
-- NixOS desktop modules (`nixos/hyprland.nix`, `nixos/hyprland-rules.nix`, `nixos/niri.nix`, `nixos/noctalia.nix`, `nixos/theme.nix`) are **not** imported on Darwin
+- NixOS desktop modules (`nixos/hyprland.nix`, `nixos/hyprland-rules.nix`, `nixos/noctalia.nix`, `nixos/theme.nix`) are **not** imported on Darwin
 
 ## Pre-commit Hooks
 
@@ -154,7 +150,7 @@ Run manually:
 
 - **Home Manager is NOT a user service** — changes only apply after `nixos-rebuild switch`. Do not expect `home-manager` commands to work interactively.
 - **`dotfiles.host` must be set per host** — home modules that need monitor/workspace/signing data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
-- **Darwin has no Linux desktop stack** — only import Hyprland/Niri/Noctalia/theme desktop modules on NixOS hosts.
+- **Darwin has no Linux desktop stack** — only import Hyprland/Noctalia/theme desktop modules on NixOS hosts.
 - **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
@@ -172,7 +168,7 @@ Run manually:
 | `fenix` | Rust toolchain via overlay |
 | `nixvim` | NixVim (fork) — installed via `home-modules/nixvim.nix` |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
-| `llm-agents.nix` | LLM CLI tools (claude-code, copilot-cli, etc.) |
+| `llm-agents.nix` | LLM CLI tools (opencode, copilot-cli, etc.) |
 | `noctalia-qs` / `noctalia-shell` | Noctalia app |
 | `plasma-manager` | KDE Plasma configuration via Home Manager |
 | `nix-flatpak` | Flatpak integration for NixOS |
@@ -188,11 +184,10 @@ Run manually:
 
 ## Adding a New System Package
 
-- **NixOS system package**: add to the most specific module under `nixos-modules/` (`desktop.nix`, `game.nix`, `niri.nix`, etc.) or to `modules/system-dev.nix` if it is a dev tool
+- **NixOS system package**: add to the most specific module under `nixos-modules/` (`desktop.nix`, `game.nix`, etc.) or to `modules/system-dev.nix` if it is a dev tool
 - **Darwin system package**: add to `darwin-modules/default.nix`
 - **User package**: add to appropriate `home-modules/<name>.nix` under `home.packages`
 
 ## Known Issues / Pending
 
-- **NVIDIA beta driver**: `nixos-modules/nvidia.nix` selects `nvidiaPackages.beta` with the open kernel module.
-- **Niri output names**: if monitor matching fails after hardware/EDID changes, log into Niri and check `niri msg outputs`; update the stripped `desc:` names in `home-modules/nixos/niri.nix` if needed.
+- **NVIDIA latest driver**: `nixos-modules/nvidia.nix` selects `nvidiaPackages.latest` with the open kernel module.

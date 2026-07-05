@@ -99,7 +99,6 @@ in
         "hyprland"
         "kde"
       ];
-      niri.default = [ "kde" ];
     };
   };
 

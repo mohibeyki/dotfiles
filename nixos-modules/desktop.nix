@@ -46,8 +46,7 @@
   environment.systemPackages =
     (with pkgs; [
       bind
-      caffeine-ng
-      cider-2
+      brave
       cider-2
       compsize
       curl
@@ -63,6 +62,7 @@
       teamspeak6-client
       telegram-desktop
       transmission_4-gtk
+      vivaldi
       wayland-utils
       websocat
       wiremix

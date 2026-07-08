@@ -24,7 +24,7 @@ hl.window_rule({ name = "tag-nm-editor", match = { title = "^(nm-connection-edit
 hl.window_rule({ name = "tag-floating-window", match = { class = "(Impala|com.gabm.satty|About|TUI.float)" }, tag = "+floating-window" })
 hl.window_rule({ name = "tag-file-dialogs", match = { class = "(xdg-desktop-portal-gtk|sublime_text|DesktopEditors)", title = "^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)" }, tag = "+floating-window" })
 
-hl.window_rule({ name = "games-workspace", match = { tag = "game" }, workspace = "9 silent" })
+hl.window_rule({ name = "games-workspace", match = { tag = "game" }, workspace = "2" })
 hl.window_rule({ name = "games-fullscreen", match = { tag = "game" }, fullscreen = true })
 hl.window_rule({ name = "games-noanim", match = { tag = "game" }, no_anim = true })
 hl.window_rule({ name = "games-no-blur", match = { tag = "game" }, no_blur = true })

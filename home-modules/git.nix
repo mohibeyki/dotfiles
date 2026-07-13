@@ -49,4 +49,9 @@ in
       tag.gpgsign = true;
     };
   };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
 }

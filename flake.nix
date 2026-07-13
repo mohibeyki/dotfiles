@@ -75,7 +75,6 @@
     let
       overlays = [
         inputs.fenix.overlays.default
-        inputs.llm-agents.overlays.default
         inputs.neovim-nightly-overlay.overlays.default
       ];
     in

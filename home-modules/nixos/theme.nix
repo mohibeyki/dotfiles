@@ -52,6 +52,7 @@ in
     packages = [ hyprcursorTheme.package ];
 
     pointerCursor = {
+      enable = true;
       inherit (cursorTheme) name size package;
       gtk.enable = true;
       x11.enable = true;

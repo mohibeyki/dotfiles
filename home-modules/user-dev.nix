@@ -9,6 +9,7 @@
     [
       opencode
       grok
+      claude-code
     ];
 }
 

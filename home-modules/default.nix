@@ -10,6 +10,7 @@
     ./helix.nix
     ./neovim.nix
     ./opencode.nix
+    ./llm-env.nix
     ./tmux.nix
     ./zed.nix
     ./zellij.nix

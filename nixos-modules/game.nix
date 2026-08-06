@@ -22,23 +22,6 @@
     };
 
     gamescope.enable = true;
-    gamemode = {
-      enable = true;
-      settings = {
-        general = {
-          renice = 10;
-          softrealtime = "auto";
-        };
-        cpu = {
-          park_cores = "no";
-          pin_cores = "no";
-        };
-        gpu = {
-          apply_gpu_optimisations = "accept-responsibility";
-          nv_powermizer_mode = 1;
-        };
-      };
-    };
   };
 
   hardware.steam-hardware.enable = true;

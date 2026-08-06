@@ -9,7 +9,6 @@
     ./git.nix
     ./helix.nix
     ./neovim.nix
-    ./nixvim.nix
     ./opencode.nix
     ./tmux.nix
     ./zed.nix

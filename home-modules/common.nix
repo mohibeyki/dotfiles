@@ -1,10 +1,15 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }:
 {
+  imports = [
+    inputs.nix-index-database.homeModules.nix-index
+  ];
+
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/share/npm/bin"
@@ -57,8 +62,8 @@
       enable = true;
       enableFishIntegration = true;
     };
+
+    # Prebuilt command-not-found database for comma.
+    nix-index-database.comma.enable = true;
   };
-
-  home.packages = [ pkgs.comma ];
-
 }

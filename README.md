@@ -65,7 +65,7 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
   - `sddm.nix` — SDDM display manager config
 - `home-modules/` — shared Home Manager modules
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
-  - `hyprland.nix` / `hyprland-rules.nix` — Hyprland settings and rules
+  - `hyprland.nix` + `hypr/*.lua` — Hyprland env, portals, binds, rules, settings
   - `noctalia.nix` — Noctalia config
   - `theme.nix` — GTK, cursor, Hyprcursor, and Plasma theme settings
 - `home-configurations/mohi/` — shared user identity/home settings

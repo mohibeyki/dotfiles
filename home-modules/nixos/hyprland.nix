@@ -74,6 +74,14 @@ let
   envToLua =
     entry: "{ ${luaString (builtins.elemAt entry 0)}, ${luaString (builtins.elemAt entry 1)} },";
 
+  workspaceToLua = workspace: ''
+    {
+      id = ${luaString workspace.id},
+      monitor = ${luaString workspace.monitor},
+      default = ${if workspace.default then "true" else "false"},
+      persistent = ${if workspace.persistent then "true" else "false"},
+    },'';
+
   bindsLua =
     let
       baseBinds = builtins.readFile ./hypr/binds.lua;
@@ -88,8 +96,10 @@ let
       "";
 in
 {
+  # HM hyprland sets portal.enable = false when package = null; force it back on
+  # so KDE portal config still applies alongside the system hyprland portal.
   xdg.portal = {
-    enable = true;
+    enable = lib.mkForce true;
     extraPortals = [
       pkgs.kdePackages.xdg-desktop-portal-kde
     ];
@@ -122,7 +132,7 @@ in
         },
 
         workspaces = {
-      ${lib.concatStringsSep "\n" (map (workspace: "    ${luaString workspace},") workspaces)}
+      ${lib.concatStringsSep "\n" (map workspaceToLua workspaces)}
         },
 
         env = {
@@ -132,9 +142,14 @@ in
     '';
   };
 
+  # NixOS programs.hyprland + UWSM owns the compositor binary and session.
+  # Home Manager only materializes config (Lua under xdg.configFile above).
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = "# Hyprland v0.55 reads ~/.config/hypr/hyprland.lua.";
+    package = null;
+    portalPackage = null;
+    systemd.enable = false;
+    extraConfig = "# Hyprland reads ~/.config/hypr/hyprland.lua.";
   };
 
   home.file = {

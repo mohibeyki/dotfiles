@@ -23,11 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland = {
       url = "github:hyprwm/Hyprland";
     };
@@ -57,9 +52,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      # Self-contained; pins its own nixpkgs internally.
-      url = "github:mohibeyki/nixvim";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     neovim-nightly-overlay = {
@@ -72,7 +67,6 @@
     inputs:
     let
       overlays = [
-        inputs.fenix.overlays.default
         inputs.neovim-nightly-overlay.overlays.default
       ];
     in

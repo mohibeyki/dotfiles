@@ -105,16 +105,58 @@ in
         gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;
         workspaces = [
-          "1, monitor:${monitors.side.output}, default:true, persistent:true"
-          "3, monitor:${monitors.side.output}, persistent:true"
-          "5, monitor:${monitors.side.output}, persistent:true"
-          "7, monitor:${monitors.side.output}, persistent:true"
-          "9, monitor:${monitors.side.output}, persistent:true"
-          "2, monitor:${monitors.main.output}, default:true, persistent:true"
-          "4, monitor:${monitors.main.output}, persistent:true"
-          "6, monitor:${monitors.main.output}, persistent:true"
-          "8, monitor:${monitors.main.output}, persistent:true"
-          "10, monitor:${monitors.main.output}, persistent:true"
+          {
+            id = 1;
+            monitor = monitors.side.output;
+            default = true;
+            persistent = true;
+          }
+          {
+            id = 3;
+            monitor = monitors.side.output;
+            persistent = true;
+          }
+          {
+            id = 5;
+            monitor = monitors.side.output;
+            persistent = true;
+          }
+          {
+            id = 7;
+            monitor = monitors.side.output;
+            persistent = true;
+          }
+          {
+            id = 9;
+            monitor = monitors.side.output;
+            persistent = true;
+          }
+          {
+            id = 2;
+            monitor = monitors.main.output;
+            default = true;
+            persistent = true;
+          }
+          {
+            id = 4;
+            monitor = monitors.main.output;
+            persistent = true;
+          }
+          {
+            id = 6;
+            monitor = monitors.main.output;
+            persistent = true;
+          }
+          {
+            id = 8;
+            monitor = monitors.main.output;
+            persistent = true;
+          }
+          {
+            id = 10;
+            monitor = monitors.main.output;
+            persistent = true;
+          }
         ];
       };
 

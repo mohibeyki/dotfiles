@@ -17,7 +17,7 @@ let
   cursorTheme = {
     name = "BreezeX-RosePine-Linux";
     package = pkgs.rose-pine-cursor;
-    size = 20;
+    size = 24;
   };
 
   hyprcursorTheme = {

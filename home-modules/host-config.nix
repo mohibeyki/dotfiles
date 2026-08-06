@@ -50,7 +50,30 @@ in
     };
 
     workspaces = lib.mkOption {
-      type = types.listOf types.str;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            id = lib.mkOption {
+              type = types.either types.int types.str;
+              description = "Workspace id (e.g. 1 or \"special\").";
+            };
+            monitor = lib.mkOption {
+              type = types.str;
+              description = "Monitor output (usually desc:...).";
+            };
+            default = lib.mkOption {
+              type = types.bool;
+              default = false;
+              description = "Whether this is the default workspace on its monitor.";
+            };
+            persistent = lib.mkOption {
+              type = types.bool;
+              default = false;
+              description = "Whether the workspace stays alive when empty.";
+            };
+          };
+        }
+      );
       default = [ ];
       description = "Per-host Hyprland workspace assignments.";
     };

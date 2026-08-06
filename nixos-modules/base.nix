@@ -42,14 +42,12 @@
       "https://hyprland.cachix.org"
       "https://cuda-maintainers.cachix.org"
       "https://nix-gaming.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
       "https://noctalia.cachix.org"
     ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
@@ -68,6 +66,18 @@
     firewall.enable = lib.mkDefault true;
   };
 
+  # Root is a single btrfs mount of subvol=@ (see hardware.nix). There is no
+  # separate /home mount. Snapshot the mounted root subvolume (".") into
+  # /.snapshots, which is created as its own subvolume on activation.
+  system.activationScripts.btrbkSnapshots = {
+    deps = [ "specialfs" ];
+    text = ''
+      if [ ! -e /.snapshots ]; then
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume create /.snapshots
+      fi
+    '';
+  };
+
   services = {
     btrbk.instances.local = {
       onCalendar = "daily";
@@ -77,12 +87,8 @@
 
         volume."/" = {
           snapshot_dir = ".snapshots";
-          subvolume."/" = { };
-        };
-
-        volume."/home" = {
-          snapshot_dir = ".snapshots";
-          subvolume."/home" = { };
+          # "." = currently mounted subvolume (@), not a separate / path.
+          subvolume."." = { };
         };
       };
     };

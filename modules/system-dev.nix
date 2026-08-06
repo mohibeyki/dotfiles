@@ -19,6 +19,14 @@
     # JavaScript
     nodejs
 
+    # General editor LSPs / formatters (project toolchains stay in direnv shells)
+    lua-language-server
+    marksman
+    stylua
+    taplo
+    vscode-langservers-extracted
+    yaml-language-server
+
     # Tools
     jq
     just

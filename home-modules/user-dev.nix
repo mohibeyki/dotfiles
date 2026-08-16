@@ -10,6 +10,9 @@
       opencode
       grok
       claude-code
+      t3code
+      t3code-desktop
     ];
 }
+
 

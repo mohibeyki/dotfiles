@@ -20,7 +20,7 @@
     };
 
     # KWallet is the selected secret backend; avoid GNOME Keyring racing for
-    # org.freedesktop.secrets and confusing Chromium/Brave session encryption.
+    # org.freedesktop.secrets and confusing Chromium-based session encryption.
     gnome.gnome-keyring.enable = lib.mkForce false;
   };
 
@@ -36,8 +36,20 @@
     };
   };
 
-  xdg.mime.enable = true;
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "vivaldi-stable.desktop";
+      "application/xhtml+xml" = "vivaldi-stable.desktop";
+      "x-scheme-handler/http" = "vivaldi-stable.desktop";
+      "x-scheme-handler/https" = "vivaldi-stable.desktop";
+      "x-scheme-handler/about" = "vivaldi-stable.desktop";
+      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+    };
+  };
   xdg.menus.enable = true;
+
+  environment.sessionVariables.BROWSER = "vivaldi";
 
   # https://github.com/NixOS/nixpkgs/issues/409986
   environment.etc."xdg/menus/applications.menu".source =
@@ -46,8 +58,6 @@
   environment.systemPackages =
     (with pkgs; [
       bind
-      brave
-      cider-2
       compsize
       curl
       easyeffects

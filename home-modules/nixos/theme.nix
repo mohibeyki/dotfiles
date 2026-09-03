@@ -66,8 +66,23 @@ in
   # don't include kirigami, which the KDE platform theme's Breeze style needs.
   systemd.user.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";
 
+  home.sessionVariables.BROWSER = "vivaldi";
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "vivaldi-stable.desktop";
+      "application/xhtml+xml" = "vivaldi-stable.desktop";
+      "x-scheme-handler/http" = "vivaldi-stable.desktop";
+      "x-scheme-handler/https" = "vivaldi-stable.desktop";
+      "x-scheme-handler/about" = "vivaldi-stable.desktop";
+      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+    };
+  };
+
   programs.plasma = {
     enable = true;
     workspace.colorScheme = "BreezeDark";
+    configFile.kdeglobals.General.BrowserApplication = "vivaldi-stable.desktop";
   };
 }

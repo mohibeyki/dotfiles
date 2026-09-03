@@ -18,7 +18,7 @@ let
       position = "3072x0";
       scale = 1.25;
       bitdepth = 10;
-      vrr = 1;
+      vrr = 0;
       cm = "srgb";
     };
 
@@ -28,7 +28,7 @@ let
       position = "0x0";
       scale = 1.25;
       bitdepth = 10;
-      vrr = 1;
+      vrr = 0;
       cm = "srgb";
     };
   };

@@ -116,6 +116,19 @@
         PubkeyAuthentication = true;
       };
     };
+
+    # Advertise sauron.local and resolve other *.local hostnames (mDNS/Bonjour).
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
+      openFirewall = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        workstation = true;
+      };
+    };
   };
 
   users = {

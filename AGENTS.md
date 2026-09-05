@@ -90,8 +90,8 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
   - `isNvidia` — whether to set NVIDIA env vars
   - `monitors` — monitor configs (output, mode, position, scale, bitdepth, vrr, cm, optional icc)
   - `workspaces` — structured Hyprland workspace rules (`id`, `monitor`, `default`, `persistent`)
-  - `gitSigningKey` — SSH signing key for commits
   - `shell` — optional shell/launcher (`noctalia` or null)
+  - `gitSigningKey` — SSH signing key for commits
 
 ### Home Modules
 - Most home modules read `config.dotfiles.host` to adapt to host

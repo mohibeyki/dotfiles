@@ -120,7 +120,6 @@ in
     "hypr/settings.lua".source = pkgs.replaceVars ./hypr/settings.lua {
       blueman = "${pkgs.blueman}";
       kservice = "${pkgs.kdePackages.kservice}";
-      onePassword = "${pkgs._1password-gui}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
       shellStartup = shellStartupLine;
     };

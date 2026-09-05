@@ -77,7 +77,7 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 
 - SDDM is the display manager on `sauron`.
 - Plasma and Hyprland are intended to coexist; Hyprland is the primary tiling session.
-- Hyprland starts Noctalia, 1Password, KDE wallet setup, and the KDE polkit agent.
+- Hyprland starts Noctalia, KDE wallet setup, and the KDE polkit agent.
 - `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly.
 
 ## Notes

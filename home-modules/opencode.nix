@@ -7,7 +7,6 @@ let
     "/etc/ssh/ssh_host_*_key" = "deny";
     "~/.ssh/id_*" = "deny";
     "~/.aws/credentials" = "deny";
-    "~/.config/1Password/*" = "deny";
     "~/secrets/**" = "deny";
   };
 in

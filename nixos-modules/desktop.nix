@@ -4,23 +4,7 @@
   ...
 }:
 {
-  programs = {
-    firefox.enable = true;
-    _1password.enable = true;
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [ "mohi" ];
-    };
-  };
-
-  # Allow the 1Password desktop app to unlock the Vivaldi extension.
-  # https://wiki.nixos.org/wiki/1Password#Unlocking_browser_extensions
-  environment.etc."1password/custom_allowed_browsers" = {
-    text = ''
-      vivaldi-bin
-    '';
-    mode = "0755";
-  };
+  programs.firefox.enable = true;
 
   services = {
     desktopManager.plasma6.enable = true;

@@ -15,37 +15,39 @@ let
 in
 {
   # Fish: parse KEY=value (skip blanks/comments) and export.
-  programs.fish.shellInit = ''
-    set -l __llm_env "${llmEnvFile}"
-    if test -f $__llm_env
-      for __line in (command cat $__llm_env | string match -r -v '^\s*#' | string match -r -v '^\s*$')
-        set -l __kv (string split -m 1 = -- $__line)
-        if test (count $__kv) -eq 2
-          set -l __val (string trim --chars \'\" -- $__kv[2])
-          set -gx $__kv[1] $__val
+  programs = {
+    fish.shellInit = ''
+      set -l __llm_env "${llmEnvFile}"
+      if test -f $__llm_env
+        for __line in (command cat $__llm_env | string match -r -v '^\s*#' | string match -r -v '^\s*$')
+          set -l __kv (string split -m 1 = -- $__line)
+          if test (count $__kv) -eq 2
+            set -l __val (string trim --chars \'\" -- $__kv[2])
+            set -gx $__kv[1] $__val
+          end
         end
+        set -e __line __kv __val
       end
-      set -e __line __kv __val
-    end
-    set -e __llm_env
-  '';
+      set -e __llm_env
+    '';
 
-  # Bash/zsh: allexport-source the same file (never goes through Fish).
-  programs.bash.initExtra = ''
-    if [ -f "${llmEnvFile}" ]; then
-      set -a
-      # shellcheck disable=SC1090
-      . "${llmEnvFile}"
-      set +a
-    fi
-  '';
+    # Bash/zsh: allexport-source the same file (never goes through Fish).
+    bash.initExtra = ''
+      if [ -f "${llmEnvFile}" ]; then
+        set -a
+        # shellcheck disable=SC1090
+        . "${llmEnvFile}"
+        set +a
+      fi
+    '';
 
-  programs.zsh.initExtra = ''
-    if [ -f "${llmEnvFile}" ]; then
-      set -a
-      # shellcheck disable=SC1090
-      . "${llmEnvFile}"
-      set +a
-    fi
-  '';
+    zsh.initExtra = ''
+      if [ -f "${llmEnvFile}" ]; then
+        set -a
+        # shellcheck disable=SC1090
+        . "${llmEnvFile}"
+        set +a
+      fi
+    '';
+  };
 }

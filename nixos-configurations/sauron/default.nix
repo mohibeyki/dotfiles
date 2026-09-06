@@ -90,7 +90,7 @@ in
 
     users.mohi = {
       imports = [
-        inputs.noctalia-shell.homeModules.default
+        inputs.dms.homeModules.dank-material-shell
         inputs.plasma-manager.homeModules.plasma-manager
         ../../home-configurations/mohi
 
@@ -100,7 +100,6 @@ in
 
       dotfiles.host = {
         isNvidia = true;
-        shell = "noctalia";
         gitSigningKey = keys.sauron;
         gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;

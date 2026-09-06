@@ -4,14 +4,11 @@
   ...
 }:
 {
-  home.packages =
-    with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
-    [
-      opencode
-      grok
-      claude-code
-      codex
-    ];
+  home.packages = with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+    opencode
+    grok
+    claude-code
+    codex
+    herdr
+  ];
 }
-
-

@@ -3,7 +3,7 @@
     ./base.nix
     ./containers.nix
     ./desktop.nix
-    ./sddm.nix
+    ./greetd.nix
     ./hyprland.nix
     ./nix-ld.nix
     ./nvidia.nix

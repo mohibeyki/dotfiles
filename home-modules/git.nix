@@ -1,9 +1,16 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (config.dotfiles) host;
 in
 {
-  home.sessionVariables.SSH_AUTH_SOCK = "${config.home.homeDirectory}/.ssh/proton-pass-ssh-agent.sock";
+  home.sessionVariables = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    SSH_AUTH_SOCK = "${config.home.homeDirectory}/.ssh/proton-pass-ssh-agent.sock";
+  };
 
   home.file.".ssh/allowed_signers".text =
     builtins.concatStringsSep "\n" (map (key: "mohibeyki@gmail.com ${key}") host.gitAllowedSigners)

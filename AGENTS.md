@@ -42,7 +42,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── nvidia.nix                         # NVIDIA GPU + DRM kernel params
 │   ├── game.nix                           # Gaming settings (gamescope, Steam, etc.)
 │   ├── containers.nix                     # Docker/Podman containers
-│   └── sddm.nix                           # SDDM display manager config
+│   └── greetd.nix                          # DMS Greeter display manager config
 ├── home-modules/                          # Home Manager modules (per-user config)
 │   ├── common.nix                         # session variables, shared tools
 │   ├── user-dev.nix                       # User-level dev tool packages
@@ -57,7 +57,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │       ├── hyprland.nix                   # Hyprland HM: env, portals, generated host.lua
 │       ├── hypr/                          # Hyprland Lua config (binds, rules, settings)
 │       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor + Plasma theme
-│       └── noctalia.nix                   # Noctalia app config
+│       └── dms.nix                         # DankMaterialShell config
 ├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
 │   ├── default.nix                        # Host imports + NixOS/HM module list
 │   └── hardware.nix                       # Hardware config from nixos-generate-config
@@ -90,19 +90,18 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
   - `isNvidia` — whether to set NVIDIA env vars
   - `monitors` — monitor configs (output, mode, position, scale, bitdepth, vrr, cm, optional icc)
   - `workspaces` — structured Hyprland workspace rules (`id`, `monitor`, `default`, `persistent`)
-  - `shell` — optional shell/launcher (`noctalia` or null)
   - `gitSigningKey` — SSH signing key for commits
 
 ### Home Modules
 - Most home modules read `config.dotfiles.host` to adapt to host
-- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `workspaces`, `isNvidia`, and `shell`; writes `hypr/*.lua` and `hypr/generated-host.lua`
+- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `workspaces`, and `isNvidia`; writes `hypr/*.lua` and `hypr/generated-host.lua`
 - `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` and configures Plasma colors via plasma-manager
 
 ### Window Manager Config Patterns
 Hyprland is configured in Lua under `home-modules/nixos/hypr/`:
 1. **Host data** — Nix generates `hypr/generated-host.lua` (monitors, workspaces, env)
 2. **Rules** — `hypr/rules.lua` uses a two-phase pattern: tag assignment by class, then tag-based actions
-3. **Binds / settings** — `hypr/binds.lua` (plus optional `binds-noctalia.lua`) and `hypr/settings.lua`
+3. **Binds / settings** — `hypr/binds.lua`, `hypr/binds-dms.lua`, and `hypr/settings.lua`
 
 ## Key Conventions
 
@@ -110,7 +109,7 @@ Hyprland is configured in Lua under `home-modules/nixos/hypr/`:
 ```nix
 # In sauron/default.nix:
 home-manager.users.mohi.imports = [
-  inputs.noctalia-shell.homeModules.default  # external flake input
+  inputs.dms.homeModules.dank-material-shell  # external flake input
   inputs.plasma-manager.homeModules.plasma-manager
   ../../home-configurations/mohi             # local home config
   ../../home-modules                         # shared HM module aggregate
@@ -133,7 +132,7 @@ Host monitor definitions use `desc:...` (EDID description) for identification. H
 ### Darwin-Specific
 - `stateVersion` uses integers (`6`) not strings
 - `nixpkgs.hostPlatform = "aarch64-darwin"` explicitly sets host platform
-- NixOS desktop modules (`nixos/hyprland.nix`, `nixos/hypr/`, `nixos/noctalia.nix`, `nixos/theme.nix`) are **not** imported on Darwin
+- NixOS desktop modules (`nixos/hyprland.nix`, `nixos/hypr/`, `nixos/dms.nix`, `nixos/theme.nix`) are **not** imported on Darwin
 
 ## Pre-commit Hooks
 
@@ -149,7 +148,7 @@ Run manually:
 
 - **Home Manager applies on system rebuild** — changes only take effect after `nixos-rebuild switch` (or the darwin equivalent). Do not expect a separate interactive `home-manager switch` workflow.
 - **`dotfiles.host` must be set per host** — home modules that need monitor/workspace/signing data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
-- **Darwin has no Linux desktop stack** — only import Hyprland/Noctalia/theme desktop modules on NixOS hosts.
+- **Darwin has no Linux desktop stack** — only import Hyprland/DMS/theme desktop modules on NixOS hosts.
 - **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
@@ -167,7 +166,7 @@ Run manually:
 | `neovim-nightly-overlay` | Nightly Neovim package |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `llm-agents` | LLM CLI tools (opencode, grok, etc.) |
-| `noctalia-shell` | Noctalia shell (cachix branch) |
+| `dms` | DankMaterialShell and DMS Greeter |
 | `plasma-manager` | KDE Plasma configuration via Home Manager |
 | `nix-flatpak` | Flatpak integration for NixOS |
 | `nix-gaming` | Gaming platform optimizations |

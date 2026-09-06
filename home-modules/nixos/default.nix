@@ -3,7 +3,8 @@
   imports = [
     ./hyprland.nix
     ./mangohud.nix
-    ./noctalia.nix
+    ./dms.nix
+    ./proton-pass.nix
     ./theme.nix
   ];
 }

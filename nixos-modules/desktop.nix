@@ -19,7 +19,6 @@
 
   security.pam.services = {
     login.enableGnomeKeyring = lib.mkForce false;
-    sddm.kwallet.enable = true;
   };
 
   hardware = {
@@ -42,56 +41,59 @@
   };
   xdg.menus.enable = true;
 
-  environment.sessionVariables.BROWSER = "vivaldi";
+  environment = {
+    sessionVariables.BROWSER = "vivaldi";
 
-  # https://github.com/NixOS/nixpkgs/issues/409986
-  environment.etc."xdg/menus/applications.menu".source =
-    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+    # https://github.com/NixOS/nixpkgs/issues/409986
+    etc."xdg/menus/applications.menu".source =
+      "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
-  environment.systemPackages =
-    (with pkgs; [
-      bind
-      compsize
-      curl
-      easyeffects
-      gparted
-      kdiskmark
-      killall
-      lshw
-      mousam
-      p7zip
-      shared-mime-info
-      streamcontroller
-      teamspeak6-client
-      telegram-desktop
-      transmission_4-gtk
-      vivaldi
-      wayland-utils
-      websocat
-      wiremix
-      wl-clipboard
-    ])
-    ++ (with pkgs.kdePackages; [
-      ark
-      baloo
-      baloo-widgets
-      breeze-icons
-      dolphin
-      dolphin-plugins
-      filelight
-      gwenview
-      kate
-      kdegraphics-thumbnailers
-      kdf
-      kio
-      kio-admin
-      kio-extras
-      kio-fuse
-      kservice
-      okular
-      partitionmanager
-      plasma-integration
-      qtsvg
-      qtwayland
-    ]);
+    systemPackages =
+      (with pkgs; [
+        bind
+        compsize
+        curl
+        easyeffects
+        gparted
+        kdiskmark
+        killall
+        lshw
+        mousam
+        p7zip
+        proton-pass
+        shared-mime-info
+        streamcontroller
+        teamspeak6-client
+        telegram-desktop
+        transmission_4-gtk
+        vivaldi
+        wayland-utils
+        websocat
+        wiremix
+        wl-clipboard
+      ])
+      ++ (with pkgs.kdePackages; [
+        ark
+        baloo
+        baloo-widgets
+        breeze-icons
+        dolphin
+        dolphin-plugins
+        filelight
+        gwenview
+        kate
+        kdegraphics-thumbnailers
+        kdf
+        kio
+        kio-admin
+        kio-extras
+        kio-fuse
+        kservice
+        okular
+        partitionmanager
+        plasma-integration
+        qtsvg
+        qtwayland
+      ]);
+  };
 }

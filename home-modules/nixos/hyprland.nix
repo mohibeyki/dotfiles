@@ -82,18 +82,8 @@ let
       persistent = ${if workspace.persistent then "true" else "false"},
     },'';
 
-  bindsLua =
-    let
-      baseBinds = builtins.readFile ./hypr/binds.lua;
-      noctaliaBinds = builtins.readFile ./hypr/binds-noctalia.lua;
-    in
-    if host.shell == "noctalia" then baseBinds + "\n" + noctaliaBinds else baseBinds;
+  bindsLua = builtins.readFile ./hypr/binds.lua + "\n" + builtins.readFile ./hypr/binds-dms.lua;
 
-  shellStartupLine =
-    if host.shell == "noctalia" then
-      ''hl.dispatch(hl.dsp.exec_cmd("env -u QT_QPA_PLATFORMTHEME noctalia"))''
-    else
-      "";
 in
 {
   # HM hyprland sets portal.enable = false when package = null; force it back on
@@ -121,7 +111,6 @@ in
       blueman = "${pkgs.blueman}";
       kservice = "${pkgs.kdePackages.kservice}";
       polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
-      shellStartup = shellStartupLine;
     };
 
     "hypr/generated-host.lua".text = ''
@@ -149,6 +138,14 @@ in
     portalPackage = null;
     systemd.enable = false;
     extraConfig = "# Hyprland reads ~/.config/hypr/hyprland.lua.";
+  };
+
+  systemd.user.targets.hyprland-session = {
+    Unit = {
+      Description = "Hyprland user session";
+      Requires = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
   };
 
   home.file = {

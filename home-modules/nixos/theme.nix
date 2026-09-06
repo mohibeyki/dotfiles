@@ -62,8 +62,7 @@ in
   # Without this, Qt apps running outside a full Plasma session (Hyprland)
   # initialize with a default light palette. This breaks xdg-desktop-portal-kde
   # (reports prefer-light) and KDE apps like Dolphin (mismatched alternating
-  # row colors). Noctalia is exempt via exec-once since its bundled QML paths
-  # don't include kirigami, which the KDE platform theme's Breeze style needs.
+  # row colors).
   systemd.user.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";
 
   home.sessionVariables.BROWSER = "vivaldi";

@@ -78,11 +78,5 @@ in
       description = "Per-host Hyprland workspace assignments.";
     };
 
-    shell = lib.mkOption {
-      type = types.nullOr (types.enum [ "noctalia" ]);
-      default = null;
-      description = "Active shell/launcher for this host. null means no shell.";
-    };
-
   };
 }

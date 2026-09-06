@@ -90,7 +90,6 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
   - `isNvidia` — whether to set NVIDIA env vars
   - `monitors` — monitor configs (output, mode, position, scale, bitdepth, vrr, cm, optional icc)
   - `workspaces` — structured Hyprland workspace rules (`id`, `monitor`, `default`, `persistent`)
-  - `gitSigningKey` — SSH signing key for commits
 
 ### Home Modules
 - Most home modules read `config.dotfiles.host` to adapt to host
@@ -147,7 +146,7 @@ Run manually:
 ## Gotchas
 
 - **Home Manager applies on system rebuild** — changes only take effect after `nixos-rebuild switch` (or the darwin equivalent). Do not expect a separate interactive `home-manager switch` workflow.
-- **`dotfiles.host` must be set per host** — home modules that need monitor/workspace/signing data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
+- **`dotfiles.host` must be set per host** — home modules that need host-specific data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
 - **Darwin has no Linux desktop stack** — only import Hyprland/DMS/theme desktop modules on NixOS hosts.
 - **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.

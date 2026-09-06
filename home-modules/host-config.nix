@@ -13,17 +13,6 @@ in
       description = "Whether the current host uses NVIDIA-specific settings.";
     };
 
-    gitSigningKey = lib.mkOption {
-      type = types.str;
-      description = "SSH public key used for Git signing on this host.";
-    };
-
-    gitAllowedSigners = lib.mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      description = "Allowed SSH signers written to ~/.ssh/allowed_signers.";
-    };
-
     monitors = lib.mkOption {
       type = types.listOf (
         types.submodule {

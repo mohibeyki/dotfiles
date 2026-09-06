@@ -3,9 +3,6 @@
   overlays,
   ...
 }:
-let
-  keys = import ../../modules/keys.nix;
-in
 {
   imports = [
     ../../darwin-modules/default.nix
@@ -35,10 +32,6 @@ in
         ../../home-modules
       ];
 
-      dotfiles.host = {
-        gitSigningKey = keys.legolas;
-        gitAllowedSigners = builtins.attrValues keys;
-      };
     };
   };
 }

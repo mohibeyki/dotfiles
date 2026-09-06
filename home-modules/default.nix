@@ -10,7 +10,6 @@
     ./helix.nix
     ./neovim.nix
     ./opencode.nix
-    ./proton-pass-agent.nix
     ./llm-env.nix
     ./tmux.nix
     ./zed.nix

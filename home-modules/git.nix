@@ -1,15 +1,5 @@
+{ ... }:
 {
-  config,
-  ...
-}:
-let
-  inherit (config.dotfiles) host;
-in
-{
-  home.file.".ssh/allowed_signers".text =
-    builtins.concatStringsSep "\n" (map (key: "mohibeyki@gmail.com ${key}") host.gitAllowedSigners)
-    + "\n";
-
   programs.git = {
     enable = true;
     ignores = [ ".DS_Store" ];
@@ -17,7 +7,6 @@ in
       user = {
         name = "Mohi Beyki";
         email = "mohibeyki@gmail.com";
-        signingKey = host.gitSigningKey;
       };
 
       alias = {
@@ -31,11 +20,6 @@ in
       core.editor = "nvim";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
-
-      gpg.format = "ssh";
-      "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
-      commit.gpgsign = true;
-      tag.gpgsign = true;
 
     };
   };

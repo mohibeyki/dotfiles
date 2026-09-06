@@ -5,8 +5,6 @@
   ...
 }:
 let
-  keys = import ../../modules/keys.nix;
-
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
   ];
@@ -100,8 +98,6 @@ in
 
       dotfiles.host = {
         isNvidia = true;
-        gitSigningKey = keys.sauron;
-        gitAllowedSigners = builtins.attrValues keys;
         monitors = builtins.attrValues monitors;
         workspaces = [
           {

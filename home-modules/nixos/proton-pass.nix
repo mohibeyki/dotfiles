@@ -4,14 +4,6 @@
   ...
 }:
 {
-  home.sessionVariables.PROTON_PASS_LINUX_KEYRING = "dbus";
-
-  services.proton-pass-agent.enable = true;
-
-  systemd.user.services.proton-pass-agent.Service.Environment = [
-    "PROTON_PASS_LINUX_KEYRING=dbus"
-  ];
-
   systemd.user.services.proton-pass = {
     Unit = {
       Description = "Proton Pass desktop application";
@@ -21,7 +13,7 @@
 
     Service = {
       ExecStart = lib.getExe pkgs.proton-pass;
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 5;
     };
 

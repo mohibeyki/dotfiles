@@ -57,27 +57,32 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 - `nixos-modules/` — NixOS modules
   - `base.nix` — boot, users, services, networking, PipeWire, polkit
   - `desktop.nix` — Plasma, desktop packages, graphics, MIME/menu integration
-  - `hyprland.nix` — Hyprland system integration
+  - `hyprland.nix` — Hyprland system integration and portal config
   - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
   - `nvidia.nix` — NVIDIA driver settings (latest + open kernel module)
-  - `game.nix` — gaming settings (Steam, gamescope, gamemode)
+  - `game.nix` — gaming settings (Steam, gamescope)
   - `containers.nix` — Docker/Podman containers
   - `greetd.nix` — DMS Greeter display manager config
 - `home-modules/` — shared Home Manager modules
+  - `onepassword.nix` — 1Password SSH agent + Linux `--silent` user service
+  - `ssh.nix` — SSH client Host aliases
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
-  - `hyprland.nix` + `hypr/*.lua` — Hyprland env, portals, binds, rules, settings
+  - `hyprland.nix` + `hypr/*.lua` — Hyprland Lua config and UWSM env
   - `dms.nix` — DankMaterialShell config
   - `theme.nix` — GTK, cursor, Hyprcursor, and Plasma theme settings
 - `home-configurations/mohi/` — shared user identity/home settings
-- `modules/` — shared system modules and keys
+- `modules/` — shared system modules
 - `darwin-modules/` — Darwin system modules
 - `assets/` — repo-managed images/assets
 
 ## Desktop notes
 
 - DMS Greeter is the display manager on `sauron`.
+- The bundled DMS Greeter launcher is patched locally to use Hyprland's Lua exit dispatcher (`hl.dsp.exit()`); the legacy command leaves greetd waiting for its five-second shutdown timeout. Remove the workaround in `nixos-modules/greetd.nix` once the pinned DMS launcher supports it upstream.
+- The Hyprland portal is disabled for the `dms-greeter` account, not for desktop users.
 - Plasma and Hyprland are intended to coexist; Hyprland is the primary tiling session.
-- Hyprland starts DankMaterialShell, KDE wallet setup, and the KDE polkit agent.
+- UWSM manages Hyprland's environment and lifecycle. DankMaterialShell starts only in that session and supplies its polkit agent; KDE wallet PAM setup is retained.
+- Greeter and desktop share monitor definitions.
 - `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly.
 
 ## Notes

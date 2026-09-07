@@ -39,7 +39,11 @@
     };
   };
 
-  programs.fish.enable = true;
+  programs = {
+    fish.enable = true;
+    # CLI only; the desktop app is the vendor DMG under /Applications.
+    _1password.enable = true;
+  };
 
   users.users.mohi = {
     home = "/Users/mohi";

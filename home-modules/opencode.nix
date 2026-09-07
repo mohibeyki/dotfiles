@@ -1,4 +1,4 @@
-{ ... }:
+_:
 let
   # Best-effort path denials only. Opencode permission globs are not a security
   # boundary (easy to bypass); keep a short list of high-value secrets paths.
@@ -7,6 +7,7 @@ let
     "/etc/ssh/ssh_host_*_key" = "deny";
     "~/.ssh/id_*" = "deny";
     "~/.aws/credentials" = "deny";
+    "~/.config/1Password/*" = "deny";
     "~/secrets/**" = "deny";
   };
 in

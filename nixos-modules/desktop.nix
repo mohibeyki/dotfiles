@@ -4,7 +4,14 @@
   ...
 }:
 {
-  programs.firefox.enable = true;
+  programs = {
+    firefox.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "mohi" ];
+    };
+  };
 
   services = {
     desktopManager.plasma6.enable = true;
@@ -44,6 +51,15 @@
   environment = {
     sessionVariables.BROWSER = "vivaldi";
 
+    # Allow the 1Password desktop app to unlock the Vivaldi extension.
+    # https://wiki.nixos.org/wiki/1Password#Unlocking_browser_extensions
+    etc."1password/custom_allowed_browsers" = {
+      text = ''
+        vivaldi-bin
+      '';
+      mode = "0755";
+    };
+
     # https://github.com/NixOS/nixpkgs/issues/409986
     etc."xdg/menus/applications.menu".source =
       "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
@@ -60,7 +76,6 @@
         lshw
         mousam
         p7zip
-        proton-pass
         shared-mime-info
         streamcontroller
         teamspeak6-client

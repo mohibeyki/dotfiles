@@ -51,10 +51,12 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── git.nix                            # Git config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
 │   ├── neovim.nix                         # Neovim (nightly via overlay) + aliases
+│   ├── onepassword.nix                    # 1Password SSH agent; Linux GUI --silent service
 │   ├── opencode.nix                       # opencode permissions and config
+│   ├── ssh.nix                            # SSH Host aliases (IdentityAgent from onepassword.nix)
 │   ├── zellij.kdl                         # Zellij layout/UI config
 │   └── nixos/                             # NixOS-only home modules
-│       ├── hyprland.nix                   # Hyprland HM: env, portals, generated host.lua
+│       ├── hyprland.nix                   # Hyprland HM: Lua config, generated-host.lua, uwsm/env-hyprland
 │       ├── hypr/                          # Hyprland Lua config (binds, rules, settings)
 │       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor + Plasma theme
 │       └── dms.nix                         # DankMaterialShell config
@@ -93,12 +95,12 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 
 ### Home Modules
 - Most home modules read `config.dotfiles.host` to adapt to host
-- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `workspaces`, and `isNvidia`; writes `hypr/*.lua` and `hypr/generated-host.lua`
+- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `workspaces`, and `isNvidia`; writes `hypr/*.lua`, `hypr/generated-host.lua`, and session-scoped `uwsm/env-hyprland`
 - `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` and configures Plasma colors via plasma-manager
 
 ### Window Manager Config Patterns
 Hyprland is configured in Lua under `home-modules/nixos/hypr/`:
-1. **Host data** — Nix generates `hypr/generated-host.lua` (monitors, workspaces, env)
+1. **Host data** — Nix generates `hypr/generated-host.lua` (monitors, workspaces); UWSM loads environment variables from `uwsm/env-hyprland`
 2. **Rules** — `hypr/rules.lua` uses a two-phase pattern: tag assignment by class, then tag-based actions
 3. **Binds / settings** — `hypr/binds.lua`, `hypr/binds-dms.lua`, and `hypr/settings.lua`
 
@@ -126,7 +128,7 @@ sauronOverlays = [
 ```
 
 ### Monitor Config
-Host monitor definitions use `desc:...` (EDID description) for identification. Hyprland consumes these directly via `monitorv2`. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`).
+Host monitor definitions use `desc:...` (EDID description) for identification. Hyprland consumes these via `hl.monitor`; the greeter reuses the same generated definitions. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`).
 
 ### Darwin-Specific
 - `stateVersion` uses integers (`6`) not strings
@@ -151,6 +153,7 @@ Run manually:
 - **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
+- **SSH config is Home Manager-managed** — `home-modules/ssh.nix` writes `~/.ssh/config`. Host aliases belong there. 1Password sets `IdentityAgent` from `home-modules/onepassword.nix`.
 
 ## External Inputs (from `flake.nix`)
 

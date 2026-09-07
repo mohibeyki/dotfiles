@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.git = {
     enable = true;
     ignores = [ ".DS_Store" ];
@@ -20,7 +19,6 @@
       core.editor = "nvim";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
-
     };
   };
 

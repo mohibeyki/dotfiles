@@ -9,7 +9,9 @@
     ./git.nix
     ./helix.nix
     ./neovim.nix
+    ./onepassword.nix
     ./opencode.nix
+    ./ssh.nix
     ./llm-env.nix
     ./tmux.nix
     ./zed.nix

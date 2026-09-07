@@ -65,23 +65,23 @@ in
   # row colors).
   systemd.user.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";
 
-  home.sessionVariables.BROWSER = "vivaldi";
+  home.sessionVariables.BROWSER = "brave-origin";
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = "vivaldi-stable.desktop";
-      "application/xhtml+xml" = "vivaldi-stable.desktop";
-      "x-scheme-handler/http" = "vivaldi-stable.desktop";
-      "x-scheme-handler/https" = "vivaldi-stable.desktop";
-      "x-scheme-handler/about" = "vivaldi-stable.desktop";
-      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+      "text/html" = "brave-origin.desktop";
+      "application/xhtml+xml" = "brave-origin.desktop";
+      "x-scheme-handler/http" = "brave-origin.desktop";
+      "x-scheme-handler/https" = "brave-origin.desktop";
+      "x-scheme-handler/about" = "brave-origin.desktop";
+      "x-scheme-handler/unknown" = "brave-origin.desktop";
     };
   };
 
   programs.plasma = {
     enable = true;
     workspace.colorScheme = "BreezeDark";
-    configFile.kdeglobals.General.BrowserApplication = "vivaldi-stable.desktop";
+    configFile.kdeglobals.General.BrowserApplication = "brave-origin.desktop";
   };
 }

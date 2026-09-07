@@ -4,7 +4,7 @@ hl.layer_rule({
     blur = true,
 })
 
-hl.window_rule({ name = "tag-chromium", match = { class = "^(vivaldi-stable|[cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge)$" }, tag = "+chromium-based-browser" })
+hl.window_rule({ name = "tag-chromium", match = { class = "^(brave-origin|com\\.brave\\.Origin|[cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge)$" }, tag = "+chromium-based-browser" })
 hl.window_rule({ name = "tag-floating-centered", match = { class = "^(1[Pp]assword)$" }, tag = "+floating-centered" })
 hl.window_rule({ name = "tag-steam-game", match = { initial_class = "^(steam_app_.*)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-gamescope", match = { class = "^(gamescope)$" }, tag = "+game" })

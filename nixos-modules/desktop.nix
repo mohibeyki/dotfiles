@@ -38,24 +38,25 @@
   xdg.mime = {
     enable = true;
     defaultApplications = {
-      "text/html" = "vivaldi-stable.desktop";
-      "application/xhtml+xml" = "vivaldi-stable.desktop";
-      "x-scheme-handler/http" = "vivaldi-stable.desktop";
-      "x-scheme-handler/https" = "vivaldi-stable.desktop";
-      "x-scheme-handler/about" = "vivaldi-stable.desktop";
-      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+      "text/html" = "brave-origin.desktop";
+      "application/xhtml+xml" = "brave-origin.desktop";
+      "x-scheme-handler/http" = "brave-origin.desktop";
+      "x-scheme-handler/https" = "brave-origin.desktop";
+      "x-scheme-handler/about" = "brave-origin.desktop";
+      "x-scheme-handler/unknown" = "brave-origin.desktop";
     };
   };
   xdg.menus.enable = true;
 
   environment = {
-    sessionVariables.BROWSER = "vivaldi";
+    sessionVariables.BROWSER = "brave-origin";
 
-    # Allow the 1Password desktop app to unlock the Vivaldi extension.
+    # Allow the 1Password desktop app to unlock the Brave Origin extension.
     # https://wiki.nixos.org/wiki/1Password#Unlocking_browser_extensions
     etc."1password/custom_allowed_browsers" = {
       text = ''
-        vivaldi-bin
+        brave
+        brave-origin
       '';
       mode = "0755";
     };
@@ -81,7 +82,7 @@
         teamspeak6-client
         telegram-desktop
         transmission_4-gtk
-        vivaldi
+        brave-origin
         wayland-utils
         websocat
         wiremix

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -71,8 +70,8 @@ let
     ]
   ];
 
-  envToLua =
-    entry: "{ ${luaString (builtins.elemAt entry 0)}, ${luaString (builtins.elemAt entry 1)} },";
+  envToShell =
+    entry: "export ${builtins.elemAt entry 0}=${lib.escapeShellArg (builtins.elemAt entry 1)}";
 
   workspaceToLua = workspace: ''
     {
@@ -86,32 +85,19 @@ let
 
 in
 {
-  # HM hyprland sets portal.enable = false when package = null; force it back on
-  # so KDE portal config still applies alongside the system hyprland portal.
-  xdg.portal = {
-    enable = lib.mkForce true;
-    extraPortals = [
-      pkgs.kdePackages.xdg-desktop-portal-kde
-    ];
-
-    config = {
-      hyprland.default = [
-        "hyprland"
-        "kde"
-      ];
-    };
-  };
-
   xdg.configFile = {
+    # UWSM exports these before starting the compositor and removes them when
+    # the session ends. Lua-only env vars do not reliably reach systemd apps.
+    "uwsm/env-hyprland".text = ''
+      ${lib.concatStringsSep "\n" (map envToShell env)}
+      export HYPRLAND_NO_SD_VARS=1
+      export HYPRLAND_NO_SD_TARGET=1
+    '';
     "hypr/hyprland.lua".source = ./hypr/hyprland.lua;
     "hypr/binds.lua".text = bindsLua;
     "hypr/host.lua".source = ./hypr/host.lua;
     "hypr/rules.lua".source = ./hypr/rules.lua;
-    "hypr/settings.lua".source = pkgs.replaceVars ./hypr/settings.lua {
-      blueman = "${pkgs.blueman}";
-      kservice = "${pkgs.kdePackages.kservice}";
-      polkitKde = "${pkgs.kdePackages.polkit-kde-agent-1}";
-    };
+    "hypr/settings.lua".source = ./hypr/settings.lua;
 
     "hypr/generated-host.lua".text = ''
       return {
@@ -121,10 +107,6 @@ in
 
         workspaces = {
       ${lib.concatStringsSep "\n" (map workspaceToLua workspaces)}
-        },
-
-        env = {
-      ${lib.concatStringsSep "\n" (map envToLua env)}
         },
       }
     '';
@@ -138,14 +120,6 @@ in
     portalPackage = null;
     systemd.enable = false;
     extraConfig = "# Hyprland reads ~/.config/hypr/hyprland.lua.";
-  };
-
-  systemd.user.targets.hyprland-session = {
-    Unit = {
-      Description = "Hyprland user session";
-      Requires = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
   };
 
   home.file = {

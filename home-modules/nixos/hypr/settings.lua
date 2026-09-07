@@ -57,12 +57,7 @@ hl.animation({ leaf = "windows", enabled = true, speed = 4, bezier = "default", 
 hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "default", style = "slide" })
 
 hl.on("hyprland.start", function()
-    hl.dispatch(hl.dsp.exec_cmd("dbus-update-activation-environment --systemd --all"))
-    hl.dispatch(hl.dsp.exec_cmd("systemctl --user start hyprland-session.target"))
-    hl.dispatch(hl.dsp.exec_cmd("systemctl --user start plasma-kwallet-pam.service"))
-    hl.dispatch(hl.dsp.exec_cmd("@kservice@/bin/kbuildsycoca6"))
-    hl.dispatch(hl.dsp.exec_cmd("@polkitKde@/libexec/polkit-kde-authentication-agent-1"))
-    hl.dispatch(hl.dsp.exec_cmd("@blueman@/bin/blueman-applet"))
-    hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch workspace 1"))
-    hl.dispatch(hl.dsp.exec_cmd("hyprctl dispatch workspace 2"))
+    -- `uwsm start -F` plus HYPRLAND_NO_SD_VARS require an explicit finalize
+    -- before other session units (kwallet) can start.
+    hl.dispatch(hl.dsp.exec_cmd("uwsm finalize && systemctl --user --no-block start plasma-kwallet-pam.service"))
 end)

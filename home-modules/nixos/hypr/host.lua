@@ -1,9 +1,5 @@
 local host = require("generated-host")
 
-for _, env in ipairs(host.env) do
-    hl.env(env[1], env[2])
-end
-
 for _, monitor in ipairs(host.monitors) do
     hl.monitor(monitor)
 end

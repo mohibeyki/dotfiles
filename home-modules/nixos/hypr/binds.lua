@@ -8,8 +8,8 @@ local function exec(key, command, options)
     bind(key, hl.dsp.exec_cmd(command), options)
 end
 
-exec(main_mod .. " + RETURN", "ghostty")
-exec(main_mod .. " + B", "vivaldi")
+exec(main_mod .. " + RETURN", "uwsm app -- ghostty")
+exec(main_mod .. " + B", "uwsm app -- vivaldi")
 
 bind(main_mod .. " + Q", hl.dsp.window.close())
 exec(main_mod .. " + CTRL + R", "hyprctl reload")
@@ -20,8 +20,8 @@ exec(main_mod .. " + CTRL + SHIFT + Q", "hyprctl -j activewindow | jq -e '.pid' 
 bind(main_mod .. " + SHIFT + D", hl.dsp.layout("swapsplit"))
 bind(main_mod .. " + SHIFT + S", hl.dsp.layout("togglesplit"))
 
-exec(main_mod .. " + E", "dolphin")
-exec(main_mod .. " + S", "grimblast copy area")
+exec(main_mod .. " + E", "uwsm app -- dolphin")
+exec(main_mod .. " + S", "uwsm app -- grimblast copy area")
 
 local directions = {
     { "H", "left" },

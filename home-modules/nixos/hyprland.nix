@@ -119,7 +119,7 @@ in
     package = null;
     portalPackage = null;
     systemd.enable = false;
-    extraConfig = "# Hyprland reads ~/.config/hypr/hyprland.lua.";
+    configType = "lua";
   };
 
   home.file = {

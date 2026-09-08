@@ -16,7 +16,7 @@ hl.window_rule({ name = "tag-transmission", match = { class = "^(transmission-gt
 hl.window_rule({ name = "tag-pavucontrol", match = { class = "^(org.pulseaudio.pavucontrol)$" }, tag = "+quick-access" })
 hl.window_rule({ name = "tag-nm-editor", match = { title = "^(nm-connection-editor)$" }, tag = "+quick-access" })
 hl.window_rule({ name = "tag-floating-window", match = { class = "(Impala|com.gabm.satty|About|TUI.float)" }, tag = "+floating-window" })
-hl.window_rule({ name = "tag-file-dialogs", match = { class = "(xdg-desktop-portal-gtk|sublime_text|DesktopEditors)", title = "^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)" }, tag = "+floating-window" })
+hl.window_rule({ name = "tag-file-dialogs", match = { class = "^(xdg-desktop-portal-gtk|xdg-desktop-portal-kde|org\\.kde\\.kdialog|org\\.freedesktop\\.impl\\.portal\\.desktop\\.kde|sublime_text|DesktopEditors)$", title = "^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files)" }, tag = "+floating-window" })
 
 hl.window_rule({ name = "games-workspace", match = { tag = "game" }, workspace = "2" })
 hl.window_rule({ name = "games-fullscreen", match = { tag = "game" }, fullscreen = true })
@@ -27,7 +27,7 @@ hl.window_rule({ name = "chromium-tile", match = { tag = "chromium-based-browser
 
 hl.window_rule({ name = "floating-centered-float", match = { tag = "floating-centered" }, float = true })
 hl.window_rule({ name = "floating-centered-center", match = { tag = "floating-centered" }, center = true })
-hl.window_rule({ name = "floating-centered-size", match = { tag = "floating-centered" }, size = "1200 800" })
+hl.window_rule({ name = "floating-centered-size", match = { tag = "floating-centered" }, size = {1200, 800} })
 
 hl.window_rule({ name = "steam-chat-float", match = { tag = "steam-chat" }, float = true })
 
@@ -36,7 +36,7 @@ hl.window_rule({ name = "quick-access-center", match = { tag = "quick-access" },
 
 hl.window_rule({ name = "floating-window-float", match = { tag = "floating-window" }, float = true })
 hl.window_rule({ name = "floating-window-center", match = { tag = "floating-window" }, center = true })
-hl.window_rule({ name = "floating-window-size", match = { tag = "floating-window" }, size = "800 600" })
+hl.window_rule({ name = "floating-window-size", match = { tag = "floating-window" }, size = {800, 600} })
 
 hl.window_rule({ name = "screensaver-fullscreen", match = { class = "Screensaver" }, fullscreen = true })
-hl.window_rule({ name = "idle-inhibit-fullscreen", match = { fullscreen = 1 }, idle_inhibit = "fullscreen" })
+hl.window_rule({ name = "idle-inhibit-fullscreen", match = { fullscreen = true }, idle_inhibit = "fullscreen" })

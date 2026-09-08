@@ -65,9 +65,13 @@ def strip_existing_gamescope(launch_options: str) -> str:
 
 
 def build_launch_options(existing: str) -> str:
-    """Return new LaunchOptions string with our gamescope wrapper applied."""
-    _ = strip_existing_gamescope(existing)
-    return LAUNCH_PREFIX + "%command%"
+    """Prefix gamescope while keeping any non-gamescope launch options."""
+    remainder = strip_existing_gamescope(existing).strip()
+    if not remainder:
+        return LAUNCH_PREFIX + "%command%"
+    if "%command%" in remainder:
+        return LAUNCH_PREFIX + remainder
+    return LAUNCH_PREFIX + remainder + " %command%"
 
 
 def parse_args():
@@ -79,11 +83,37 @@ def parse_args():
         action="store_true",
         help="Clear LaunchOptions from all Steam app entries instead of applying gamescope.",
     )
+    parser.add_argument(
+        "--self-test",
+        action="store_true",
+        help="Run launch-option preservation checks and exit.",
+    )
     return parser.parse_args()
+
+
+def _self_test() -> None:
+    prefix = LAUNCH_PREFIX
+    assert build_launch_options("") == prefix + "%command%"
+    assert build_launch_options("%command%") == prefix + "%command%"
+    assert (
+        build_launch_options("PROTON_ENABLE_NVAPI=1 %command%")
+        == prefix + "PROTON_ENABLE_NVAPI=1 %command%"
+    )
+    stacked = prefix + "PROTON_ENABLE_NVAPI=1 %command%"
+    assert build_launch_options(stacked) == stacked
+    assert (
+        build_launch_options("PROTON_ENABLE_NVAPI=1")
+        == prefix + "PROTON_ENABLE_NVAPI=1 %command%"
+    )
+    print("self-test ok")
 
 
 def main():
     args = parse_args()
+
+    if args.self_test:
+        _self_test()
+        return
 
     if not USERDATA.exists():
         print(f"Steam userdata not found at {USERDATA}")

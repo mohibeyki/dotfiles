@@ -4,8 +4,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    ez-configs.url = "github:ehllie/ez-configs";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    ez-configs = {
+      url = "github:ehllie/ez-configs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-gaming = {
@@ -79,10 +87,7 @@
 
       ezConfigs = {
         root = ./.;
-        nixos.specialArgs = {
-          inherit inputs overlays;
-        };
-        darwin.specialArgs = {
+        globalArgs = {
           inherit inputs overlays;
         };
       };

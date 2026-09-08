@@ -61,11 +61,12 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
   - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
   - `nvidia.nix` — NVIDIA driver settings (latest + open kernel module)
   - `game.nix` — gaming settings (Steam, gamescope)
-  - `containers.nix` — Docker/Podman containers
+  - `containers.nix` — rootless Docker
   - `greetd.nix` — DMS Greeter display manager config
 - `home-modules/` — shared Home Manager modules
   - `onepassword.nix` — 1Password SSH agent + Linux `--silent` user service
   - `ssh.nix` — SSH client Host aliases
+  - `llm-env.nix` — load LLM API keys from `~/Documents/llm.conf`
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
   - `hyprland.nix` + `hypr/*.lua` — Hyprland Lua config and UWSM env
   - `dms.nix` — DankMaterialShell config

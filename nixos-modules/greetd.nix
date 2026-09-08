@@ -59,5 +59,10 @@ in
   };
 
   # Preserve KDE Wallet unlock for Plasma sessions started through greetd.
-  security.pam.services.greetd.kwallet.enable = true;
+  # Pin the Plasma 6 helper; the option default is the same package, but greetd
+  # is the PAM service that actually runs at graphical login.
+  security.pam.services.greetd.kwallet = {
+    enable = true;
+    package = pkgs.kdePackages.kwallet-pam;
+  };
 }

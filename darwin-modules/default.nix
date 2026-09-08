@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -24,9 +25,9 @@
   launchd.user.agents.home-manager-cleanup = {
     serviceConfig = {
       ProgramArguments = [
-        "/bin/sh"
-        "-c"
-        "exec /nix/var/nix/profiles/per-user/mohi/home-manager/home-manager expire-generations '-30 days' 2>/dev/null || true"
+        (lib.getExe pkgs.home-manager)
+        "expire-generations"
+        "-30 days"
       ];
       StartCalendarInterval = [
         {

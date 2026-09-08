@@ -32,6 +32,8 @@ in
     # Override existing config files
     gtk2.force = true;
 
+    colorScheme = "dark";
+
     theme = {
       inherit (gtkTheme) name package;
     };
@@ -40,7 +42,13 @@ in
       inherit (iconTheme) name package;
     };
 
-    gtk4.enable = true;
+    gtk4 = {
+      enable = true;
+      # stateVersion 26.05 no longer copies gtk.theme onto GTK 4.
+      theme = {
+        inherit (gtkTheme) name package;
+      };
+    };
 
     font = {
       name = "Noto Sans";

@@ -7,7 +7,13 @@ let
     "/etc/ssh/ssh_host_*_key" = "deny";
     "~/.ssh/id_*" = "deny";
     "~/.aws/credentials" = "deny";
-    "~/.config/1Password/*" = "deny";
+    "~/.config/1Password" = "deny";
+    "~/.config/1Password/**" = "deny";
+    "~/.1password" = "deny";
+    "~/.1password/**" = "deny";
+    "~/Library/Group Containers/2BUA8C4S2C.com.1password" = "deny";
+    "~/Library/Group Containers/2BUA8C4S2C.com.1password/**" = "deny";
+    "~/Documents/llm.conf" = "deny";
     "~/secrets/**" = "deny";
   };
 in
@@ -28,13 +34,16 @@ in
       // sensitivePaths;
       glob = {
         "*" = "allow";
-      };
+      }
+      // sensitivePaths;
       grep = {
         "*" = "allow";
-      };
+      }
+      // sensitivePaths;
       list = {
         "*" = "allow";
-      };
+      }
+      // sensitivePaths;
       task = {
         "*" = "allow";
       };

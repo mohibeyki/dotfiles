@@ -6,6 +6,7 @@
 {
   programs = {
     firefox.enable = true;
+    kde-pim.enable = false;
     _1password.enable = true;
     _1password-gui = {
       enable = true;
@@ -15,6 +16,8 @@
 
   services = {
     desktopManager.plasma6.enable = true;
+    # Plasma 6 enables these as mkDefault; Hyprland is the primary session.
+    orca.enable = false;
     blueman = {
       enable = true;
     };

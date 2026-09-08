@@ -41,7 +41,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── nix-ld.nix                         # nix-ld runtime libraries for non-Nix binaries/Bazel
 │   ├── nvidia.nix                         # NVIDIA GPU + DRM kernel params
 │   ├── game.nix                           # Gaming settings (gamescope, Steam, etc.)
-│   ├── containers.nix                     # Docker/Podman containers
+│   ├── containers.nix                     # Rootless Docker
 │   └── greetd.nix                          # DMS Greeter display manager config
 ├── home-modules/                          # Home Manager modules (per-user config)
 │   ├── common.nix                         # session variables, shared tools
@@ -51,6 +51,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── git.nix                            # Git config
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
 │   ├── neovim.nix                         # Neovim (nightly via overlay) + aliases
+│   ├── llm-env.nix                        # Load API keys from ~/Documents/llm.conf
 │   ├── onepassword.nix                    # 1Password SSH agent; Linux GUI --silent service
 │   ├── opencode.nix                       # opencode permissions and config
 │   ├── ssh.nix                            # SSH Host aliases (IdentityAgent from onepassword.nix)
@@ -59,7 +60,8 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │       ├── hyprland.nix                   # Hyprland HM: Lua config, generated-host.lua, uwsm/env-hyprland
 │       ├── hypr/                          # Hyprland Lua config (binds, rules, settings)
 │       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor + Plasma theme
-│       └── dms.nix                         # DankMaterialShell config
+│       ├── dms.nix                        # DankMaterialShell config
+│       └── mangohud.nix                   # MangoHud overlay settings
 ├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
 │   ├── default.nix                        # Host imports + NixOS/HM module list
 │   └── hardware.nix                       # Hardware config from nixos-generate-config
@@ -78,7 +80,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 
 ### Flake Entry Point (`flake.nix`)
 - Uses `flake-parts` with `ez-configs` for declarative host/home config
-- Passes `inputs` as `extraSpecialArgs` to all configurations
+- Passes `inputs` and `overlays` via `ezConfigs.globalArgs` to NixOS, Darwin, and Home Manager configs
 - Supports two systems: `x86_64-linux` and `aarch64-darwin`
 - Pre-commit hooks: `nixfmt` + `statix` (both enabled)
 
@@ -119,7 +121,7 @@ home-manager.users.mohi.imports = [
 ```
 
 ### Nixpkgs Overlays
-Overlays are composed at the host level and passed via `extraSpecialArgs.overlays`:
+Overlays are composed at the host level on `nixpkgs.overlays` (`useGlobalPkgs` shares that pkgs set with Home Manager):
 ```nix
 # sauron overlays example
 sauronOverlays = [

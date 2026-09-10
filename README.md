@@ -84,6 +84,7 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 - Plasma and Hyprland are intended to coexist; Hyprland is the primary tiling session.
 - UWSM manages Hyprland's environment and lifecycle. DankMaterialShell starts only in that session and supplies its polkit agent; KDE wallet PAM setup is retained.
 - Greeter and desktop share monitor definitions.
+- `Super + Shift + M` toggles the secondary monitor off/on at runtime. Disabling it removes it from Hyprland's layout so the display can be used by another computer; re-enabling restores its configured mode and placement.
 - `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly.
 
 ## Notes

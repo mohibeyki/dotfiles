@@ -22,6 +22,7 @@ bind(main_mod .. " + SHIFT + S", hl.dsp.layout("togglesplit"))
 
 exec(main_mod .. " + E", "uwsm app -- dolphin")
 exec(main_mod .. " + S", "uwsm app -- grimblast copy area")
+exec(main_mod .. " + SHIFT + M", "toggle-secondary-monitor")
 
 local directions = {
     { "H", "left" },

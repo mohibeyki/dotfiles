@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -83,6 +84,43 @@ let
 
   bindsLua = builtins.readFile ./hypr/binds.lua + "\n" + builtins.readFile ./hypr/binds-dms.lua;
 
+  secondaryMonitor = lib.findFirst (
+    monitor: monitor.output == "desc:ASUSTek COMPUTER INC XG32UCDS W3LMQV042954"
+  ) (throw "The configured secondary monitor is missing from dotfiles.host.monitors") host.monitors;
+
+  secondaryMonitorToLua = monitor: ''
+    {
+      output = ${luaString monitor.output},
+      mode = ${luaString monitor.mode},
+      position = ${luaString monitor.position},
+      scale = ${luaString monitor.scale},
+      bitdepth = ${toString monitor.bitdepth},
+      vrr = ${toString monitor.vrr},
+      ${lib.optionalString (monitor.cm != null) "cm = ${luaString monitor.cm},"}
+      ${lib.optionalString (monitor.icc != null) "icc = ${luaString monitor.icc},"}
+      disabled = false,
+    }
+  '';
+
+  toggleSecondaryMonitor = pkgs.writeShellScriptBin "toggle-secondary-monitor" ''
+    set -eu
+
+    state_file="''${XDG_RUNTIME_DIR}/hypr-secondary-monitor.disabled"
+    if [ -e "$state_file" ]; then
+      result="$(hyprctl eval 'hl.monitor(${secondaryMonitorToLua secondaryMonitor})')"
+      case "$result" in
+        ok*) rm -f "$state_file"; printf '%s\n' "Secondary monitor enabled" ;;
+        *) printf '%s\n' "$result" >&2; exit 1 ;;
+      esac
+    else
+      result="$(hyprctl eval 'hl.monitor({ output = ${luaString secondaryMonitor.output}, disabled = true })')"
+      case "$result" in
+        ok*) : > "$state_file"; printf '%s\n' "Secondary monitor disabled" ;;
+        *) printf '%s\n' "$result" >&2; exit 1 ;;
+      esac
+    fi
+  '';
+
 in
 {
   xdg.configFile = {
@@ -126,4 +164,6 @@ in
     "Pictures/face.png".source = ../../assets/face.png;
     "Pictures/Wallpapers/wallpaper.jpg".source = ../../assets/wallpaper.jpg;
   };
+
+  home.packages = [ toggleSecondaryMonitor ];
 }

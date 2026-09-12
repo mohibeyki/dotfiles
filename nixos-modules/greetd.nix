@@ -1,27 +1,8 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }:
-let
-  dmsPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  # The bundled greeter still uses the old dispatcher syntax. Keep the Lua
-  # expression in a helper so it survives the launcher's shell/Lua quoting.
-  exitGreeter = pkgs.writeShellScript "dms-greeter-exit-hyprland" ''
-    exec ${config.programs.hyprland.package}/bin/hyprctl dispatch 'hl.dsp.exit()'
-  '';
-  greeterPackage = pkgs.symlinkJoin {
-    name = "dms-greeter-hyprland-lua";
-    paths = [ dmsPackage ];
-    postBuild = ''
-      unlink "$out/share/quickshell/dms/Modules/Greetd/assets/dms-greeter"
-      substitute ${dmsPackage}/share/quickshell/dms/Modules/Greetd/assets/dms-greeter \
-        "$out/share/quickshell/dms/Modules/Greetd/assets/dms-greeter" \
-        --replace-fail 'hyprctl dispatch exit' '${exitGreeter}'
-    '';
-  };
-in
 {
   services.displayManager = {
     # Both Hyprland and Plasma are registered by their respective NixOS modules.
@@ -52,9 +33,9 @@ in
         '';
       };
       configHome = "/home/mohi";
-      # Without this compatibility patch greetd waits for its five-second
-      # timeout instead of the greeter compositor exiting after authentication.
-      package = greeterPackage;
+      # The greeter is now packaged separately from the desktop shell and
+      # already supports Hyprland's Lua exit dispatcher.
+      package = pkgs.dms-greeter;
     };
   };
 

@@ -22,12 +22,13 @@
             xwayland = { enabled = false },
           })
 
-          -- Use the same modes/scale as the desktop, avoiding a default 60 Hz
-          -- greeter followed by another display-mode change on login.
+          -- Same layout/mode as the desktop, but 8-bit. 10-bit modeset in the
+          -- greeter compositor is a common NVIDIA black-screen at login.
           local host = dofile("${
             config.home-manager.users.mohi.xdg.configFile."hypr/generated-host.lua".source
           }")
           for _, monitor in ipairs(host.monitors) do
+            monitor.bitdepth = 8
             hl.monitor(monitor)
           end
         '';

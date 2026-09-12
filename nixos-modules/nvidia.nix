@@ -6,11 +6,6 @@
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  boot = {
-    kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
-    initrd.kernelModules = [ "nvidia_drm" ];
-  };
-
   hardware = {
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.latest;
@@ -19,10 +14,10 @@
       nvidiaSettings = true;
       open = true;
 
-      powerManagement = {
-        enable = true;
-        finegrained = false;
-      };
+      # Off until a swap partition larger than VRAM exists. zram (~16GB) cannot
+      # hold a 24GB VRAM dump; PreserveVideoMemoryAllocations then hangs resume
+      # and sometimes the following boot.
+      powerManagement.enable = false;
     };
   };
 

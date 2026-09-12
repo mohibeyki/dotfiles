@@ -5,14 +5,11 @@
 }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-
-    plymouth = {
-      enable = true;
-      theme = "bgrt";
-    };
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
 
     loader = {
+      timeout = 8;
+
       systemd-boot = {
         enable = true;
         configurationLimit = lib.mkDefault 10;
@@ -22,17 +19,6 @@
     };
 
     supportedFilesystems = [ "ntfs" ];
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-
-    kernelParams = [
-      "quiet"
-      "splash"
-      "loglevel=3"
-      "systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-    ];
   };
 
   nix.gc.dates = "weekly";
@@ -62,33 +48,7 @@
     firewall.enable = lib.mkDefault true;
   };
 
-  # Root is a single btrfs mount of subvol=@ (see hardware.nix). There is no
-  # separate /home mount. Snapshot the mounted root subvolume (".") into
-  # /.snapshots, which is created as its own subvolume on activation.
-  system.activationScripts.btrbkSnapshots = {
-    deps = [ "specialfs" ];
-    text = ''
-      if [ ! -e /.snapshots ]; then
-        ${pkgs.btrfs-progs}/bin/btrfs subvolume create /.snapshots
-      fi
-    '';
-  };
-
   services = {
-    btrbk.instances.local = {
-      onCalendar = "daily";
-      settings = {
-        snapshot_preserve = "7d 4w";
-        snapshot_preserve_min = "3d";
-
-        volume."/" = {
-          snapshot_dir = ".snapshots";
-          # "." = currently mounted subvolume (@), not a separate / path.
-          subvolume."." = { };
-        };
-      };
-    };
-
     flatpak.enable = true;
 
     pulseaudio.enable = false;

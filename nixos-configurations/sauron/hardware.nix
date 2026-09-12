@@ -24,6 +24,8 @@
     extraModulePackages = [ ];
   };
 
+  # On reinstall, split btrfs: @ (/), @nix (/nix), @home (/home), @log (/var/log).
+  # Snapshot @ and @home only. These UUIDs are from the previous disk layout.
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/71445f9f-781a-44e2-89b0-7be62a870c34";
@@ -44,18 +46,6 @@
       options = [
         "fmask=0077"
         "dmask=0077"
-      ];
-    };
-
-    "/mnt/games" = {
-      device = "/dev/disk/by-uuid/c10b9414-a469-411a-817f-50617a41af28";
-      fsType = "btrfs";
-      options = [
-        "compress=zstd:3"
-        "noatime"
-        "space_cache=v2"
-        "discard=async"
-        "ssd"
       ];
     };
   };

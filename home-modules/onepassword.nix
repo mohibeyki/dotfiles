@@ -5,18 +5,27 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
-  # Same path on Linux and macOS. On Mac, 1Password creates this socket (or a
-  # symlink to its app-group container) when the SSH agent is enabled.
-  agentSock = "${config.home.homeDirectory}/.1password/agent.sock";
+  # macOS does not create the optional ~/.1password/agent.sock symlink.
+  agentSock =
+    if isDarwin then
+      "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    else
+      "${config.home.homeDirectory}/.1password/agent.sock";
 in
 {
   # IdentityAgent covers outbound ssh/git. Do not export SSH_AUTH_SOCK when
   # sshd has already forwarded an agent (SSH_CONNECTION is set).
   programs = {
-    ssh.settings."*" = {
-      IdentityAgent = agentSock;
+    ssh.settings = {
+      # SSH uses the first matching value; retain a forwarded agent before
+      # applying the local 1Password fallback (including for GUI clients).
+      forwarded-agent = lib.hm.dag.entryBefore [ "*" ] {
+        header = ''Match exec "test -n \"$SSH_CONNECTION\""'';
+        IdentityAgent = "SSH_AUTH_SOCK";
+      };
+      "*".IdentityAgent = ''"${agentSock}"'';
     };
 
     fish.shellInit = ''
@@ -31,7 +40,7 @@ in
       fi
     '';
 
-    zsh.initExtra = ''
+    zsh.initContent = ''
       if [ -z "''${SSH_CONNECTION-}" ]; then
         export SSH_AUTH_SOCK="${agentSock}"
       fi

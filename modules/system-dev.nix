@@ -19,7 +19,7 @@
     # JavaScript
     nodejs
 
-    # General editor LSPs / formatters (project toolchains stay in direnv shells)
+    # General editor LSPs / formatters (language toolchains stay in devenv)
     lua-language-server
     marksman
     stylua

@@ -20,11 +20,17 @@ nix run nix-darwin -- switch --flake .#legolas
 # Update flake inputs
 nix flake update
 
-# Evaluate a configuration
+# Evaluate a configuration (Linux)
 nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath
+
+# Evaluate a configuration (macOS)
+nix eval .#darwinConfigurations.legolas.system.drvPath
 
 # Dry-run build a configuration
 nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --no-link
+
+# Current-system checks: nixfmt, statix, and host-eval
+nix flake check
 ```
 
 ## Directory Structure
@@ -39,7 +45,7 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── desktop.nix                        # Plasma, desktop apps, graphics, MIME/menu integration
 │   ├── hyprland.nix                       # Hyprland system config
 │   ├── nix-ld.nix                         # nix-ld runtime libraries for non-Nix binaries/Bazel
-│   ├── nvidia.nix                         # NVIDIA GPU + DRM kernel params
+│   ├── nvidia.nix                         # NVIDIA latest + open; not in initrd
 │   ├── game.nix                           # Gaming settings (gamescope, Steam, etc.)
 │   ├── containers.nix                     # Rootless Docker
 │   └── greetd.nix                          # DMS Greeter display manager config
@@ -48,10 +54,10 @@ nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --
 │   ├── user-dev.nix                       # User-level dev tool packages
 │   ├── host-config.nix                    # Typed dotfiles.host options
 │   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
-│   ├── git.nix                            # Git config
+│   ├── git.nix                            # Git config + 1Password SSH commit signing
 │   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
 │   ├── neovim.nix                         # Neovim (nightly via overlay) + aliases
-│   ├── llm-env.nix                        # Load API keys from ~/Documents/llm.conf
+│   ├── llm-env.nix                        # Load API keys from ~/.config/llm.conf
 │   ├── onepassword.nix                    # 1Password SSH agent; Linux GUI --silent service
 │   ├── opencode.nix                       # opencode permissions and config
 │   ├── ssh.nix                            # SSH Host aliases (IdentityAgent from onepassword.nix)
@@ -143,9 +149,7 @@ Configured in `flake.nix` per-system:
 - `nixfmt` — formats `.nix` files
 - `statix` — static analysis for Nix (must be installed in PATH)
 
-Run manually:
-- Linux: `nix build .#checks.x86_64-linux.pre-commit --no-link`
-- Darwin: `nix build .#checks.aarch64-darwin.pre-commit --no-link`
+`nix flake check` on the current system runs nixfmt, statix, and `host-eval` (Darwin evals `legolas`, Linux evals `sauron`). `--all-systems` needs a builder for the other platform.
 
 ## Gotchas
 
@@ -155,7 +159,9 @@ Run manually:
 - **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
 - **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
 - **No auto-commit** — user commits manually. Never push or commit without being asked.
-- **SSH config is Home Manager-managed** — `home-modules/ssh.nix` writes `~/.ssh/config`. Host aliases belong there. 1Password sets `IdentityAgent` from `home-modules/onepassword.nix`.
+- **SSH config is Home Manager-managed** — `home-modules/ssh.nix` writes `~/.ssh/config`. Host aliases belong there. 1Password sets `IdentityAgent` from `home-modules/onepassword.nix` and signs Git commits (`home-modules/git.nix`).
+- **LLM keys** — `~/.config/llm.conf` (`KEY=value`), loaded by Fish. Bash/zsh snippets apply only if those Home Manager shell modules are enabled. Not in the Nix store.
+- **Language LSPs** — rust-analyzer, gopls, clangd, zls live in devenv shells, not `modules/system-dev.nix`.
 
 ## External Inputs (from `flake.nix`)
 
@@ -170,7 +176,7 @@ Run manually:
 | `neovim-nightly-overlay` | Nightly Neovim package |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `llm-agents` | LLM CLI tools (opencode, grok, etc.) |
-| `dms` | DankMaterialShell and DMS Greeter |
+| `dms` | DankMaterialShell (desktop). Greeter is `pkgs.dms-greeter`. |
 | `plasma-manager` | KDE Plasma configuration via Home Manager |
 | `nix-flatpak` | Flatpak integration for NixOS |
 | `nix-gaming` | Gaming platform optimizations |
@@ -190,7 +196,3 @@ Run manually:
 - **NixOS system package**: add to the most specific module under `nixos-modules/` (`desktop.nix`, `game.nix`, etc.) or to `modules/system-dev.nix` if it is a dev tool
 - **Darwin system package**: add to `darwin-modules/default.nix`
 - **User package**: add to appropriate `home-modules/<name>.nix` under `home.packages`
-
-## Known Issues / Pending
-
-- **NVIDIA latest driver**: `nixos-modules/nvidia.nix` selects `nvidiaPackages.latest` with the open kernel module.

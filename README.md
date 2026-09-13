@@ -29,10 +29,14 @@ nix flake update
 
 ## Validation
 
-Evaluate the NixOS system derivation:
+Evaluate the host for this machine (also runs as `checks.host-eval` under `nix flake check`):
 
 ```bash
+# Linux
 nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath
+
+# macOS
+nix eval .#darwinConfigurations.legolas.system.drvPath
 ```
 
 Dry-run build the NixOS system:
@@ -41,13 +45,13 @@ Dry-run build the NixOS system:
 nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --no-link
 ```
 
-Run flake checks, including pre-commit checks:
+Run flake checks for the current system (pre-commit plus host eval):
 
 ```bash
-nix flake check --all-systems
+nix flake check
 ```
 
-Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and are not installed automatically into `.git/hooks`.
+`--all-systems` also builds the other platform's checks, which needs that system's builder. Evaluating a host's derivation alone does not need a builder for that platform. Pre-commit hooks (`nixfmt`, `statix`) live in the flake and are not installed into `.git/hooks` automatically.
 
 ## Layout
 
@@ -59,14 +63,15 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
   - `desktop.nix` — Plasma, desktop packages, graphics, MIME/menu integration
   - `hyprland.nix` — Hyprland system integration and portal config
   - `nix-ld.nix` — nix-ld runtime libraries for non-Nix binaries/Bazel
-  - `nvidia.nix` — NVIDIA driver settings (latest + open kernel module)
+  - `nvidia.nix` — NVIDIA latest + open kernel module (not loaded in initrd)
   - `game.nix` — gaming settings (Steam, gamescope)
   - `containers.nix` — rootless Docker
   - `greetd.nix` — DMS Greeter display manager config
 - `home-modules/` — shared Home Manager modules
   - `onepassword.nix` — 1Password SSH agent + Linux `--silent` user service
   - `ssh.nix` — SSH client Host aliases
-  - `llm-env.nix` — load LLM API keys from `~/Documents/llm.conf`
+  - `git.nix` — Git config and SSH commit signing via 1Password
+  - `llm-env.nix` — load LLM API keys from `~/.config/llm.conf`
 - `home-modules/nixos/` — NixOS-only Home Manager desktop modules
   - `hyprland.nix` + `hypr/*.lua` — Hyprland Lua config and UWSM env
   - `dms.nix` — DankMaterialShell config
@@ -78,18 +83,17 @@ Pre-commit hooks are configured through the flake (`nixfmt` and `statix`) and ar
 
 ## Desktop notes
 
-- DMS Greeter is the display manager on `sauron`.
-- The bundled DMS Greeter launcher is patched locally to use Hyprland's Lua exit dispatcher (`hl.dsp.exit()`); the legacy command leaves greetd waiting for its five-second shutdown timeout. Remove the workaround in `nixos-modules/greetd.nix` once the pinned DMS launcher supports it upstream.
+- DMS Greeter (`pkgs.dms-greeter`) is the display manager on `sauron`. The desktop shell comes from the `dms` flake input.
+- The greeter compositor uses the same monitor layout as the desktop, but 8-bit color.
 - The Hyprland portal is disabled for the `dms-greeter` account, not for desktop users.
 - Plasma and Hyprland are intended to coexist; Hyprland is the primary tiling session.
 - UWSM manages Hyprland's environment and lifecycle. DankMaterialShell starts only in that session and supplies its polkit agent; KDE wallet PAM setup is retained.
-- Greeter and desktop share monitor definitions.
+- Greeter and desktop share monitor definitions from `dotfiles.host.monitors`.
 - `Super + Shift + M` toggles the secondary monitor off/on at runtime. Disabling it removes it from Hyprland's layout so the display can be used by another computer; re-enabling restores its configured mode and placement.
-- `dotfiles.host.monitors` is the source of truth for monitor metadata. Hyprland consumes `desc:...` outputs directly.
 
 ## Notes
 
 - Zed is Nix-managed on NixOS and app-managed on Darwin.
-- `nixos-modules/nvidia.nix` selects `nvidiaPackages.latest` with the open kernel module.
-- **Secrets management** — planned via `agenix`. Not yet implemented; SSH public keys are fine in-repo, but WiFi passwords, VPN configs, and API tokens will need it.
-- **Disk encryption** — planned. `/` and `/home` are currently unencrypted. Will add LUKS when reinstalling or migrating.
+- Language LSPs (rust-analyzer, gopls, clangd, zls) live in devenv shells, not the shared package set.
+- LLM keys: `~/.config/llm.conf`, not in the Nix store. Use one `KEY=value` per line, with optional matching quotes around the value and full-line `#` comments. Fish loads values literally; use simple values or single quotes for portability, without shell substitutions, inline comments, or `export` prefixes. Bash/zsh startup snippets are provided but their Home Manager modules are currently disabled; shells started from Fish inherit its exported keys.
+- 1Password SSH uses the app-group socket on macOS and `~/.1password/agent.sock` on Linux. Incoming SSH sessions retain their forwarded agent. Git uses 1Password's signing helper to sign commits.

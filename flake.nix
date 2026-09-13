@@ -79,47 +79,65 @@
         inputs.neovim-nightly-overlay.overlays.default
       ];
     in
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.ez-configs.flakeModule
-        inputs.git-hooks.flakeModule
-      ];
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { config, lib, ... }:
+      {
+        imports = [
+          inputs.ez-configs.flakeModule
+          inputs.git-hooks.flakeModule
+        ];
 
-      ezConfigs = {
-        root = ./.;
-        globalArgs = {
-          inherit inputs overlays;
-        };
-      };
-
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-
-      perSystem =
-        { pkgs, ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              nixd
-              nixfmt
-              statix
-              treefmt
-              python3
-              python3Packages.vdf
-            ];
+        ezConfigs = {
+          root = ./.;
+          globalArgs = {
+            inherit inputs overlays;
           };
+        };
 
-          pre-commit = {
-            check.enable = true;
-            settings = {
-              hooks = {
-                nixfmt.enable = true;
-                statix.enable = true;
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+        ];
+
+        perSystem =
+          { pkgs, system, ... }:
+          {
+            devShells.default = pkgs.mkShell {
+              packages = with pkgs; [
+                nixd
+                nixfmt
+                statix
+                treefmt
+                python3
+                python3Packages.vdf
+              ];
+            };
+
+            # Eval-only: does not build the host. Realizes a drvPath string so
+            # `nix flake check` on this system actually type-checks the matching
+            # host (legolas on Darwin, sauron on Linux).
+            checks =
+              lib.optionalAttrs (system == "aarch64-darwin") {
+                host-eval = pkgs.runCommand "legolas-eval" { } ''
+                  echo ${builtins.unsafeDiscardStringContext config.flake.darwinConfigurations.legolas.system.drvPath} > $out
+                '';
+              }
+              // lib.optionalAttrs (system == "x86_64-linux") {
+                host-eval = pkgs.runCommand "sauron-eval" { } ''
+                  echo ${builtins.unsafeDiscardStringContext config.flake.nixosConfigurations.sauron.config.system.build.toplevel.drvPath} > $out
+                '';
+              };
+
+            pre-commit = {
+              check.enable = true;
+              settings = {
+                hooks = {
+                  nixfmt.enable = true;
+                  statix.enable = true;
+                };
               };
             };
           };
-        };
-    };
+      }
+    );
 }

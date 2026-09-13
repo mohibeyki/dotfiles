@@ -114,16 +114,21 @@ in
           formatter = {
             external = {
               command = "stylua";
+              arguments = [
+                "--stdin-filepath"
+                "{buffer_path}"
+                "-"
+              ];
             };
           };
         };
 
         JSON = {
-          language_servers = [ "jsonls" ];
+          language_servers = [ "json-language-server" ];
         };
 
         YAML = {
-          language_servers = [ "yamlls" ];
+          language_servers = [ "yaml-language-server" ];
         };
 
         TOML = {

@@ -27,7 +27,7 @@
       ProgramArguments = [
         (lib.getExe pkgs.home-manager)
         "expire-generations"
-        "-30 days"
+        "-7 days"
       ];
       StartCalendarInterval = [
         {

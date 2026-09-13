@@ -143,7 +143,8 @@ keybinds clear-defaults=true {
 
     tmux {
         // Control commands
-        bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
+        bind "Ctrl a" { Write 1; SwitchToMode "normal"; }
+        bind "Esc"    { SwitchToMode "normal"; }
         bind "d"      { Detach; }
         bind "s"      { SwitchToMode "search"; }
         bind "r" {
@@ -165,7 +166,13 @@ keybinds clear-defaults=true {
         bind "\\" { NewPane "Right"; SwitchToMode "normal"; }
 
         // New floating pane
-        bind "n"      { ToggleFloatingPanes; NewPane; ToggleFloatingPanes; SwitchToMode "normal"; }
+        bind "n" {
+            Run "fish" {
+                floating true
+                close_on_exit true
+            }
+            SwitchToMode "normal";
+        }
 
         // Toggle floating pane
         bind "p"      { ToggleFloatingPanes; SwitchToMode "normal"; }
@@ -195,7 +202,7 @@ keybinds clear-defaults=true {
 
     search {
         // Control
-        bind "Ctrl s" { SwitchToMode "normal"; }
+        bind "Ctrl s" "Esc" { SwitchToMode "normal"; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "normal"; }
 
         // Scroll
@@ -208,17 +215,17 @@ keybinds clear-defaults=true {
 
         // Search
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+
+        // These actions must live in the reachable scrollback/search mode.
+        bind "v" { EditScrollback; SwitchToMode "normal"; }
+        bind "y" { Copy; }
     }
 
     entersearch {
         bind "Ctrl c" "Esc" { SwitchToMode "search"; }
         bind "Enter" { SwitchToMode "search"; }
-    }
-
-    scroll {
-        // Vi-style copy mode
-        bind "v" { EditScrollback; }
-        bind "y" { Copy; }
     }
 }
 

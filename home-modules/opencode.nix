@@ -13,7 +13,7 @@ let
     "~/.1password/**" = "deny";
     "~/Library/Group Containers/2BUA8C4S2C.com.1password" = "deny";
     "~/Library/Group Containers/2BUA8C4S2C.com.1password/**" = "deny";
-    "~/Documents/llm.conf" = "deny";
+    "~/.config/llm.conf" = "deny";
     "~/secrets/**" = "deny";
   };
 in

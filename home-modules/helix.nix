@@ -206,6 +206,27 @@ _: {
 
       language = [
         {
+          name = "nix";
+          language-servers = [ "nixd" ];
+          formatter.command = "nixfmt";
+        }
+        {
+          name = "python";
+          language-servers = [
+            "pyright"
+            "ruff"
+          ];
+          formatter = {
+            command = "ruff";
+            args = [
+              "format"
+              "--stdin-filename"
+              "%{buffer_name}"
+              "-"
+            ];
+          };
+        }
+        {
           name = "toml";
           formatter = {
             command = "taplo";

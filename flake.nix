@@ -3,22 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    ez-configs = {
-      url = "github:ehllie/ez-configs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
@@ -50,22 +39,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,15 +55,16 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { config, lib, ... }:
       {
-        imports = [
-          inputs.ez-configs.flakeModule
-          inputs.git-hooks.flakeModule
-        ];
+        flake = {
+          nixosConfigurations.sauron = inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs overlays; };
+            modules = [ ./nixos-configurations/sauron/default.nix ];
+          };
 
-        ezConfigs = {
-          root = ./.;
-          globalArgs = {
-            inherit inputs overlays;
+          darwinConfigurations.legolas = inputs.nix-darwin.lib.darwinSystem {
+            specialArgs = { inherit inputs overlays; };
+            modules = [ ./darwin-configurations/legolas/default.nix ];
           };
         };
 
@@ -127,16 +101,6 @@
                   echo ${builtins.unsafeDiscardStringContext config.flake.nixosConfigurations.sauron.config.system.build.toplevel.drvPath} > $out
                 '';
               };
-
-            pre-commit = {
-              check.enable = true;
-              settings = {
-                hooks = {
-                  nixfmt.enable = true;
-                  statix.enable = true;
-                };
-              };
-            };
           };
       }
     );

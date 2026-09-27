@@ -1,20 +1,11 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  inputs,
-  ...
-}:
-{
-  imports = [
-    inputs.nix-gaming.nixosModules.platformOptimizations
-  ];
-
   boot.kernelModules = [ "ntsync" ];
 
   programs = {
     steam = {
       enable = true;
       extest.enable = true;
-      platformOptimizations.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
       extraPackages = with pkgs; [
         hidapi

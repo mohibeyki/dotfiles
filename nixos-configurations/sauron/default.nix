@@ -89,7 +89,6 @@ in
     users.mohi = {
       imports = [
         inputs.dms.homeModules.dank-material-shell
-        inputs.plasma-manager.homeModules.plasma-manager
         ../../home-configurations/mohi
 
         ../../home-modules

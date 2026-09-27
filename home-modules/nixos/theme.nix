@@ -86,10 +86,4 @@ in
       "x-scheme-handler/unknown" = "brave-origin.desktop";
     };
   };
-
-  programs.plasma = {
-    enable = true;
-    workspace.colorScheme = "BreezeDark";
-    configFile.kdeglobals.General.BrowserApplication = "brave-origin.desktop";
-  };
 }

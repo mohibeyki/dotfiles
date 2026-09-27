@@ -22,7 +22,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      inherit inputs overlays;
+      inherit inputs;
     };
 
     users.mohi = {

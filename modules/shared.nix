@@ -32,9 +32,6 @@
         "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
       ];
 
-      # Incremental hardlinking after each build. nix-darwin asserts this
-      # corrupts the store on some Nix versions; use nix.optimise.automatic there.
-      auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
     };
 
     # Periodic `nix-store --optimise` (systemd timer on Linux, launchd on Darwin).

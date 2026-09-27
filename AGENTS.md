@@ -1,198 +1,99 @@
 # Agent Guidance — Mohi's NixOS/Home Manager Dotfiles
 
-## Project Overview
+## Project overview
 
-Nix flake-based dotfiles managing two hosts:
-- **`sauron`**: NixOS desktop (x86_64-linux) with Plasma, Hyprland, and NVIDIA GPU
-- **`legolas`**: macOS (`nix-darwin`, aarch64-darwin)
+This flake manages two systems:
 
-Home Manager is integrated into system rebuilds on both platforms. There is no separate interactive `home-manager switch` workflow — apply changes with the host rebuild commands below.
+- `sauron`: NixOS desktop (`x86_64-linux`) with Hyprland/UWSM, DankMaterialShell, Plasma, NVIDIA, Flatpak, gaming, rootless Docker, and Home Manager.
+- `legolas`: macOS (`aarch64-darwin`) with nix-darwin and Home Manager.
 
-## Rebuild Commands
+Home Manager is integrated into each system rebuild; do not use a separate interactive `home-manager switch` workflow.
 
-```bash
-# NixOS (sauron)
+## Rebuild and validation
+
+```sh
+# NixOS
 sudo nixos-rebuild switch --flake .#sauron
 
-# macOS (legolas)
+# macOS
 nix run nix-darwin -- switch --flake .#legolas
 
 # Update flake inputs
 nix flake update
 
-# Evaluate a configuration (Linux)
+# Evaluate the host derivation without building it
 nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath
-
-# Evaluate a configuration (macOS)
 nix eval .#darwinConfigurations.legolas.system.drvPath
 
-# Dry-run build a configuration
-nix build .#nixosConfigurations.sauron.config.system.build.toplevel --dry-run --no-link
-
-# Current-system checks: nixfmt, statix, and host-eval
+# Current-system flake checks run host-eval only
 nix flake check
+
+# Formatting and static analysis are separate checks
+nixfmt --check $(rg --files -g '*.nix')
+statix check
 ```
 
-## Directory Structure
+`nix flake check --all-systems` needs a builder for the other platform. The flake's per-system `host-eval` check evaluates the matching host configuration; it does not build or deploy the host.
 
-```
-.
-├── flake.nix                              # Flake entry point; ez-configs + pre-commit hooks
-├── flake.lock                             # Lock file for all inputs
-├── nixos-modules/                         # NixOS system-level modules
-│   ├── default.nix                        # Aggregates NixOS modules for sauron
-│   ├── base.nix                           # Core system config (boot, i18n, users, services)
-│   ├── desktop.nix                        # Plasma, desktop apps, graphics, MIME/menu integration
-│   ├── hyprland.nix                       # Hyprland system config
-│   ├── nix-ld.nix                         # nix-ld runtime libraries for non-Nix binaries/Bazel
-│   ├── nvidia.nix                         # NVIDIA latest + open; not in initrd
-│   ├── game.nix                           # Gaming settings (gamescope, Steam, etc.)
-│   ├── containers.nix                     # Rootless Docker
-│   └── greetd.nix                          # DMS Greeter display manager config
-├── home-modules/                          # Home Manager modules (per-user config)
-│   ├── common.nix                         # session variables, shared tools
-│   ├── user-dev.nix                       # User-level dev tool packages
-│   ├── host-config.nix                    # Typed dotfiles.host options
-│   ├── fish.nix, tmux.nix, zellij.nix     # Shell/terminal multiplexers
-│   ├── git.nix                            # Git config + 1Password SSH commit signing
-│   ├── helix.nix, zed.nix, ghostty.nix    # Editor/terminal configs
-│   ├── neovim.nix                         # Neovim (nightly via overlay) + aliases
-│   ├── llm-env.nix                        # Load API keys from ~/.config/llm.conf
-│   ├── onepassword.nix                    # 1Password SSH agent; Linux GUI --silent service
-│   ├── opencode.nix                       # opencode permissions and config
-│   ├── ssh.nix                            # SSH Host aliases (IdentityAgent from onepassword.nix)
-│   ├── zellij.kdl                         # Zellij layout/UI config
-│   └── nixos/                             # NixOS-only home modules
-│       ├── hyprland.nix                   # Hyprland HM: Lua config, generated-host.lua, uwsm/env-hyprland
-│       ├── hypr/                          # Hyprland Lua config (binds, rules, settings)
-│       ├── theme.nix                      # GTK/icon/cursor theming + rose-pine-hyprcursor + Plasma theme
-│       ├── dms.nix                        # DankMaterialShell config
-│       └── mangohud.nix                   # MangoHud overlay settings
-├── nixos-configurations/sauron/           # Sauron host (NixOS) entry point
-│   ├── default.nix                        # Host imports + NixOS/HM module list
-│   └── hardware.nix                       # Hardware config from nixos-generate-config
-├── darwin-configurations/legolas/         # Legolas host (macOS) entry point
-│   └── default.nix                        # Host imports + darwin/home-manager module list
-├── home-configurations/mohi/              # Shared home config (username, homeDirectory, stateVersion)
-│   └── default.nix
-├── modules/                               # Shared modules (imported by both NixOS and Darwin)
-│   ├── shared.nix                         # Nix settings, fonts, system packages
-│   └── system-dev.nix                     # System-level dev tools + general LSPs/formatters
-└── darwin-modules/                        # Darwin-specific system modules
-    └── default.nix
-```
+## Repository layout
 
-## Architecture & Control Flow
+- `flake.nix` — `flake-parts` outputs, host configurations, dev shell, and host-evaluation checks.
+- `flake.lock` — locked input revisions.
+- `nixos-configurations/sauron/` — NixOS host definition and generated hardware configuration.
+- `darwin-configurations/legolas/` — nix-darwin host definition.
+- `nixos-modules/` — NixOS base, desktop, Hyprland, greeter, gaming, NVIDIA, containers, and nix-ld modules.
+- `darwin-modules/` — Darwin settings and imports for shared system modules.
+- `modules/` — shared Nix settings, fonts, packages, and system development tools.
+- `home-configurations/mohi/` — shared Home Manager username, home directory, and state version.
+- `home-modules/` — shared Home Manager settings; `home-modules/nixos/` contains Linux desktop modules and Hyprland Lua files.
 
-### Flake Entry Point (`flake.nix`)
-- Uses `flake-parts` with `ez-configs` for declarative host/home config
-- Passes `inputs` and `overlays` via `ezConfigs.globalArgs` to NixOS, Darwin, and Home Manager configs
-- Supports two systems: `x86_64-linux` and `aarch64-darwin`
-- Pre-commit hooks: `nixfmt` + `statix` (both enabled)
+## Flake architecture
 
-### Host Configs (`nixos-configurations/*/`, `darwin-configurations/*/`)
-- Each host imports:
-  1. `home-manager.nixosModules.home-manager` (NixOS) or HM via darwin modules
-  2. Platform modules (`nixos-modules/`, `darwin-modules/`)
-  3. Shared modules (`modules/`)
-  4. Home modules (`home-modules/`)
-- `dotfiles.host` Home Manager option carries per-host data:
-  - `isNvidia` — whether to set NVIDIA env vars
-  - `monitors` — monitor configs (output, mode, position, scale, bitdepth, vrr, cm, optional icc)
-  - `workspaces` — structured Hyprland workspace rules (`id`, `monitor`, `default`, `persistent`)
+`flake.nix` uses `flake-parts` to define `nixosConfigurations.sauron` and `darwinConfigurations.legolas`. It passes `inputs` and `overlays` to the host modules with `specialArgs`. The NixOS host composes Home Manager, nix-flatpak, shared modules, and the NixOS module aggregate. The Darwin host composes the Darwin module aggregate, which imports Home Manager and shared system modules.
 
-### Home Modules
-- Most home modules read `config.dotfiles.host` to adapt to host
-- `nixos/hyprland.nix` uses `config.dotfiles.host.monitors`, `workspaces`, and `isNvidia`; writes `hypr/*.lua`, `hypr/generated-host.lua`, and session-scoped `uwsm/env-hyprland`
-- `nixos/theme.nix` uses `inputs.rose-pine-hyprcursor` and configures Plasma colors via plasma-manager
+The current flake inputs are `nixpkgs`, `flake-parts`, `home-manager`, `nix-darwin`, `hyprland`, `nix-flatpak`, `dms`, `rose-pine-hyprcursor`, `neovim-nightly-overlay`, and `llm-agents`.
 
-### Window Manager Config Patterns
-Hyprland is configured in Lua under `home-modules/nixos/hypr/`:
-1. **Host data** — Nix generates `hypr/generated-host.lua` (monitors, workspaces); UWSM loads environment variables from `uwsm/env-hyprland`
-2. **Rules** — `hypr/rules.lua` uses a two-phase pattern: tag assignment by class, then tag-based actions
-3. **Binds / settings** — `hypr/binds.lua`, `hypr/binds-dms.lua`, and `hypr/settings.lua`
+Home Manager's `dotfiles.host` option carries NixOS-specific values:
 
-## Key Conventions
+- `isNvidia` selects NVIDIA environment variables.
+- `monitors` defines monitor output, mode, position, scale, bit depth, VRR, color mode, and optional ICC profile.
+- `workspaces` defines Hyprland workspace IDs, monitor assignments, defaults, and persistence.
 
-### Module Imports in Hosts
-```nix
-# In sauron/default.nix:
-home-manager.users.mohi.imports = [
-  inputs.dms.homeModules.dank-material-shell  # external flake input
-  inputs.plasma-manager.homeModules.plasma-manager
-  ../../home-configurations/mohi             # local home config
-  ../../home-modules                         # shared HM module aggregate
-  ../../home-modules/nixos                   # NixOS-only HM module aggregate
-];
-```
+`home-modules/nixos/hyprland.nix` generates host Lua data and `uwsm/env-hyprland`. The compositor runs through UWSM; DMS and the 1Password GUI service are tied to the Hyprland UWSM session. The 1Password service is ordered after DMS for tray integration. NixOS desktop modules are not imported on Darwin.
 
-### Nixpkgs Overlays
-Overlays are composed at the host level on `nixpkgs.overlays` (`useGlobalPkgs` shares that pkgs set with Home Manager):
-```nix
-# sauron overlays example
-sauronOverlays = [
-  (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
-];
-```
+## Configuration conventions
 
-### Monitor Config
-Host monitor definitions use `desc:...` (EDID description) for identification. Hyprland consumes these via `hl.monitor`; the greeter reuses the same generated definitions. The `vrr` field is stored as the integer value Hyprland expects (for example `0`, `1`, or `2`).
+- Put shared Home Manager modules in `home-modules/` and import them from `home-modules/default.nix`.
+- Put Linux desktop Home Manager modules in `home-modules/nixos/` and import them from `home-modules/nixos/default.nix`.
+- Put NixOS system settings in the most relevant `nixos-modules/` module. Shared system settings belong in `modules/`; Darwin-specific settings belong in `darwin-modules/`.
+- Keep `system.stateVersion` and `home.stateVersion` at their existing compatibility values when upgrading.
+- `nixos-configurations/sauron/hardware.nix` is generated by `nixos-generate-config`; edits can be overwritten by regeneration. Preserve its disk UUIDs and mount semantics when changing its formatting or structure.
+- The NixOS firewall is intentionally disabled for `sauron` (documented in the host config); do not treat that as an accidental omission.
+- System-level development tools live in `modules/system-dev.nix`; user-level tools live in `home-modules/user-dev.nix`. Language LSPs such as `rust-analyzer`, `gopls`, `clangd`, and `zls` are provided by development shells.
+- Coding-agent CLI packages from the `llm-agents` input, including Pi, are selected in `home-modules/user-dev.nix`.
+- SSH client aliases are in `home-modules/ssh.nix`. `home-modules/onepassword.nix` configures the 1Password SSH agent socket, and `home-modules/git.nix` configures SSH commit signing through the 1Password signing helper. The active Sauron signing identity is stored in 1Password.
+- LLM API keys are stored outside the Nix store in `~/.config/llm.conf`, using `KEY=value` lines. Fish reads values literally; avoid shell substitutions, inline comments, and `export` prefixes.
+- No auto-commit or push. The user handles Git commits and pushes unless they explicitly ask for one.
 
-### Darwin-Specific
-- `stateVersion` uses integers (`6`) not strings
-- `nixpkgs.hostPlatform = "aarch64-darwin"` explicitly sets host platform
-- NixOS desktop modules (`nixos/hyprland.nix`, `nixos/hypr/`, `nixos/dms.nix`, `nixos/theme.nix`) are **not** imported on Darwin
-
-## Pre-commit Hooks
-
-Configured in `flake.nix` per-system:
-- `nixfmt` — formats `.nix` files
-- `statix` — static analysis for Nix (must be installed in PATH)
-
-`nix flake check` on the current system runs nixfmt, statix, and `host-eval` (Darwin evals `legolas`, Linux evals `sauron`). `--all-systems` needs a builder for the other platform.
-
-## Gotchas
-
-- **Home Manager applies on system rebuild** — changes only take effect after `nixos-rebuild switch` (or the darwin equivalent). Do not expect a separate interactive `home-manager switch` workflow.
-- **`dotfiles.host` must be set per host** — home modules that need host-specific data read it from the Home Manager option tree. If a module is missing data, check `home-manager.users.mohi.dotfiles.host` in the host config.
-- **Darwin has no Linux desktop stack** — only import Hyprland/DMS/theme desktop modules on NixOS hosts.
-- **Dev tools have two modules** — system-level dev tools are in `modules/system-dev.nix`; user-level dev tools are in `home-modules/user-dev.nix`. `nixos-modules/nix-ld.nix` exists separately for dynamic linker compatibility with non-Nix binaries/Bazel.
-- **Nix repl/lsp requires `nixd`** — use `nixd` for Nix language server. `statix` in pre-commit is a separate binary.
-- **No auto-commit** — user commits manually. Never push or commit without being asked.
-- **SSH config is Home Manager-managed** — `home-modules/ssh.nix` writes `~/.ssh/config`. Host aliases belong there. 1Password sets `IdentityAgent` from `home-modules/onepassword.nix` and signs Git commits (`home-modules/git.nix`).
-- **LLM keys** — `~/.config/llm.conf` (`KEY=value`), loaded by Fish. Bash/zsh snippets apply only if those Home Manager shell modules are enabled. Not in the Nix store.
-- **Language LSPs** — rust-analyzer, gopls, clangd, zls live in devenv shells, not `modules/system-dev.nix`.
-
-## External Inputs (from `flake.nix`)
+## Current flake inputs
 
 | Input | Purpose |
-|-------|---------|
-| `nixpkgs` | nixpkgs-unstable |
-| `home-manager` | HM for both NixOS and Darwin |
-| `nix-darwin` | Darwin system configuration |
-| `hyprland` | Hyprland WM (does not follow nixpkgs; uses upstream cache) |
-| `flake-parts` | Flake module system |
-| `ez-configs` | Declarative host/home config |
-| `neovim-nightly-overlay` | Nightly Neovim package |
+| --- | --- |
+| `nixpkgs` | Unstable packages and NixOS modules |
+| `flake-parts` | Flake output organization |
+| `home-manager` | Home Manager on NixOS and Darwin |
+| `nix-darwin` | macOS system configuration |
+| `hyprland` | Hyprland packages and NixOS module |
+| `nix-flatpak` | Flatpak integration on NixOS |
+| `dms` | DankMaterialShell Home Manager module |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
-| `llm-agents` | LLM CLI tools (opencode, grok, etc.) |
-| `dms` | DankMaterialShell (desktop). Greeter is `pkgs.dms-greeter`. |
-| `plasma-manager` | KDE Plasma configuration via Home Manager |
-| `nix-flatpak` | Flatpak integration for NixOS |
-| `nix-gaming` | Gaming platform optimizations |
-| `git-hooks` | Pre-commit hooks |
-| `nix-index-database` | Prebuilt nix-index DB for comma |
+| `neovim-nightly-overlay` | Nightly Neovim overlay |
+| `llm-agents` | LLM command-line tools |
 
-## Adding a New Home Module
+## Adding packages
 
-1. Create `home-modules/<name>.nix` — takes at minimum `{ pkgs, ... }` or `{ config, lib, pkgs, ... }` if it needs host-specific data from `config.dotfiles.host`
-2. If shared by both hosts, add it to `home-modules/default.nix`
-3. If NixOS-only, add it to `home-modules/nixos/default.nix`
-4. Only edit a host's `home-manager.users.mohi.imports` list when adding a new aggregate module tree or external Home Manager module
-5. Run rebuild — no separate home-manager switch needed
+- NixOS system packages: the relevant `nixos-modules/` module, or `modules/system-dev.nix` for system-level development tools.
+- Darwin system packages: `darwin-modules/default.nix` or the shared system module when appropriate.
+- User packages: the appropriate Home Manager module under `home-modules/`.
 
-## Adding a New System Package
-
-- **NixOS system package**: add to the most specific module under `nixos-modules/` (`desktop.nix`, `game.nix`, etc.) or to `modules/system-dev.nix` if it is a dev tool
-- **Darwin system package**: add to `darwin-modules/default.nix`
-- **User package**: add to appropriate `home-modules/<name>.nix` under `home.packages`
+After changes, run the relevant host evaluation, `nixfmt --check`, and `statix check`. Apply system and Home Manager changes using the host rebuild command above.

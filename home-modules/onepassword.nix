@@ -51,10 +51,9 @@ in
     SSH_AUTH_SOCK = agentSock;
   };
 
-  # Start after DMS so the StatusNotifier watcher exists. Electron does not
-  # retry the tray if it launches first. WantedBy dms.service (not
-  # default.target or graphical-session): After= only orders units in the same
-  # transaction, and SSH/TTY logins must not spawn the GUI.
+  # Start in the Hyprland UWSM session, after DMS creates the StatusNotifier
+  # watcher. Electron does not retry the tray if it launches first. Attaching
+  # directly to the session target ensures the service starts with the desktop.
   systemd.user.services."1password" = lib.mkIf isLinux {
     Unit = {
       Description = "1Password";
@@ -72,6 +71,6 @@ in
       Restart = "on-failure";
       RestartSec = 5;
     };
-    Install.WantedBy = [ "dms.service" ];
+    Install.WantedBy = [ "wayland-session@hyprland.desktop.target" ];
   };
 }

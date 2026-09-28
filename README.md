@@ -52,7 +52,7 @@ statix check
 - `home-configurations/mohi/` defines the shared Home Manager user identity and state version.
 - `home-modules/` contains shared Home Manager settings; `home-modules/nixos/` contains Linux desktop settings and the Hyprland Lua configuration.
 
-Coding-agent CLIs from `llm-agents` (including Pi) are installed through `home-modules/user-dev.nix`.
+Coding-agent CLIs from `llm-agents` (including Pi and OpenCode) are installed through `home-modules/user-dev.nix`. Pi is intentionally Nix-managed through `llm-agents`; OpenCode has no custom Home Manager configuration.
 
 The NixOS host imports `home-manager.nixosModules.home-manager`, the NixOS modules, shared modules, and the shared and NixOS-only Home Manager module aggregates. Darwin imports its corresponding Home Manager and Darwin modules. Per-host monitor and workspace data is declared in `nixos-configurations/sauron/default.nix` and exposed through the typed `dotfiles.host` Home Manager option.
 
@@ -77,7 +77,8 @@ The current flake inputs are:
 
 ## Host notes
 
-- NixOS firewall rules are intentionally disabled for `sauron`; the host is behind the user's NAT and needs flexible port exposure for development.
+- `sauron` uses the latest NVIDIA driver package with open kernel modules; this is a deliberate current choice rather than the beta package.
+- The NixOS firewall is intentionally disabled for `sauron` as a deliberate home-machine preference.
 - The NixOS and Home Manager `stateVersion` values are set in their respective host/user configuration files. Keep existing values when upgrading; they describe compatibility defaults, not the current release.
 - NixOS desktop modules are not imported on Darwin.
 - Language servers such as `rust-analyzer`, `gopls`, `clangd`, and `zls` are expected in development shells, not the shared system package list.

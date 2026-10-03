@@ -105,17 +105,23 @@ let
   toggleSecondaryMonitor = pkgs.writeShellScriptBin "toggle-secondary-monitor" ''
     set -eu
 
-    state_file="''${XDG_RUNTIME_DIR}/hypr-secondary-monitor.disabled"
-    if [ -e "$state_file" ]; then
-      result="$(hyprctl eval 'hl.monitor(${secondaryMonitorToLua secondaryMonitor})')"
+    # Read compositor state on every invocation so reloads and external monitor
+    # changes cannot leave a marker file out of sync with the actual display.
+    monitors="$(hyprctl -j monitors)"
+    active="$(printf '%s\n' "$monitors" | ${lib.getExe pkgs.jq} \
+      --arg description ${lib.escapeShellArg (lib.removePrefix "desc:" secondaryMonitor.output)} \
+      'any(.[]; .description == $description and (.disabled != true))')"
+
+    if [ "$active" = true ]; then
+      result="$(hyprctl eval 'hl.monitor({ output = ${luaString secondaryMonitor.output}, disabled = true })')"
       case "$result" in
-        ok*) rm -f "$state_file"; printf '%s\n' "Secondary monitor enabled" ;;
+        ok*) printf '%s\n' "Secondary monitor disabled" ;;
         *) printf '%s\n' "$result" >&2; exit 1 ;;
       esac
     else
-      result="$(hyprctl eval 'hl.monitor({ output = ${luaString secondaryMonitor.output}, disabled = true })')"
+      result="$(hyprctl eval 'hl.monitor(${secondaryMonitorToLua secondaryMonitor})')"
       case "$result" in
-        ok*) : > "$state_file"; printf '%s\n' "Secondary monitor disabled" ;;
+        ok*) printf '%s\n' "Secondary monitor enabled" ;;
         *) printf '%s\n' "$result" >&2; exit 1 ;;
       esac
     fi

@@ -83,7 +83,6 @@
                 statix
                 treefmt
                 python3
-                python3Packages.vdf
               ];
             };
 

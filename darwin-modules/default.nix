@@ -50,4 +50,6 @@
     home = "/Users/mohi";
     shell = pkgs.fish;
   };
+
+  environment.systemPackages = [ pkgs.mole-cleaner ];
 }

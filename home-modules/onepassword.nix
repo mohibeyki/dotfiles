@@ -52,19 +52,15 @@ in
   };
 
   # Start in the Hyprland UWSM session, after DMS creates the StatusNotifier
-  # watcher. Electron does not retry the tray if it launches first. Attaching
-  # directly to the session target ensures the service starts with the desktop.
+  # watcher. Electron does not retry the tray if it launches first. Do not also
+  # order this service after graphical-session.target: that target is ordered
+  # after the UWSM session, so doing both creates a startup cycle and systemd
+  # drops this service.
   systemd.user.services."1password" = lib.mkIf isLinux {
     Unit = {
       Description = "1Password";
-      After = [
-        "graphical-session.target"
-        "dms.service"
-      ];
-      PartOf = [
-        "graphical-session.target"
-        "dms.service"
-      ];
+      After = [ "dms.service" ];
+      PartOf = [ "dms.service" ];
     };
     Service = {
       ExecStart = "${lib.getExe' pkgs._1password-gui "1password"} --silent";

@@ -45,6 +45,11 @@ in
 
   time.timeZone = "America/Los_Angeles";
 
+  # Keep this outside hardware.nix so nixos-generate-config cannot remove it.
+  # Existing data stays uncompressed until rewritten.
+  fileSystems."/".options = [ "compress=zstd:3" ];
+  fileSystems."/home".options = [ "compress=zstd:3" ];
+
   networking = {
     hostName = "sauron";
     # Disabled intentionally — machine is behind a NAT router with no port forwarding,

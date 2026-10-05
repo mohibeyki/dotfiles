@@ -76,14 +76,50 @@
         perSystem =
           { pkgs, system, ... }:
           {
-            devShells.default = pkgs.mkShell {
-              packages = with pkgs; [
-                nixd
-                nixfmt
-                statix
-                treefmt
-                python3
-              ];
+            devShells = rec {
+              nix = pkgs.mkShell {
+                packages = with pkgs; [
+                  nixd
+                  nixfmt
+                  statix
+                  treefmt
+                ];
+              };
+              lua = pkgs.mkShell {
+                packages = with pkgs; [
+                  lua-language-server
+                  stylua
+                ];
+              };
+              python = pkgs.mkShell {
+                packages = with pkgs; [
+                  python3
+                  pyright
+                  ruff
+                  uv
+                ];
+              };
+              web = pkgs.mkShell {
+                packages = with pkgs; [
+                  nodejs
+                  vscode-langservers-extracted
+                  yaml-language-server
+                ];
+              };
+              writing = pkgs.mkShell {
+                packages = with pkgs; [
+                  marksman
+                  taplo
+                ];
+              };
+              # Tools used while working in this repository.
+              default = pkgs.mkShell {
+                inputsFrom = [
+                  nix
+                  lua
+                  writing
+                ];
+              };
             };
 
             # Eval-only: does not build the host. Realizes a drvPath string so

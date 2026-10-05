@@ -81,7 +81,7 @@ The current flake inputs are:
 - The NixOS firewall is intentionally disabled for `sauron` as a deliberate home-machine preference.
 - The NixOS and Home Manager `stateVersion` values are set in their respective host/user configuration files. Keep existing values when upgrading; they describe compatibility defaults, not the current release.
 - NixOS desktop modules are not imported on Darwin.
-- Language servers such as `rust-analyzer`, `gopls`, `clangd`, and `zls` are expected in development shells, not the shared system package list.
+- Language servers and formatters belong in per-project development shells, not the shared system package list. This flake provides `nix`, `lua`, `python`, `web`, and `writing` shells.
 - 1Password provides the SSH agent and Git SSH signing helper. Linux uses `~/.1password/agent.sock`; macOS uses the socket inside the 1Password app group. Incoming SSH sessions preserve their forwarded agent.
 - LLM API keys live in `~/.config/llm.conf`, outside the Nix store. Use `KEY=value` lines; Fish loads values literally, so avoid shell substitutions, inline comments, and `export` prefixes.
 

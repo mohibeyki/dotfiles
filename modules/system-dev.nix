@@ -3,29 +3,17 @@
   ...
 }:
 {
+  # Language servers and formatters belong to per-project development shells.
   environment.systemPackages = with pkgs; [
-    # Nix
-    nixd
+    # Nix administration tools, not editor language servers.
     nixfmt
     nixfmt-tree
     statix
 
-    # Python
+    # Runtimes used outside individual projects.
     python3
-    pyright
-    ruff
-    uv
-
-    # JavaScript
     nodejs
-
-    # General editor LSPs / formatters (language toolchains stay in devenv)
-    lua-language-server
-    marksman
-    stylua
-    taplo
-    vscode-langservers-extracted
-    yaml-language-server
+    uv
 
     # Tools
     jq

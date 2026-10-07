@@ -74,6 +74,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 - Coding-agent CLI packages from the `llm-agents` input, including Pi and OpenCode, are selected in `home-modules/user-dev.nix`. Pi is intentionally Nix-managed through `llm-agents`, not npm-managed. OpenCode should have no custom Home Manager config unless requested.
 - SSH client aliases are in `home-modules/ssh.nix`. `home-modules/onepassword.nix` configures the 1Password SSH agent socket, and `home-modules/git.nix` configures SSH commit signing through the 1Password signing helper. The active Sauron signing identity is stored in 1Password.
 - Grok is signed in with `grok login`, not an API key. Do not add LLM API keys to Nix, 1Password, or `~/.config/llm.conf` unless the user asks.
+- Lanzaboote is imported but disabled until the encrypted reinstall. Do not enable it or disable systemd-boot before that migration.
 - No auto-commit or push. The user handles Git commits and pushes unless they explicitly ask for one.
 
 ## Current flake inputs
@@ -90,6 +91,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `neovim-nightly-overlay` | Nightly Neovim overlay |
 | `llm-agents` | LLM command-line tools |
+| `lanzaboote` | Secure Boot bootloader, currently disabled |
 
 ## Adding packages
 

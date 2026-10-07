@@ -74,6 +74,7 @@ The current flake inputs are:
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `neovim-nightly-overlay` | Nightly Neovim overlay |
 | `llm-agents` | LLM command-line tools |
+| `lanzaboote` | Secure Boot bootloader, currently disabled |
 
 ## Host notes
 
@@ -83,6 +84,7 @@ The current flake inputs are:
 - NixOS desktop modules are not imported on Darwin.
 - Language servers and formatters belong in per-project development shells, not the shared system package list. This flake provides `nix`, `lua`, `python`, `web`, and `writing` shells.
 - 1Password provides the SSH agent and Git SSH signing helper. Linux uses `~/.1password/agent.sock`; macOS uses the socket inside the 1Password app group. Incoming SSH sessions preserve their forwarded agent.
+- Lanzaboote is configured but disabled. systemd-boot remains the active bootloader until the encrypted reinstall.
 
 ## Adding modules and packages
 

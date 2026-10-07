@@ -11,7 +11,6 @@
     ./neovim.nix
     ./onepassword.nix
     ./ssh.nix
-    ./llm-env.nix
     ./tmux.nix
     ./zed.nix
     ./zellij.nix

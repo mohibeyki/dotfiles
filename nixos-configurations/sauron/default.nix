@@ -47,8 +47,11 @@ in
 
   # Keep this outside hardware.nix so nixos-generate-config cannot remove it.
   # Existing data stays uncompressed until rewritten.
-  fileSystems."/".options = [ "compress=zstd:3" ];
-  fileSystems."/home".options = [ "compress=zstd:3" ];
+  fileSystems = {
+    "/".options = [ "compress=zstd:3" ];
+    "/home".options = [ "compress=zstd:3" ];
+    "/nix".options = [ "compress=zstd:3" ];
+  };
 
   networking = {
     hostName = "sauron";
@@ -56,31 +59,35 @@ in
     # and dev work requires frequent port exposure for testing.
     firewall.enable = false;
   };
-  services.openssh.enable = true;
 
   nixpkgs.overlays = overlays ++ sauronOverlays;
 
-  services.flatpak = {
-    remotes = [
-      {
-        name = "flathub";
-        location = "https://flathub.org/repo/flathub.flatpakrepo";
-      }
-    ];
+  # / and /nix share one filesystem, so the default device deduplication scrubs it once.
+  services = {
+    btrfs.autoScrub.enable = true;
+    openssh.enable = true;
+    flatpak = {
+      remotes = [
+        {
+          name = "flathub";
+          location = "https://flathub.org/repo/flathub.flatpakrepo";
+        }
+      ];
 
-    update.auto = {
-      enable = true;
-      onCalendar = "daily";
+      update.auto = {
+        enable = true;
+        onCalendar = "daily";
+      };
+
+      packages = [
+        "com.bambulab.BambuStudio"
+        "com.discordapp.Discord"
+        "com.spotify.Client"
+        "io.github.flattool.Warehouse"
+        "md.obsidian.Obsidian"
+        "page.kramo.Cartridges"
+      ];
     };
-
-    packages = [
-      "com.bambulab.BambuStudio"
-      "com.discordapp.Discord"
-      "com.spotify.Client"
-      "io.github.flattool.Warehouse"
-      "md.obsidian.Obsidian"
-      "page.kramo.Cartridges"
-    ];
   };
 
   home-manager = {

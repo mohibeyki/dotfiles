@@ -19,6 +19,7 @@
     jq
     just
     lazygit
+    talosctl
     tree-sitter
   ];
 }

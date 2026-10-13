@@ -10,6 +10,7 @@
     ./helix.nix
     ./neovim.nix
     ./onepassword.nix
+    ./rclone.nix
     ./ssh.nix
     ./tmux.nix
     ./zed.nix

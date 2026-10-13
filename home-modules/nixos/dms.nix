@@ -1,4 +1,4 @@
-_: {
+{ lib, ... }: {
   programs.dank-material-shell = {
     enable = true;
     enableDynamicTheming = false;
@@ -16,7 +16,11 @@ _: {
     };
   };
 
-  # The UWSM compositor target precedes graphical-session.target. Wait for
-  # waitenv to finish as well, without enabling DMS in Plasma sessions.
-  systemd.user.services.dms.Unit.After = [ "graphical-session.target" ];
+  # The packaged unit waits for the same UWSM target that wants it, and waiting
+  # for graphical-session.target closes a cycle through 1Password. systemd then
+  # drops DMS on the first login. Wait only for the compositor and session env.
+  systemd.user.services.dms.Unit.After = lib.mkForce [
+    "wayland-wm@hyprland.desktop.service"
+    "wayland-session-waitenv.service"
+  ];
 }

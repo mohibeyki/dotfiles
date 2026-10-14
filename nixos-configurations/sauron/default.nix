@@ -51,6 +51,25 @@ in
     "/".options = [ "compress=zstd:3" ];
     "/home".options = [ "compress=zstd:3" ];
     "/nix".options = [ "compress=zstd:3" ];
+    "/swap" = {
+      device = "/dev/disk/by-uuid/da09922b-79c1-402a-8231-2a6583c90943";
+      fsType = "btrfs";
+      options = [
+        "subvol=.swap"
+        "compress=no"
+        "noatime"
+      ];
+      neededForBoot = true;
+    };
+  };
+
+  swapDevices = [
+    { device = "/swap/swapfile"; }
+  ];
+
+  boot = {
+    resumeDevice = "/dev/disk/by-uuid/da09922b-79c1-402a-8231-2a6583c90943";
+    kernelParams = [ "resume_offset=866327" ];
   };
 
   networking = {

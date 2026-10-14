@@ -105,8 +105,9 @@ let
   toggleSecondaryMonitor = pkgs.writeShellScriptBin "toggle-secondary-monitor" ''
     set -eu
 
-    # Read compositor state on every invocation so reloads and external monitor
-    # changes cannot leave a marker file out of sync with the actual display.
+    state_dir="''${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
+    mkdir -p "$state_dir"
+
     monitors="$(hyprctl -j monitors)"
     active="$(printf '%s\n' "$monitors" | ${lib.getExe pkgs.jq} \
       --arg description ${lib.escapeShellArg (lib.removePrefix "desc:" secondaryMonitor.output)} \
@@ -115,13 +116,15 @@ let
     if [ "$active" = true ]; then
       result="$(hyprctl eval 'hl.monitor({ output = ${luaString secondaryMonitor.output}, disabled = true })')"
       case "$result" in
-        ok*) printf '%s\n' "Secondary monitor disabled" ;;
+        ok*) printf '%s\n' disabled > "$state_dir/secondary-monitor"
+             printf '%s\n' "Secondary monitor disabled" ;;
         *) printf '%s\n' "$result" >&2; exit 1 ;;
       esac
     else
       result="$(hyprctl eval 'hl.monitor(${secondaryMonitorToLua secondaryMonitor})')"
       case "$result" in
-        ok*) printf '%s\n' "Secondary monitor enabled" ;;
+        ok*) printf '%s\n' enabled > "$state_dir/secondary-monitor"
+             printf '%s\n' "Secondary monitor enabled" ;;
         *) printf '%s\n' "$result" >&2; exit 1 ;;
       esac
     fi
@@ -145,6 +148,8 @@ in
 
     "hypr/generated-host.lua".text = ''
       return {
+        secondaryMonitorOutput = ${luaString secondaryMonitor.output},
+
         monitors = {
       ${lib.concatStringsSep "\n" (map monitorToLua monitors)}
         },

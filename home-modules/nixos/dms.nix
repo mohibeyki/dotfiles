@@ -2,6 +2,7 @@
   programs.dank-material-shell = {
     enable = true;
     enableDynamicTheming = false;
+    enableCalendarEvents = false;
     systemd = {
       enable = true;
       target = "wayland-session@hyprland.desktop.target";

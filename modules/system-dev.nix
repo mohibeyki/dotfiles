@@ -18,6 +18,8 @@
     # Tools
     jq
     just
+    k9s
+    kubernetes-helm
     lazygit
     talosctl
     tree-sitter

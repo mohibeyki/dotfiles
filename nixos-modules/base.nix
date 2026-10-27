@@ -18,6 +18,13 @@
       efi.canTouchEfiVariables = true;
     };
 
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
+
+    kernelParams = [ "quiet" ];
+
     supportedFilesystems = [ "ntfs" ];
   };
 

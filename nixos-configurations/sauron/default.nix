@@ -7,6 +7,18 @@
 let
   sauronOverlays = [
     (final: prev: { btop = prev.btop.override { cudaSupport = true; }; })
+    (final: prev: {
+      _1password-gui = prev._1password-gui.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          interp=$(patchelf --print-interpreter "$out/share/1password/1password")
+          rpath=$(patchelf --print-rpath "$out/share/1password/1password")
+          for bin in chrome_crashpad_handler 1Password-Crash-Handler; do
+            patchelf --set-interpreter "$interp" "$out/share/1password/$bin"
+            patchelf --set-rpath "$rpath" "$out/share/1password/$bin"
+          done
+        '';
+      });
+    })
   ];
 
   monitors = {

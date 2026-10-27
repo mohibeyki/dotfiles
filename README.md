@@ -46,7 +46,7 @@ statix check
 - `flake.nix` uses `flake-parts` to expose the NixOS and Darwin configurations, a development shell, and per-system host-evaluation checks.
 - `nixos-configurations/sauron/` defines the NixOS host and generated hardware settings.
 - `darwin-configurations/legolas/` defines the nix-darwin host.
-- `nixos-modules/` contains NixOS system modules for the base system, desktop, Hyprland, DMS Greeter, NVIDIA, gaming, rootless Docker, and nix-ld.
+- `nixos-modules/` contains NixOS system modules for the base system, desktop, Hyprland, DMS Greeter, NVIDIA, gaming, and rootless Docker.
 - `darwin-modules/` contains Darwin-specific system settings.
 - `modules/` contains shared system settings and system-level development tools.
 - `home-configurations/mohi/` defines the shared Home Manager user identity and state version.

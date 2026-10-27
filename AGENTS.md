@@ -41,7 +41,7 @@ statix check
 - `flake.lock` — locked input revisions.
 - `nixos-configurations/sauron/` — NixOS host definition and generated hardware configuration.
 - `darwin-configurations/legolas/` — nix-darwin host definition.
-- `nixos-modules/` — NixOS base, desktop, Hyprland, greeter, gaming, NVIDIA, containers, and nix-ld modules.
+- `nixos-modules/` — NixOS base, desktop, Hyprland, greeter, gaming, NVIDIA, and containers modules.
 - `darwin-modules/` — Darwin settings and imports for shared system modules.
 - `modules/` — shared Nix settings, fonts, packages, and system development tools.
 - `home-configurations/mohi/` — shared Home Manager username, home directory, and state version.

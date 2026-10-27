@@ -120,6 +120,7 @@ in
     users.mohi = {
       imports = [
         inputs.dms.homeModules.dank-material-shell
+        inputs.dms-plugin-registry.homeModules.default
         ../../home-configurations/mohi
 
         ../../home-modules

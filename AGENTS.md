@@ -87,7 +87,9 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 | `nix-darwin` | macOS system configuration |
 | `hyprland` | Hyprland packages and NixOS module |
 | `nix-flatpak` | Flatpak integration on NixOS |
-| `dms` | DankMaterialShell Home Manager module |
+| `dms` | Dux Shell Home Manager module |
+| `dgop` | Dux system monitoring CLI |
+| `dms-plugin-registry` | Dux Shell plugins |
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `neovim-nightly-overlay` | Nightly Neovim overlay |
 | `llm-agents` | LLM command-line tools |

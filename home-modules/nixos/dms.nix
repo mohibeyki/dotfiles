@@ -1,25 +1,55 @@
-{ lib, ... }: {
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
   programs.dank-material-shell = {
     enable = true;
     enableDynamicTheming = false;
-    enableCalendarEvents = false;
+    enableCalendarEvents = true;
+    enableSystemMonitoring = true;
+    enableVPN = true;
+    enableAudioWavelength = true;
     systemd = {
       enable = true;
       target = "wayland-session@hyprland.desktop.target";
     };
 
-    # Keep DMS's appearance separate from the declarative Rosé Pine desktop theme.
     settings = {
-      # Match the pinned DMS schema; otherwise this read-only file is migrated
-      # from version 0 on every launch. A stock theme does not invoke matugen.
       configVersion = 17;
       currentThemeName = "purple";
     };
+
+    clipboardSettings = {
+      maxHistory = 50;
+      maxEntrySize = 5242880;
+      disabled = false;
+      disableHistory = false;
+      disablePersist = false;
+    };
+
+    plugins = {
+      dankKDEConnect.enable = true;
+      dockerManager.enable = true;
+      quickCapture.enable = true;
+      calculator.enable = true;
+    };
   };
 
-  # The packaged unit waits for the same UWSM target that wants it, and waiting
-  # for graphical-session.target closes a cycle through 1Password. systemd then
-  # drops DMS on the first login. Wait only for the compositor and session env.
+  home.packages = [
+    inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pkgs.kdePackages.kdeconnect-kde
+    pkgs.gpu-screen-recorder
+    pkgs.wf-recorder
+    pkgs.ffmpeg
+    pkgs.imagemagick
+    pkgs.img2pdf
+    pkgs.tesseract
+    pkgs.zbar
+  ];
+
   systemd.user.services.dms.Unit.After = lib.mkForce [
     "wayland-wm@hyprland.desktop.service"
     "wayland-session-waitenv.service"

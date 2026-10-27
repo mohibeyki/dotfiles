@@ -7,7 +7,7 @@
   services.displayManager = {
     # Both Hyprland and Plasma are registered by their respective NixOS modules.
     defaultSession = "hyprland-uwsm";
-    dms-greeter = {
+    dux-greeter = {
       enable = true;
       compositor = {
         name = "hyprland";
@@ -34,9 +34,6 @@
         '';
       };
       configHome = "/home/mohi";
-      # The greeter is now packaged separately from the desktop shell and
-      # already supports Hyprland's Lua exit dispatcher.
-      package = pkgs.dms-greeter;
     };
   };
 

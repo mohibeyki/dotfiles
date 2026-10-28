@@ -56,6 +56,9 @@ in
   # order this service after graphical-session.target: that target is ordered
   # after the UWSM session, so doing both creates a startup cycle and systemd
   # drops this service.
+  #
+  # A rebuild can replace the install path while 1Password is running. It then
+  # exits 0, which Restart=on-failure ignores. Turn only that exit into a failure.
   systemd.user.services."1password" = lib.mkIf isLinux {
     Unit = {
       Description = "1Password";
@@ -63,9 +66,17 @@ in
       PartOf = [ "dms.service" ];
     };
     Service = {
-      ExecStart = "${lib.getExe' pkgs._1password-gui "1password"} --silent";
+      ExecStart = pkgs.writeShellScript "1password-start" ''
+        log="$HOME/.config/1Password/logs/1Password_rCURRENT.log"
+        ${lib.getExe' pkgs._1password-gui "1password"} --silent
+        status=$?
+        if [ "$status" -eq 0 ] && [ -f "$log" ] && tail -n 8 "$log" | grep -q "moved or replaced, exiting"; then
+          exit 1
+        fi
+        exit "$status"
+      '';
       Restart = "on-failure";
-      RestartSec = 5;
+      RestartSec = 2;
     };
     Install.WantedBy = [ "wayland-session@hyprland.desktop.target" ];
   };

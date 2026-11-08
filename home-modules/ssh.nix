@@ -3,9 +3,16 @@ _: {
     enable = true;
     enableDefaultConfig = false;
     settings = {
-      pi = {
+      galadriel = {
+        HostName = "192.168.1.16";
+        User = "root";
+      };
+      nazgul = {
         HostName = "192.168.1.10";
         User = "mohi";
+      };
+      truenas = {
+        HostName = "192.168.1.17";
       };
       sauron = {
         HostName = "192.168.1.11";

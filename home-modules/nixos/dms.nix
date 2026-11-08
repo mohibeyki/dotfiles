@@ -39,7 +39,10 @@
   };
 
   home.packages = [
-    inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (_: {
+      vendorHash = "sha256-ajtmBCQ4OdIpjOQeiL+hj3e6PL2Np4NLnMAcA1AsW/w=";
+      doCheck = false;
+    }))
     pkgs.kdePackages.kdeconnect-kde
     pkgs.gpu-screen-recorder
     pkgs.wf-recorder

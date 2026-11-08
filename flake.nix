@@ -2,7 +2,9 @@
   description = "Mohi's nix config flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixos-unstable is the channel Hydra publishes to cache.nixos.org.
+    # nixpkgs-unstable is not, so a NixOS rebuild compiles the system.
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     flake-parts = {

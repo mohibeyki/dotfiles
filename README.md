@@ -64,7 +64,7 @@ The current flake inputs are:
 
 | Input | Purpose |
 | --- | --- |
-| `nixpkgs` | Unstable Nix packages and NixOS modules |
+| `nixpkgs` | NixOS unstable channel, published to cache.nixos.org |
 | `flake-parts` | Flake output organization |
 | `home-manager` | User configuration on NixOS and Darwin |
 | `zen-browser` | Zen Browser flake and Home Manager module |

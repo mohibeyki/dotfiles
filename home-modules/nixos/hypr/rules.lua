@@ -4,7 +4,8 @@ hl.layer_rule({
     blur = true,
 })
 
-hl.window_rule({ name = "tag-chromium", match = { class = "^(brave-origin|com\\.brave\\.Origin|[cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge)$" }, tag = "+chromium-based-browser" })
+hl.window_rule({ name = "tag-chromium", match = { class = "^([cC]hrom(e|ium)|[bB]rave-browser|Microsoft-edge)$" }, tag = "+chromium-based-browser" })
+hl.window_rule({ name = "tag-zen", match = { class = "^zen(-beta)?$" }, tag = "+zen-browser" })
 hl.window_rule({ name = "tag-floating-centered", match = { class = "^(1[Pp]assword)$" }, tag = "+floating-centered" })
 hl.window_rule({ name = "tag-steam-game", match = { initial_class = "^(steam_app_.*)$" }, tag = "+game" })
 hl.window_rule({ name = "tag-gamescope", match = { class = "^(gamescope)$" }, tag = "+game" })
@@ -24,6 +25,7 @@ hl.window_rule({ name = "games-noanim", match = { tag = "game" }, no_anim = true
 hl.window_rule({ name = "games-no-blur", match = { tag = "game" }, no_blur = true })
 hl.window_rule({ name = "games-no-shadow", match = { tag = "game" }, no_shadow = true })
 hl.window_rule({ name = "chromium-tile", match = { tag = "chromium-based-browser" }, tile = true })
+hl.window_rule({ name = "zen-tile", match = { tag = "zen-browser" }, tile = true })
 
 hl.window_rule({ name = "floating-centered-float", match = { tag = "floating-centered" }, float = true })
 hl.window_rule({ name = "floating-centered-center", match = { tag = "floating-centered" }, center = true })

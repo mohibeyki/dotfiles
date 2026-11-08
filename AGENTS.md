@@ -84,6 +84,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 | `nixpkgs` | Unstable packages and NixOS modules |
 | `flake-parts` | Flake output organization |
 | `home-manager` | Home Manager on NixOS and Darwin |
+| `zen-browser` | Zen Browser flake and Home Manager module |
 | `nix-darwin` | macOS system configuration |
 | `hyprland` | Hyprland packages and NixOS module |
 | `nix-flatpak` | Flatpak integration on NixOS |

@@ -67,6 +67,7 @@ The current flake inputs are:
 | `nixpkgs` | Unstable Nix packages and NixOS modules |
 | `flake-parts` | Flake output organization |
 | `home-manager` | User configuration on NixOS and Darwin |
+| `zen-browser` | Zen Browser flake and Home Manager module |
 | `nix-darwin` | macOS system configuration |
 | `hyprland` | Hyprland packages and NixOS integration |
 | `nix-flatpak` | Flatpak integration on NixOS |

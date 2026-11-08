@@ -133,6 +133,7 @@ in
       imports = [
         inputs.dms.homeModules.dank-material-shell
         inputs.dms-plugin-registry.homeModules.default
+        inputs.zen-browser.homeModules.beta
         ../../home-configurations/mohi
 
         ../../home-modules

@@ -41,12 +41,12 @@
   xdg.menus.enable = true;
 
   environment = {
-    # Allow the 1Password desktop app to unlock the Brave Origin extension.
+    # Allow the 1Password desktop app to unlock the Zen extension.
     # https://wiki.nixos.org/wiki/1Password#Unlocking_browser_extensions
     etc."1password/custom_allowed_browsers" = {
       text = ''
-        brave
-        brave-origin
+        zen
+        zen-beta
       '';
       mode = "0755";
     };
@@ -72,7 +72,6 @@
         teamspeak6-client
         telegram-desktop
         transmission_4-gtk
-        brave-origin
         wayland-utils
         websocat
         wiremix

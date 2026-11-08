@@ -9,7 +9,7 @@ local function exec(key, command, options)
 end
 
 exec(main_mod .. " + RETURN", "uwsm app -- ghostty")
-exec(main_mod .. " + B", "uwsm app -- brave-origin")
+exec(main_mod .. " + B", "uwsm app -- zen-beta")
 
 bind(main_mod .. " + Q", hl.dsp.window.close())
 exec(main_mod .. " + CTRL + R", "hyprctl reload")

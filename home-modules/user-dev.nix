@@ -9,7 +9,6 @@
     pi
     grok
     claude-code
-    codex
     herdr
   ];
 }

@@ -19,6 +19,7 @@
     jq
     just
     k9s
+    kubectl
     kubernetes-helm
     lazygit
     talosctl

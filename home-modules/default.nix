@@ -7,7 +7,6 @@
     ./fish.nix
     ./ghostty.nix
     ./git.nix
-    ./helix.nix
     ./neovim.nix
     ./onepassword.nix
     ./rclone.nix

@@ -145,7 +145,7 @@ in
         };
 
         Markdown = {
-          language_servers = [ "marksman" ];
+          language_servers = [ ];
         };
 
         C = {

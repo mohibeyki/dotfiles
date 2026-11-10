@@ -132,7 +132,6 @@
               };
               writing = pkgs.mkShell {
                 packages = with pkgs; [
-                  marksman
                   taplo
                 ];
               };

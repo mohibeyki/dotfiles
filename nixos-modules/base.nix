@@ -5,7 +5,7 @@
 }:
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     loader = {
       timeout = 8;

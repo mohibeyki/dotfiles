@@ -62,7 +62,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Present for the encrypted reinstall. The NixOS module keeps it disabled.
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,14 +98,24 @@
 
         perSystem =
           { pkgs, system, ... }:
+          let
+            treefmt = pkgs.treefmt.withConfig {
+              runtimeInputs = [ pkgs.nixfmt ];
+              settings.formatter.nixfmt = {
+                command = "nixfmt";
+                includes = [ "*.nix" ];
+              };
+            };
+          in
           {
+            formatter = treefmt;
+
             devShells = rec {
               nix = pkgs.mkShell {
                 packages = with pkgs; [
                   nixd
                   nixfmt
                   statix
-                  treefmt
                 ];
               };
               lua = pkgs.mkShell {
@@ -148,17 +157,22 @@
             # Eval-only: does not build the host. Realizes a drvPath string so
             # `nix flake check` on this system actually type-checks the matching
             # host (legolas on Darwin, sauron on Linux).
-            checks =
-              lib.optionalAttrs (system == "aarch64-darwin") {
-                host-eval = pkgs.runCommand "legolas-eval" { } ''
-                  echo ${builtins.unsafeDiscardStringContext config.flake.darwinConfigurations.legolas.system.drvPath} > $out
-                '';
-              }
-              // lib.optionalAttrs (system == "x86_64-linux") {
-                host-eval = pkgs.runCommand "sauron-eval" { } ''
-                  echo ${builtins.unsafeDiscardStringContext config.flake.nixosConfigurations.sauron.config.system.build.toplevel.drvPath} > $out
-                '';
-              };
+            checks = {
+              format = pkgs.runCommand "format-check" { nativeBuildInputs = [ treefmt ]; } ''
+                treefmt --ci --no-cache --tree-root ${./.}
+                touch $out
+              '';
+            }
+            // lib.optionalAttrs (system == "aarch64-darwin") {
+              host-eval = pkgs.runCommand "legolas-eval" { } ''
+                echo ${builtins.unsafeDiscardStringContext config.flake.darwinConfigurations.legolas.system.drvPath} > $out
+              '';
+            }
+            // lib.optionalAttrs (system == "x86_64-linux") {
+              host-eval = pkgs.runCommand "sauron-eval" { } ''
+                echo ${builtins.unsafeDiscardStringContext config.flake.nixosConfigurations.sauron.config.system.build.toplevel.drvPath} > $out
+              '';
+            };
           };
       }
     );

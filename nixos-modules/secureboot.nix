@@ -8,7 +8,6 @@
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  # Enabling Lanzaboote forces systemd-boot off. Disk encryption is separate.
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";

@@ -4,7 +4,7 @@
 
 This flake manages two systems:
 
-- `sauron`: NixOS desktop (`x86_64-linux`) with Hyprland/UWSM, DankMaterialShell, Plasma, NVIDIA, Flatpak, gaming, rootless Docker, and Home Manager.
+- `sauron`: NixOS desktop (`x86_64-linux`) with Hyprland/UWSM, Dux Shell, Plasma, NVIDIA, Flatpak, gaming, rootless Docker, and Home Manager.
 - `legolas`: macOS (`aarch64-darwin`) with nix-darwin and Home Manager.
 
 Home Manager is integrated into each system rebuild; do not use a separate interactive `home-manager switch` workflow.
@@ -25,11 +25,11 @@ nix flake update
 nix eval .#nixosConfigurations.sauron.config.system.build.toplevel.drvPath
 nix eval .#darwinConfigurations.legolas.system.drvPath
 
-# Current-system flake checks run host-eval only
+# Current-system flake checks: host-eval and format
 nix flake check
 
-# Formatting and static analysis are separate checks
-nixfmt --check $(rg --files -g '*.nix')
+# Format and static analysis
+nix fmt
 statix check
 ```
 
@@ -51,15 +51,13 @@ statix check
 
 `flake.nix` uses `flake-parts` to define `nixosConfigurations.sauron` and `darwinConfigurations.legolas`. It passes `inputs` and `overlays` to the host modules with `specialArgs`. The NixOS host composes Home Manager, nix-flatpak, shared modules, and the NixOS module aggregate. The Darwin host composes the Darwin module aggregate, which imports Home Manager and shared system modules.
 
-The current flake inputs are `nixpkgs`, `flake-parts`, `home-manager`, `nix-darwin`, `hyprland`, `nix-flatpak`, `dms`, `rose-pine-hyprcursor`, `neovim-nightly-overlay`, and `llm-agents`.
-
 Home Manager's `dotfiles.host` option carries NixOS-specific values:
 
 - `isNvidia` selects NVIDIA environment variables.
 - `monitors` defines monitor output, mode, position, scale, bit depth, VRR, color mode, and optional ICC profile.
 - `workspaces` defines Hyprland workspace IDs, monitor assignments, defaults, and persistence.
 
-`home-modules/nixos/hyprland.nix` generates host Lua data and `uwsm/env-hyprland`. The compositor runs through UWSM; DMS and the 1Password GUI service are tied to the Hyprland UWSM session. The 1Password service is ordered after DMS for tray integration. The main and side monitor hardware descriptions are intentionally specific to `sauron`; the secondary-monitor toggle targets the configured side display. Do not generalize these identifiers unless asked. NixOS desktop modules are not imported on Darwin.
+`home-modules/nixos/hyprland.nix` generates host Lua data and `uwsm/env-hyprland`. The compositor runs through UWSM; Dux Shell and the 1Password GUI service are tied to the Hyprland UWSM session. The 1Password service is ordered after Dux Shell for tray integration. The main and side monitor hardware descriptions are intentionally specific to `sauron`; the secondary-monitor toggle targets the configured side display. Do not generalize these identifiers unless asked. NixOS desktop modules are not imported on Darwin.
 
 ## Configuration conventions
 
@@ -75,7 +73,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 - Coding-agent CLI packages from the `llm-agents` input, including Pi and OpenCode, are selected in `home-modules/user-dev.nix`. Pi is intentionally Nix-managed through `llm-agents`, not npm-managed. OpenCode should have no custom Home Manager config unless requested.
 - SSH client aliases are in `home-modules/ssh.nix`. `home-modules/onepassword.nix` configures the 1Password SSH agent socket, and `home-modules/git.nix` configures SSH commit signing through the 1Password signing helper. The active Sauron signing identity is stored in 1Password. If a signed commit fails with an agent or socket error, wait for the user to unlock 1Password; do not start or restart the 1Password service.
 - Grok is signed in with `grok login`, not an API key. Do not add LLM API keys to Nix, 1Password, or `~/.config/llm.conf` unless the user asks.
-- Lanzaboote is enabled. It replaces systemd-boot and signs the boot files with the keys in `/var/lib/sbctl`. Do not delete or rotate those keys. Disk encryption is a separate later reinstall.
+- Secure Boot is enabled with Lanzaboote. Do not delete or rotate the keys in `/var/lib/sbctl`.
 - No auto-commit or push. The user handles Git commits and pushes unless they explicitly ask for one.
 
 ## Current flake inputs
@@ -95,7 +93,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 | `rose-pine-hyprcursor` | Hyprcursor theme |
 | `neovim-nightly-overlay` | Nightly Neovim overlay |
 | `llm-agents` | LLM command-line tools |
-| `lanzaboote` | Secure Boot bootloader |
+| `lanzaboote` | Secure Boot |
 
 ## Adding packages
 
@@ -103,4 +101,4 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 - Darwin system packages: `darwin-modules/default.nix` or the shared system module when appropriate.
 - User packages: the appropriate Home Manager module under `home-modules/`.
 
-After changes, run the relevant host evaluation, `nixfmt --check`, and `statix check`. Apply system and Home Manager changes using the host rebuild command above.
+After changes, run the relevant host evaluation, `nix fmt`, and `statix check`. Apply system and Home Manager changes using the host rebuild command above.

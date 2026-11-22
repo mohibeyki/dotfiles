@@ -57,7 +57,6 @@ in
 
   time.timeZone = "America/Los_Angeles";
 
-  # Keep this outside hardware.nix so nixos-generate-config cannot remove it.
   # Existing data stays uncompressed until rewritten.
   fileSystems = {
     "/".options = [ "compress=zstd:3" ];
@@ -78,6 +77,12 @@ in
   swapDevices = [
     { device = "/swap/swapfile"; }
   ];
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 25; # ~16GB on 64GB RAM
+    algorithm = "zstd";
+  };
 
   boot = {
     resumeDevice = "/dev/disk/by-uuid/da09922b-79c1-402a-8231-2a6583c90943";

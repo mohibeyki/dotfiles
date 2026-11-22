@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -13,6 +14,12 @@ let
       "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     else
       "${config.home.homeDirectory}/.1password/agent.sock";
+
+  onePasswordGui = lib.attrByPath [
+    "programs"
+    "_1password-gui"
+    "package"
+  ] pkgs._1password-gui osConfig;
 in
 {
   # IdentityAgent covers outbound ssh/git. Do not export SSH_AUTH_SOCK when
@@ -32,18 +39,6 @@ in
       if not set -q SSH_CONNECTION
         set -gx SSH_AUTH_SOCK "${agentSock}"
       end
-    '';
-
-    bash.initExtra = ''
-      if [ -z "''${SSH_CONNECTION-}" ]; then
-        export SSH_AUTH_SOCK="${agentSock}"
-      fi
-    '';
-
-    zsh.initContent = ''
-      if [ -z "''${SSH_CONNECTION-}" ]; then
-        export SSH_AUTH_SOCK="${agentSock}"
-      fi
     '';
   };
 
@@ -68,7 +63,7 @@ in
     Service = {
       ExecStart = pkgs.writeShellScript "1password-start" ''
         log="$HOME/.config/1Password/logs/1Password_rCURRENT.log"
-        ${lib.getExe' pkgs._1password-gui "1password"} --silent
+        ${lib.getExe' onePasswordGui "1password"} --silent
         status=$?
         if [ "$status" -eq 0 ] && [ -f "$log" ] && tail -n 8 "$log" | grep -q "moved or replaced, exiting"; then
           exit 1

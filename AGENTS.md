@@ -37,11 +37,11 @@ statix check
 
 ## Repository layout
 
-- `flake.nix` — `flake-parts` outputs, host configurations, dev shell, and host-evaluation checks.
+- `flake.nix` — `flake-parts` outputs, host configurations, development shells, and host-evaluation and `format` checks.
 - `flake.lock` — locked input revisions.
 - `nixos-configurations/sauron/` — NixOS host definition and generated hardware configuration.
 - `darwin-configurations/legolas/` — nix-darwin host definition.
-- `nixos-modules/` — NixOS base, desktop, Hyprland, greeter, gaming, NVIDIA, and containers modules.
+- `nixos-modules/` — NixOS base, desktop, Hyprland, greeter, Secure Boot, gaming, NVIDIA, and containers modules.
 - `darwin-modules/` — Darwin settings and imports for shared system modules.
 - `modules/` — shared Nix settings, fonts, packages, and system development tools.
 - `home-configurations/mohi/` — shared Home Manager username, home directory, and state version.

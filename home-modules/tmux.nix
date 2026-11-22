@@ -39,7 +39,6 @@
     ];
 
     extraConfig = ''
-      set-option -ga terminal-overrides ",ghostty:Tc"
 
       # clear on Ctrl+k
       bind -n C-k send-keys -R \; send-keys C-l \; clear-history

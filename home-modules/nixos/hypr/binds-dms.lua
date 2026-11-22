@@ -1,4 +1,4 @@
--- Dank Material Shell binds
+-- Dux Shell binds
 exec(main_mod .. " + P", "dms ipc call spotlight toggle")
 exec(main_mod .. " + SHIFT + P", "dms ipc call spotlight toggleQuery '!'")
 exec(main_mod .. " + C", "dms ipc call control-center toggle")
@@ -7,9 +7,9 @@ exec(main_mod .. " + O", "dms ipc call hypr toggleOverview")
 exec(main_mod .. " + comma", "dms ipc call settings toggle")
 exec(main_mod .. " + CTRL + escape", "dms ipc call lock lock")
 exec(main_mod .. " + CTRL + Q", "dms ipc call powermenu toggle")
-exec("XF86AudioPlay", "dms ipc call mpris playPause")
-exec("XF86AudioPrev", "dms ipc call mpris previous")
-exec("XF86AudioNext", "dms ipc call mpris next")
+exec("XF86AudioPlay", "dms ipc call mpris playPause", { locked = true })
+exec("XF86AudioPrev", "dms ipc call mpris previous", { locked = true })
+exec("XF86AudioNext", "dms ipc call mpris next", { locked = true })
 exec("XF86AudioRaiseVolume", "dms ipc call audio increment 5", volume_options)
 exec("XF86AudioLowerVolume", "dms ipc call audio decrement 5", volume_options)
 exec("XF86AudioMute", "dms ipc call audio mute", volume_options)

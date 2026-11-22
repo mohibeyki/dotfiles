@@ -1,6 +1,5 @@
 {
   inputs,
-  lib,
   pkgs,
   ...
 }:
@@ -20,25 +19,6 @@
       Minute = 15;
     }
   ];
-
-  # Clean up old Home Manager generations weekly (Darwin has no systemd timer).
-  launchd.user.agents.home-manager-cleanup = {
-    serviceConfig = {
-      ProgramArguments = [
-        (lib.getExe pkgs.home-manager)
-        "expire-generations"
-        "-7 days"
-      ];
-      StartCalendarInterval = [
-        {
-          Weekday = 7;
-          Hour = 4;
-          Minute = 15;
-        }
-      ];
-      RunAtLoad = false;
-    };
-  };
 
   programs = {
     fish.enable = true;

@@ -59,12 +59,6 @@
 
   swapDevices = [ ];
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 25; # ~16GB on 64GB RAM
-    algorithm = "zstd";
-  };
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

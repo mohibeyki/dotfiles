@@ -7,7 +7,6 @@
   environment.systemPackages = with pkgs; [
     # Nix administration tools, not editor language servers.
     nixfmt
-    nixfmt-tree
     statix
 
     # Runtimes used outside individual projects.

@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -11,7 +10,7 @@
     ];
   };
 
-  services.home-manager.autoExpire = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  services.home-manager.autoExpire = {
     enable = true;
     timestamp = "-7 days";
     frequency = "weekly";

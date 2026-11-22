@@ -1,5 +1,6 @@
 {
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -8,11 +9,17 @@ let
 
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWAa0kKyejpLeHARiBUsnJvzgljWIzBJnGm2BcueVWk";
 
+  onePasswordGui = lib.attrByPath [
+    "programs"
+    "_1password-gui"
+    "package"
+  ] pkgs._1password-gui osConfig;
+
   signer =
     if isDarwin then
       "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else
-      lib.getExe' pkgs._1password-gui "op-ssh-sign";
+      lib.getExe' onePasswordGui "op-ssh-sign";
 in
 {
   programs.git = {

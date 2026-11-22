@@ -13,6 +13,5 @@
     ./ssh.nix
     ./tmux.nix
     ./zed.nix
-    ./zellij.nix
   ];
 }

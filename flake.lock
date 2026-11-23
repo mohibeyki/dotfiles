@@ -840,8 +840,7 @@
         "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_2",
-        "rose-pine-hyprcursor": "rose-pine-hyprcursor",
-        "zen-browser": "zen-browser"
+        "rose-pine-hyprcursor": "rose-pine-hyprcursor"
       }
     },
     "rose-pine-hyprcursor": {
@@ -1036,29 +1035,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1795333741,
-        "narHash": "sha256-xJaT+L8DeMR0TJjAOlrjGqaRG2AjZrjivQfCtiLRtlY=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "81376950ac382a96b965f9d6f8bf60354ad99c2f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

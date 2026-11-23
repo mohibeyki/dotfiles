@@ -6,6 +6,6 @@
     ./mangohud.nix
     ./dms.nix
     ./theme.nix
-    ./zen.nix
+    ./browser.nix
   ];
 }

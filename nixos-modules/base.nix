@@ -81,7 +81,6 @@
       enable = true;
       nssmdns4 = true;
       nssmdns6 = true;
-      openFirewall = true;
       settings.publish = {
         disable-publishing = false;
         publish-addresses = true;

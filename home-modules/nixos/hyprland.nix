@@ -10,33 +10,29 @@ let
 
   luaString = value: builtins.toJSON value;
 
-  monitors = map (
-    monitor:
-    lib.filterAttrs (_: value: value != null) {
-      inherit (monitor)
-        output
-        mode
-        position
-        scale
-        bitdepth
-        vrr
-        cm
-        icc
-        ;
-    }
-  ) host.monitors;
-
-  monitorToLua = monitor: ''
-    {
-      output = ${luaString monitor.output},
-      mode = ${luaString monitor.mode},
-      position = ${luaString monitor.position},
-      scale = ${luaString monitor.scale},
-      bitdepth = ${toString monitor.bitdepth},
-      vrr = ${toString monitor.vrr},
-    ${lib.optionalString (monitor ? cm) "  cm = ${luaString monitor.cm},"}
-    ${lib.optionalString (monitor ? icc) "  icc = ${luaString monitor.icc},"}
-    },'';
+  # Render a monitor as a Lua table. `extra` is appended verbatim (e.g. `disabled = false,`).
+  monitorToLua =
+    extra: monitor:
+    let
+      field = name: value: "  ${name} = ${value},";
+      optional =
+        name: lib.optional (monitor.${name} or null != null) (field name (luaString monitor.${name}));
+    in
+    lib.concatStringsSep "\n" (
+      [ "{" ]
+      ++ [
+        (field "output" (luaString monitor.output))
+        (field "mode" (luaString monitor.mode))
+        (field "position" (luaString monitor.position))
+        (field "scale" (luaString monitor.scale))
+        (field "bitdepth" (toString monitor.bitdepth))
+        (field "vrr" (toString monitor.vrr))
+      ]
+      ++ optional "cm"
+      ++ optional "icc"
+      ++ lib.optional (extra != "") "  ${extra}"
+      ++ [ "}" ]
+    );
 
   env = [
     [
@@ -88,20 +84,6 @@ let
     monitor: monitor.output == "desc:ASUSTek COMPUTER INC XG32UCDS W3LMQV042954"
   ) (throw "The configured secondary monitor is missing from dotfiles.host.monitors") host.monitors;
 
-  secondaryMonitorToLua = monitor: ''
-    {
-      output = ${luaString monitor.output},
-      mode = ${luaString monitor.mode},
-      position = ${luaString monitor.position},
-      scale = ${luaString monitor.scale},
-      bitdepth = ${toString monitor.bitdepth},
-      vrr = ${toString monitor.vrr},
-      ${lib.optionalString (monitor.cm != null) "cm = ${luaString monitor.cm},"}
-      ${lib.optionalString (monitor.icc != null) "icc = ${luaString monitor.icc},"}
-      disabled = false,
-    }
-  '';
-
   toggleSecondaryMonitor = pkgs.writeShellScriptBin "toggle-secondary-monitor" ''
     set -eu
 
@@ -121,7 +103,7 @@ let
         *) printf '%s\n' "$result" >&2; exit 1 ;;
       esac
     else
-      result="$(hyprctl eval 'hl.monitor(${secondaryMonitorToLua secondaryMonitor})')"
+      result="$(hyprctl eval 'hl.monitor(${monitorToLua "disabled = false," secondaryMonitor})')"
       case "$result" in
         ok*) printf '%s\n' enabled > "$state_dir/secondary-monitor"
              printf '%s\n' "Secondary monitor enabled" ;;
@@ -151,7 +133,7 @@ in
         secondaryMonitorOutput = ${luaString secondaryMonitor.output},
 
         monitors = {
-      ${lib.concatStringsSep "\n" (map monitorToLua monitors)}
+      ${lib.concatStringsSep "\n" (map (m: "${monitorToLua "" m},") host.monitors)}
         },
 
         workspaces = {

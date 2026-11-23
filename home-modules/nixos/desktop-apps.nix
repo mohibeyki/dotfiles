@@ -81,9 +81,9 @@ in
 
     grok = {
       name = "Grok";
-      comment = "Open Grok in a Zen window";
-      exec = "${lib.getExe config.programs.zen-browser.package} --new-window https://grok.com/";
-      icon = "zen-browser";
+      comment = "Open Grok in a Brave window";
+      exec = "${lib.getExe pkgs.brave-origin} --new-window https://grok.com/";
+      icon = "brave-origin";
       terminal = false;
       categories = [ "Network" ];
     };

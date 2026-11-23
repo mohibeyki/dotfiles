@@ -41,12 +41,12 @@
   xdg.menus.enable = true;
 
   environment = {
-    # Allow the 1Password desktop app to unlock the Zen extension.
+    # Allow the 1Password desktop app to unlock the Brave extension.
     # https://wiki.nixos.org/wiki/1Password#Unlocking_browser_extensions
     etc."1password/custom_allowed_browsers" = {
       text = ''
-        zen
-        zen-beta
+        brave
+        brave-origin
       '';
       mode = "0755";
     };

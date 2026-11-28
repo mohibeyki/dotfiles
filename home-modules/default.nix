@@ -3,6 +3,7 @@
   imports = [
     ./host-config.nix
     ./common.nix
+    ./agents.nix
     ./user-dev.nix
     ./fish.nix
     ./ghostty.nix

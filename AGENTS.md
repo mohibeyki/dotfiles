@@ -62,6 +62,7 @@ Home Manager's `dotfiles.host` option carries NixOS-specific values:
 ## Configuration conventions
 
 - Put shared Home Manager modules in `home-modules/` and import them from `home-modules/default.nix`.
+- `home-modules/AGENTS.md` is the shared global agent rules file, linked to Claude Code and Pi by `home-modules/agents.nix`.
 - Put Linux desktop Home Manager modules in `home-modules/nixos/` and import them from `home-modules/nixos/default.nix`.
 - Put NixOS system settings in the most relevant `nixos-modules/` module. Shared system settings belong in `modules/`; Darwin-specific settings belong in `darwin-modules/`.
 - Keep `system.stateVersion` and `home.stateVersion` at their existing compatibility values when upgrading.

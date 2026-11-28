@@ -50,7 +50,7 @@ statix check
 - `darwin-modules/` contains Darwin-specific system settings.
 - `modules/` contains shared system settings and system-level development tools.
 - `home-configurations/mohi/` defines the shared Home Manager user identity and state version.
-- `home-modules/` contains shared Home Manager settings; `home-modules/nixos/` contains Linux desktop settings and the Hyprland Lua configuration.
+- `home-modules/` contains shared Home Manager settings; `home-modules/nixos/` contains Linux desktop settings and the Hyprland Lua configuration. `home-modules/AGENTS.md` is the shared global agent rules file, linked to Claude Code and Pi.
 
 Coding-agent CLIs from `llm-agents` (including Pi and OpenCode) are installed through `home-modules/user-dev.nix`. Pi is intentionally Nix-managed through `llm-agents`; OpenCode has no custom Home Manager configuration. Claude Code is installed from Nix on Linux only; macOS uses the native installer.
 
